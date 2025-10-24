@@ -150,21 +150,22 @@ if (legacySection && legacyHeader) {
 }
 
 
-
+// ===== PHILOSOPHY ANIMATION =====
 document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.philosophy-card');
 
-    function is1024() {
-        return window.innerWidth <= 1024;
+    function shouldInitPhilosophyAnimation() {
+        // 1024px 이하 또는 1920px 이상에서 실행
+        return window.innerWidth <= 1024 || window.innerWidth >= 1920;
     }
 
     function initPhilosophyAnimation() {
-        if (!is1024()) return; // 1024px 이하일 때만 실행
+        if (!shouldInitPhilosophyAnimation()) return;
 
         gsap.registerPlugin(ScrollTrigger);
 
         cards.forEach((card, i) => {
-            // gsap.set(card, { opacity: 0, y: 60 });
+            gsap.set(card, { opacity: 0, y: 30 });
 
             gsap.to(card, {
                 opacity: 1,
@@ -175,17 +176,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 scrollTrigger: {
                     trigger: card,
                     start: 'top 85%',
-                    toggleActions: 'play none none reverse',
+                    toggleActions: 'play none none none',  // 한 번 재생 후 계속 유지
+                    markers: false,
                 },
             });
+
+            // 떠있는 애니메이션 추가 (연속 반복)
+            gsap.to(card, {
+                y: -10,
+                duration: 3,
+                ease: 'sine.inOut',
+                repeat: -1,
+                yoyo: true,
+            });
         });
+
+        ScrollTrigger.refresh();
+        console.log('✅ Philosophy animation initialized!');
     }
 
-    initPhilosophyAnimation();
-
-    // 화면 크기 변경 시 다시 체크 (데스크탑에서 중복 실행 방지)
-    window.addEventListener('resize', () => {
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    // 로드 후 약간 지연 후 실행
+    setTimeout(() => {
         initPhilosophyAnimation();
+    }, 300);
+
+    // 화면 크기 변경 시 다시 체크
+    window.addEventListener('resize', () => {
+        console.log('📱 Window resized, checking animation trigger...');
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+        // 리사이즈 후 ScrollTrigger 갱신
+        ScrollTrigger.refresh();
+
+        // 500ms 후 다시 초기화 (DOM이 완전히 업데이트되도록)
+        setTimeout(() => {
+            initPhilosophyAnimation();
+        }, 500);
     });
 });
