@@ -254,11 +254,10 @@
     }
 
     .gyuhap-hero {
-        display: flex;
-        gap: 80px;
-        align-items: center;
-        margin: 80px 0;
-        padding: 50px 0;
+        flex-direction: column;
+        gap: 50px;
+        padding: 25px 0;
+        margin: 50px 0;
         border-bottom: 1px solid rgba(66, 64, 58, 0.2);
     }
 
@@ -296,23 +295,6 @@
     .intro {
         font-size: 15px;
         line-height: 1.7;
-    }
-
-    .wisdom-quote {
-        padding: 25px;
-        margin-top: 20px;
-        border-left: 4px solid var(--accent-gold);
-    }
-
-    .wisdom-quote p {
-        font-size: 18px;
-        font-style: italic;
-    }
-
-    .wisdom-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 25px;
-        margin: 80px 0;
     }
 
     .wisdom-card {
@@ -362,12 +344,58 @@
         margin-bottom: 20px;
     }
 
+    .legacy-section::before {
+        width: 40px;
+        height: 40px;
+    }
 
+    .legacy-section::after {
+        width: 40px;
+        height: 40px;
+    }
 
+    .section-5 {
+        padding: 50px 0;
+        background:
+            url(/asset/img/brandstory/image-6890.png) bottom center no-repeat,
+            linear-gradient(90deg, #fefefe, #fdfefe, #f7f7f7);
+        background-size: cover, cover;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        padding-bottom: 100px;
+        background-size: 100%, cover;
 
+    }
+
+    .section-5 .section-title h2 {
+        font-size: 20px;
+    }
+
+    .section-5 .section-title h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .section-5 .section-title p {
+        font-size: 12px;
+        margin-top: 12px;
+    }
+
+    .articles {
+        width: 100%;
+        padding: 30px 0;
+    }
 
 
 }
+
+
+
+
+
+
+
+
 
 
 @media (max-width: 768px) {
