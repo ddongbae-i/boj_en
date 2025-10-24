@@ -39,6 +39,7 @@ html, body {margin: 0; padding: 0; min-height: 100vh;}
 /* footer 높이만큼 자동 패딩(초기값 240px) */
 .page[hidden] {display: none !important;}
 
+
 /* Home */
 #home {min-height: 100vh; display: flex; align-items: center; justify-content: center; background: url("/asset/img/skintest/skintest-bg.jpg") center/cover no-repeat; text-align: center;}
 .home-inner {flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;}
@@ -90,7 +91,7 @@ input[type="radio"]:checked + .option .bullet {border-color: var(--bg_black); bo
 /* result radar */
 #result {min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;}
 .result-inner {width: 100%; text-align: center;}
-.legend {display: flex; gap: 8px; align-items: center; justify-content: center; color: var(--txt_sub_44); padding-top: 100px; font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300;}
+.legend {display: flex; gap: 8px; align-items: center; justify-content: center; color: var(--txt_sub_44); padding-top: 248px; font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300;}
 .legend .sw {display: inline-block; width:18px; height: 10px; border-radius: 999px}
 .legend .sw.avg {background: rgba(24,169,153,0.6)}
 .legend .sw.mine {background: rgba(255,107,107,0.7)}
@@ -135,3 +136,6 @@ input[type="radio"]:checked + .option .bullet {border-color: var(--bg_black); bo
 .result-actions .row-ghosts { display: flex; gap: 12px; justify-content: center; align-items: center; }
 #wishlistBtn { width: 200px; }
 .result-actions .btn, #wishlistBtn { pointer-events: auto; position: relative; z-index: 1; }
+
+/* 1) 숨겨진 섹션을 레이아웃/인터랙션에서 완전히 분리 */
+.page[hidden] {display: none !important; visibility: hidden !important; height: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; pointer-events: none !important;}
