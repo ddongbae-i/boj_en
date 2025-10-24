@@ -28,12 +28,10 @@ main {
 }
 
 .main .mainVisual {
-  height: 100dvh;
   height: 100vh;
   max-width: 100%;
+  width: 100%;
   overflow: hidden;
-  display: grid;
-  place-items: center;
 }
 
 .main .mainVisual video {
@@ -129,6 +127,7 @@ main {
   font-size: 2.5rem;
   line-height: 140%;
 
+
 }
 
 .banner_1 .txt_box .txt_top {
@@ -136,6 +135,7 @@ main {
   text-align: left;
   left: 110px;
   top: 180px;
+  width: 795px;
 }
 
 .banner_1 .txt_box .txt_bottom {
@@ -143,9 +143,108 @@ main {
   text-align: right;
   right: 110px;
   bottom: 90px;
+  width: 1300px;
 }
 
-.influencer {
+.banner_1 .txt_box .txt_bottom :first-child {
+  margin-bottom: 50px;
+}
+
+/* influencer */
+.product_grid button, .product_grid h4 {
+  display: none;
+}
+
+.product_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 20px;
+  max-width: 1700px;
+  margin: 0 auto;
+}
+
+.product_grid .card {
+  /* background: #ddd; */
+  perspective: 1000px;
+  height: 300px;
+  /* aspect-ratio: 3 / 4; */
+  /* 🔸세로 비율 고정 (필요시 1/1로 변경 가능) */
+}
+
+.product_grid .card3 {
+  grid-row: span 2;
+  height: 100%;
+  /* 🔸 세 번째, 네 번째 셀만 세로로 2칸 */
+}
+
+.product_grid .card5 {
+  grid-row: span 2;
+  height: 100%
+}
+
+.product_grid .in_inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+  cursor: pointer;
+}
+
+.product_grid .card.flipped .inner {
+  transform: rotateY(180deg);
+}
+
+.front,
+.back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+
+}
+
+.front {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product_grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* ✅ 이미지 비율 유지하면서 꽉 채우기 */
+}
+
+.back {
+  color: var(--txt_main);
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  font-weight: 500;
+}
+
+.product_grid small {
+  display: none;
+}
+
+.card:hover small {
+  font-size: 0.85rem;
+  color: #666;
+  display: inline;
+}
+
+
+/* .influencer {
   --card: 421px;
   --gap: 5px;
   width: 100%;
@@ -168,7 +267,6 @@ main {
 .influencer .card_right {
   width: calc(var(--card) * 2 + var(--gap));
   height: calc(var(--card) * 3 + var(--gap) * 2);
-  /* 절대배치 카드까지 감싸도록 */
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -187,31 +285,25 @@ main {
   pointer-events: auto;
 }
 
-/* 세로형 카드(3,6)는 두 칸 높이 */
 .influencer .card_3,
 .influencer .card_6 {
   height: calc(var(--card) * 2 + var(--gap));
 }
 
-/* 카드 회전 (카드 전체를 한 번만 회전) */
 .influencer .card {
   position: relative;
-  /* 크기는 기존 선언( var(--card) )을 사용하도록 width/height 제거 */
   perspective: 1000px;
   -webkit-perspective: 1000px;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
   transition: transform 1.6s cubic-bezier(.2, .8, .2, 1);
-  /* flipMs:1600ms와 일치 */
   will-change: transform;
-  /* flipped 클래스가 붙으면 카드 전체를 한 번 회전시킴 */
 }
 
 .influencer .card.flipped {
   transform: rotateY(180deg);
 }
 
-/* front/back 레이어 설정 — 위치를 겹치게 하고 back은 뒤집어둠 */
 .influencer .card .front,
 .influencer .card .back {
   position: absolute;
@@ -223,7 +315,6 @@ main {
   display: block;
 }
 
-/* front는 정면, back은 180도로 미리 뒤집어서 카드 전체가 180deg 회전하면 보이도록 */
 .influencer .card .front {
   transform: rotateY(0deg);
   z-index: 2;
@@ -234,14 +325,10 @@ main {
   z-index: 1;
 }
 
-/* 이미지가 따로 transform을 갖고 있지 않도록 안전장치 */
 .influencer .card img {
   transform: none !important;
 }
 
-/* 회전 미사용: back 숨김 */
-
-/* 미디어 공통 */
 .influencer .card .media {
   margin: 0;
   width: 100%;
@@ -256,7 +343,6 @@ main {
   display: block;
 }
 
-/* 오버레이 공통 */
 .influencer .card .black {
   position: absolute;
   inset: 0;
@@ -306,7 +392,6 @@ main {
   font-weight: 500;
 }
 
-/* 위시 아이콘(두 장 방식) */
 .influencer .wish {
   all: unset;
   cursor: pointer;
@@ -334,7 +419,6 @@ main {
   display: block;
 }
 
-/* 레이아웃 특수 카드 위치(기존과 동일) */
 .influencer .card_left .card_5 {
   position: absolute;
   right: 0;
@@ -349,7 +433,7 @@ main {
   top: calc(var(--card) + var(--gap));
   width: var(--card);
   height: var(--card);
-}
+} */
 
 
 /* 카드회전 */
@@ -815,4 +899,89 @@ main {
 .banner_2 .txt {
   font-size: 1.875rem;
   line-height: 1.4;
+}
+
+.blog {
+  width: 100%;
+  height: 100%;
+  padding-block: 100px;
+}
+
+.blog .inner .product {
+  margin-top: 40px;
+  display: flex;
+  gap: 140px;
+}
+
+.blog .inner .product .allstory {
+  width: 730px;
+  height: 1009px;
+}
+
+.blog .inner .product .allstory img {
+  width: 730px;
+  height: 640px;
+}
+
+.blog .inner .product .allstory .txt_box {
+  margin-top: 87px;
+  display: grid;
+  row-gap: 42px;
+  justify-items: center;
+  text-align: center;
+}
+
+.blog .inner .product .allstory .txt_box .tit {
+  font-size: 40px;
+  text-align: center;
+}
+
+.blog .inner .product .allstory .txt_box .txt {
+  width: 630px;
+  text-align: center;
+}
+
+.blog .inner .product .allstory .txt_box .btn {
+  margin: 20px auto 0;
+}
+
+.blog .inner .product .allstory .txt_box .btn:hover {
+  background: var(--txt_main);
+  color: var(--white_ff);
+}
+
+.blog .inner .product .cards {
+  width: 830px;
+  display: grid;
+  grid-template-columns: repeat(2, 395px);
+  /* 2열 고정 */
+  column-gap: 40px;
+  row-gap: 100px;
+  width: 830px;
+}
+
+.blog .inner .product .card {
+  width: 395px;
+}
+
+.blog .inner .product .card img {
+  width: 100%;
+  height: 344px;
+  object-fit: cover;
+}
+
+.blog .inner .product .card .txt_box {
+  margin-top: 12px;
+  gap: 16px;
+}
+
+.blog .inner .product .card .txt_box .date {
+  font-size: 14px;
+  color: var(--txt_sub_77);
+}
+
+.blog .inner .product .card .txt_box .txt {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 140%;
 }
