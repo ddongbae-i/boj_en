@@ -153,15 +153,16 @@
 }
 
 @media screen and (max-width:768px) {
+
+
     header {
-        height: 124px;
+        position: absolute;
     }
 
     header.on {
-        position: absolute;
-        height: auto;
+         height: auto;
+        min-height: 100vh;
     }
-
 
     .inner {
         padding-inline: 42px;
