@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const bestTop = new Swiper(".bestSeller .product .slide_wrap1", {
+  const bestTopSwiper = new Swiper(".bestSeller .product .slide_wrap1", {
     loop: true,
     slidesPerView: "auto",
     freeMode: true,
@@ -7,13 +7,82 @@ document.addEventListener('DOMContentLoaded', () => {
     speed: 0,
   });
 
-  const bestBottom = new Swiper(".bestSeller .product .slide_wrap2", {
+  const bestBottomSwiper = new Swiper(".bestSeller .product .slide_wrap2", {
     loop: true,
     slidesPerView: 'auto',
     freeMode: true,
     allowTouchMove: false,
     speed: 0,
   });
+
+  //메인 스크롤 이벤트
+// === GSAP: 메인 <-> 베스트셀러 스냅 (양방향, 이후 자연 스크롤) ===
+gsap.registerPlugin(ScrollToPlugin, Observer);
+
+const main = document.querySelector(".main");
+const best = document.querySelector(".bestSeller");
+
+let snapping = false;
+const getBestTopY = () => best.getBoundingClientRect().top + window.pageYOffset;
+
+// 스냅 중에만 스크롤 잠그기 (휠/터치 모두)
+const preventTouch = (e) => e.preventDefault();
+function lockScroll(on) {
+  document.documentElement.style.overscrollBehavior = on ? "none" : "";
+  document.body.style.overflow = on ? "hidden" : "";
+  // iOS/안드 터치 이동 차단
+  if (on) {
+    window.addEventListener("touchmove", preventTouch, { passive: false });
+  } else {
+    window.removeEventListener("touchmove", preventTouch);
+  }
+}
+
+Observer.create({
+  target: window,
+  type: "wheel,touch",   // 자연 스크롤은 그대로 두고, 스냅 시에만 잠금
+  // preventDefault: true  <- ❌ 사용하지 않음! (자연 스크롤 막지 않기)
+
+  // ↓ 아래로: 메인 → 베스트셀러 스냅
+  onDown() {
+    if (snapping) return;
+    const y = window.pageYOffset;
+    if (y < getBestTopY() - 8) {
+      snapping = true;
+      lockScroll(true);
+      gsap.to(window, {
+        duration: 0.9,
+        ease: "power2.out",
+        scrollTo: { y: best, autoKill: false },
+        onComplete: () => {
+          lockScroll(false);
+          snapping = false;
+        }
+      });
+    }
+  },
+
+  // ↑ 위로: 베스트셀러 꼭대기 근처 → 메인으로 스냅
+  onUp() {
+    if (snapping) return;
+    const y = window.pageYOffset;
+    const top = getBestTopY();
+    const threshold = top + 24;           // 꼭대기에서 살짝 아래까지 허용
+    if (y <= threshold && y >= top - 200) {
+      snapping = true;
+      lockScroll(true);
+      gsap.to(window, {
+        duration: 0.9,
+        ease: "power2.out",
+        scrollTo: { y: main, autoKill: false },
+        onComplete: () => {
+          lockScroll(false);
+          snapping = false;
+        }
+      });
+    }
+  }
+});
 
   /* -------------------------------
       ✅ GSAP 무한 흐름
@@ -43,8 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  animateSwiper(bestTop, tlTop, "left");
-  animateSwiper(bestBottom, tlBottom, "right");
+  animateSwiper(bestTopSwiper, tlTop, "left");
+  animateSwiper(bestBottomSwiper, tlBottom, "right");
 
 
   /* -------------------------------
@@ -70,22 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //베스트셀러768
 
-     const swiper = new Swiper(".mySwiper", {
-      spaceBetween: 10,
-      slidesPerView: 4,
-      freeMode: true,
-      watchSlidesProgress: true,
-    });
-    const swiper2 = new Swiper(".mySwiper2", {
-      spaceBetween: 10,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      thumbs: {
-        swiper: swiper,
-      },
-    });
+
+
 
   /* -------------------------------
       🟣 2. 인플루언서 카드 순차 회전
@@ -182,35 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-
-  /* -------------------------------
-       한방 ON 상황
-   ------------------------------- */
-
-
-  // document.addEventListener("DOMContentLoaded", function () {
-  //   const buttons = document.querySelectorAll(".txt_left ul button, .txt_right ul button");
-  //   const txtBoxes = document.querySelectorAll(".txt_left ul, .txt_right ul");
-  //   const imgBoxes = document.querySelectorAll(".img_box > div");
-
-  //   buttons.forEach((button, index) => {
-  //     button.addEventListener("click", function () {
-  //       // 모든 텍스트 영역에서 .on 제거
-  //       txtBoxes.forEach(box => box.classList.remove("on"));
-
-  //       // 클릭한 텍스트 박스에 .on 추가
-  //       txtBoxes[index].classList.add("on");
-
-  //       // 모든 이미지 숨기기
-  //       imgBoxes.forEach(img => img.style.display = "none");
-
-  //       // 해당 이미지 보이기
-  //       imgBoxes[index].style.display = "block";
-  //     });
-  //   });
-  // });
-
-
   /* -------------------------------
        한방 이미지 ON 상황
   ------------------------------- */
@@ -264,81 +290,3 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
 });
-
-
-
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   const txtBoxes = document.querySelectorAll(".hanbang .txt_left ul, .hanbang .txt_right ul");
-//   const imgBoxes = document.querySelectorAll(".hanbang .inner .img_box img");
-//   let currentIndex = 0;
-//   const total = txtBoxes.length;
-
-//   function updateState(index) {
-//     // 모든 txt 요소에서 .on 제거
-//     txtBoxes.forEach(txt => txt.classList.remove("on"));
-//     // 현재 txt에 .on 추가
-//     txtBoxes[index].classList.add("on");
-
-//     // 모든 이미지 숨김
-//     imgBoxes.forEach(img => img.style.display = "none");
-//     // 현재 이미지 보이기
-//     if (imgBoxes[index]) {
-//       imgBoxes[index].style.display = "block";
-//     }
-//   }
-
-//   // 최초 1회 실행
-//   updateState(currentIndex);
-
-//   // 자동 순환
-//   setInterval(() => {
-//     currentIndex = (currentIndex + 1) % total;
-//     updateState(currentIndex);
-//   }, 4000); // 4초마다 전환
-// });
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   // 1) 텍스트는 li 기준으로 선택
-//   const txtItems = document.querySelectorAll(".hanbang .txt_left li, .hanbang .txt_right li");
-//   // 2) 이미지 묶음(.group) 컨테이너로 구성: 각 그룹 안에 여러 img/.imgTxt가 들어있음
-//   const imgGroups = document.querySelectorAll(".hanbang .inner .img_box .group");
-//   let currentIndex = 0;
-//   const total = Math.min(txtItems.length, imgGroups.length);
-
-//   function retriggerAnimations(groupEl) {
-//     // 그룹 내 자식들의 애니메이션을 다시 시작시키기 위해 클래스 리셋
-//     const animated = groupEl.querySelectorAll(".stagger"); // 자식들에 .stagger 같은 공통 클래스 부여해둠
-//     animated.forEach(el => {
-//       el.classList.remove("play");
-//       // 리플로우 강제
-//       void el.offsetWidth;
-//       el.classList.add("play");
-//     });
-//   }
-
-//   function updateState(index) {
-//     // txt on 토글
-//     txtItems.forEach(t => t.classList.remove("on"));
-//     txtItems[index].classList.add("on");
-
-//     // 모든 그룹 비활성화
-//     imgGroups.forEach(g => g.classList.remove("is-active"));
-
-//     // 현재 그룹 활성화
-//     const active = imgGroups[index];
-//     if (active) {
-//       active.classList.add("is-active");
-//       retriggerAnimations(active);
-//     }
-//   }
-
-//   // 최초 1회
-//   updateState(currentIndex);
-
-//   // 자동 순환
-//   setInterval(() => {
-//     currentIndex = (currentIndex + 1) % total;
-//     updateState(currentIndex);
-//   }, 4000);
-// });
