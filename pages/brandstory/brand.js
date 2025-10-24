@@ -141,7 +141,6 @@ if (legacySection && legacyHeader) {
 }
 
 
-// 1024px 이하일 때만 Our Philosophy 카드 페이드업 애니메이션
 
 document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.philosophy-card');
