@@ -1598,3 +1598,335 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })();
 /* ===== End injected module ===== */
+
+
+/* ===== SkinQuizPatchPlus (non-conflicting, append-only) ===== */
+(function(){
+  'use strict';
+  if (window.SkinQuizPatchPlus) return; // idempotent
+
+  const $$ = (sel, root=document)=> Array.from(root.querySelectorAll(sel));
+  const $ = (sel, root=document)=> root.querySelector(sel);
+
+  // 1) 안전 유틸
+  function clamp(n, min=0, max=100){ return Math.max(min, Math.min(max, n)); }
+  function delay(ms){ return new Promise(res=>setTimeout(res, ms)); }
+
+  // 2) 로딩 오버레이 제어(있을 때만)
+  function showLoading(){
+    const el = document.getElementById('loading');
+    if (!el) return;
+    el.style.display = 'block';
+    el.setAttribute('aria-hidden','false');
+  }
+  function hideLoading(){
+    const el = document.getElementById('loading');
+    if (!el) return;
+    el.style.display = 'none';
+    el.setAttribute('aria-hidden','true');
+  }
+
+  // 3) MBTI/values 읽기
+  function getStoredResult(){
+    try{
+      const raw = localStorage.getItem('skin_quiz_final');
+      if (!raw) return { type:'', values:[] };
+      const obj = JSON.parse(raw);
+      const type = (obj && obj.type ? String(obj.type).toUpperCase() : '');
+      const values = Array.isArray(obj?.values) ? obj.values : [];
+      return { type, values };
+    }catch(e){ return { type:'', values:[] }; }
+  }
+
+  // 4) 제품 후보(6개) → 상위 3개 선택
+  const CANDIDATES = [
+    { img:'product1.png', name:'Glow Replenishing Rice Milk', sub:'Hydrating + Balancing Toner' },
+    { img:'product2.png', name:'Clear Refine 10% Niacinamide', sub:'Oil Control + Pore Care Serum' },
+    { img:'product3.png', name:'Gentle Barrier Repair Cream', sub:'Soothing + Barrier Strengthening' },
+    { img:'product4.png', name:'Soothing Green Tea Essence', sub:'Calming + Lightweight Hydration' },
+    { img:'product5.png', name:'Tone Bright C-Serum', sub:'Brightening + Tone Care' },
+    { img:'product6.png', name:'Pore Balance Gel Moisturizer', sub:'Oil Control + Non‑Comedogenic' }
+  ];
+
+  // 5) MBTI 선호/회피 맵(ORWT 포함, 기본값으로 사용하지 않음)
+  window.SKIN_MBTI_MAP = window.SKIN_MBTI_MAP || {};
+  if (!window.SKIN_MBTI_MAP.ORWT){
+    window.SKIN_MBTI_MAP.ORWT = {
+      good: ["Niacinamide","Arbutin","Tranexamic Acid","Green Tea","Humectant","Ceramide"],
+      bad:  ["Coconut Oil","Isopropyl Myristate","Lanolin","Heavy Oils","Heavy Creams","Fragrance"]
+    };
+  }
+
+  // 6) 태그/스코어 보조
+  function ensureTagAndScore(card){
+    let tags = card.querySelector('.tags');
+    if (!tags){
+      tags = document.createElement('div');
+      tags.className = 'tags';
+      const info = card.querySelector('.info');
+      if (info) card.insertBefore(tags, info); else card.appendChild(tags);
+    }
+    const spans = tags.querySelectorAll('span');
+    for (let i=spans.length;i<4;i++){
+      tags.appendChild(document.createElement('span'));
+    }
+    let scoreEl = card.querySelector('.info .score');
+    if (!scoreEl){
+      const info = card.querySelector('.info') || card.appendChild(document.createElement('div'));
+      info.classList.add('info');
+      scoreEl = document.createElement('span');
+      scoreEl.className = 'score';
+      info.appendChild(scoreEl);
+    }
+  }
+
+  function fillTags(card, mbtiKey){
+    const prof = (window.SKIN_MBTI_MAP||{})[mbtiKey];
+    const spans = card.querySelectorAll('.tags span');
+    if (!prof || spans.length<4){
+      spans.forEach(s=> s.textContent='');
+      return;
+    }
+    const good = (prof.good||[]).slice(0,2);
+    const bad  = (prof.bad||[]).slice(0,2);
+    spans[0].textContent = good[0] ? `+ ${good[0]}` : '';
+    spans[1].textContent = good[1] ? `+ ${good[1]}` : '';
+    spans[2].textContent = bad[0]  ? `- ${bad[0]}`  : '';
+    spans[3].textContent = bad[1]  ? `- ${bad[1]}`  : '';
+  }
+
+  // 7) 세밀 스코어: 퀴즈 values(5축) + MBTI 키워드 + h3/p
+  function computeDetailedScore(values, mbtiKey, h3, p){
+    const v = Array.isArray(values) && values.length ? values : [50,50,50,50,50];
+    const O=v[0]||50, R=v[1]||50, W=v[2]||50, T=v[3]||50, S=v[4]||50;
+    let score = 68;
+
+    const text = `${h3||''} ${p||''}`.toLowerCase();
+    const prof = (window.SKIN_MBTI_MAP||{})[mbtiKey] || {good:[],bad:[]};
+    const goodHits = (prof.good||[]).filter(g => text.includes(g.toLowerCase().split(' ')[0])).length;
+    const badHits  = (prof.bad||[]).filter(b => text.includes(b.toLowerCase().split(' ')[0])).length;
+    score += goodHits*12 - badHits*15;
+
+    if (/hydrate|moist|barrier|repair/.test(text)) score += (W>50?8:4) + (R<50?6:2);
+    if (/oil|sebum|pore|balance/.test(text)) score += (O>55?10:4);
+    if (/bright|vitamin c|tone/.test(text)) score += (T>50?8:5);
+    if (/soothing|calm|redness|sens/.test(text)) score += (S>55?10:4);
+
+    if (/fragrance|perfume/.test(text) && S>55) score -= 10;
+    if (/heavy|rich|butter/.test(text) && O>55) score -= 8;
+
+    score += Math.sign(W-50)*2 + Math.sign(R-50)*2;
+    // 소량 노이즈
+    score += ((Date.now()%97)/97 - 0.5) * 3;
+
+    return clamp(Math.round(score),0,100);
+  }
+
+  // 8) 추천 렌더(최대 3개, MBTI 미지정이면 건너뜀)
+  function renderMatchedProducts(){
+    const { type, values } = getStoredResult();
+    if (!type) return; // 기본 MBTI 없음 요청 준수
+
+    const holders = [
+      document.getElementById('recommendedProducts'),
+      document.querySelector('#result .product_list'),
+      document.getElementById('result')
+    ].filter(Boolean);
+    const holder = holders[0];
+    if (!holder) return;
+
+    let cards = $$('.product_card', holder);
+    const needCreate = cards.length === 0;
+
+    // 점수 계산: 후보 6개 중 상위 3
+    const scored = CANDIDATES.map(p => {
+      const sc = computeDetailedScore(values, type, p.name, p.sub);
+      return { p, sc };
+    }).sort((a,b)=> b.sc - a.sc).slice(0,3);
+
+    if (needCreate){
+      holder.innerHTML='';
+      scored.forEach(({p, sc})=>{
+        const card = document.createElement('div');
+        card.className='product_card';
+        card.innerHTML = `
+          <div class="thumb"><img loading="lazy" src="${p.img}" alt="${p.name}"></div>
+          <div class="tags"><span></span><span></span><span></span><span></span></div>
+          <div class="info">
+            <h3>${p.name}</h3>
+            <p>${p.sub}</p>
+            <span class="score"></span>
+          </div>
+          <button class="add_btn" type="button" aria-pressed="false">
+            <img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart" alt="찜하기 아이콘">
+            ADD TO WISHLIST
+          </button>
+        `;
+        ensureTagAndScore(card);
+        fillTags(card, type);
+        const h3 = card.querySelector('.info h3')?.textContent||'';
+        const pp = card.querySelector('.info p')?.textContent||'';
+        const scoreEl = card.querySelector('.info .score');
+        if (scoreEl) scoreEl.textContent = `Score : ${String(sc).padStart(2,'0')} / 100`;
+        holder.appendChild(card);
+      });
+      cards = $$('.product_card', holder);
+    } else {
+      // 기존 카드 갱신(최대 3개만 보임)
+      cards.forEach((card, idx)=>{
+        if (idx>=3){ card.style.display='none'; return; }
+        card.style.display='';
+        ensureTagAndScore(card);
+        fillTags(card, type);
+        const h3 = card.querySelector('.info h3')?.textContent||'';
+        const pp = card.querySelector('.info p')?.textContent||'';
+        const sc = computeDetailedScore(values, type, h3, pp);
+        const scoreEl = card.querySelector('.info .score');
+        if (scoreEl) scoreEl.textContent = `Score : ${String(sc).padStart(2,'0')} / 100`;
+      });
+    }
+  }
+
+  // 9) 로딩이 보이도록: 결과 진입 시 1프레임 + 160ms 지연
+  function wrapGoForLoading(){
+    const orig = window.go;
+    if (typeof orig === 'function' && !orig.__wrappedForLoading){
+      const wrapped = async function(hash){
+        if (hash === 'result'){
+          showLoading();
+          await new Promise(requestAnimationFrame);
+          await delay(160);
+          try{
+            await renderMatchedProducts();
+          } finally {
+            hideLoading();
+          }
+        }
+        return orig.apply(this, arguments);
+      };
+      wrapped.__wrappedForLoading = true;
+      window.go = wrapped;
+    }
+  }
+
+  // 10) 해시 직접 이동도 커버
+  function handleHashForLoading(){
+    const target = (location.hash||'').replace('#','');
+    if (target === 'result'){
+      (async()=>{
+        showLoading();
+        await new Promise(requestAnimationFrame);
+        await delay(160);
+        try{
+          await renderMatchedProducts();
+        } finally {
+          hideLoading();
+        }
+      })();
+    }
+  }
+
+  // 11) 위시리스트: 개별 토글 + ALL 토글 + 버튼폭 고정
+  function isAdded(btn){
+    return btn.classList.contains('active') || btn.getAttribute('aria-pressed')==='true';
+  }
+  function lockGhostButtonsWidth(){
+    const row = document.querySelector('.row-ghosts');
+    if (!row) return;
+    const btns = $$('.row-ghosts button', row);
+    if (!btns.length) return;
+    let max = 0;
+    btns.forEach(b=>{
+      const prev = b.style.width;
+      b.style.width = 'auto';
+      const w = Math.ceil(b.getBoundingClientRect().width);
+      if (w>max) max = w;
+      b.style.width = prev;
+    });
+    btns.forEach(b=> b.style.width = max+'px');
+  }
+  function bindWishlistAll(){
+    const allBtn = document.getElementById('wishlistBtn') ||
+                   $$('.btn').find(b=>/ADD ALL TO WISHLIST/i.test(b.textContent||''));
+    if (!allBtn) return;
+    let busy=false;
+    allBtn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      if (busy) return; busy=true;
+      const cards = $$('.product_card').filter(c=> c.offsetParent!==null).slice(0,3);
+      const btns = cards.map(c=> $('.add_btn', c)).filter(Boolean);
+      const anyOff = btns.some(b=> !isAdded(b));
+      btns.forEach(b=>{
+        const now = isAdded(b);
+        if (now !== anyOff) b.click(); // 실제 클릭 경로 사용
+      });
+      // 라벨 토글
+      const addAll = anyOff;
+      if (/ADD ALL/i.test(allBtn.textContent||'')){
+        allBtn.textContent = addAll ? 'REMOVE ALL FROM WISHLIST' : 'ADD ALL TO WISHLIST';
+      } else if (/REMOVE ALL/i.test(allBtn.textContent||'')){
+        allBtn.textContent = addAll ? 'REMOVE ALL FROM WISHLIST' : 'ADD ALL TO WISHLIST';
+      }
+      requestAnimationFrame(lockGhostButtonsWidth);
+      setTimeout(()=> busy=false, 200);
+    });
+  }
+  function bindIndividualWishlist(){
+    document.addEventListener('click', (e)=>{
+      const btn = e.target.closest && e.target.closest('.add_btn');
+      if (!btn) return;
+      const next = !isAdded(btn);
+      btn.classList.toggle('active', next);
+      btn.setAttribute('aria-pressed', String(next));
+      const heart = btn.querySelector('.heart');
+      if (heart){
+        heart.src = next ? '/asset/img/skintest/icon_heart_fill.svg' : '/asset/img/skintest/icon_heart_stroke.svg';
+        heart.alt = next ? '위시리스트 제거 아이콘' : '찜하기 아이콘';
+      }
+      // 텍스트 유지: "ADD TO WISHLIST"/"REMOVE FROM WISHLIST"
+      const labelBase = 'WISHLIST';
+      if (/\bADD\b|\bREMOVE\b/.test(btn.textContent||'')){
+        btn.textContent = (next ? 'REMOVE FROM ' : 'ADD TO ') + labelBase;
+      }
+      requestAnimationFrame(lockGhostButtonsWidth);
+    });
+  }
+
+  // 12) HOME/RESET
+  function bindHomeReset(){
+    const resetBtn = document.getElementById('resetBtn');
+    if (resetBtn){
+      resetBtn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        try{ localStorage.removeItem('skin_quiz_final'); }catch(_){}
+        location.hash = '#home';
+      });
+    }
+    const homeBtn = document.getElementById('homeBtn');
+    if (homeBtn){
+      homeBtn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        location.hash = '#home';
+      });
+    }
+  }
+
+  // 13) 공개 API
+  window.SkinQuizPatchPlus = {
+    renderMatchedProducts,
+    lockGhostButtonsWidth
+  };
+
+  // 14) 부트
+  document.addEventListener('DOMContentLoaded', ()=>{
+    wrapGoForLoading();
+    handleHashForLoading();
+    bindWishlistAll();
+    bindIndividualWishlist();
+    bindHomeReset();
+    requestAnimationFrame(lockGhostButtonsWidth);
+  });
+  window.addEventListener('hashchange', handleHashForLoading);
+
+})();
+/* ===== End SkinQuizPatchPlus ===== */
