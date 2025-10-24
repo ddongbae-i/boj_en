@@ -1,0 +1,995 @@
+@charset "utf-8";
+
+.skintest_btu {
+  position: fixed;
+  right: 24px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  z-index: 9999;
+  display: block;
+  width: 80px;
+  height: auto;
+  pointer-events: auto;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.skintest_btu img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: auto;
+  opacity: .5;
+}
+
+main {
+  width: 100%;
+}
+
+.main .mainVisual {
+  height: 100dvh;
+  height: 100vh;
+  max-width: 100%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.main .mainVisual video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bestSeller {
+  background: #000000;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.bestSeller .product {
+  display: flex;
+  flex-direction: column;
+  height: 860px;
+  /*   gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start; */
+  /*   width: 1920px;
+  position: absolute;
+  left: 0px;
+  top: 0px; */
+}
+
+.bestSeller .slide_wrap {
+  width: 100%;
+  height: 430px;
+  position: relative;
+  /* background: #ccc; */
+  /*   overflow: hidden;
+  pointer-events: auto; */
+}
+
+.bestSeller .slide_wrap2 .swiper-wrapper {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  flex-wrap: nowrap;
+  width: max-content;
+}
+
+.bestSeller .product .card {
+  width: 425px;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  pointer-events: auto;
+  /* transition: opacity .25s ease; */
+}
+
+.bestSeller .product:hover .card {
+  opacity: .4;
+}
+
+.bestSeller .product .card:hover {
+  opacity: 1;
+}
+
+.bestSeller .product .card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /*   width: 425px;
+  height: 430px;
+  position: absolute;
+  left: 50%;
+  translate: -50% -50%;
+  top: 50%; */
+}
+
+/* .bestSeller .top,
+.bestSeller .bottom {
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+} */
+
+.bestSeller .product .card {
+  /*   flex-shrink: 0;
+  width: 425px;
+  height: 430px; */
+  /*   position: relative; */
+}
+
+/* .bestSeller .swiper */
+/* .bestSeller .swiper {
+  width: 100%;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.bestSeller .swiper-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  transition-timing-function: linear !important;
+}
+
+.bestSeller .swiper-slide {
+  flex: 0 0 auto;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+
+}
+
+.bestSeller .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+
+} */
+
+.banner_1 {
+  width: 100%;
+  height: 1857px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.banner_1 img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.gradation_box {
+  background: linear-gradient(180deg,
+      rgba(15, 15, 15, 0) 0%,
+      rgba(15, 15, 15, 1) 100%);
+  width: 100%;
+  height: 1102px;
+  position: absolute;
+  left: 0px;
+  top: 755px;
+}
+
+.banner_1 .txt_box {
+  z-index: 1;
+  padding: 0;
+}
+
+.banner_1 .txt_box .txt_top {
+  z-index: 2;
+  color: var(--white_ff);
+  font-family: var(--txt_font);
+  font-size: 2.5rem;
+  text-align: left;
+  line-height: 140%;
+  left: 110px;
+  top: 180px;
+  position: absolute;
+}
+
+.banner_1 .txt_box .txt_bottom {
+  z-index: 2;
+  color: var(--white_ff);
+  font-family: var(--txt_font);
+  font-size: 2.5rem;
+  text-align: right;
+  line-height: 140%;
+  right: 110px;
+  bottom: 90px;
+  position: absolute;
+}
+
+.influencer {
+  --card: 421px;
+  --gap: 5px;
+  width: 100%;
+  padding: 100px 0;
+  background: var(--bg_black);
+}
+
+.influencer>.inner {
+  padding-inline: 0;
+  max-width: 1700px;
+  margin: 0 auto;
+  height: auto;
+  display: flex;
+  gap: var(--gap);
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.influencer .card_left,
+.influencer .card_right {
+  width: calc(var(--card) * 2 + var(--gap));
+  height: calc(var(--card) * 3 + var(--gap) * 2);
+  /* 절대배치 카드까지 감싸도록 */
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  align-items: flex-start;
+}
+
+.influencer .card {
+  width: var(--card);
+  height: var(--card);
+  position: relative;
+  border-radius: 10px;
+  background: var(--img_bg);
+  overflow: hidden;
+  display: block;
+  pointer-events: auto;
+}
+
+/* 세로형 카드(3,6)는 두 칸 높이 */
+.influencer .card_3,
+.influencer .card_6 {
+  height: calc(var(--card) * 2 + var(--gap));
+}
+
+/* 카드 회전 (카드 전체를 한 번만 회전) */
+.influencer .card {
+  position: relative;
+  /* 크기는 기존 선언( var(--card) )을 사용하도록 width/height 제거 */
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 1.6s cubic-bezier(.2, .8, .2, 1);
+  /* flipMs:1600ms와 일치 */
+  will-change: transform;
+  /* flipped 클래스가 붙으면 카드 전체를 한 번 회전시킴 */
+}
+
+.influencer .card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* front/back 레이어 설정 — 위치를 겹치게 하고 back은 뒤집어둠 */
+.influencer .card .front,
+.influencer .card .back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: block;
+}
+
+/* front는 정면, back은 180도로 미리 뒤집어서 카드 전체가 180deg 회전하면 보이도록 */
+.influencer .card .front {
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.influencer .card .back {
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+
+/* 이미지가 따로 transform을 갖고 있지 않도록 안전장치 */
+.influencer .card img {
+  transform: none !important;
+}
+
+/* 회전 미사용: back 숨김 */
+
+/* 미디어 공통 */
+.influencer .card .media {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.influencer .card .media img,
+.influencer .card .media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 오버레이 공통 */
+.influencer .card .black {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, .45);
+  color: var(--white_ff);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 2;
+}
+
+.influencer .card:hover .black {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.influencer .black_top {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.influencer .black_top .name {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.influencer .black_center {
+  text-align: center;
+  display: grid;
+  gap: 10px;
+}
+
+.influencer .black_center p {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+/* 위시 아이콘(두 장 방식) */
+.influencer .wish {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.influencer .wish .icon_heart {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.influencer .wish .icon_heart:nth-of-type(2) {
+  display: none;
+}
+
+.influencer .wish.active .icon_heart:nth-of-type(1) {
+  display: none;
+}
+
+.influencer .wish.active .icon_heart:nth-of-type(2) {
+  display: block;
+}
+
+/* 레이아웃 특수 카드 위치(기존과 동일) */
+.influencer .card_left .card_5 {
+  position: absolute;
+  right: 0;
+  top: calc(var(--card) * 2 + var(--gap) * 2);
+  width: var(--card);
+  height: var(--card);
+}
+
+.influencer .card_right .card_8 {
+  position: absolute;
+  right: 0;
+  top: calc(var(--card) + var(--gap));
+  width: var(--card);
+  height: var(--card);
+}
+
+
+/* 카드회전 */
+/* .influencer .inner .card .front {
+  background: red;
+}
+
+.influencer .inner .card .back {
+  background: pink;
+  transform: rotateY(180deg);
+
+}
+
+.hidden {
+  backface-visibility: hidden;
+} */
+
+
+
+.membership {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.membership .login_box {
+  position: absolute;
+  left: 50%;
+  bottom: 50px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.membership .login_box .txt {
+  margin-bottom: 20px;
+}
+
+.membership .btn_box {
+  display: flex;
+  gap: 12px;
+}
+
+.membership .btn_box .btn:hover {
+  background: var(--txt_main);
+  color: var(--white_ff);
+}
+
+
+
+
+
+/* 한방 */
+.hanbang {
+  width: 100%;
+  height: 973px;
+  background: var(--white_ff);
+  display: flex;
+}
+
+.hanbang .inner {
+  padding-inline: 0;
+  max-width: 1700px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+.hanbang .inner .txt_left,
+.hanbang .inner .txt_right {
+  width: 528px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.hanbang .inner .txt_left ul,
+.hanbang .inner .txt_right ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 18px;
+}
+
+.hanbang .inner .txt_left ul>button,
+.hanbang .inner .txt_right ul>button {
+  all: unset;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
+.hanbang .inner .txt_left .tit,
+.hanbang .inner .txt_right .tit {
+  font-family: var(--tit_font);
+  font-size: 2.5rem;
+  color: var(--txt_sub_77);
+  line-height: 140%;
+  letter-spacing: .02em;
+  margin-bottom: 6px;
+}
+
+/* tit on */
+.hanbang .inner .txt1.on .tit {
+  color: var(--ginseng);
+}
+
+.hanbang .inner .txt2.on .tit {
+  color: var(--rice);
+}
+
+.hanbang .inner .txt3.on .tit {
+  color: var(--greentea);
+}
+
+.hanbang .inner .txt4.on .tit {
+  color: var(--redbean);
+}
+
+.hanbang .inner .txt5.on .tit {
+  color: var(--propulis);
+}
+
+.hanbang .inner .txt6.on .tit {
+  color: var(--greenplum);
+}
+
+.hanbang .inner .txt7.on .tit {
+  color: var(--centella);
+}
+
+.hanbang .inner .txt8.on .tit {
+  color: var(--mugwort);
+}
+
+.hanbang .inner .txt_left .txt,
+.hanbang .inner .txt_right .txt {
+  color: var(--txt_sub_77);
+  line-height: 140%;
+  font-size: 1.125rem;
+}
+
+/* txt on */
+.hanbang .inner .txt1.on .txt,
+.hanbang .inner .txt2.on .txt,
+.hanbang .inner .txt3.on .txt,
+.hanbang .inner .txt4.on .txt,
+.hanbang .inner .txt5.on .txt,
+.hanbang .inner .txt6.on .txt,
+.hanbang .inner .txt7.on .txt,
+.hanbang .inner .txt8.on .txt {
+  color: var(--txt_main);
+}
+
+.hanbang .inner .progress {
+  position: relative;
+  height: 16px;
+  margin: 10px 0 8px;
+}
+
+.hanbang .inner .progress .bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--grey_de);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+/* bar on */
+.hanbang .inner .txt1.on .progress .bar,
+.hanbang .inner .txt2.on .progress .bar,
+.hanbang .inner .txt3.on .progress .bar,
+.hanbang .inner .txt4.on .progress .bar,
+.hanbang .inner .txt5.on .progress .bar,
+.hanbang .inner .txt6.on .progress .bar,
+.hanbang .inner .txt7.on .progress .bar,
+.hanbang .inner .txt8.on .progress .bar {
+  display: none;
+}
+
+
+/* 1️⃣ 애니메이션 정의 */
+@keyframes fill-bar {
+  0% { width: 0%; }
+  25% { width: 25%; }
+  50% { width: 50%; }
+  75% { width: 75%; }
+  100% { width: 100%; }
+}
+
+/* 2️⃣ 기본 스타일 */
+.hanbang .inner .progress .playbar {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 6px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: none;
+  width: 0%;
+}
+
+/* 3️⃣ 상태별 실행 */
+.hanbang .inner .txt1.on .progress .playbar,
+.hanbang .inner .txt2.on .progress .playbar,
+.hanbang .inner .txt3.on .progress .playbar, 
+.hanbang .inner .txt4.on .progress .playbar,
+.hanbang .inner .txt5.on .progress .playbar,
+.hanbang .inner .txt6.on .progress .playbar,
+.hanbang .inner .txt7.on .progress .playbar,
+.hanbang .inner .txt8.on .progress .playbar {
+  display: block;
+  background: var(--ginseng);
+  animation: fill-bar 4s linear forwards;
+}
+
+
+/* 프로그레스 on */
+.hanbang .inner .txt1.on .progress .playbar {
+  background: var(--ginseng);
+  display: block;
+  width: 100%;
+}
+
+.hanbang .inner .txt2.on .progress .playbar {
+  background: var(--rice);
+  display: block;
+  width: 100%;
+}
+
+.hanbang .inner .txt3.on .progress .playbar {
+  background: var(--greentea);
+  display: block;
+  width: 100%;
+}
+
+.hanbang .inner .txt4.on .progress .playbar {
+  background: var(--redbean);
+  display: block;
+  width: 100%;
+}
+
+.hanbang .inner .txt5.on .progress .playbar {
+  background: var(--propulis);
+  display: block;
+  width: 100%;
+}
+
+.hanbang .inner .txt6.on .progress .playbar {
+  background: var(--greenplum);
+  display: block;
+  width: 100%;
+}
+
+.hanbang .inner .txt7.on .progress .playbar {
+  background: var(--centella);
+  display: block;
+  width: 100%;
+}
+
+.hanbang .inner .txt8.on .progress .playbar {
+  background: var(--mugwort);
+  display: block;
+  width: 100%;
+}
+
+
+
+.hanbang .inner .img_box {
+  width: 644px;
+  height: 753px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+
+.hanbang .inner .img_box img {
+  width: 644px;
+  height: 753px;
+}
+
+.hanbang .inner .img_box .img1,
+.hanbang .inner .img_box .img2,
+.hanbang .inner .img_box .img3,
+.hanbang .inner .img_box .img4,
+.hanbang .inner .img_box .img5,
+.hanbang .inner .img_box .img6,
+.hanbang .inner .img_box .img7,
+.hanbang .inner .img_box .img8 {
+  width: 644px;
+  height: 753px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.hanbang .inner .img_box .imgTxt {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hanbang .inner .img_box .img1 .imgTxt .txt_box1 img,
+.hanbang .inner .img_box .img3 .imgTxt .txt_box1 img,
+.hanbang .inner .img_box .img4 .imgTxt .txt_box1 img,
+.hanbang .inner .img_box .img5 .imgTxt .txt_box1 img,
+.hanbang .inner .img_box .img6 .imgTxt .txt_box1 img,
+.hanbang .inner .img_box .img8 .imgTxt .txt_box1 img {
+  width: 190px;
+  height: 190px;
+  position: absolute;
+  right: 8%;
+  top: 0%;
+}
+
+.hanbang .inner .img_box .img2 .imgTxt .txt_box1 img {
+  width: 190px;
+  height: 190px;
+  position: absolute;
+  right: 8%;
+  bottom: 15%;
+}
+
+.hanbang .inner .img_box .img7 .imgTxt .txt_box1 img {
+  width: 190px;
+  height: 190px;
+  position: absolute;
+  right: 8%;
+  bottom: 8%;
+}
+
+.hanbang .inner .img_box .imgTxt .txt_box2 img {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  left: 10%;
+  top: 28%;
+}
+
+.hanbang .inner .img_box .imgTxt .txt_box3 img {
+  width: 170px;
+  height: 170px;
+  position: absolute;
+  right: 25%;
+  bottom: 0;
+}
+
+
+/* txt_box1/2/3 서서히 나타나게 (fade up) */
+.hanbang .inner .img_box .imgTxt .txt_box1 img,
+.hanbang .inner .img_box .imgTxt .txt_box2 img,
+.hanbang .inner .img_box .imgTxt .txt_box3 img {
+  opacity: 0;
+  transform: translateY(12px);
+  animation-name: hanbang-fadeup;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(.2, .8, .2, 1);
+}
+
+.hanbang .inner .img_box .imgTxt .txt_box1 img{
+  animation-delay: 1.00s;
+}
+
+.hanbang .inner .img_box .imgTxt .txt_box2 img{
+  animation-delay: 2.0s;
+}
+
+.hanbang .inner .img_box .imgTxt .txt_box3 img{
+  animation-delay: 3.00s;
+}
+
+@keyframes hanbang-fadeup {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 1️⃣ 애니메이션 정의 */
+@keyframes hanbang-fadeup-soft {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    filter: blur(4px);
+  }
+  50% {
+    opacity: 0.5;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* 2️⃣ 애니메이션 적용 */
+.hanbang .inner .img_box .imgTxt .txt_box1 img,
+.hanbang .inner .img_box .imgTxt .txt_box2 img,
+.hanbang .inner .img_box .imgTxt .txt_box3 img {
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  animation-name: hanbang-fadeup-soft;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  filter: blur(4px);
+}
+
+/* 3️⃣ 순차적 등장 (delay 조정) */
+.hanbang .inner .img_box .imgTxt .txt_box1 img {
+  animation-delay: 0.5s;
+}
+.hanbang .inner .img_box .imgTxt .txt_box2 img {
+  animation-delay: 1.0s;
+}
+.hanbang .inner .img_box .imgTxt .txt_box3 img {
+  animation-delay: 1.5s;
+}
+
+
+
+
+
+
+.banner_2 {
+  position: relative;
+}
+
+.banner_2 img {
+  width: 100%;
+  height: 400px;
+}
+
+.banner_2 .txt_box {
+  position: absolute;
+  top: 86px;
+  right: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 122px;
+}
+
+.banner_2 .txt_box .txt {
+  margin-bottom: 20px;
+  color: var(--white_ff);
+  text-align: right;
+  line-height: 1.5rem;
+}
+
+.banner_2 .txt_box .btn {
+  width: 170px;
+  color: var(--white_ff);
+  border-color: var(--white_ff);
+}
+
+.banner_2 .txt_box .btn:hover {
+  background: var(--white_ff);
+  color: var(--txt_main);
+}
+
+.blog {
+  width: 100%;
+  height: 1886px;
+}
+
+.blog .inner {
+  width: 100%;
+  padding: 100px 110px;
+}
+
+.blog .inner .product {
+  margin-top: 40px;
+  display: flex;
+  gap: 140px;
+}
+
+.blog .inner .product .allstory {
+  width: 730px;
+  height: 1009px;
+}
+
+.blog .inner .product .allstory img {
+  width: 730px;
+  height: 640px;
+}
+
+.blog .inner .product .allstory .txt_box {
+  margin-top: 87px;
+  display: grid;
+  row-gap: 42px;
+  justify-items: center;
+  text-align: center;
+}
+
+.blog .inner .product .allstory .txt_box .tit {
+  font-size: 40px;
+  text-align: center;
+}
+
+.blog .inner .product .allstory .txt_box .txt {
+  width: 630px;
+  text-align: center;
+}
+
+.blog .inner .product .allstory .txt_box .btn {
+  margin: 20px auto 0;
+}
+
+.blog .inner .product .allstory .txt_box .btn:hover {
+  background: var(--txt_main);
+  color: var(--white_ff);
+}
+
+.blog .inner .product .cards {
+  width: 830px;
+  display: grid;
+  grid-template-columns: repeat(2, 395px);
+  /* 2열 고정 */
+  column-gap: 40px;
+  row-gap: 100px;
+  width: 830px;
+}
+
+.blog .inner .product .card {
+  width: 395px;
+}
+
+.blog .inner .product .card img {
+  width: 100%;
+  height: 344px;
+  object-fit: cover;
+}
+
+.blog .inner .product .card .txt_box {
+  margin-top: 12px;
+  gap: 16px;
+}
+
+.blog .inner .product .card .txt_box .date {
+  font-size: 14px;
+  color: var(--txt_sub_77);
+}
+
+.blog .inner .product .card .txt_box .txt {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 140%;
+}
