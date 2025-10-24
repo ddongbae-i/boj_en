@@ -4,70 +4,9 @@
 
 // Router
 const PAGES = ['home','quiz','result'];
-function show(id) {
-  PAGES.forEach(pid => {
-    const el = document.getElementById(pid);
-    if (!el) return;
-    const active = (pid === id);
-    el.toggleAttribute('hidden', !active);
-    el.classList.toggle('is-active', active);
-  });
   
-  // focus management
-  if (id === 'quiz') { var q=document.getElementById('question'); if(q) q.focus(); }
-}
-function go(id){
-  location.hash = '#' + id;
-  show(id);
-}
-
-// Header/Buttons
-window.addEventListener('DOMContentLoaded', () => {
-  (function(el){ if(el) el.addEventListener('click', function(){ go('quiz'); show('quiz'); }); })(document.getElementById('startBtn'));
-  (function(el){ if(el) el.addEventListener('click', function(){ go('home'); }); })(document.getElementById('homeBtn'));
-  (function(el){ if(el) el.addEventListener('click', function(e){ e.preventDefault(); try{ localStorage.removeItem('skin_quiz_final'); }catch(_){} location.hash = '#quiz'; location.reload(); }); })(document.getElementById('resetBtn'));
-
-  // Hash routing
-  const target = (location.hash ? location.hash.replace('#','') : '') || 'home';
-  show(PAGES.includes(target) ? target : 'home');
-
-
-  // Footer height -> CSS variable to avoid overlap
-  const footer = document.querySelector('footer');
-  function updateFooterPadding(){
-    if (!footer) return;
-    const h = footer.getBoundingClientRect().height;
-    document.documentElement.style.setProperty('--footer-h', h + 'px');
-  }
-  updateFooterPadding();
-  window.addEventListener('resize', updateFooterPadding);
-
-  initQuiz(
-    function finish(){
-    // Map to values A/B/C/D
-    const values = selectedIdx.map((idx, qi)=>QUESTIONS[qi].choices[idx].value);
-    // Dummy result numbers (0-100) derived from answers for demo
-    const map={'A':30,'B':70,'C':50,'D':40};
-    const dataValues=[
-      map[values[0]], // Oil
-      map[values[1]], // Water retention
-      map[values[2]], // Sensitivity
-      map[values[3]], // Moisturizing
-      map[values[4]], // Elasticity
-    ];
-    // compute type using global deriveType and persist
-    const theType = deriveType(dataValues);
-    try {
-      localStorage.setItem('skin_quiz_final', JSON.stringify({ type: theType, values:dataValues, avg:[50,55,50,60,52] }));
-    } catch(e) {}
-    go('result');
-    renderResult();
-    }
-  );
-});
-
-// Quiz: 10 questions (English)
-const QUESTIONS = [
+  // Quiz: 10 questions (English)
+  const QUESTIONS = [
   { title:'Q1. How does your skin feel after cleansing?', choices:[
     {label:'A. Very tight/dry', value:'A'},
     {label:'B. Oily overall', value:'B'},
@@ -127,8 +66,65 @@ const QUESTIONS = [
     {label:'B. Cleanser is a must', value:'B'},
     {label:'C. Cleanser for T‑zone only', value:'C'},
     {label:'D. Hard to change cleanser', value:'D'}
-  ]}
+  ]},
 ];
+  function show(id) {
+  PAGES.forEach(pid => {
+    const el = document.getElementById(pid);
+    if (!el) return;
+    const active = (pid === id);
+    el.toggleAttribute('hidden', !active);
+    el.classList.toggle('is-active', active);
+  });
+  
+  // focus management
+  if (id === 'quiz') { var q=document.getElementById('question'); if(q) q.focus(); }
+}
+
+// Header/Buttons
+window.addEventListener('DOMContentLoaded', () => {
+  (function(el){ if(el) el.addEventListener('click', function(){ go('quiz'); /* show('quiz'); */ }); })(document.getElementById('startBtn'));
+  (function(el){ if(el) el.addEventListener('click', function(){ go('home'); }); })(document.getElementById('homeBtn'));
+  (function(el){ if(el) el.addEventListener('click', function(e){ e.preventDefault(); try{ localStorage.removeItem('skin_quiz_final'); }catch(_){} location.hash = '#quiz'; location.reload(); }); })(document.getElementById('resetBtn'));
+  
+  // Hash routing
+  const target = (location.hash ? location.hash.replace('#','') : '') || 'home';
+  show(PAGES.includes(target) ? target : 'home');
+  
+  
+  // Footer height -> CSS variable to avoid overlap
+  const footer = document.querySelector('footer');
+  function updateFooterPadding(){
+    if (!footer) return;
+    const h = footer.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--footer-h', h + 'px');
+  }
+  updateFooterPadding();
+  window.addEventListener('resize', updateFooterPadding);
+  
+  initQuiz(
+    function onFinish(selectedIdx, dataValues){
+      // selectedIdx: array of chosen option indexes (from initQuiz)
+      // dataValues: already computed [Oil, Water retention, Sensitivity, Moisturizing, Elasticity] in 0–100
+      try {
+        // theType 변수를 한번만 선언하도록 수정
+        const rawType = deriveType(Array.isArray(dataValues)?dataValues:[]);
+        const theType = resolveMbtiKey(rawType);
+        localStorage.setItem('skin_quiz_final', JSON.stringify({ type: theType, values: dataValues, avg:[50,55,50,60,52] }));
+      } catch(e) { /* ignore storage errors */ }
+      go('result');
+      renderResult();
+    }
+  );
+  
+  function go(id){
+    location.hash = '#' + id;
+    show(id);
+    if (id === 'quiz') { // 'quiz' 페이지로 이동할 때 initQuiz 호출
+      initQuiz(); // initQuiz 호출
+    }
+  }
+  
 
 function initQuiz(onFinish){
   const section = document.getElementById('quiz');
@@ -330,20 +326,35 @@ function initQuiz(onFinish){
   };
 })();
 
-function renderResult(){
-  // 1) 유도함수: 값 -> 타입 (예: DSPW, ORNT ...)
-  function deriveType(vals){
-    const [oil, water, sensitivity, moisturizing, elasticity] = vals;
-    // 1글자: D/O (건성/지성) - oil 낮으면 D, 높으면 O
-    const t1 = oil < 50 ? 'D' : 'O';
-    // 2글자: S/R (민감/저자극) - sensitivity 높으면 S, 낮으면 R
-    const t2 = sensitivity > 50 ? 'S' : 'R';
-    // 3글자: P/N (색소침착 경향/비색소) - 보유 지표 부재 → 수분 보유 낮음 또는 보습 필요 높음이면 P로 간주
-    const t3 = (water < 45 || moisturizing > 60) ? 'P' : 'N';
-    // 4글자: W/T (주름 경향/탄력 좋음) - elasticity 낮으면 W, 높으면 T
-    const t4 = elasticity < 50 ? 'W' : 'T';
-    return t1 + t2 + t3 + t4;
-  }
+    function renderResult(){
+    // 1) 유도함수: 값 -> 타입 (예: DSPW, ORNT ...) + 퀴즈값 배열 -> 4글자 타입 (재사용 가능하도록 전역으로 이동)
+    function deriveType(vals) {
+        const [oil, water, sensitivity, moisturizing, elasticity] = Array.isArray(vals) ? vals : [];
+        const t1 = (Number(oil) || 0) < 50 ? 'D' : 'O';
+        const t2 = (Number(sensitivity) || 0) > 50 ? 'S' : 'R';
+        const t3 = ((Number(water) || 0) < 45 || (Number(moisturizing) || 0) > 60) ? 'P' : 'N';
+        const t4 = (Number(elasticity) || 0) < 50 ? 'W' : 'T';
+        return t1 + t2 + t3 + t4;
+    }
+
+    // --- 추가: SKIN_MBTI_MAP 키 정규화/폴백 ---
+    function resolveMbtiKey(rawKey){
+        const k = String(rawKey || '').toUpperCase().trim();
+        if (k && SKIN_MBTI_MAP && SKIN_MBTI_MAP[k]) return k;
+        const keys = SKIN_MBTI_MAP ? Object.keys(SKIN_MBTI_MAP) : [];
+        if (!keys.length) return '';
+    // 시도: 정확한 앞 3/2글자 매칭 또는 첫 키 폴백
+        if (k.length >= 3){
+        const p3 = keys.find(x => x.startsWith(k.slice(0,3)));
+        if (p3) return p3;
+        }
+        if (k.length >= 2){
+        const p2 = keys.find(x => x.startsWith(k.slice(0,2)));
+        if (p2) return p2;
+    }
+        if (DEFAULT_SKIN_MBTI && SKIN_MBTI_MAP[DEFAULT_SKIN_MBTI]) return DEFAULT_SKIN_MBTI;
+        return keys[0];
+        }
 
   // 2) 타입 요약 생성
   function getTypeSummary(type){
@@ -376,8 +387,11 @@ function renderResult(){
     avg: parsed.avg || fallback.avg
   };
 
-  // 타입 자동 산출(테스트 응답 기반)
+  // 타입 자동 산출 (테스트 응답 기반)
   data.type = data.type || deriveType(data.values);
+  data.type = data.type || deriveType(data.values);
+  // 항상 SKIN_MBTI_MAP의 유효 키로 정규화
+  data.type = resolveMbtiKey(data.type);
 
   const AXES = ['Oil','Water retention','Sensitivity','Moisturizing','Elasticity'];
   const anchors = window.renderPentagon(document.getElementById('radar'), AXES, data.avg, data.values);
@@ -986,85 +1000,85 @@ function preload(src) {
   };
 
   // --- 수정: MBTI 매칭용 유틸 (PRODUCT_TAGS 바로 아래에 추가/대체) ---
-  function getMatchedProducts(mbti) {
-    // 우선순위: 함수 인자 mbti -> localStorage.skin_quiz_final.type -> DEFAULT_SKIN_MBTI
-    let key = '';
-    try {
-      const raw = localStorage.getItem('skin_quiz_final');
-      const parsed = raw ? JSON.parse(raw) : null;
-      key = (mbti || (parsed && parsed.type) || DEFAULT_SKIN_MBTI || '').toString().trim().toUpperCase();
-    } catch(e){
-      key = (mbti || DEFAULT_SKIN_MBTI || '').toString().trim().toUpperCase();
+  function getMatchedProducts(mbti) {let mbtiKey = '';
+  try {
+    const raw = localStorage.getItem('skin_quiz_final');
+    const parsed = raw ? JSON.parse(raw) : null;
+    mbtiKey = (mbti || (parsed && parsed.type) || DEFAULT_SKIN_MBTI || '').toString().trim().toUpperCase();
+  } catch (e) {
+    mbtiKey = (mbti || DEFAULT_SKIN_MBTI || '').toString().trim().toUpperCase();
+  }
+
+  const resolvedKey = resolveMbtiKey(mbtiKey);
+  const map = SKIN_MBTI_MAP[resolvedKey] || null;
+  const out = [];
+
+  Object.keys(PRODUCT_TAGS).forEach(name => {
+    const tags = PRODUCT_TAGS[name] || { good: [], bad: [] };
+    if (!map) {
+      out.push({ name, goodMatch: [], badMatch: [], score: 70 });
+      return;
     }
-    const map = SKIN_MBTI_MAP[key] || null;
-    const out = [];
-    Object.keys(PRODUCT_TAGS).forEach(name => {
-      const tags = PRODUCT_TAGS[name] || { good:[], bad:[] };
-      if (!map) {
-        out.push({ name, goodMatch: [], badMatch: [], score: 70 });
-        return;
-      }
-      const goodMatch = (tags.good||[]).filter(t => map.good.map(g=>g.toLowerCase()).includes(t.toLowerCase()));
-      const badMatch  = (tags.bad || []).filter(t => map.bad.map(b=>b.toLowerCase()).includes(t.toLowerCase()));
-      const score = Math.max(0, Math.min(100, 70 + goodMatch.length * 15 - badMatch.length * 20));
-      out.push({ name, goodMatch, badMatch, score });
-    });
-    // 정렬: 점수 내림차순
-    out.sort((a,b)=>b.score - a.score);
-    return { mbtiKey: key, list: out };
-  };
+    const goodMatch = (tags.good || []).filter(t => map.good.map(g => g.toLowerCase()).includes(t.toLowerCase()));
+    const badMatch = (tags.bad || []).filter(t => map.bad.map(b => b.toLowerCase()).includes(t.toLowerCase()));
+    const score = Math.max(0, Math.min(100, 70 + goodMatch.length * 15 - badMatch.length * 20));
+    out.push({ name, goodMatch, badMatch, score });
+  });
+
+  out.sort((a, b) => b.score - a.score);
+  return { mbtiKey: resolvedKey, list: out };
+}}
+);
 
   // fillProducts: renderResult 이후 호출될 때 결과 mbti 기준으로 카드 보이기/숨기기, top 3 이상만 표시
-  function fillProducts(){
-    const cards = Array.from(document.querySelectorAll(".product_card"));
-    if (!cards.length) return;
+  function fillProducts(){function fillProducts() {
+  const cards = Array.from(document.querySelectorAll(".product_card"));
+  if (!cards.length) return;
 
-    // mbti는 화면 텍스트보다 localStorage 우선(이미 저장된 타입을 사용)
-    let mbtiStored = '';
-    try { const raw=localStorage.getItem('skin_quiz_final'); mbtiStored = raw? (JSON.parse(raw).type || '') : ''; } catch(e){ mbtiStored=''; }
-    const matchedBundle = getMatchedProducts(mbtiStored);
-    const matched = matchedBundle.list;
-
-    // 우선 필터: score >= 65를 후보로. 후보가 3개 이상이면 그들만 쓰고, 아니면 상위 3개를 보여준다.
-    let candidates = matched.filter(m=>m.score >= 65);
-    if (candidates.length < 3) {
-      candidates = matched.slice(0, Math.min(3, matched.length));
-    } else {
-      candidates = candidates.slice(0, Math.min(3, candidates.length));
-    }
-    const showNames = new Set(candidates.map(c=>c.name));
-
-    cards.forEach(card => {
-      const nameEl = card.querySelector(".info h3");
-      const spans = card.querySelectorAll(".tags span");
-      const scoreEl = card.querySelector(".info .score");
-      const name = nameEl ? nameEl.textContent.trim() : '';
-
-      if (!showNames.has(name)){
-        // 숨김 처리
-        card.style.display = 'none';
-        return;
-      } else {
-        card.style.display = '';
-      }
-
-      // tags 채우기 (제품 정의에 있는 값 사용)
-      const map = PRODUCT_TAGS[name];
-      if (map && spans.length){
-        if (spans[0]) setSpanTextOrHide(spans[0], [map.good?.[0]].filter(Boolean));
-        if (spans[1]) setSpanTextOrHide(spans[1], [map.good?.[1]].filter(Boolean));
-        if (spans[2]) setSpanTextOrHide(spans[2], [map.bad?.[0]].filter(Boolean));
-        if (spans[3]) setSpanTextOrHide(spans[3], [map.bad?.[1]].filter(Boolean));
-      }
-
-      // score: matched array에서 가져오기(더 정교함)
-      const prod = matched.find(m => m.name === name);
-      const sc = prod ? prod.score : computeMbtiScoreForCard(matchedBundle.mbtiKey || mbtiStored);
-      if (scoreEl){
-        scoreEl.textContent = `Score : ${String(sc).padStart(2,"0")} / 100`;
-      }
-    });
+  let mbtiStored = '';
+  try {
+    const raw = localStorage.getItem('skin_quiz_final');
+    mbtiStored = raw ? (JSON.parse(raw).type || '') : '';
+  } catch (e) {
+    mbtiStored = '';
   }
+  const matchedBundle = getMatchedProducts(mbtiStored);
+  const matched = matchedBundle.list;
+
+  let candidates = matched.filter(m => m.score >= 65);
+  if (candidates.length < 3) {
+    candidates = matched.slice(0, Math.min(3, matched.length));
+  }
+
+  const showNames = new Set(candidates.map(c => c.name));
+
+  cards.forEach(card => {
+    const nameEl = card.querySelector(".info h3");
+    const spans = card.querySelectorAll(".tags span");
+    const scoreEl = card.querySelector(".info .score");
+    const name = nameEl ? nameEl.textContent.trim() : '';
+
+    if (!showNames.has(name)) {
+      card.style.display = 'none';
+      return;
+    } else {
+      card.style.display = '';
+    }
+
+    const map = PRODUCT_TAGS[name];
+    if (map && spans.length) {
+      if (spans[0]) setSpanTextOrHide(spans[0], [map.good?.[0]].filter(Boolean));
+      if (spans[1]) setSpanTextOrHide(spans[1], [map.good?.[1]].filter(Boolean));
+      if (spans[2]) setSpanTextOrHide(spans[2], [map.bad?.[0]].filter(Boolean));
+      if (spans[3]) setSpanTextOrHide(spans[3], [map.bad?.[1]].filter(Boolean));
+    }
+
+    const sc = matched.find(m => m.name === name)?.score || computeMbtiScoreForCard(matchedBundle.mbtiKey || mbtiStored);
+    if (scoreEl) {
+      scoreEl.textContent = `Score : ${String(sc).padStart(2, "0")} / 100`;
+    }
+  });
+}
 
   // 1개 이상이면 표시, 0개면 숨김
   function setSpanTextOrHide(span, items, joiner=", "){
@@ -1155,11 +1169,12 @@ function preload(src) {
   }
 
   // DOM 준비/탭 전환 시 갱신
-    window.addEventListener("DOMContentLoaded", () => {
-        fillProducts();
-        initWishlistToggle();
-  });
-})();
+    window.addEventListener('DOMContentLoaded', () => {
+    fillProducts();
+    initWishlistToggle();
+    updateAllBtnLabel();
+    });
+}});
 
 /* ========================= [ADDED END] ========================= */
 
@@ -1237,4 +1252,4 @@ function animateResults() {
   var G = window.gsap; if (!G) return;
   G.from('.radar-wrap', { opacity: 0, y: 30, duration: 1 });
   G.from('.product_card', { opacity: 0, y: 30, duration: 0.8, stagger: 0.2 });
-}
+};
