@@ -1,5 +1,3 @@
-
-
 // app.js
 // Simple router between #home, #quiz, #result with fixed header/footer.
 // Quiz minimal logic + pentagon radar.
@@ -27,7 +25,7 @@ function go(id){
 window.addEventListener('DOMContentLoaded', () => {
   (function(el){ if(el) el.addEventListener('click', function(){ go('quiz'); show('quiz'); }); })(document.getElementById('startBtn'));
   (function(el){ if(el) el.addEventListener('click', function(){ go('home'); }); })(document.getElementById('homeBtn'));
-  (function(el){ if(el) el.addEventListener('click', function(){ location.reload(); }); })(document.getElementById('resetBtn'));
+  (function(el){ if(el) el.addEventListener('click', function(e){ e.preventDefault(); try{ localStorage.removeItem('skin_quiz_final'); }catch(_){} location.hash = '#quiz'; location.reload(); }); })(document.getElementById('resetBtn'));
 
   // Hash routing
   const target = (location.hash ? location.hash.replace('#','') : '') || 'home';
@@ -1041,52 +1039,78 @@ function preload(src) {
 
 /* ========================= [ADDED END] ========================= */
 
+/* ========================= [ALL WISHLIST HELPERS] ========================= */
+(function(){
+  function setWishlistState(btn, on){
+    if (!btn) return;
+    btn.classList.toggle('is-liked', !!on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    var heart = btn.querySelector('img.heart');
+    if (heart && heart.src){
+      if (on){
+        if (/icon_heart_stroke\.svg$/i.test(heart.src)) heart.src = heart.src.replace(/icon_heart_stroke\.svg$/i, 'icon_heart_fill.svg');
+        else if (!/icon_heart_fill\.svg$/i.test(heart.src)) heart.src = 'img/icon_heart_fill.svg';
+      } else {
+        if (/icon_heart_fill\.svg$/i.test(heart.src)) heart.src = heart.src.replace(/icon_heart_fill\.svg$/i, 'icon_heart_stroke.svg');
+        else if (!/icon_heart_stroke\.svg$/i.test(heart.src)) heart.src = 'img/icon_heart_stroke.svg';
+      }
+    }
+  }
 
-// 페이지 로드 시 애니메이션
-gsap.from('.home-title', {
-    opacity: 0,
-    y: 30,
-    duration: 1,
-    delay: 0.3
-});
+  function updateAllBtnLabel(){
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.product_card .add_btn'));
+    var allOn = cards.length>0 && cards.every(function(b){ return b.classList.contains('is-liked'); });
+    var allBtn = document.getElementById('wishlistBtn');
+    if (allBtn){
+      allBtn.textContent = allOn ? 'REMOVE ALL FROM WISHLIST' : 'ADD ALL TO WISHLIST';
+      allBtn.setAttribute('aria-pressed', allOn ? 'true' : 'false');
+    }
+  }
 
-gsap.from('.home-sub', {
-    opacity: 0,
-    y: 20,
-    duration: 1,
-    delay: 0.6
-});
+  function toggleAllWishlist(){
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.product_card .add_btn'));
+    if (!cards.length) return;
+    var anyOff = cards.some(function(b){ return !b.classList.contains('is-liked'); });
+    cards.forEach(function(btn){ setWishlistState(btn, anyOff); });
+    updateAllBtnLabel();
+  }
 
-gsap.from('.badges .badge', {
-    opacity: 0,
-    x: -20,
-    duration: 0.8,
-    stagger: 0.2,
-    delay: 0.9
-});
+  // Bind once DOM is ready
+  window.addEventListener('DOMContentLoaded', function(){
+    var allBtn = document.getElementById('wishlistBtn');
+    if (allBtn){
+      allBtn.addEventListener('click', toggleAllWishlist);
+      updateAllBtnLabel();
+    }
+    // Hook individual toggles to keep label in sync
+    document.querySelectorAll('.product_card .add_btn').forEach(function(b){
+      b.addEventListener('click', function(){ try{ updateAllBtnLabel(); }catch(e){} });
+    });
+  });
+})();
+/* ========================= [ALL WISHLIST HELPERS END] ========================= */
+
+
+
+// 페이지 로드 시 애니메이션 (GSAP 존재 시에만)
+(function(){
+  var G = window.gsap;
+  if (!G) { console.warn('[skin-test] GSAP not found. Skipping home animations.'); return; }
+  G.from('.home-title', { opacity: 0, y: 30, duration: 1, delay: 0.3 });
+  G.from('.home-sub',   { opacity: 0, y: 20, duration: 1, delay: 0.6 });
+  G.from('.badges .badge', { opacity: 0, x: -20, duration: 0.8, stagger: 0.2, delay: 0.9 });
+})();
 
 
 // 퀴즈 카드 애니메이션
 function animateQuizCard() {
-    gsap.from('.card', {
-        opacity: 0,
-        scale: 0.9,
-        duration: 0.5
-    });
+  var G = window.gsap; if (!G) return;
+  G.from('.card', { opacity: 0, scale: 0.9, duration: 0.5 });
 }
 
 // 결과 페이지 애니메이션
 function animateResults() {
-    gsap.from('.radar-wrap', {
-        opacity: 0,
-        y: 30,
-        duration: 1
-    });
-    
-    gsap.from('.product_card', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.2
-    });
+  var G = window.gsap; if (!G) return;
+  G.from('.radar-wrap', { opacity: 0, y: 30, duration: 1 });
+  G.from('.product_card', { opacity: 0, y: 30, duration: 0.8, stagger: 0.2 });
 }

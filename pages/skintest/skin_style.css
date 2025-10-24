@@ -40,7 +40,7 @@ html, body {margin: 0; padding: 0; min-height: 100vh;}
 .page[hidden] {display: none !important;}
 
 /* Home */
-#home {min-height: 100vh; display: flex; align-items: center; justify-content: center; background: url("/asset/img/skintest/skintest-bg.jpg") top 50% center/cover no-repeat; text-align: center;}
+#home {min-height: 100vh; display: flex; align-items: center; justify-content: center; background: url("/asset/img/skintest/skintest-bg.jpg") center/cover no-repeat; text-align: center;}
 .home-inner {flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;}
 .home-title {margin: 0 0 8px; font-family: var(--tit_font); font-weight: 500; font-size: 2.5rem}
 .home-sub {margin: 0 0 14px; font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300; color: var(--muted)}
@@ -90,12 +90,13 @@ input[type="radio"]:checked + .option .bullet {border-color: var(--bg_black); bo
 /* result radar */
 #result {min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;}
 .result-inner {width: 100%; text-align: center;}
-.legend {display: flex; gap: 8px; align-items: center; justify-content: center; color: var(--txt_sub_44); padding-top: 200px; font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300;}
+.legend {display: flex; gap: 8px; align-items: center; justify-content: center; color: var(--txt_sub_44); padding-top: 100px; font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300;}
 .legend .sw {display: inline-block; width:18px; height: 10px; border-radius: 999px}
 .legend .sw.avg {background: rgba(24,169,153,0.6)}
 .legend .sw.mine {background: rgba(255,107,107,0.7)}
 .radar-wrap {display: flex; justify-content: center; margin: 50px;}
 .chart {width: 520px; height: 520px; position: relative; font-family: var(--txt_font); font-size: 1rem; font-weight: 300;}
+.chart { position: relative; }
 .axis-chip {position: absolute; transform: translate(-50%,-50%); background: var(--white_ff); border: 1px solid var(--txt_sub_77); border-radius: 999px; padding: 4px 8px; font-size: 0.75rem; white-space: nowrap;}
 .axis-chip.good {color:#0f5132;border-color:#badbcc;background:#d1e7dd}
 .axis-chip.bad {color:#842029;border-color:#f5c2c7;background:#f8d7da}
@@ -131,3 +132,6 @@ input[type="radio"]:checked + .option .bullet {border-color: var(--bg_black); bo
 
 .result-actions {position: relative; top: 100px; font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300; text-align: center;}
 .result-actions .btn {position: relative; z-index: 1; pointer-events: auto; }
+.result-actions .row-ghosts { display: flex; gap: 12px; justify-content: center; align-items: center; }
+#wishlistBtn { width: 200px; }
+.result-actions .btn, #wishlistBtn { pointer-events: auto; position: relative; z-index: 1; }
