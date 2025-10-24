@@ -176,8 +176,7 @@ header {
 
 .swiper .product_wrap {
     display: flex;
-    gap: 37px;
-    padding-right: none;
+    gap: 24px;
 }
 
 .pro_card.swiper-slide {
@@ -187,7 +186,6 @@ header {
 .pro_card {
     display: flex;
     flex-direction: column;
-    background: #ccc;
     padding-bottom: 100px;
 }
 
@@ -197,9 +195,7 @@ header {
     background: var(--shop_bg);
 }
 
-
-
-.carousel .swiper-button-prev,
+/* .carousel .swiper-button-prev,
 .carousel .swiper-button-next {
     width: 40px;
     height: 40px;
@@ -211,7 +207,7 @@ header {
 .carousel .swiper-button-prev::after,
 .carousel .swiper-button-next::after {
     font-size: 18px;
-}
+} */
 
 .pro_card .add_btn {
     width: 100%;
@@ -288,19 +284,19 @@ header {
 .p_right .option button em {
     display: flex;
     width: 100%;
-    padding: 0 10px;
+    padding-left: 2px;
     justify-content: space-between;
 }
 
 .p_right .option button em::after {
-    content: url(../img/icon_shop_down_w.svg);
+    content: url(/asset/img/shop/icon_shop_down_w.svg);
 }
 
 .p_right .option ul {
     position: absolute;
     left: 0;
     top: 33px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.826);
     width: 100%;
     /* display: none; */
     border-radius: 0 0 4px 4px;
@@ -309,6 +305,11 @@ header {
     color: var(--txt_sub_44);
     font-size: 1rem;
     z-index: 5;
+    display: none;
+}
+
+.p_right .option ul.on {
+    display: block;
 }
 
 .p_right .option ul li:first-child {

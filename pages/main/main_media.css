@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+
+@media (max-width: 1024px) {
+    .bestSeller {
+        /* height: 560px; */
+    }
+
+    /*     .bestSeller .inner {
+        height: 448px;
+    } */
+
+
+
+    .bestSeller .product .card {
+        /*       flex-shrink: 0; */
+        width: 228px;
+        height: 224px;
+        /*        position: relative;
+        margin: 0; */
+    }
+
+    .bestSeller .product .card img {
+        /*     width: 228px;
+        height: 224px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        translate: -50% -50%; */
+    }
+
+
+
+    .banner_1 {
+        position: relative;
+        overflow: visible;
+    }
+
+    .banner_1 .gradation_box {
+        height: 587px;
+        position: absolute;
+        left: 0px;
+        right: 0;
+        bottom: 0px;
+    }
+
+    .banner_1 .txt_box .txt_top {}
+
+}
