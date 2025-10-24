@@ -1109,6 +1109,17 @@
         height: 280px;
     }
 
+    .section-7 .tit_p {
+        font-size: 20px;
+    }
+
+    .section-7 h2 {
+        font-size: 40px;
+    }
+
+    .newsletter-tag {
+        font-size: 16px;
+    }
 }
 
 
