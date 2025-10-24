@@ -151,308 +151,250 @@ main {
 }
 
 /* influencer */
-.product_grid button, .product_grid h4 {
-  display: none;
+
+/* ===== SECTION LAYOUT ===== */
+.product_grid.influencer {
+  background: var(--bg_black);
+  padding-block: 100px;
 }
 
-.product_grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  padding: 20px;
-  max-width: 1700px;
+.product_grid .card_all {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
   margin: 0 auto;
+  max-width: 1700px;
 }
 
+.influencer_left,
+.influencer_right {
+  display: grid;
+  grid-template-columns: repeat(2, 421px);
+  grid-auto-rows: 421px;
+  gap: 5px;
+}
+
+/* LEFT (1~5) */
+.influencer_left .card1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.influencer_left .card2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.influencer_left .card3 {
+  grid-column: 1;
+  grid-row: 2 / span 2;
+}
+
+/* 세로 영상 */
+.influencer_left .card4 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.influencer_left .card5 {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+/* RIGHT (6~10) */
+.influencer_right .card6 {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+/* 세로 영상 */
+.influencer_right .card7 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.influencer_right .card8 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.influencer_right .card9 {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.influencer_right .card10 {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+/* ===== CARD & FLIP ===== */
 .product_grid .card {
-  /* background: #ddd; */
-  perspective: 1000px;
-  height: 300px;
-  /* aspect-ratio: 3 / 4; */
-  /* 🔸세로 비율 고정 (필요시 1/1로 변경 가능) */
-}
-
-.product_grid .card3 {
-  grid-row: span 2;
+  position: relative;
+  width: 100%;
   height: 100%;
-  /* 🔸 세 번째, 네 번째 셀만 세로로 2칸 */
+  perspective: 1200px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.product_grid .card5 {
-  grid-row: span 2;
-  height: 100%
-}
-
-.product_grid .in_inner {
+/* 플립 컨테이너 */
+.in_inner {
   position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.8s ease;
+  transition: transform .6s cubic-bezier(.22, .61, .36, 1);
   cursor: pointer;
 }
 
-.product_grid .card.flipped .inner {
+/* ★ JS가 .card에 flipped를 붙인다 */
+.card.flipped .in_inner {
   transform: rotateY(180deg);
 }
 
 .front,
 .back {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   backface-visibility: hidden;
   border-radius: 12px;
   overflow: hidden;
-
-}
-
-.front {
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.product_grid img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* ✅ 이미지 비율 유지하면서 꽉 채우기 */
 }
 
 .back {
-  color: var(--txt_main);
-  transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-  font-weight: 500;
-}
-
-.product_grid small {
-  display: none;
-}
-
-.card:hover small {
-  font-size: 0.85rem;
-  color: #666;
-  display: inline;
-}
-
-
-/* .influencer {
-  --card: 421px;
-  --gap: 5px;
-  width: 100%;
-  padding: 100px 0;
-  background: var(--bg_black);
-}
-
-.influencer>.inner {
-  padding-inline: 0;
-  max-width: 1700px;
-  margin: 0 auto;
-  height: auto;
-  display: flex;
-  gap: var(--gap);
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.influencer .card_left,
-.influencer .card_right {
-  width: calc(var(--card) * 2 + var(--gap));
-  height: calc(var(--card) * 3 + var(--gap) * 2);
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap);
-  align-items: flex-start;
-}
-
-.influencer .card {
-  width: var(--card);
-  height: var(--card);
-  position: relative;
-  border-radius: 10px;
-  background: var(--img_bg);
-  overflow: hidden;
-  display: block;
-  pointer-events: auto;
-}
-
-.influencer .card_3,
-.influencer .card_6 {
-  height: calc(var(--card) * 2 + var(--gap));
-}
-
-.influencer .card {
-  position: relative;
-  perspective: 1000px;
-  -webkit-perspective: 1000px;
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  transition: transform 1.6s cubic-bezier(.2, .8, .2, 1);
-  will-change: transform;
-}
-
-.influencer .card.flipped {
   transform: rotateY(180deg);
 }
 
-.influencer .card .front,
-.influencer .card .back {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  display: block;
-}
-
-.influencer .card .front {
-  transform: rotateY(0deg);
-  z-index: 2;
-}
-
-.influencer .card .back {
-  transform: rotateY(180deg);
-  z-index: 1;
-}
-
-.influencer .card img {
-  transform: none !important;
-}
-
-.influencer .card .media {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.influencer .card .media img,
-.influencer .card .media video {
+/* 미디어 */
+.product_grid img,
+.product_grid video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 12px;
 }
 
-.influencer .card .black {
+/* ===== HOVER TEXT / ICON (BG 없이 간단히) ===== */
+.pro_txt {
   position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-  background: rgba(0, 0, 0, .45);
-  color: var(--white_ff);
   opacity: 0;
-  pointer-events: none;
-  transition: opacity .25s ease;
+  transition: opacity .2s ease;
+  color: #fff;
   z-index: 2;
-}
-
-.influencer .card:hover .black {
-  opacity: 1;
   pointer-events: auto;
 }
 
-.influencer .black_top {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  top: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.influencer .black_top .name {
+/* 위치 */
+.card h4.pro_txt {
+  top: 20px;
+  left: 20px;
   font-size: 1rem;
   line-height: 1.4;
 }
 
-.influencer .black_center {
+.card small.pro_txt {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  display: grid;
-  gap: 10px;
-}
-
-.influencer .black_center p {
-  margin: 0;
+  line-height: 1.4;
   font-size: 1.125rem;
   font-weight: 500;
 }
 
-.influencer .wish {
-  all: unset;
+.card .wish.pro_txt {
+  top: 20px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  background: none;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 0;
+}
+
+/* hover 시에만 텍스트/하트 보이기 */
+.card:hover .pro_txt {
+  opacity: 1;
+}
+
+.card:hover .pro {
+  opacity: 0.4;
+}
+
+.influencer .wish {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .influencer .wish .icon_heart {
-  width: 20px;
-  height: 20px;
-  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.25s ease;
+}
+
+.influencer .wish .icon_heart:nth-of-type(1) {
+  opacity: 1;
 }
 
 .influencer .wish .icon_heart:nth-of-type(2) {
-  display: none;
+  opacity: 0;
 }
 
 .influencer .wish.active .icon_heart:nth-of-type(1) {
-  display: none;
+  opacity: 0;
 }
 
 .influencer .wish.active .icon_heart:nth-of-type(2) {
-  display: block;
+  opacity: 1;
 }
 
-.influencer .card_left .card_5 {
-  position: absolute;
-  right: 0;
-  top: calc(var(--card) * 2 + var(--gap) * 2);
-  width: var(--card);
-  height: var(--card);
+.front img,
+.back img,
+.front video,
+.back video,
+.front::after,
+.back::after {
+  pointer-events: none;
 }
 
-.influencer .card_right .card_8 {
-  position: absolute;
-  right: 0;
-  top: calc(var(--card) + var(--gap));
-  width: var(--card);
-  height: var(--card);
-} */
 
+/* ===== RESPONSIVE ===== */
+@media (max-width:1280px) {
+  .influencer_right {
+    display: none;
+  }
 
-/* 카드회전 */
-/* .influencer .inner .card .front {
-  background: red;
+  .product_grid .card_all {
+    gap: 20px;
+    max-width: calc(421px*2 + 20px);
+  }
 }
 
-.influencer .inner .card .back {
-  background: pink;
-  transform: rotateY(180deg);
+@media (max-width:768px) {
+  .influencer_left {
+    grid-template-columns: 1fr;
+  }
 
+  .product_grid .card {
+    width: 100%;
+    height: 421px;
+  }
 }
 
-.hidden {
-  backface-visibility: hidden;
-} */
 
-
-
+/* membership */
 .membership {
   width: 100%;
   height: 100%;

@@ -154,60 +154,88 @@ document.addEventListener('DOMContentLoaded', () => {
   /* -------------------------------
                🟣 2. 인플루언서 카드 순차 회전
            ------------------------------- */
-  const cards = Array.from(document.querySelectorAll('.influencer .card'));
-  if (cards.length) {
-    const config = {
-      flipMs: 800,
-      stayMs: 500,
-      gapMs: 120,
-      resetDelay: 1000,
-    };
+const cards = Array.from(document.querySelectorAll('.influencer .card'));
+if (cards.length) {
+  const config = {
+    flipMs: 800,
+    stayMs: 500,
+    gapMs: 120,
+    resetDelay: 1000,
+  };
 
-    let loopRunning = false;
-    let stopLoop = false;
-    let isHovered = false;
+  let loopRunning = false;
+  let stopLoop = false;
+  let isHovered = false;
 
-    const influencerEl = document.querySelector('.influencer');
-    if (influencerEl) {
-      influencerEl.addEventListener('pointerenter', () => (isHovered = true));
-      influencerEl.addEventListener('pointerleave', () => (isHovered = false));
-    }
+  const influencerEl = document.querySelector('.influencer');
+  if (influencerEl) {
+    influencerEl.addEventListener('pointerenter', () => (isHovered = true));
+    influencerEl.addEventListener('pointerleave', () => (isHovered = false));
+  }
 
-    const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+  const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
-    async function sequentialFlipLoop() {
-      if (loopRunning) return;
-      loopRunning = true;
+  // 💖 하트 클릭: front/back 동기화 + 루프 영향 제거
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.influencer .wish');
+    if (!btn) return;
+    e.stopPropagation();
+    e.preventDefault();
 
-      while (!stopLoop) {
-        for (const card of cards) {
-          if (stopLoop) break;
-          while (isHovered && !stopLoop) await sleep(150);
-          if (stopLoop) break;
+    const card = btn.closest('.card');
+    if (!card) return;
 
-          card.classList.add('flipped');
-          await sleep(config.flipMs + config.stayMs + config.gapMs);
-        }
-        if (stopLoop) break;
-
-        await sleep(config.resetDelay);
-        cards.forEach((c) => c.classList.remove('flipped'));
-        await sleep(config.flipMs + 300);
-      }
-
-      loopRunning = false;
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) stopLoop = true;
-      else if (stopLoop) {
-        stopLoop = false;
-        sequentialFlipLoop();
-      }
+    const willActive = !btn.classList.contains('active');
+    card.querySelectorAll('.wish').forEach((w) => {
+      w.classList.toggle('active', willActive);
+      w.setAttribute('aria-pressed', willActive ? 'true' : 'false');
     });
 
-    sequentialFlipLoop();
+    // 플립 루프 중단 방지
+    card.classList.add('liked'); // 클릭된 카드 표시
+  });
+
+  // ♻️ 순차 플립 루프
+  async function sequentialFlipLoop() {
+    if (loopRunning) return;
+    loopRunning = true;
+
+    while (!stopLoop) {
+      for (const card of cards) {
+        if (stopLoop) break;
+        while (isHovered && !stopLoop) await sleep(150);
+        if (stopLoop) break;
+
+        // 하트 눌린 카드(liked)는 건너뜀
+        if (card.classList.contains('liked')) continue;
+
+        card.classList.add('flipped');
+        await sleep(config.flipMs + config.stayMs + config.gapMs);
+      }
+      if (stopLoop) break;
+
+      await sleep(config.resetDelay);
+      cards.forEach((c) => {
+        if (!c.classList.contains('liked')) c.classList.remove('flipped');
+      });
+      await sleep(config.flipMs + 300);
+    }
+
+    loopRunning = false;
   }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopLoop = true;
+    else if (stopLoop) {
+      stopLoop = false;
+      sequentialFlipLoop();
+    }
+  });
+
+  sequentialFlipLoop();
+}
+
+
   /* -------------------------------
       🟣 3. 인플루언서 찜(하트) 기능
   ------------------------------- */
