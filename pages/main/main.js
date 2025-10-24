@@ -161,43 +161,44 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-});
 
 
-/* -------------------------------
-     한방 ON 상황
- ------------------------------- */
+
+  /* -------------------------------
+       한방 ON 상황
+   ------------------------------- */
 
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   const buttons = document.querySelectorAll(".txt_left ul button, .txt_right ul button");
-//   const txtBoxes = document.querySelectorAll(".txt_left ul, .txt_right ul");
-//   const imgBoxes = document.querySelectorAll(".img_box > div");
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   const buttons = document.querySelectorAll(".txt_left ul button, .txt_right ul button");
+  //   const txtBoxes = document.querySelectorAll(".txt_left ul, .txt_right ul");
+  //   const imgBoxes = document.querySelectorAll(".img_box > div");
 
-//   buttons.forEach((button, index) => {
-//     button.addEventListener("click", function () {
-//       // 모든 텍스트 영역에서 .on 제거
-//       txtBoxes.forEach(box => box.classList.remove("on"));
+  //   buttons.forEach((button, index) => {
+  //     button.addEventListener("click", function () {
+  //       // 모든 텍스트 영역에서 .on 제거
+  //       txtBoxes.forEach(box => box.classList.remove("on"));
 
-//       // 클릭한 텍스트 박스에 .on 추가
-//       txtBoxes[index].classList.add("on");
+  //       // 클릭한 텍스트 박스에 .on 추가
+  //       txtBoxes[index].classList.add("on");
 
-//       // 모든 이미지 숨기기
-//       imgBoxes.forEach(img => img.style.display = "none");
+  //       // 모든 이미지 숨기기
+  //       imgBoxes.forEach(img => img.style.display = "none");
 
-//       // 해당 이미지 보이기
-//       imgBoxes[index].style.display = "block";
-//     });
-//   });
-// });
+  //       // 해당 이미지 보이기
+  //       imgBoxes[index].style.display = "block";
+  //     });
+  //   });
+  // });
 
 
-/* -------------------------------
-     한방 이미지 ON 상황
-------------------------------- */
+  /* -------------------------------
+       한방 이미지 ON 상황
+  ------------------------------- */
 
-document.addEventListener("DOMContentLoaded", () => {
+
   const txtBoxes = document.querySelectorAll(".hanbang .txt_all ul");
+  const hanbangBtns = document.querySelectorAll('.hanbang .txt_all ul li');
   const imgGroups = document.querySelectorAll(".hanbang .img_box > div");
   const total = txtBoxes.length;
   let currentIndex = 0;
@@ -210,9 +211,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateImage(index) {
-    imgGroups.forEach(img => img.style.display = "none");
+    imgGroups.forEach(img => img.classList.remove('on'));
+    document.querySelector('.num span').innerHTML = index + 1;
     if (imgGroups[index]) {
-      imgGroups[index].style.display = "block";
+      imgGroups[index].classList.add('on');
     }
   }
 
@@ -221,12 +223,29 @@ document.addEventListener("DOMContentLoaded", () => {
   updateImage(currentIndex);
 
   // 공통 타이머
-  setInterval(() => {
+  let interHanbang = setInterval(() => {
     currentIndex = (currentIndex + 1) % total;
     updateText(currentIndex);
     updateImage(currentIndex);
+
+    // console.log(currentIndex)
   }, 4000); // 4초 간격
+
+  hanbangBtns.forEach((libtn, i) => {
+    libtn.addEventListener('click', () => {
+      clearInterval(interHanbang);
+      updateText(i);
+      updateImage(i);
+      interHanbang = setInterval(() => {
+        currentIndex = (currentIndex + 1) % total;
+        updateText(currentIndex);
+        updateImage(currentIndex);
+      }, 4000); // 4초 간격
+    })
+  })
+
 });
+
 
 
 
