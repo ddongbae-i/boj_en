@@ -332,28 +332,41 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/*________________________sub_main2 */
-/*  document.addEventListener('DOMContentLoaded', () => {
-    const subMain = document.querySelector('.sub_main');
-    const subMain2 = document.querySelector('.sub_main2');
-    if (!subMain || !subMain2) return;
 
-    // 클릭 가능 표시 및 키보드 접근성
-    subMain.style.cursor = 'pointer';
-    if (!subMain.hasAttribute('tabindex')) subMain.setAttribute('tabindex', '0');
+/*_____________________________________________태그 컬러 임시 color */
+const wordColors = {
+  'Moisturizing': { color: '#FF6B6B', background: '#FFE5E5', border: '#FF6B6B' },
+  'Firming': { color: '#4ECDC4', background: '#E0FFFA', border: '#4ECDC4' },
+  'Hydrating': { color: '#FFD93D', background: '#FFF7CC', border: '#FFD93D' },
+  'Soothing': { color: '#6A4C93', background: '#EDE0F7', border: '#6A4C93' },
+  'Brightening': { color: '#4c935aff', background: '#e0f7e7ff', border: '#4c9358ff' }
 
-    const goToSubMain2 = () => {
-        subMain2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+};
 
-    subMain.addEventListener('click', goToSubMain2);
-    subMain.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            goToSubMain2();
-        }
-    });
-});  */
+document.querySelectorAll('.tags span').forEach(span => {
+  const word = span.textContent.trim();
+  const style = wordColors[word];
+
+  if (!style) return;
+
+  const originalColor = span.style.color || window.getComputedStyle(span).color;
+  const originalBg = span.style.backgroundColor || window.getComputedStyle(span).backgroundColor;
+  const originalBorder = span.style.borderColor || window.getComputedStyle(span).borderColor;
+
+  span.addEventListener('mouseenter', () => {
+    span.style.color = style.color;
+    span.style.backgroundColor = style.background;
+    span.style.borderColor = style.border;
+  });
+
+  span.addEventListener('mouseleave', () => {
+    span.style.color = originalColor;
+    span.style.backgroundColor = originalBg;
+    span.style.borderColor = originalBorder;
+  });
+});
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
