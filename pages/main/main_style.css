@@ -320,7 +320,7 @@ main {
 }
 
 .card:hover .pro {
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 .influencer .wish {
@@ -336,6 +336,7 @@ main {
   pointer-events: auto;
 }
 
+/* 하트 아이콘 opacity로 전환 */
 .influencer .wish .icon_heart {
   position: absolute;
   inset: 0;
@@ -344,22 +345,23 @@ main {
   transition: opacity 0.25s ease;
 }
 
-.influencer .wish .icon_heart:nth-of-type(1) {
-  opacity: 1;
+.influencer .wish .icon_heart:nth-of-type(1) { opacity: 1; }
+.influencer .wish .icon_heart:nth-of-type(2) { opacity: 0; }
+
+.influencer .wish.active .icon_heart:nth-of-type(1) { opacity: 0; }
+.influencer .wish.active .icon_heart:nth-of-type(2) { opacity: 1; }
+
+/* backface 클릭 막힘 방지 */
+.front,
+.back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  z-index: 0;
 }
 
-.influencer .wish .icon_heart:nth-of-type(2) {
-  opacity: 0;
-}
-
-.influencer .wish.active .icon_heart:nth-of-type(1) {
-  opacity: 0;
-}
-
-.influencer .wish.active .icon_heart:nth-of-type(2) {
-  opacity: 1;
-}
-
+/* 이미지, 오버레이는 클릭 막지 않게 */
 .front img,
 .back img,
 .front video,
