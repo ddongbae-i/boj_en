@@ -493,14 +493,14 @@ main {
   align-items: center;
   /* gap: 0; */
   position: relative;
-  background: #ccc;
 }
 
 .hanbang .inner .num {
-  position: absolute;
+  /* position: absolute;
   font-size: 3rem;
   right: 50px;
-  bottom: 50px;
+  bottom: 50px; */
+  display: none;
 }
 
 .hanbang .txt_all {

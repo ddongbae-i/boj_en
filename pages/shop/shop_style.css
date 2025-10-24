@@ -29,6 +29,7 @@ header {
     min-height: 100vh;
     background: var(--bg_black);
     overflow: hidden;
+    padding-bottom: 60px;
 }
 
 .puzzle .inner {
@@ -118,29 +119,47 @@ header {
 
 /* 오른쪽 텍스트 */
 .puzzle_right {
-    flex-shrink: 0;
-    width: 50%;
     text-align: center;
+    padding-right: 50px;
+    margin-block: auto;
 }
 
 .puzzle .txt_area {
     color: var(--white_ff);
-    flex: 1;
+    width: 490px;
     min-width: 280px;
 }
 
 .puzzle .txt_area .tit {
     line-height: 1.2;
-    margin-inline: auto;
 }
 
 .puzzle .txt_area .txt {
     line-height: 1.4;
     font-size: 1.125rem;
-    margin-inline: auto;
     margin-top: 12px;
     color: var(--grey_c7);
+    width: 490px;
+
 }
+
+.puzzle_right .new_btn {
+    display: flex;
+    gap: 12px;
+    margin-top: 60px;
+    justify-content: center;
+}
+
+.puzzle_right .btn:first-child {
+    border-color : var(--white_ff);
+    display: block;
+}
+
+.puzzle_right .btn:last-child {
+    border: none;
+    background: var(--white_ff);
+    color: var(--txt_main);
+} 
 
 /* 섹션2 세일존 */
 
@@ -154,25 +173,27 @@ header {
 
 .sale_zone .inner .txt_area {
     width: 100%;
+    padding-right: 80px;
 }
 
 .sale_zone .txt {
-    width: 220px;
-    margin-top: 12px;
+    margin-top: 16px;
     color: var(--grey_c7);
-    width: 100%;
+    width: 220px;
     line-height: 140%;
 }
 
 .sale_zone .btn2 {
+    margin-top: 40px;
     color: var(--white_ff);
 }
 
-.carousel {
-    position: relative;
-    overflow: hidden;
-    /* 스크롤 숨김 */
+.swiper {
+    display: flex;
+    flex-direction: column;
+    
 }
+
 
 .swiper .product_wrap {
     display: flex;
@@ -188,6 +209,8 @@ header {
     flex-direction: column;
     padding-bottom: 100px;
 }
+
+
 
 .pro_card .pro_img {
     width: 542px;
@@ -222,7 +245,9 @@ header {
     margin-top: 8px;
 }
 
-
+.pro_card:last-child  {
+    margin-right: 250px;
+}
 
 .pro_bottom {
     display: flex;
@@ -318,4 +343,20 @@ header {
 
 .p_right .option ul.active ul {
     display: block;
+}
+
+.left_arrow::after {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-image: url(/asset/img/shop/icon_left_arrow.svg);
+}
+
+.right_arrow::after {
+     content: '';
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-image: url(/asset/img/shop/icon_left_arrow.svg);
 }
