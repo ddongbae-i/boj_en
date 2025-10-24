@@ -82,6 +82,7 @@ header {
     /* dn 지우기 */
       transition: background-color 0.3s, top 0.4s ease;
   background-color: transparent;
+  z-index: 100;
 }
 
 /* 기본 (위로 스크롤 시 노출) */
@@ -122,7 +123,7 @@ nav:hover .ham_bottom {
     position: fixed;
     left: 110px;
     bottom: 60px;
-    z-index: 5;
+    z-index: 99;
     width: 100%;
     max-width: 500px;
     display: none;
@@ -179,6 +180,7 @@ nav .sub_wrap {
     background: var(--bg_white);
     display: none;
     border-top: 1px solid #000;
+    z-index: 88;
 }
 
 nav ul.gnb>li:hover .sub_wrap,

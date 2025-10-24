@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        section {
+            width: 100%;
+            height: 100vh;
+            border: 10px solid #000;
+        }
+
+        .inner {
+            width: 1600px;
+            height: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        li {
+            width: 30%;
+            height: 100%;
+            border: 5px solid blue;
+        }
+
+        .img_box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 500px;
+            background: red;
+        }
+
+        @media screen and (max-width:1024px) {
+            .inner {
+                width: 90%;
+            }
+
+            .hanbang {
+                height: auto;
+            }
+
+            li {
+                height: 100vh;
+                order: 1;
+            }
+
+            .inner {
+                flex-direction: column;
+                justify-content: flex-start;
+            }
+
+            .img_box {
+                width: 30%;
+                height: 50vh;
+                position: sticky;
+                transform: translate(0, 0);
+                order: -1;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section></section>
+    <section class="hanbang">
+        <ul class="inner">
+            <li></li>
+            <li class="img_box"></li>
+            <li></li>
+        </ul>
+    </section>
+</body>
+
+</html>
