@@ -1,0 +1,320 @@
+@charset "utf-8";
+
+
+a.btn2 {
+    height: 40px;
+    font-size: 1.125rem;
+    display: flex;
+    color: #fff;
+    gap: 5px;
+    align-items: center;
+
+}
+
+.btn2::after {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-image: url(/asset/img/shop/arrow_up.svg);
+}
+
+header {
+    z-index: 6;
+}
+
+.puzzle {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg_black);
+    overflow: hidden;
+}
+
+.puzzle .inner {
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    /* 좌/우 배치 */
+    align-items: center;
+}
+
+.flex_area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    /* ← 폭 꽉 채우기 */
+}
+
+.puzzle_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.media {
+    position: relative;
+    width: calc(240px * 4 + 6px * 6);
+    height: calc(240px * 3 + 6px * 6);
+}
+
+.stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.grid,
+.video {
+    position: absolute;
+    inset: 0;
+}
+
+.grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 240px);
+    /* ✅ 1fr 말고 픽셀 */
+    grid-auto-rows: 240px;
+    /* ✅ 픽셀 */
+    gap: 6px;
+    /* 시작값 */
+    padding: 6px;
+    /* 시작값 (비디오와 동일) */
+    z-index: 2;
+    background: var(--bg_black);
+}
+
+.tile {
+    width: 240px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 4px;
+    will-change: transform;
+}
+
+/* 비디오는 퍼즐과 동일 사이즈로 아래에 깔림 */
+.video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    padding: 6px;
+    /* ✅ grid와 시작값 동일 */
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+/* 보너스: 서브픽셀 틀어짐 방지(선택) */
+.media,
+.grid,
+.video {
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 오른쪽 텍스트 */
+.puzzle_right {
+    flex-shrink: 0;
+    width: 50%;
+    text-align: center;
+}
+
+.puzzle .txt_area {
+    color: var(--white_ff);
+    flex: 1;
+    min-width: 280px;
+}
+
+.puzzle .txt_area .tit {
+    line-height: 1.2;
+    margin-inline: auto;
+}
+
+.puzzle .txt_area .txt {
+    line-height: 1.4;
+    font-size: 1.125rem;
+    margin-inline: auto;
+    margin-top: 12px;
+    color: var(--grey_c7);
+}
+
+/* 섹션2 세일존 */
+
+.sale_zone .inner {
+    background: var(--bg_black);
+    color: var(--white_ff);
+    padding-block: 60px;
+    display: flex;
+    padding-right: 0;
+}
+
+.sale_zone .inner .txt_area {
+    width: 100%;
+}
+
+.sale_zone .txt {
+    width: 220px;
+    margin-top: 12px;
+    color: var(--grey_c7);
+    width: 100%;
+    line-height: 140%;
+}
+
+.sale_zone .btn2 {
+    color: var(--white_ff);
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+    /* 스크롤 숨김 */
+}
+
+.swiper .product_wrap {
+    display: flex;
+    gap: 37px;
+    padding-right: none;
+}
+
+.pro_card.swiper-slide {
+    width: 542px;
+}
+
+.pro_card {
+    display: flex;
+    flex-direction: column;
+    background: #ccc;
+    padding-bottom: 100px;
+}
+
+.pro_card .pro_img {
+    width: 542px;
+    height: 542px;
+    background: var(--shop_bg);
+}
+
+
+
+.carousel .swiper-button-prev,
+.carousel .swiper-button-next {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: #1d1d1d;
+    color: #fff;
+}
+
+.carousel .swiper-button-prev::after,
+.carousel .swiper-button-next::after {
+    font-size: 18px;
+}
+
+.pro_card .add_btn {
+    width: 100%;
+    height: 50px;
+    background: var(--white_f0);
+    color: var(--txt_main);
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+
+
+.pro_bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pro_tit {
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.4;
+    margin-top: 16px;
+}
+
+.pro_bottom {
+    margin-top: 27px;
+    font-size: 1.5rem;
+}
+
+.pro_bottom .p_left em {
+    color: var(--propulis);
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.pro_bottom .price {
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.pro_bottom s {
+    margin-left: 4px;
+    font-size: 1rem;
+    color: var(--grey_aa);
+}
+
+.p_right {
+    width: 130px;
+    font-weight: 300;
+    font-size: 1rem;
+    color: var(--grey_de);
+    margin-right: 24px;
+    border-bottom: 1px solid var(--grey_de);
+}
+
+.p_right .option {
+    width: 100%;
+    position: relative;
+    height: 32px;
+    font-weight: 300;
+    color: var(--grey_de);
+}
+
+.p_right .option button {
+    cursor: pointer;
+    width: 100%;
+
+}
+
+.p_right .option button em {
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+    justify-content: space-between;
+}
+
+.p_right .option button em::after {
+    content: url(../img/icon_shop_down_w.svg);
+}
+
+.p_right .option ul {
+    position: absolute;
+    left: 0;
+    top: 33px;
+    background: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    /* display: none; */
+    border-radius: 0 0 4px 4px;
+    border-bottom: 0;
+    padding: 10px;
+    color: var(--txt_sub_44);
+    font-size: 1rem;
+    z-index: 5;
+}
+
+.p_right .option ul li:first-child {
+    margin-bottom: 8px;
+}
+
+.p_right .option ul.active ul {
+    display: block;
+}

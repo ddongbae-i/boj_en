@@ -1,0 +1,245 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.blind {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    white-space: nowrap;
+    /* 공백없이 한줄로 처리 */
+    clip: rect(0, 0, 0, 0);
+}
+
+.blind2 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    white-space: nowrap;
+    /* 공백없이 한줄로 처리 */
+}
+
+img {
+    vertical-align: top;
+    object-fit: cover;
+}
+
+button {
+    background: none;
+    /* 기본 배경 제거 */
+    border: none;
+    /* 테두리 제거 */
+    padding: 0;
+    /* 기본 패딩 제거 */
+    margin: 0;
+    /* 간격 초기화 */
+    font: inherit;
+    /* 폰트를 부모와 동일하게 상속 */
+    color: inherit;
+    /* 글자 색도 상속 */
+    cursor: pointer;
+    /* 클릭 가능한 손 모양 커서 */
+    outline: none;
+    /* 포커스 시 파란 라인 제거 */
+}
+
+button:focus {
+    outline: none;
+    /* 접근성을 고려한다면 :focus-visible 사용 가능 */
+}
+
+input[type="search"] {
+    -webkit-appearance: none;
+    /* Safari, Chrome 기본 검색 스타일 제거 */
+    -moz-appearance: none;
+    /* Firefox */
+    appearance: none;
+    /* 나머지 브라우저 */
+
+    border: none;
+    /* 기본 테두리 제거 */
+    outline: none;
+    /* 포커스 시 파란 라인 제거 */
+    background: none;
+    /* 배경 제거 */
+    padding: 0;
+    /* 내부 여백 제거 */
+    margin: 0;
+    font: inherit;
+    /* 폰트는 부모 스타일 따르게 */
+    color: inherit;
+    /* 글자 색도 상속 */
+}
+
+input[type="search"], input[type="email"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+        border: none;
+        outline: none;
+}
+
+/* 기본 X 버튼 숨기기 */
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+}
+
+button {
+    font: inherit;
+}
+
+select {
+    border: none;
+    background: none;
+}

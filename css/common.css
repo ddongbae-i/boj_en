@@ -1,0 +1,435 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Scheherazade+New:wght@400;500;600;700&display=swap');
+
+:root {
+    font-size: 16px;
+    --bg_black: #0f0f0f;
+    --bg_white: #fefefe;
+    --bg_footer: #202020;
+    --txt_main: #1c1c1c;
+    --txt_sub_44: #444;
+    --txt_sub_77: #777;
+    --grey_aa: #aaa;
+    --white_ff: #fff;
+    --white_f2: #f2f2f2;
+    --grey_de: #dedede;
+    --grey_c7: #c7c7c7;
+    --img_bg: #f7f7f7;
+    --shop_bg: #EAE0D6;
+    --white_f0: #f0f0f0;
+    --ginseng: #C1843A;
+    --rice: #BEAF9A;
+    --greentea: #4B6D2F;
+    --redbean: #712116;
+    --propulis: #E6A11C;
+    --greenplum: #74822B;
+    --centella: #5F6B3D;
+    --mugwort: #1B4805;
+    --tit_font: "Cormorant", serif;
+    --txt_font: "Public Sans", sans-serif;
+}
+
+
+body {
+    /* background: var(--rice); */
+    font-size: 1rem;
+    color: var(--txt_main);
+    font-family: var(--txt_font);
+    line-height: 1.4;
+    font-weight: 300;
+}
+
+.inner {
+    width: 100%;
+    margin-inline: auto;
+    width: min(100%, calc(1700px + 110px * 2));
+    padding-inline: 110px;
+}
+
+.tit {
+    font-family: var(--tit_font);
+    font-size: 3rem;
+    line-height: 120%;
+    font-weight: 500;
+}
+
+.btn {
+    width: 120px;
+    height: 45px;
+    font-size: 1rem;
+    font-weight: 400;
+    border: 1px solid var(--txt_main);
+    text-align: center;
+    line-height: 45px;
+}
+
+/* 가운데 정렬하기 */
+
+header .logo {
+    font-family: "Scheherazade New", serif;
+    font-size: 36px;
+    font-weight: 400;
+}
+
+header {
+    width: 100%;
+    height: 124px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* display: none; */
+    /* dn 지우기 */
+      transition: background-color 0.3s, top 0.4s ease;
+  background-color: transparent;
+}
+
+/* 기본 (위로 스크롤 시 노출) */
+header.scrolled-up {
+  background-color: rgba(254, 254, 254, 0.94); /* 반투명 */
+}
+
+/* hover 시 (위로 스크롤 상태일 때만 진하게) */
+header.scrolled-up.hovered {
+  background-color: #fefefe; /* 완전 불투명 or 더 진한 색 */
+}
+
+header.hovered {
+  background-color: #fefefe; /* hover 시 더 채워진 불투명색 */
+}
+
+header .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+header .logo {
+    display: block;
+    height: 51px;
+}
+
+nav {
+    height: 100%;
+}
+
+nav:hover .ham_bottom {
+    display: block;
+}
+
+.ham_bottom {
+    position: fixed;
+    left: 110px;
+    bottom: 60px;
+    z-index: 5;
+    width: 100%;
+    max-width: 500px;
+    display: none;
+    padding-top: 56px;
+    border-top: 1px solid var(--grey_aa);
+}
+
+.ham_bottom ul li:nth-child(1), .ham_bottom ul li:nth-child(2) {
+    display: none;
+}
+
+.ham_bottom ul li a {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 1.25rem;
+}
+
+nav ul.gnb {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    font-size: 1.25rem;
+}
+
+nav ul.gnb>li {
+    height: 100%;
+}
+
+nav ul.gnb:hover>li {
+    color: var(--txt_sub_77);
+}
+
+nav ul.gnb>li:hover >a {
+    color: var(--txt_main);
+}
+
+nav ul.gnb>li>a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    align-content: center;
+    padding-inline: 35px;
+}
+
+nav .sub_wrap {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    height: 100vh;
+    background: var(--bg_white);
+    display: none;
+    border-top: 1px solid #000;
+}
+
+nav ul.gnb>li:hover .sub_wrap,
+nav.on ul.gnb>li .sub_wrap {
+    display: flex;
+}
+
+nav .sub_wrap .sub {
+    width: 50%;
+    color: var(--txt_main);
+    display: flex;
+    flex-direction: column;
+    padding: 30px 110px 0;
+    flex-wrap: wrap;
+}
+
+nav .sub_wrap .sub li a {
+    display: block;
+    padding: 10px 0;
+}
+
+nav .sub_wrap .sub_img {
+    width: 50%;
+    height: 100%;
+    padding: none;
+}
+
+nav .sub_wrap .sub_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding: 0;
+}
+
+.nav_right {
+    display: flex;
+    justify-content: flex-end;
+    gap: 32px;
+}
+
+.nav_right button,
+.nav_right a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+}
+
+.gg {
+    height: 124px;
+    width: 100%;
+    background: var(--bg_white);
+}
+
+.search_tab {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--bg_white);
+    height: 512px;
+    padding: 30px 110px;
+    display: none;
+}
+
+.search_tab.open {
+    display: block;
+}
+
+.search_tab button.close {
+    display: block;
+    margin-left: auto;
+}
+
+.search_tab form {
+    margin-top: 36px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--txt_main);
+}
+
+.search_tab form .search_area {
+    display: flex;
+    align-items: center;
+    border: none;
+    width: 100%;
+}
+
+.search_tab form .search_area button {
+    padding: 0;
+}
+
+.search_tab input[type="search"] {
+    width: 1600px;
+    margin-left: 8px;
+    font-size: 1.25rem;
+}
+
+.search_tab .keyword_wrap {
+    width: 970px;
+    margin-top: 60px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.search_tab .keyword_wrap a {
+    padding: 10px 26px;
+    border: 1px solid var(--grey_aa);
+    border-radius: 26px;
+}
+
+.nav_right .ham_menu {
+    display: none;
+}
+
+footer {
+    width: 100%;
+    background: var(--bg_footer);
+    color: var(--white_ff);
+    font-size: 1.125rem;
+    font-weight: 300;
+}
+
+footer .inner {
+    width: 100%;
+    padding-block: 65px;
+}
+
+footer .inner .logo {
+    font-family: "Scheherazade New", serif;
+    font-size: 4rem;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+footer .f_center {
+    margin-block: 20px 100px;
+}
+
+footer .f_tit {
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
+footer .f_center {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer .f_join .f_tit {
+    font-weight: 300;
+    margin-left: 10px;
+}
+
+footer .f_join p {
+    color: var(--grey_aa);
+    margin-left: 10px;
+    width: 400px;
+    font-weight: 300;
+}
+
+.f_join form {
+    width: 100%;
+    max-width: 450px;
+    height: 70px;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-block: 24px 16px;
+}
+
+.f_join form input[type="email"] {
+    width: 100%;
+    font-size: 1rem;
+    color: var(--grey_de);
+}
+
+.f_join form button {
+    white-space: nowrap;
+}
+
+.f_join form .f_join_box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 20px;
+}
+
+footer .f_join span {
+    color: var(--txt_sub_77);
+    margin-left: 10px;
+}
+
+.f_center_right {
+    width: 653px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.f_nav_top {
+    width: 100%;
+}
+
+.f_nav_top button {
+    display: none;
+}
+
+.f_nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    color: var(--bg_white);
+    margin-top: 12px;
+}
+
+.boj_insta {
+    font-size: 1rem;
+}
+
+.boj_insta p {
+    margin-top: 8px;
+    color: var(--txt_sub_77);
+}
+
+.boj_insta .insta_area {
+    width: 268px;
+    height: 266px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+.boj_insta .insta_area img {
+    width: 127px;
+}
+
+.f_bottom {
+    border-top: 1px solid var(--grey_aa);
+    padding-top: 51px;
+    color: var(--txt_sub_77);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.f_sns {
+    display: flex;
+    gap: 20px;
+}
