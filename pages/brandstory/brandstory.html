@@ -16,10 +16,14 @@
     <link rel="stylesheet" href="brand_style.css">
     <link rel="stylesheet" href="brand_media.css">
     <script src="/js/common.js" defer></script>
+    <script src="https://kit.fontawesome.com/1b41f4f82b.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="./brand.js" defer></script>
 </head>
 
 <body>
+    <!-- header gnb -->
     <header class="">
         <div class="inner">
             <h1 class="logo"><a href="/index.html">BEAUTY OF JOSEON</a></h1>
@@ -150,9 +154,418 @@
             </div>
         </div>
     </header>
+
+
     <main>
-        여기에 붙여 넣어주세요.
+        <!-- Section 1: Hero -->
+        <section class="section-1">
+            <div class="inner">
+                <div class="hero-line"></div>
+                <p class="est">EST · 2014 · SEOUL</p>
+                <h1 class="kor">조선미녀</h1>
+                <h2 class="eng">BEAUTY OF JOSEON</h2>
+                <p class="tit">Traditional Korean beauty wisdom refined for modern skin</p>
+                <div class="ornament"></div>
+                <img class="ornament" src="/asset/img/brandstory/line-img0.png" alt="장식 라인" />
+            </div>
+        </section>
+
+        <!-- Section 2: Our Story -->
+        <section class="section-2" id="story">
+            <div class="inner">
+                <div class="section-title">
+                    <div class="line"></div>
+                    <h2 class="tit">Our Story</h2>
+                    <div class="line"></div>
+                    <p>Bridging five centuries of Korean beauty wisdom with modern skincare innovation</p>
+                </div>
+
+                <article class="story-card">
+                    <figure class="card-img">
+                        <div class="corner tl"></div>
+                        <div class="corner br"></div>
+                        <img src="/asset/img/brandstory/con-img0.png" alt="Royal Beauty Rituals">
+                    </figure>
+                    <div class="card-text">
+                        <span class="number">01</span>
+                        <h3>Royal Beauty Rituals</h3>
+                        <p>For centuries, Korean royal courts preserved ancient beauty secrets using the finest natural
+                            ingredients.
+                            These time-honored formulations were passed down through generations of court ladies.</p>
+                        <span class="note">Traditional wisdom dating back 500 years</span>
+                    </div>
+                </article>
+
+                <article class="story-card reverse">
+                    <figure class="card-img">
+                        <div class="corner tl"></div>
+                        <div class="corner br"></div>
+                        <img src="/asset/img/brandstory/con-img1.png" alt="Modern Science Meets Tradition">
+                    </figure>
+                    <div class="card-text">
+                        <span class="number">02</span>
+                        <h3>Modern Science Meets Tradition</h3>
+                        <p>We honor this legacy by combining traditional Korean botanicals with contemporary skincare
+                            science,
+                            creating products that deliver proven results while respecting ancestral knowledge.</p>
+                        <span class="note">Scientifically validated traditional ingredients</span>
+                    </div>
+                </article>
+                <div class="section-bottom">
+                    <p>Every product tells a story of timeless beauty, where ancient wisdom meets modern excellence.</p>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Section 4: Our Philosophy -->
+        <section class="section-4" id="philosophy">
+            <div class="inner">
+                <div class="section-title">
+                    <div class="line"></div>
+                    <h2 class="tit">Our Philosophy</h2>
+                    <div class="line"></div>
+                    <p>Beauty rooted in authenticity, crafted with reverence for tradition,<br>and designed for the
+                        modern world.
+                    </p>
+                    <img src="/asset/img/brandstory/line-img0.png" alt="ornament line" class="section_4_ornament" />
+                </div>
+
+                <div class="philosophy-cards">
+                    <article class="philosophy-card">
+                        <div class="symbol-wrapper">
+                            <div class="corner tl"></div>
+                            <div class="corner tr"></div>
+                            <div class="corner bl"></div>
+                            <div class="corner br"></div>
+                            <div class="symbol">純</div>
+                        </div>
+                        <div class="bar"></div>
+                        <h3>Natural Integrity</h3>
+                        <p>We believe in the power of pure, unadulterated ingredients. Every formulation begins with the
+                            finest
+                            natural botanicals, free from harmful chemicals and synthetic additives.</p>
+                        <span class="quote">「자연 그대로의 순수함이 가장 아름답다」</span>
+                    </article>
+
+                    <article class="philosophy-card">
+                        <div class="symbol-wrapper">
+                            <div class="corner tl"></div>
+                            <div class="corner tr"></div>
+                            <div class="corner bl"></div>
+                            <div class="corner br"></div>
+                            <div class="symbol">傳</div>
+                        </div>
+                        <div class="bar"></div>
+                        <h3>Timeless Wisdom</h3>
+                        <p>Our products honor centuries-old Korean beauty traditions, combining ancestral knowledge with
+                            modern
+                            scientific understanding to create truly effective skincare.</p>
+                        <span class="quote">「옛것을 알아야 새것을 안다」</span>
+                    </article>
+
+                    <article class="philosophy-card">
+                        <div class="symbol-wrapper">
+                            <div class="corner tl"></div>
+                            <div class="corner tr"></div>
+                            <div class="corner bl"></div>
+                            <div class="corner br"></div>
+                            <div class="symbol">美</div>
+                        </div>
+                        <div class="bar"></div>
+                        <h3>Conscious Beauty</h3>
+                        <p>We are committed to creating products that benefit both your skin and our planet, using
+                            sustainable
+                            practices and ethical sourcing throughout our supply chain.</p>
+                        <span class="quote">「아름다움은 지속되어야 진정한 가치가 있다」</span>
+                    </article>
+                </div>
+
+                <div class="philosophy-bottom">
+                    <p>We create skincare that honors your skin's natural wisdom<br>while delivering transformative
+                        results you
+                        can see and feel.</p>
+                    <a href="#" class="btn">
+                        <span class="line"></span>
+                        <span>Find Nearby Stores</span>
+                        <span class="line"></span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Gyuhap Chongseo -->
+        <section class="section-6" data-animate>
+            <div class="inner">
+                <div class="section-title">
+                    <div class="line"></div>
+                    <h2 class="tit">Gyuhap Chongseo</h2>
+                    <div class="line"></div>
+                    <p class="subtitle">閨閤叢書 · The Encyclopedia of Women's Wisdom</p>
+                    <img src="/asset/img/brandstory/line-img0.png" alt="ornament" class="ornament-line" />
+                </div>
+
+                <div class="gyuhap-hero">
+                    <div class="book-showcase">
+                        <div class="book-frame">
+                            <div class="inner-frame">
+                                <img src="/asset/img/brandstory/image-5350.png" alt="Gyuhap Chongseo" class="book-img">
+                            </div>
+                        </div>
+                        <div class="year-badge">1809</div>
+                    </div>
+
+                    <div class="book-description">
+                        <div class="badge">
+                            <span class="hanja">古典</span>
+                            <span class="text">Historical Document</span>
+                        </div>
+                        <h3>Lady Bingheo's Masterpiece</h3>
+                        <p class="author">姒賢閨 李氏 · Bingheo Lady Lee</p>
+                        <div class="divider"></div>
+                        <p class="intro">
+                            In 1809, Lady Bingheo completed what would become the most comprehensive guide to Korean
+                            women's wisdom.
+                            This extraordinary 4-volume encyclopedia preserved centuries of royal beauty secrets,
+                            seasonal skincare
+                            rituals,
+                            and the profound philosophy of natural harmony.
+                        </p>
+                        <blockquote class="wisdom-quote">
+                            <p>Within these pages lie the secrets of radiant skin achieved through natural harmony</p>
+                        </blockquote>
+                    </div>
+                </div>
+
+                <div class="wisdom-grid">
+                    <article class="wisdom-card">
+                        <div class="card-number">01</div>
+                        <div class="card-icon">美</div>
+                        <h4>Beauty Formulations</h4>
+                        <p>Royal court recipes using ginseng, rice water, and precious botanicals for timeless radiance
+                        </p>
+                    </article>
+
+                    <article class="wisdom-card">
+                        <div class="card-number">02</div>
+                        <div class="card-icon">時</div>
+                        <h4>Seasonal Rituals</h4>
+                        <p>Skincare practices harmonized with nature's cycles through the four seasons</p>
+                    </article>
+
+                    <article class="wisdom-card">
+                        <div class="card-number">03</div>
+                        <div class="card-icon">德</div>
+                        <h4>Inner Cultivation</h4>
+                        <p>The belief that true beauty radiates from inner wellness and virtue</p>
+                    </article>
+
+                    <article class="wisdom-card">
+                        <div class="card-number">04</div>
+                        <div class="card-icon">傳</div>
+                        <h4>Generational Wisdom</h4>
+                        <p>Knowledge passed down through centuries of Korean women's experience</p>
+                    </article>
+                </div>
+
+                <div class="legacy-section">
+                    <div class="legacy-content">
+                        <div class="legacy-header">
+                            <div class="header-line"></div>
+                            <h3>Our Living Heritage</h3>
+                            <div class="header-line"></div>
+                        </div>
+                        <p class="legacy-text">
+                            Beauty in Korean culture has always been inseparable from virtue, health, and harmony with
+                            nature.
+                            The Gyuhap Chongseo stands as testament to this philosophy—a sacred text that preserved not
+                            merely
+                            beauty formulations, but a profound way of living that honors both inner cultivation and
+                            outer expression.
+                        </p>
+                        <p class="legacy-text">
+                            Today, we are the guardians of this extraordinary legacy. Every formulation honors the
+                            wisdom of Lady
+                            Bingheo,
+                            every ritual connects us to centuries of Korean women who understood that true beauty
+                            emanates from the
+                            harmony between natural ingredients and mindful practice.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Cultural Heritage -->
+        <section class="section-5" id="heritage">
+            <div class="inner">
+                <div class="section-title">
+                    <div class="line"></div>
+                    <h2 class="tit">Cultural Heritage</h2>
+                    <div class="line"></div>
+                    <h3 class="tit">Royal Beauty Traditions of Joseon</h3>
+                    <p>For over 500 years, the royal court of Joseon Dynasty preserved sacred beauty rituals that
+                        embodied the
+                        Korean philosophy of natural harmony and inner radiance.</p>
+                    <p>These time-honored traditions represent not merely cosmetic practices, but a profound cultural
+                        heritage
+                        that celebrates the eternal pursuit of beauty through nature's wisdom.</p>
+                </div>
+
+
+                <div class="articles">
+                    <div class="timeline-divider"></div>
+                    <article class="timeline-item">
+                        <div class="timeline-text">
+                            <time>1392</time>
+                            <h4>Foundation of Beauty Culture</h4>
+                            <p>The establishment of Joseon Dynasty marked the beginning of sophisticated court beauty
+                                culture,
+                                where
+                                natural ingredients became the foundation of royal skincare rituals.</p>
+                        </div>
+                        <div class="timeline-icon">始</div>
+                    </article>
+
+                    <article class="timeline-item reverse">
+                        <div class="timeline-icon">傳</div>
+                        <div class="timeline-text">
+                            <time>1400</time>
+                            <h4>The Art of Natural Ingredients</h4>
+                            <p>Royal physicians developed sophisticated understanding of ginseng, rice bran, and pearl
+                                powder,
+                                creating the foundational ingredients still cherished today.</p>
+                        </div>
+                    </article>
+
+                    <article class="timeline-item">
+                        <div class="timeline-text">
+                            <time>1500</time>
+                            <h4>Golden Age of Royal Beauty</h4>
+                            <p>The height of Joseon cultural refinement saw the development of intricate beauty rituals
+                                that
+                                balanced
+                                inner wellness with outer radiance, becoming the pinnacle of Korean beauty philosophy.
+                            </p>
+                        </div>
+                        <div class="timeline-icon">美</div>
+                    </article>
+
+                    <article class="timeline-item reverse">
+                        <div class="timeline-icon">書</div>
+                        <div class="timeline-text">
+                            <time>1809</time>
+                            <h4>The Sacred Encyclopedia</h4>
+                            <p>Lady Bingheo completed the monumental Gyuhap Chongseo (閨閤叢書), the comprehensive
+                                encyclopedia of
+                                women's
+                                wisdom that preserved centuries of beauty secrets, culinary arts, and household
+                                knowledge.</p>
+                        </div>
+                    </article>
+
+                    <article class="timeline-item">
+                        <div class="timeline-text">
+                            <time>Present</time>
+                            <h4>Modern Renaissance</h4>
+                            <p>Today, we honor this magnificent heritage by reviving the wisdom of Gyuhap Chongseo
+                                through
+                                contemporary innovation, bringing royal beauty traditions to modern women worldwide.</p>
+                        </div>
+                        <div class="timeline-icon modern">今</div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <!-- Section 7: Newsletter -->
+        <section class="section-7">
+            <div class="inner">
+                <div class="newsletter-tag">NEWSLETTER</div>
+                <h2>Where Korean Heritage<br>Meets Modern Beauty</h2>
+                <p class="tit_p">Subscribe to receive exclusive K-beauty tips, product launches,<br>and stories from our
+                    heritage</p>
+
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address">
+                    <button type="submit">Join Our Newsletter</button>
+                </form>
+
+                <p class="disclaimer">Join 50,000+ beauty enthusiasts. Unsubscribe anytime.</p>
+
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <div class="slider-item">
+                            <p class="korean-quote">「옛의 전통을 현대에 담다」</p>
+                            <p class="english-quote">Bringing the tradition of beauty to the modern world</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="newsletter-features">
+                    <div class="feature">
+                        <div class="feature-icon"></div>
+                        <h4>Weekly Tips</h4>
+                        <p>K-beauty secrets</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon"></div>
+                        <h4>Exclusive Access</h4>
+                        <p>New launches first</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon"></div>
+                        <h4>Special Offers</h4>
+                        <p>Subscriber only</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+        <!-- Section 8: Gallery -->
+        <section class="section-8">
+            <div class="gallery">
+                <div class="gallery-row">
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog01.png" alt="블로그1"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog02.png" alt="블로그2"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog03.png" alt="블로그3"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog04.png" alt="블로그4"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog05.png" alt="블로그5"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog06.png" alt="블로그6"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog01.png" alt="블로그1"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog02.png" alt="블로그2"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog03.png" alt="블로그3"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog04.png" alt="블로그4"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog05.png" alt="블로그5"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog06.png" alt="블로그6"></div>
+                </div>
+                <div class="gallery-row">
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog12.png" alt="블로그12"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog11.png" alt="블로그11"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog10.png" alt="블로그10"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog09.png" alt="블로그9"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog08.png" alt="블로그8"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog07.png" alt="블로그7"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog12.png" alt="블로그12"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog11.png" alt="블로그11"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog10.png" alt="블로그10"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog09.png" alt="블로그9"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog08.png" alt="블로그8"></div>
+                    <div class="gallery-item"><img src="/asset/img/brandstory/blog07.png" alt="블로그7"></div>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <!-- footer -->
     <footer>
         <div class="inner">
             <h2 class="logo"><a href="">BEAUTY OF JOSEON</a></h2>
@@ -173,7 +586,7 @@
                     <nav class="f_nav">
                         <div class="f_nav_top">
                             <h3 class="f_tit">Menu</h3>
-                            <button type="button" class="btn_down"><img src="/asset/img/icon_btn_down.svg"
+                            <button type="button" class="btn_down"><img src="/asset/img/common/icon_btn_down.svg"
                                     alt="openbutton"></button>
                         </div>
                         <ul>
