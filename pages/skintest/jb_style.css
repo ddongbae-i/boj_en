@@ -40,7 +40,7 @@ html, body {margin: 0; padding: 0; min-height: 100vh;}
 .page[hidden] {display: none !important;}
 
 /* Home */
-#home {min-height: 100vh; display: flex; align-items: center; justify-content: center; background: url("/asset/img/skintest/skintest-bg.jpg") top 50% center/cover no-repeat; text-align: center;}
+#home {min-height: 100vh; display: flex; align-items: center; justify-content: center; background: url("/asset/img/skintest/jbtest-bg.jpg") top 10% center/cover no-repeat; text-align: center;}
 .home-inner {flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;}
 .home-title {margin: 0 0 8px; font-family: var(--tit_font); font-weight: 500; font-size: 2.5rem}
 .home-sub {margin: 0 0 14px; font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300; color: var(--muted)}
@@ -88,7 +88,7 @@ input[type="radio"]:checked + .option .bullet {border-color: var(--bg_black); bo
 
 
 /* result radar */
-#result {min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;}
+/* #result {min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;}
 .result-inner {width: 100%; text-align: center;}
 .legend {display: flex; gap: 8px; align-items: center; justify-content: center; color: var(--txt_sub_44); padding-top: 200px; font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300;}
 .legend .sw {display: inline-block; width:18px; height: 10px; border-radius: 999px}
@@ -108,19 +108,19 @@ input[type="radio"]:checked + .option .bullet {border-color: var(--bg_black); bo
 .center {font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300; text-align: center;}
 
 /* Products */
-.product-tit {padding-top: 100px; font-family: var(--tit_font); font-size: 2.5rem; font-weight: 500; text-align: center;}
+/* .product-tit {padding-top: 100px; font-family: var(--tit_font); font-size: 2.5rem; font-weight: 500; text-align: center;}
 .product {position: relative; width: 100%; height: 1700px; color: #fff; padding: 50px;}
 .product_grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 80px 37px;}
 .product_card {position: relative; text-align: center;}
 .product_card .product_img {width: 100%; height: auto; margin-bottom: 8px; background: var(--img_bg);}
 .product_card .tags {display: flex; flex-wrap: wrap; gap: 6px;}
 .tags span {display: inline-block; margin: 12px 2px 2px 2px; padding: 4px 8px; font-size: 0.875rem; border: 1px solid var(--txt_sub_77); border-radius: 2px; cursor: pointer;}
-.product_card .tags span {display: inline-block; padding: 4px 8px; font-size: 12px; line-height: 1; border-radius: 2px; border: 1px solid currentColor; background-clip: padding-box;}
-/* tags : good */
+.product_card .tags span {display: inline-block; padding: 4px 8px; font-size: 12px; line-height: 1; border-radius: 2px; border: 1px solid currentColor; background-clip: padding-box;} */
+/* tags : good
 .product_card .tags span:nth-child(1), .product_card .tags span:nth-child(2) {color: #16a34a; background-color: #16a34a1a;}
-/* tags : bad */
+/* tags : bad
 .product_card .tags span:nth-child(3), .product_card .tags span:nth-child(4) {color: #dc2626; background-color: #dc26261a;}
-/* 숨김 처리(값이 없을 때 JS가 display:none 지정하면 그대로 따름) */
+/* 숨김 처리(값이 없을 때 JS가 display:none 지정하면 그대로 따름)
 .product_card .tags span [style*= "display: none"] {display: none !important;}
 .info {height: 100px; margin-top: 20px; color: var(--txt_main); text-align: left;}
 .info h3 {height: 30px; font-size: 1.125rem;}
@@ -130,4 +130,4 @@ input[type="radio"]:checked + .option .bullet {border-color: var(--bg_black); bo
 .product_card .add_btn img {width: 25px; height: 22px; background: transparent;}
 
 .result-actions {position: relative; top: 100px; font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300; text-align: center;}
-.result-actions .btn {position: relative; z-index: 1; pointer-events: auto; }
+ */
