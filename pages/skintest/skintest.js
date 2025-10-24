@@ -1,3 +1,9 @@
+
+
+// app.js
+// Simple router between #home, #quiz, #result with fixed header/footer.
+// Quiz minimal logic + pentagon radar.
+
 // Router
 const PAGES = ['home','quiz','result'];
 function show(id) {
@@ -19,7 +25,7 @@ function go(id){
 
 // Header/Buttons
 window.addEventListener('DOMContentLoaded', () => {
-  (function(el){ if(el) el.addEventListener('click', function(){ go('quiz'); }); })(document.getElementById('startBtn'));
+  (function(el){ if(el) el.addEventListener('click', function(){ go('quiz'); show('quiz'); }); })(document.getElementById('startBtn'));
   (function(el){ if(el) el.addEventListener('click', function(){ go('home'); }); })(document.getElementById('homeBtn'));
   (function(el){ if(el) el.addEventListener('click', function(){ location.reload(); }); })(document.getElementById('resetBtn'));
 
@@ -153,10 +159,13 @@ function initQuiz(){
         // 라디오 버튼 이벤트
         radio.addEventListener('change', () => {
             selectedIdx[i] = idx;
-            const buttons = el.options.querySelectorAll('button');
-            buttons.forEach((btn, bidx) => {
-                btn.setAttribute('aria-checked', bidx === idx ? 'true' : 'false');
-                btn.tabIndex = bidx === idx ? 0 : -1;
+            const radios = el.options.querySelectorAll('.radio-input');
+            radios.forEach((r, rIdx) => {
+                const lab = el.options.querySelector(`label[for="${r.id}"]`);
+                if (lab) {
+                  lab.setAttribute('aria-checked', rIdx === idx ? 'true' : 'false');
+                  lab.tabIndex = rIdx === idx ? 0 : -1;
+                }
             });
             updateNext();
         });
@@ -180,6 +189,7 @@ function initQuiz(){
     el.nextBtn.textContent = (i===N-1)?'Result':'Next';
     updateNext();
     el.question.setAttribute('tabindex','-1');
+    try { animateQuizCard(); } catch(e) {}
   }
   function finish(){
     // Map to values A/B/C/D
@@ -193,7 +203,7 @@ function initQuiz(){
       map[values[3]], // Moisturizing
       map[values[4]], // Elasticity
     ];
-    localStorage.setItem('skin_quiz_final', JSON.stringify({ type:'', values:dataValues, avg:[50,55,50,60,52] }));
+    try { localStorage.setItem('skin_quiz_final', JSON.stringify({ type:'', values:dataValues, avg:[50,55,50,60,52] })); } catch(e) {}
     go('result');
     renderResult();
   }
@@ -349,6 +359,7 @@ function renderResult(){
 window.addEventListener('hashchange', ()=>{
   const target = (location.hash ? location.hash.replace('#','') : '') || 'home';
   show(PAGES.includes(target) ? target : 'home');
+  if (target==='quiz') { try { /* ensure first render */ } catch(e){} }
   if (target==='result') { renderResult(); try{ fillProducts(); }catch(e){} }
 });
 
@@ -1022,9 +1033,9 @@ function preload(src) {
   }
 
   // DOM 준비/탭 전환 시 갱신
-  window.addEventListener("DOMContentLoaded", () => {
-    fillProducts();
-    initWishlistToggle();
+    window.addEventListener("DOMContentLoaded", () => {
+        fillProducts();
+        initWishlistToggle();
   });
 })();
 

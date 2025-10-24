@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Beauty of Joseon — Korean skincare inspired by timeless Hanbang tradition.">
@@ -13,11 +10,10 @@
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/media.css">
-    <link rel="stylesheet" href="skin_style.css">
-    <link rel="stylesheet" href="skin_media.css">
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="jb_style.css">
+    <link rel="stylesheet" href="jb_media.css">
     <script src="/js/common.js" defer></script>
-    <script src="skintest.js" defer></script>
+    <script src="./jbtest.js" defer></script>
 </head>
 <body>
     <header class="">
@@ -154,10 +150,10 @@
     <!-- home -->
     <section id="home" class="page">
       <div class="home-inner">
-        <h2 class="home-title">Start Your Personalized Ingredient Test</h2>
-        <p class="home-sub">Answer 10 quick questions to identify your skin type and get traditional ingredient picks.</p>
+        <h2 class="home-title">Joseon Beauty Test</h2>
+        <p class="home-sub">With 5 simple questions, which figure would I be if I returned to the Joseon era?</p>
         <div class="badges">
-          <span class="badge">10 Questions</span>
+          <span class="badge">5 Questions</span>
           <span class="badge">5 minutes</span>
           <span class="badge">Desktop/Mobile</span>
         </div>
@@ -169,7 +165,7 @@
     <section id="quiz" class="page" hidden>
       <div class="quiz-inner">
         <div class="card" role="group" aria-labelledby="question">
-          <p id="progress" class="progress" aria-live="polite">1 of 10</p>
+          <p id="progress" class="progress" aria-live="polite">1 of 5</p>
           <h2 id="question" tabindex="-1"></h2>
           <ul id="options" class="options" role="radiogroup" aria-labelledby="question"></ul>
           <div class="actions">
@@ -190,7 +186,7 @@
     </section>
 
     <!-- result -->
-    <section id="result" class="page" hidden>
+    <!-- <section id="result" class="page" hidden>
       <div class="result-inner">
         <div class="legend">
           <span class="sw avg"></span><span>Population average</span>
@@ -216,9 +212,9 @@
 
         <h3 class="product-tit">Recommended products</h3>
         <section class="product">
-          <div class="product_grid">
+          <div class="product_grid"> -->
             <!-- 카드 6종: 기존 구조 그대로 -->
-            <div class="product_card">
+            <!-- <div class="product_card">
               <img class="product_img" src="/asset/img/skintest/product1.png" alt="Dynasty Cream">
               <div class="tags"><span></span><span></span><span></span><span></span></div>
               <div class="info">
@@ -291,11 +287,10 @@
             <button id="wishlistBtn" class="btn ghost" type="button">ADD ALL TO WISHLIST</button>
             <button id="resetBtn" class="btn ghost" type="button">RESET</button>
           </div>
-        </div>        
+        </div>
       </div>
-    </section>
+    </section> -->
     </main>
-    
     <footer>
         <div class="inner">
             <h2 class="logo"><a href="">BEAUTY OF JOSEON</a></h2>
