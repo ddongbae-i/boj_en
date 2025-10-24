@@ -1,0 +1,788 @@
+@charset "utf-8";
+@media screen and (max-width:1024px) {
+    .main {
+        width: 100%;
+        height: 700px;
+    }
+
+    .main_tit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main_tit .line {
+        margin-bottom: 15px;
+        width: 400px;
+        height: 36px;
+    }
+
+    .main_tit .line img {
+        width: 400px;
+        height: 36px;
+    }
+
+    .main .main_tit h2 {
+        font-size: 2rem;
+    }
+
+    .main .main_tit p {
+        font-size: 1.125rem;
+        width: calc(100% - 112px);
+        /* 좌우 56px씩 제외 */
+        padding: 25px 0 0;
+        /* 상 25px, 좌우 56px */
+        box-sizing: border-box;
+    }
+
+    .scroll {
+        position: relative;
+        left: 50%;
+        bottom: 100px;
+        transform: translateX(-50%);
+    }
+
+    .scroll span {
+        width: 16px;
+        height: 16px;
+        border-left: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+    }
+
+    /* sub_mian */
+    .sub_main {
+        width: 100%;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 32px;
+        padding-bottom: 120px;
+    }
+
+    .sub_main h2 {
+        order: 2;
+        text-align: center;
+    }
+
+    .sub_main p {
+        padding-right: 0;
+        order: 3;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .sub_main .sub_main_img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .sub_main .sub_main_img img {
+        width: 350px;
+        height: 350px;
+        margin-bottom: 24px;
+    }
+
+    /* sub_main2____________ */
+    .octa_container {
+        margin-bottom: 140px;
+    }
+
+    .side_info,
+    .details {
+        position: static;
+        /* 기존 absolute 제거 */
+        text-align: center;
+        /* 중앙 정렬 */
+        width: 100%;
+        /* 좌우 여백 확보 */
+        margin: 630px auto 0 auto;
+        /* 옥타곤 아래로 spacing */
+    }
+
+    .details {
+        margin-top: 20px;
+        text-align: left;
+        width: 700px;
+    }
+
+    /*_________________________banner1 */
+    .banner1 {
+        background: var(--bg_footer);
+    }
+
+    .banner1 .inner {
+        padding: 56px 50px 65px 56px;
+    }
+
+    .banner1_left {
+        margin: 0px 50px 0 0;
+        font-size: 3rem;
+
+    }
+
+    .sub_tit {
+        font-size: 1rem;
+        font-weight: 400;
+        margin-right: 35px;
+    }
+
+    .sub_txt {
+        font-size: 1rem;
+    }
+
+    .banner1_right {
+        font-size: 1rem;
+    }
+
+    /*  product */
+    .product {
+        padding: 150px 56px 0;
+        height: 1500px;
+    }
+
+    .product_grid {
+        gap: 50px 20px;
+    }
+
+    .add_btn {
+        height: 40px;
+        font-size: 0.875rem;
+    }
+
+    .add_btn img {
+        width: 25px;
+        height: 25px;
+        margin-top: 5px;
+    }
+
+    .tags span {
+        margin: 1px;
+    }
+
+    .info {
+        width: 290px;
+        margin-top: 16px;
+    }
+
+    .info h3 {
+        height: 40px;
+        font-size: 0.875rem;
+    }
+
+    .banner2 {
+        height: 400px;
+    }
+
+    .banner2 .txt_box {
+        height: 240px;
+    }
+
+    .banner2 .txt_box h2 {
+        font-weight: 400;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        margin-top: 30px;
+    }
+
+    .community {
+        height: 530px;
+        display: flex;
+        gap: 37px;
+    }
+
+    .community .left img {
+        width: 100%;
+        height: 430px;
+    }
+
+    .community .right {
+        width: 50%;
+    }
+
+    .community .right h2 {
+        font-size: 1.875rem;
+        padding-top: 90px;
+    }
+
+    .community .right p {
+        margin-bottom: 65px;
+    }
+
+    .link_box .box {
+        width: clamp(200px, 40vw, 300px);
+
+    }
+
+    .link_box .box img {
+        height: 160px
+    }
+
+    .link_box .box:nth-child(2) {
+        margin-left: 20px;
+    }
+
+    .link_box .box a {
+        font-size: 1rem;
+    }
+}
+
+/*________________________________________________ 768 */
+@media screen and (max-width:768px) {
+
+    .main {
+        width: 100%;
+        height: 510px;
+    }
+
+    .main_tit .line img {
+        width: 350px;
+        height: 32px;
+    }
+
+    .main .main_tit p {
+        font-size: 1rem;
+        padding: 20px 0px 0px 42px;
+    }
+
+    .sub_main {
+        height: 700px;
+    }
+
+
+    .sub_main p {
+        display: none;
+    }
+
+
+    .banner1 {
+        height: 300px;
+    }
+
+    .banner1 .inner {
+        flex-direction: column;
+        align-items: flex-start;
+        height: 240px;
+        justify-content: center;
+        padding: 42px 24px 30px 42px;
+    }
+
+    .banner1_left h2 {
+        font-size: 2.5rem;
+        margin-bottom: 14px;
+    }
+
+    .banner1_left li {
+        margin-bottom: 0;
+    }
+
+    .banner1_right {
+        width: 600px;
+        margin-top: 15px;
+    }
+
+    .product {
+        height: 2200px;
+        padding: 90px 42px 0;
+
+    }
+
+    .product_grid {
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+
+    /* filter */
+    .product_filter ul {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        /* 모바일 부드러운 스크롤 */
+        scrollbar-width: none;
+        /* Firefox 스크롤바 숨김 */
+        gap: 30px;
+        scroll-behavior: smooth;
+        /* 기존 간격 유지 */
+    }
+
+    .product_filter ul::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    /*_________________________768 banner2*/
+    .banner2 {
+        height: 350px;
+    }
+
+    .banner2 .txt_box {
+        width: 500px;
+        height: 230px;
+    }
+
+    .banner2 .txt_box p {
+        margin-bottom: 16px;
+    }
+
+    /* 커뮤니티 */
+    .community {
+        height: 400px;
+    }
+
+    .community .left img {
+        height: 300px;
+    }
+
+    .community .right {
+        height: 450px;
+    }
+
+    .community .right h2 {
+        font-size: 1.25rem;
+    }
+
+    .community .right p {
+        font-size: 0.875rem;
+    }
+
+    .community .link_box {
+        display: flex;
+        /* 항목 간 간격 */
+        justify-content: flex-start;
+    }
+
+    .community .link_box .box {
+        width: clamp(100px, 35vw, 150px);
+        /* 가로 100 ~ 150 사이 */
+    }
+
+    .community .link_box .box img {
+        height: 100px;
+        /* 세로 고정 150 */
+        object-fit: cover;
+        display: block;
+    }
+
+    .link_box .box a {
+        font-size: 0.875rem;
+    }
+}
+
+@media screen and (max-width:660px) {
+    .sub_main2 {
+        overflow-x: hidden
+    }
+}
+
+@media screen and (max-width:440px) {
+/*     header {
+           display: none; 
+    } */
+
+    .main {
+        width: 100%;
+        height: 400px;
+    }
+
+    .main .main_tit h2 {
+        width: 100%;
+        margin-top: 100px;
+        font-weight: 700;
+        font-size: 1rem;
+    }
+
+    .main .main_tit p {
+        width: 400px;
+        font-size: 0.75rem;
+    }
+
+    .main .line img {
+        width: 150px;
+        height: 15px;
+        margin-top: 130px;
+    }
+
+    .product {
+        width: 100%;
+        overflow-x: hidden;
+        height: 4150px;
+    }
+
+    .product::before {
+
+        overflow-x: hidden;
+    }
+
+    .product_grid {
+        grid-template-columns: 1fr;
+    }
+
+    .scroll span {
+        display: none;
+    }
+
+    .banner1,
+    .banner1 .inner {
+        flex-direction: column !important;
+        /* 세로 구조로 전환 */
+        height: auto;
+        min-height: unset;
+        padding: 20px 10px 20px 10px;
+        box-sizing: border-box;
+        align-items: flex-start;
+    }
+
+    .banner1_left {
+        order: 1;
+        width: 100%;
+        margin: 0 0 12px 0;
+        font-size: 1.6rem;
+    }
+
+    .banner1_left h2 {
+        font-size: 2rem;
+        margin-bottom: 18px;
+    }
+
+    .banner1_left ul {
+        padding: 0;
+    }
+
+    .banner1_left li {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .sub_tit,
+    .sub_txt {
+        width: auto !important;
+        font-size: 0.85rem;
+        margin-right: 0;
+    }
+
+    .banner1_right {
+        order: 2;
+        width: 100%;
+        font-size: 0.85rem;
+        margin: 0 0 0 0;
+        padding: 0;
+        margin-top: 0;
+        align-items: flex-start;
+    }
+
+    /* ______________sub_main */
+
+    .sub_main .sub_main_img img {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .sub_main h2 {
+        height: 10px;
+        padding-top: 70px;
+        font-size: 2rem;
+    }
+
+    .octa_container {
+        width: 100vw;
+        /* 기존 700px 대신 화면 폭에 맞춤 */
+    }
+
+    .octa_grid {
+        width: 100%;
+    }
+
+    .click_me {
+        bottom: 0;
+    }
+
+    .t1 {
+        grid-area: t1;
+
+    }
+
+    .t2 {
+        grid-area: t2;
+    }
+
+    .t3 {
+        grid-area: t3;
+        position: relative;
+        width: 80%;
+        bottom: 125px;
+        right: 65px;
+    }
+
+    .t4 {
+        grid-area: t4;
+        position: relative;
+        width: 80%;
+        bottom: 190px;
+        right: 65px;
+    }
+
+    .t5 {
+        grid-area: t5;
+        position: relative;
+        bottom: 310px;
+        right: 9px;
+    }
+
+    .t6 {
+        grid-area: t6;
+        position: relative;
+        bottom: 310px;
+    }
+
+    .t7 {
+        grid-area: t7;
+        position: relative;
+        width: 80%;
+        left: 55px;
+        bottom: 190px;
+    }
+
+    .t8 {
+        grid-area: t8;
+        position: relative;
+        width: 80%;
+        left: 55px;
+        bottom: 125px;
+    }
+
+    .center_product img {
+        width: 65%;
+        height: auto;
+        position: relative;
+        bottom: 60px;
+        left: 7px;
+    }
+
+    .sub_main2 .side_info {
+        position: absolute;
+        right: 0px;
+        top: -60px;
+        width: 100%;
+        font-size: 2rem;
+    }
+
+    .sub_main2 .details {
+        /*         position: absolute; */
+        margin-top: 600px;
+        font-size: 1rem;
+        padding: 0 25px;
+        /*     text-align: center; */
+    }
+
+    /*_________________________banner2 */
+    .banner2_img {
+        object-fit: cover;
+        height: 500px;
+    }
+
+    .banner2 .txt_box {
+        width: 300px;
+        height: 240px
+    }
+
+    .banner2 .txt_box h2 {
+        width: 250px;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    .banner2 .txt_box p,
+    .banner2 .txt_box a {
+        font-size: 0.75rem;
+    }
+
+    /*_________________________community */
+
+    .community {
+        width: 100%;
+        height: 600px;
+        padding: 0 20px;
+    }
+
+    .community .left {
+        width: 100%;
+
+    }
+
+    /* 왼쪽 이미지 */
+    .community .left img {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    /* 오른쪽 텍스트 영역 */
+    .community .right {
+        position: absolute;
+        width: 90%;
+        padding-bottom: 650px;
+        justify-content: space-between;
+    }
+
+    .community .right h2 {
+        font-family: var(--tit_font);
+        font-size: 1.5rem;
+    }
+
+    .community .right p {
+        font-size: 1rem;
+    }
+
+    /* 이미지 + 링크 영역 */
+    .link_box {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    /* 각 박스 */
+    .link_box .box {
+        width: clamp(100px, 20vw, 180px);
+        height: 100px;
+    }
+
+    /* 내부 이미지 스타일 */
+    .link_box .box img {
+        width: 185px;
+        height: 100px;
+        /*     height: auto; */
+        margin-top: 180px;
+    }
+
+    .linkbox .box:nth-child(2) {
+        margin-left: 60px;
+        /* 원하시는 마진 값으로 조정 */
+    }
+
+    /* 링크 텍스트 */
+    .link_box .box a {
+        font-size: 0.785rem;
+        margin: 0;
+    }
+
+    @media screen and (max-width:360px) {
+   /*      header {
+             display: none; 
+        } */
+
+        .t1 {
+            grid-area: t1;
+
+        }
+
+        .t2 {
+            grid-area: t2;
+        }
+
+        .t3 {
+            grid-area: t3;
+            position: relative;
+            width: 80%;
+            bottom: 120px;
+            right: 40px;
+        }
+
+        .t4 {
+            grid-area: t4;
+            position: relative;
+            width: 80%;
+            bottom: 195px;
+            right: 40px;
+        }
+
+        .t5 {
+            grid-area: t5;
+            position: relative;
+            bottom: 320px;
+            left: 2px;
+        }
+
+        .t6 {
+            grid-area: t6;
+            position: relative;
+            bottom: 320px;
+            left: 2px;
+        }
+
+        .t7 {
+            grid-area: t7;
+            position: relative;
+            width: 80%;
+            left: 46px;
+            bottom: 200px;
+        }
+
+        .t8 {
+            grid-area: t8;
+            position: relative;
+            width: 80%;
+            left: 46px;
+            bottom: 125px;
+        }
+
+        /*      .community {
+            width: 100%;
+            height: 600px;
+            padding: 0 20px;
+        }
+
+        .community .left {
+            width: 100%;
+
+        }
+        .community .left img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .community .right {
+            position: absolute;
+            width: 90%;
+            padding-bottom: 650px;
+            justify-content: space-between;
+        }
+
+        .community .right h2 {
+            font-family: var(--tit_font);
+            font-size: 1.5rem;
+        }
+
+        .community .right p {
+            font-size: 1rem;
+        }
+
+        .link_box {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .link_box .box {
+            width: clamp(100px, 20vw, 180px);
+            height: 100px;
+        }
+
+        .link_box .box img {
+            display: none;
+            width: 185px;
+            height: 100px;
+
+        }
+
+
+        .link_box .box a {
+            font-size: 0.785rem;
+            margin: 0;
+        } */
+    }
+}
