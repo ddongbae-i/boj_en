@@ -139,8 +139,17 @@ Observer.create({
 
   //베스트셀러768
 
+    let swiper = new Swiper(".mySwiper", {
+      slidesPerView: 3.5,
+      freeMode: true,
+      watchSlidesProgress: true,
+    });
+    let swiper2 = new Swiper(".mySwiper2", {
 
-
+      thumbs: {
+        swiper: swiper,
+      },
+    });
 
   /* -------------------------------
       🟣 2. 인플루언서 카드 순차 회전
