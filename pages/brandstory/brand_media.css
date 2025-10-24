@@ -1116,7 +1116,7 @@
 
 /* ===== MOBILE: 360px (320px Inner) ===== */
 /* ===== MOBILE: 360px (320px Inner) ===== */
-@media (max-width: 360px) {
+@media (max-width: 440px) {
 
     .inner {
         width: 320px !important;
@@ -1285,7 +1285,7 @@
         position: relative;
         width: 100%;
         max-width: 240px;
-        height: 240px;
+        min-height: 240px;
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
         padding: 0;

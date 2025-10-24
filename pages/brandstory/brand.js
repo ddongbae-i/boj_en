@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.registerPlugin(ScrollTrigger);
 
         cards.forEach((card, i) => {
-            gsap.set(card, { opacity: 0, y: 60 });
+            // gsap.set(card, { opacity: 0, y: 60 });
 
             gsap.to(card, {
                 opacity: 1,
