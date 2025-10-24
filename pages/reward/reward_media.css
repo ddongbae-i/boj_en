@@ -1,0 +1,223 @@
+@charset "uft-8";
+@media screen and (max-width:1500px) {
+    .right-bottom {
+        right: -500px;
+
+    }
+
+    .left-bottom {
+        left: -500px;
+        bottom: 120px;
+    }
+}
+
+@media screen and (max-width:1050px) {
+    .inner {
+        width: 90vw;
+        padding-inline: 0px;
+    }
+
+    .FAQ {
+        background-size: 130% auto;
+    }
+}
+
+@media screen and (max-width:952px) {
+
+    .FAQ {
+        background-size: 150% auto;
+    }
+
+    .how_it_work .list ul {
+        flex-direction: column;
+    }
+
+    em {
+        font-size: 1.2rem;
+    }
+
+    .right-bottom {
+        right: -600px;
+        bottom: -50px;
+
+    }
+
+    .left-bottom {
+        left: -600px;
+        bottom: 120px;
+    }
+
+}
+
+@media screen and (max-width:768px) {
+
+    .main_visual {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main_visual .left {
+        display: flex;
+        align-items: center;
+    }
+
+    .main_visual .left img {
+        margin: 0 100px;
+        height: 550px;
+        width: auto;
+    }
+.norigae_wrapper::after {
+    left: 80px;
+}
+
+    .main_visual .right {
+        align-items: center;
+        margin-bottom: 160px;
+    }
+
+    .tit {
+        margin-bottom: 16px;
+    }
+
+    .main_visual .txt_g {
+        padding: 60px 60px 0 60px;
+    }
+
+    .main_visual .txt_g .tit {
+        text-align: center;
+    }
+
+    .right-bottom {
+        width: 550px;
+        right: -250px;
+        bottom: 450px;
+    }
+
+    .left-bottom {
+        width: 450px;
+        left: -150px;
+        bottom: 520px;
+    }
+
+    .line {
+        height: 33px;
+        width: 369px;
+    }
+}
+
+@media screen and (max-width:684px) {
+
+    .main_visual .left img {
+        margin: 0 80px;
+    }
+
+.norigae_wrapper::after {
+    left: 70px;
+}
+
+    .right-bottom {
+        right: -260px;
+        bottom: 450px;
+    }
+
+    .left-bottom {
+        left: -190px;
+        bottom: 550px;
+    }
+
+    .main_visual .txt_g {
+        padding: 50px;
+    }
+
+    .main_visual .right {
+        margin-bottom: 100px;
+    }
+
+    .card_tit h2 {
+        display: none;
+    }
+
+    .toggle_flex {
+        margin-top: 30px;
+        font-size: 20px;
+        display: flex;
+    }
+
+    .card_tit {
+        margin: auto;
+        margin-bottom: 60px;
+        width: 90vw;
+    }
+
+    .redeem_for_products,
+    .ways_to_earn {
+        display: none;
+    }
+
+    .redeem_for_products.active,
+    .ways_to_earn.active {
+        display: block;
+    }
+
+    .FAQ {
+        background-size: 180% auto;
+    }
+
+    em {
+        font-size: 1.1rem;
+    }
+
+    span {
+        font-size: 0.9rem;
+    }
+
+    .toggle-icon {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width:480px) {
+
+    .right-bottom {
+        width: 430px;
+        right: -250px;
+        bottom: 650px;
+    }
+
+    .left-bottom {
+        width: 400px;
+        left: -150px;
+        bottom: 720px;
+    }
+
+    .main_visual .txt_g {
+        padding: 30px 30px 0 30px;
+    }
+
+    .main_visual .left {
+        flex-direction: column;
+    }
+
+    .main_visual .left img {
+        margin: auto;
+    }
+.norigae_wrapper::after {
+    left: 8px;
+}
+    .main_visual .right {
+        margin-bottom: 60px;
+    }
+
+    .FAQ {
+        background-size: 200% auto;
+    }
+
+    .line {
+        height: 29px;
+        width: 320px;
+    }
+
+    em {
+        font-size: 1rem;
+    }
+}

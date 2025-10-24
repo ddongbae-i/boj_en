@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인트로 페이지</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: black;
+      font-family: "Pretendard", sans-serif;
+    }
+
+    /* 인트로 영상 섹션 */
+    .intro {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* 메인 콘텐츠 섹션 */
+    .main-content {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .main-content.show {
+      opacity: 1;
+    }
+
+    /* 버튼 스타일 */
+    .btn {
+      padding: 14px 36px;
+      margin: 10px;
+      font-size: 1.2rem;
+      color: white;
+      border: 2px solid white;
+      background: transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.4s;
+    }
+
+    .btn:hover {
+      background: white;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 인트로 영상 -->
+  <div class="intro" id="intro">
+    <video id="introVideo" src="/asset/video/intro/intro.mp4" muted playsinline></video>
+  </div>
+
+  <!-- 메인 콘텐츠 -->
+  <div class="main-content" id="mainContent">
+    <h1>Welcome</h1>
+    <button class="btn">Enter Site</button>
+    <button class="btn">Learn More</button>
+  </div>
+
+  <script>
+    const video = document.getElementById('introVideo');
+    const intro = document.getElementById('intro');
+    const mainContent = document.getElementById('mainContent');
+
+    // 페이지 로드 후 영상 재생
+    window.addEventListener('load', () => {
+      video.play();
+    });
+
+    // 영상이 끝나면 인트로 숨기고 메인 컨텐츠 등장
+    video.addEventListener('ended', () => {
+      intro.style.display = 'none';
+      mainContent.classList.add('show');
+    });
+  </script>
+
+</body>
+</html>
