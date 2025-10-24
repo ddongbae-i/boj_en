@@ -425,10 +425,6 @@ window.addEventListener('hashchange', ()=>{
 });
 
 
-
-
-
-
 // ------------------------------
 // 0) Config
 // ------------------------------
@@ -1253,3 +1249,352 @@ function animateResults() {
   G.from('.radar-wrap', { opacity: 0, y: 30, duration: 1 });
   G.from('.product_card', { opacity: 0, y: 30, duration: 0.8, stagger: 0.2 });
 };
+
+/* ===== GPT5 injected skintest module (safe IIFE) ===== */
+(function(){
+'use strict';
+/* =========================
+   Quiz → Loading → Result
+   and Product Scoring/Tags
+   ========================= */
+
+/* 1) MBTI → 스킨 프로필 매핑 */
+const SKIN_MBTI_MAP = {
+  // 예시 매핑: 필요에 따라 확장/수정
+  // key는 퀴즈 결과 문자열(예: "DSNT" 등) 또는 내부 코드
+  DSNT: { // Dry / Sensitive / Non‑pigmented / Tight‑pore 와 같은 식의 가정
+    skinType: "dry",
+    sensitivity: "high",
+    concerns: ["barrier", "redness", "hydration"],
+    preferIngredients: ["ceramide", "panthenol", "squalane", "hyaluronic acid"],
+    avoidIngredients: ["fragrance", "alcohol denat.", "high % aha", "limonene"]
+  },
+  OSNW: { // Oily / Sensitive / Non‑pigmented / Wide‑pore
+    skinType: "oily",
+    sensitivity: "medium",
+    concerns: ["sebum", "acne", "texture"],
+    preferIngredients: ["niacinamide", "zinc pca", "bha", "green tea"],
+    avoidIngredients: ["heavy oil", "fragrance", "coconut oil"]
+  },
+  DRPW: { // Dry / Resistant / Pigmented / Wide‑pore
+    skinType: "dry",
+    sensitivity: "low",
+    concerns: ["hydration", "brightening", "anti-aging"],
+    preferIngredients: ["hyaluronic acid", "vitamin c", "peptide", "ceramide"],
+    avoidIngredients: ["high % denat. alcohol"]
+  },
+  ORPT: { // Oily / Resistant / Pigmented / Tight‑pore
+    skinType: "oily",
+    sensitivity: "low",
+    concerns: ["oil control", "brightening"],
+    preferIngredients: ["niacinamide", "arbutin", "bha", "azelaic acid"],
+    avoidIngredients: ["heavy oil"]
+  }
+  // …필요 시 추가
+};
+
+/* 2) 제품 데이터(예시) 
+   - 실제 페이지의 .product_card에 data-sku가 있어야 안정적 매칭됩니다.
+   - 최소한 ingredients.good/bad 2개 이상씩 권장 */
+const PRODUCTS = [
+  {
+    sku: "GLOW_RICE_TONER",
+    name: "Glow Replenishing Rice Milk",
+    subtitle: "Hydrating + Balancing Toner",
+    attributes: ["hydrating", "balancing", "barrier"],
+    ingredients: {
+      good: ["rice extract", "hyaluronic acid", "panthenol", "betaine"],
+      bad: ["fragrance"]
+    }
+  },
+  {
+    sku: "NIACINAMIDE_SERUM",
+    name: "Clear Refine 10% Niacinamide",
+    subtitle: "Oil Control + Pore Care Serum",
+    attributes: ["oil control", "pore", "texture"],
+    ingredients: {
+      good: ["niacinamide", "zinc pca", "allantoin"],
+      bad: ["fragrance", "coconut oil"]
+    }
+  },
+  {
+    sku: "GENTLE_BARRIER_CREAM",
+    name: "Gentle Barrier Repair Cream",
+    subtitle: "Soothing + Barrier Strengthening",
+    attributes: ["barrier", "soothing", "hydrating"],
+    ingredients: {
+      good: ["ceramide", "squalane", "panthenol"],
+      bad: ["limonene", "linalool"]
+    }
+  },
+  {
+    sku: "BRIGHT_VITC",
+    name: "Bright Day Vitamin C 15%",
+    subtitle: "Brightening + Tone Care",
+    attributes: ["brightening", "anti-aging"],
+    ingredients: {
+      good: ["vitamin c", "ferulic acid", "vitamin e"],
+      bad: ["alcohol denat."]
+    }
+  }
+];
+
+/* 3) 유틸: 안전 접근 */
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+/* 4) 로딩 표시/숨김 - 다음 프레임에 계산 시작하여 실제로 보이게 함 */
+function showLoading() {
+  const loading = $("#loading");
+  if (!loading) return;
+  loading.style.display = "block";
+  loading.setAttribute("aria-hidden", "false");
+}
+
+function hideLoading() {
+  const loading = $("#loading");
+  if (!loading) return;
+  loading.style.display = "none";
+  loading.setAttribute("aria-hidden", "true");
+}
+
+/* 5) 퀴즈 결과 읽기(예시)
+   - 실제 폼 구조에 맞게 name/selectors만 맞춰주세요.
+   - 최종적으로 MBTI 키 또는 등가 코드를 반환해야 합니다. */
+function getQuizResultKey() {
+  // 예: 라디오 name="skin_mbtI"에서 value로 DSNT/OSNW 등 반환
+  const checked = document.querySelector('input[name="skin_mbti"]:checked');
+  if (checked && SKIN_MBTI_MAP[checked.value]) {
+    return checked.value;
+  }
+  // 백업: 개별 문항을 조합해 키 생성하는 경우
+  const t1 = $('input[name="oiliness"]:checked')?.value; // dry|oily
+  const t2 = $('input[name="sensitivity"]:checked')?.value; // sensitive|resistant
+  const t3 = $('input[name="pigment"]:checked')?.value; // pigmented|non
+  const t4 = $('input[name="pore"]:checked')?.value; // tight|wide
+
+  // 간단 매핑 예시
+  const guess =
+    (t1 === "dry" ? "D" : "O") +
+    (t2 === "sensitive" ? "S" : "R") +
+    (t3 === "pigmented" ? "P" : "N") +
+    (t4 === "tight" ? "T" : "W");
+
+  return SKIN_MBTI_MAP[guess] ? guess : "DSNT"; // 기본값
+}
+
+/* 6) 스코어링: 프로필 × 제품 × 텍스트(h3/p) 정밀 반영 */
+function scoreProduct(product, profile, nameText = "", subtitleText = "") {
+  let score = 0;
+  let max = 100;
+
+  // 6-1) 성분 선호/회피
+  const good = product.ingredients?.good ?? [];
+  const bad = product.ingredients?.bad ?? [];
+
+  const preferHit = good.filter(g =>
+    profile.preferIngredients?.some(p => equalsWord(p, g))
+  ).length;
+
+  const avoidHit = bad.filter(b =>
+    profile.avoidIngredients?.some(a => equalsWord(a, b))
+  ).length;
+
+  score += preferHit * 12;      // 선호 성분 1개당 +12
+  score -= avoidHit * 15;       // 회피 성분 1개당 -15
+
+  // 6-2) 속성/고민 매칭
+  const attrs = (product.attributes || []).map(x => x.toLowerCase());
+  const concerns = (profile.concerns || []).map(x => x.toLowerCase());
+
+  const concernHit = concerns.filter(c => attrs.includes(c)).length;
+  score += concernHit * 10;     // 고민 카테고리 일치 1개당 +10
+
+  // 6-3) 피부타입 가중치
+  if (profile.skinType === "dry" && attrs.includes("hydrating")) score += 8;
+  if (profile.skinType === "oily" && (attrs.includes("oil control") || attrs.includes("balancing"))) score += 8;
+
+  // 6-4) 민감도 가중치
+  if (profile.sensitivity === "high" && bad.some(b => /(fragrance|limonene|linalool)/i.test(b))) {
+    score -= 8;
+  }
+
+  // 6-5) 이름/부제 키워드 매칭
+  const kw = [
+    { key: /hydrating|moist|barrier/i, tag: "hydrating", w: 6 },
+    { key: /soothing|calm/i, tag: "soothing", w: 6 },
+    { key: /brighten|vitamin\s*c|tone/i, tag: "brightening", w: 6 },
+    { key: /oil\s*control|pore|sebum/i, tag: "oil control", w: 6 },
+    { key: /balanc/i, tag: "balancing", w: 4 },
+    { key: /repair|ceramide/i, tag: "barrier", w: 5 }
+  ];
+  const text = `${nameText} ${subtitleText}`;
+  for (const k of kw) {
+    if (k.key.test(text)) {
+      score += k.w;
+      if (concerns.includes(k.tag)) score += 4; // 고민까지 일치 시 추가 가점
+    }
+  }
+
+  // 6-6) 페널티/보정
+  // 과한 알코올 표기 시 추가 페널티
+  if (bad.some(b => /alcohol\s*denat/i.test(b))) score -= 6;
+
+  // 6-7) 정규화 & 범위 제한
+  score = Math.max(0, Math.min(max, score));
+
+  // 6-8) 소수점 가중
+  // 선호 성분 비율을 소수 가점으로
+  const goodRatio = good.length ? preferHit / good.length : 0;
+  score = Math.min(max, score + goodRatio * 5);
+
+  return Number(score.toFixed(1));
+}
+
+/* 문자열 유사 비교(간단) */
+function equalsWord(a, b) {
+  return a.trim().toLowerCase() === b.trim().toLowerCase();
+}
+
+/* 7) 태그(span) 채우기: + 좋은성분 / - 나쁜성분 */
+function fillProductTags(card, product) {
+  const spans = card.querySelectorAll(".tags span");
+  if (!spans?.length) return;
+
+  const good = (product.ingredients?.good || []).slice(0, 2);
+  const bad = (product.ingredients?.bad || []).slice(0, 2);
+
+  const texts = [
+    good[0] ? `+ ${capitalize(good[0])}` : "",
+    good[1] ? `+ ${capitalize(good[1])}` : "",
+    bad[0] ? `- ${capitalize(bad[0])}` : "",
+    bad[1] ? `- ${capitalize(bad[1])}` : ""
+  ];
+
+  spans.forEach((s, i) => {
+    s.textContent = texts[i] || "";
+    s.style.display = texts[i] ? "inline-block" : "none";
+  });
+}
+
+function capitalize(s) {
+  if (!s) return s;
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+/* 8) DOM의 product_card → 제품데이터 매핑
+   - .product_card에 data-sku가 있다고 가정.
+   - 없으면 h3 텍스트로 유사 매칭(간단). */
+function findProductDataForCard(card) {
+  const sku = card.getAttribute("data-sku");
+  if (sku) {
+    const exact = PRODUCTS.find(p => p.sku === sku);
+    if (exact) return exact;
+  }
+  const name = card.querySelector(".info h3")?.textContent?.trim() || "";
+  // 이름으로 fallback 매칭
+  let found = PRODUCTS.find(p => new RegExp(escapeRegExp(p.name), "i").test(name));
+  if (found) return found;
+
+  // 특정 예시 제품명 전용 fallback
+  if (/Glow Replenishing Rice Milk/i.test(name)) {
+    return PRODUCTS.find(p => p.sku === "GLOW_RICE_TONER");
+  }
+  return null;
+}
+function escapeRegExp(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/* 9) 결과 렌더링 파이프라인 */
+async function renderResults() {
+  const resultWrap = $("#result");
+  if (!resultWrap) return;
+
+  const resultKey = getQuizResultKey();
+  const profile = SKIN_MBTI_MAP[resultKey];
+
+  const cards = $$(".product_card", resultWrap);
+
+  // 각 카드 점수 계산 및 태그 채우기
+  const cardData = cards.map(card => {
+    const nameText = card.querySelector(".info h3")?.textContent?.trim() || "";
+    const subtitleText = card.querySelector(".info p")?.textContent?.trim() || "";
+
+    const productData = findProductDataForCard(card) || {
+      sku: "UNKNOWN",
+      name: nameText,
+      subtitle: subtitleText,
+      attributes: [],
+      ingredients: { good: [], bad: [] }
+    };
+
+    const s = scoreProduct(productData, profile, nameText, subtitleText);
+    const scoreEl = card.querySelector(".info .score");
+    if (scoreEl) scoreEl.textContent = String(s);
+
+    fillProductTags(card, productData);
+
+    return { card, score: s };
+  });
+
+  // 점수 순 정렬(선택 사항)
+  const container = resultWrap.querySelector(".product_list, .cards, .grid, #result");
+  if (container && cardData.length) {
+    // DOM 재배치
+    cardData
+      .sort((a, b) => b.score - a.score)
+      .forEach(({ card }) => container.appendChild(card));
+  }
+}
+
+/* 10) 클릭 이벤트: #quiz 내 "result" 버튼(또는 링크) */
+function initQuizHandlers() {
+  const resultBtn =
+    $('#quiz [data-action="result"]') ||
+    $('#quiz button.result') ||
+    $('#quiz .result') ||
+    $('#quiz #resultBtn');
+
+  if (!resultBtn) return;
+
+  resultBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    // 1) 로딩 먼저 보여주고
+    showLoading();
+
+    // 2) 다음 프레임까지 양보 → 실제로 스피너가 페인팅됨
+    await new Promise(requestAnimationFrame);
+
+    // 3) 약간의 지연(UX): 비동기 계산 보장
+    await delay(120);
+
+    try {
+      await renderResults();
+      // 결과 영역 노출
+      const resultSection = $("#result");
+      if (resultSection) {
+        resultSection.style.display = "block";
+        resultSection.setAttribute("aria-hidden", "false");
+      }
+      // 퀴즈 영역 접기(선택)
+      const quiz = $("#quiz");
+      if (quiz) quiz.setAttribute("aria-hidden", "true");
+    } finally {
+      hideLoading();
+    }
+  });
+}
+
+function delay(ms) {
+  return new Promise((res) => setTimeout(res, ms));
+}
+
+/* 11) DOM 준비 후 초기화 */
+document.addEventListener("DOMContentLoaded", () => {
+  initQuizHandlers();
+});
+
+})();
+/* ===== End injected module ===== */
