@@ -53,6 +53,7 @@ html, body {margin: 0; padding: 0; min-height: 100vh;}
 /* Buttons */
 #startBtn {width: 120px; height: 45px; border: 1px solid var(--bg_black); background: transparent; color:var(--txt_main); cursor: pointer; text-align: center; font-family: var(--txt_font); font-weight: 300; font-size: .875rem; transition: .3s;}
 #startBtn:hover {background: var(--bg_black); color: var(--white_ff); font-weight: 500;}
+#wishlistBtn {font-size: .875rem; border: 1px solid var(--bg_black); width: 200px; height: 45px; background: var(--bg_black); color: var(--white_ff); transition: .3s; cursor: pointer; text-align: center; font-family: var(--txt_font); font-weight: 300;}
 .btn {font-size: .875rem; border: 1px solid var(--bg_black); width: 120px;height: 45px; background: var(--bg_black); color: var(--white_ff); transition: .3s; cursor: pointer; text-align: center; font-family: var(--txt_font); font-weight: 300;}
 .btn.secondary {background: var(--bg_black); color: var(--white_ff);}
 
@@ -74,18 +75,18 @@ input[type="radio"]:checked + .option .bullet {border-color: var(--bg_black); bo
 /* result radar */
 #result {min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;}
 .result-inner {width: 100%; text-align: center;}
-.legend {display: flex; gap: 8px; align-items: center; justify-content: center; color: var(--txt_sub_44); padding-top: 50px; font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300;}
+.legend {display: flex; gap: 8px; align-items: center; justify-content: center; color: var(--txt_sub_44); padding-top: 200px; font-family: var(--txt_font); font-size: 1.125rem; font-weight: 300;}
 .legend .sw {display: inline-block; width:18px; height: 10px; border-radius: 999px}
 .legend .sw.avg {background: rgba(24,169,153,0.6)}
 .legend .sw.mine {background: rgba(255,107,107,0.7)}
-.radar-wrap {display: flex; justify-content: center; margin:24px 0;}
+.radar-wrap {display: flex; justify-content: center; margin: 50px;}
 .chart {width: 520px; height: 520px; position: relative; font-family: var(--txt_font); font-size: 1rem; font-weight: 300;}
 .axis-chip {position: absolute; transform: translate(-50%,-50%); background: var(--white_ff); border: 1px solid var(--txt_sub_77); border-radius: 999px; padding: 4px 8px; font-size: 0.75rem; white-space: nowrap;}
 .axis-chip.good {color:#0f5132;border-color:#badbcc;background:#d1e7dd}
 .axis-chip.bad {color:#842029;border-color:#f5c2c7;background:#f8d7da}
 .axis-chip.mid {color:#555}
 
-.separator {display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 24px 0;}
+.separator {display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 40px;}
 .separator .dot {width: 8px; height:8px; background:#111; border-radius: 50%;}
 .separator .line {flex: 60px; border: 1px solid var(--txt_sub_77);}
 .mbti {font-family: var(--tit_font); font-size: 3rem; font-weight: 500;}
