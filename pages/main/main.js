@@ -16,73 +16,73 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   //메인 스크롤 이벤트
-// === GSAP: 메인 <-> 베스트셀러 스냅 (양방향, 이후 자연 스크롤) ===
-gsap.registerPlugin(ScrollToPlugin, Observer);
+  // === GSAP: 메인 <-> 베스트셀러 스냅 (양방향, 이후 자연 스크롤) ===
+  gsap.registerPlugin(ScrollToPlugin, Observer);
 
-const main = document.querySelector(".main");
-const best = document.querySelector(".bestSeller");
+  const main = document.querySelector(".main");
+  const best = document.querySelector(".bestSeller");
 
-let snapping = false;
-const getBestTopY = () => best.getBoundingClientRect().top + window.pageYOffset;
+  let snapping = false;
+  const getBestTopY = () => best.getBoundingClientRect().top + window.pageYOffset;
 
-// 스냅 중에만 스크롤 잠그기 (휠/터치 모두)
-const preventTouch = (e) => e.preventDefault();
-function lockScroll(on) {
-  document.documentElement.style.overscrollBehavior = on ? "none" : "";
-  document.body.style.overflow = on ? "hidden" : "";
-  // iOS/안드 터치 이동 차단
-  if (on) {
-    window.addEventListener("touchmove", preventTouch, { passive: false });
-  } else {
-    window.removeEventListener("touchmove", preventTouch);
-  }
-}
-
-Observer.create({
-  target: window,
-  type: "wheel,touch",   // 자연 스크롤은 그대로 두고, 스냅 시에만 잠금
-  // preventDefault: true  <- ❌ 사용하지 않음! (자연 스크롤 막지 않기)
-
-  // ↓ 아래로: 메인 → 베스트셀러 스냅
-  onDown() {
-    if (snapping) return;
-    const y = window.pageYOffset;
-    if (y < getBestTopY() - 8) {
-      snapping = true;
-      lockScroll(true);
-      gsap.to(window, {
-        duration: 0.9,
-        ease: "power2.out",
-        scrollTo: { y: best, autoKill: false },
-        onComplete: () => {
-          lockScroll(false);
-          snapping = false;
-        }
-      });
-    }
-  },
-
-  // ↑ 위로: 베스트셀러 꼭대기 근처 → 메인으로 스냅
-  onUp() {
-    if (snapping) return;
-    const y = window.pageYOffset;
-    const top = getBestTopY();
-    const threshold = top + 24;           // 꼭대기에서 살짝 아래까지 허용
-    if (y <= threshold && y >= top - 200) {
-      snapping = true;
-      lockScroll(true);
-      gsap.to(window, {
-        duration: 0.9,
-        ease: "power2.out",
-        scrollTo: { y: main, autoKill: false },
-        onComplete: () => {
-          lockScroll(false);
-          snapping = false;
-        }
-      });
+  // 스냅 중에만 스크롤 잠그기 (휠/터치 모두)
+  const preventTouch = (e) => e.preventDefault();
+  function lockScroll(on) {
+    document.documentElement.style.overscrollBehavior = on ? "none" : "";
+    document.body.style.overflow = on ? "hidden" : "";
+    // iOS/안드 터치 이동 차단
+    if (on) {
+      window.addEventListener("touchmove", preventTouch, { passive: false });
+    } else {
+      window.removeEventListener("touchmove", preventTouch);
     }
   }
-});
+
+  Observer.create({
+    target: window,
+    type: "wheel,touch",   // 자연 스크롤은 그대로 두고, 스냅 시에만 잠금
+    // preventDefault: true  <- ❌ 사용하지 않음! (자연 스크롤 막지 않기)
+
+    // ↓ 아래로: 메인 → 베스트셀러 스냅
+    onDown() {
+      if (snapping) return;
+      const y = window.pageYOffset;
+      if (y < getBestTopY() - 8) {
+        snapping = true;
+        lockScroll(true);
+        gsap.to(window, {
+          duration: 0.9,
+          ease: "power2.out",
+          scrollTo: { y: best, autoKill: false },
+          onComplete: () => {
+            lockScroll(false);
+            snapping = false;
+          }
+        });
+      }
+    },
+
+    // ↑ 위로: 베스트셀러 꼭대기 근처 → 메인으로 스냅
+    onUp() {
+      if (snapping) return;
+      const y = window.pageYOffset;
+      const top = getBestTopY();
+      const threshold = top + 24;           // 꼭대기에서 살짝 아래까지 허용
+      if (y <= threshold && y >= top - 200) {
+        snapping = true;
+        lockScroll(true);
+        gsap.to(window, {
+          duration: 0.9,
+          ease: "power2.out",
+          scrollTo: { y: main, autoKill: false },
+          onComplete: () => {
+            lockScroll(false);
+            snapping = false;
+          }
+        });
+      }
+    }
+  });
 
   /* -------------------------------
       ✅ GSAP 무한 흐름
@@ -139,111 +139,138 @@ Observer.create({
 
   //베스트셀러768
 
-    let swiper = new Swiper(".mySwiper", {
-      slidesPerView: 3.5,
-      freeMode: true,
-      watchSlidesProgress: true,
-    });
-    let swiper2 = new Swiper(".mySwiper2", {
+  let swiper = new Swiper(".mySwiper", {
+    slidesPerView: 3.5,
+    freeMode: true,
+    watchSlidesProgress: true,
+  });
+  let swiper2 = new Swiper(".mySwiper2", {
 
-      thumbs: {
-        swiper: swiper,
-      },
-    });
+    thumbs: {
+      swiper: swiper,
+    },
+  });
 
   /* -------------------------------
-      🟣 2. 인플루언서 카드 순차 회전
-  ------------------------------- */
-  const cards = Array.from(document.querySelectorAll('.influencer .card'));
-  if (cards.length) {
-    const config = {
-      flipMs: 800,
-      stayMs: 500,
-      gapMs: 120,
-      resetDelay: 1000,
-    };
+               🟣 2. 인플루언서 카드 순차 회전
+           ------------------------------- */
+const cards = Array.from(document.querySelectorAll('.influencer .card'));
+if (cards.length) {
+  const config = {
+    flipMs: 800,
+    stayMs: 500,
+    gapMs: 120,
+    resetDelay: 1000,
+  };
 
-    let loopRunning = false;
-    let stopLoop = false;
-    let isHovered = false;
+  let loopRunning = false;
+  let stopLoop = false;
+  let isHovered = false;
 
-    const influencerEl = document.querySelector('.influencer');
-    if (influencerEl) {
-      influencerEl.addEventListener('pointerenter', () => (isHovered = true));
-      influencerEl.addEventListener('pointerleave', () => (isHovered = false));
-    }
+  const influencerEl = document.querySelector('.influencer');
+  if (influencerEl) {
+    influencerEl.addEventListener('pointerenter', () => (isHovered = true));
+    influencerEl.addEventListener('pointerleave', () => (isHovered = false));
+  }
 
-    const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+  const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
-    async function sequentialFlipLoop() {
-      if (loopRunning) return;
-      loopRunning = true;
+  // 💖 하트 클릭: front/back 동기화 + 루프 영향 제거
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.influencer .wish');
+    if (!btn) return;
+    e.stopPropagation();
+    e.preventDefault();
 
-      while (!stopLoop) {
-        for (const card of cards) {
-          if (stopLoop) break;
-          while (isHovered && !stopLoop) await sleep(150);
-          if (stopLoop) break;
+    const card = btn.closest('.card');
+    if (!card) return;
 
-          card.classList.add('flipped');
-          await sleep(config.flipMs + config.stayMs + config.gapMs);
-        }
-        if (stopLoop) break;
-
-        await sleep(config.resetDelay);
-        cards.forEach((c) => c.classList.remove('flipped'));
-        await sleep(config.flipMs + 300);
-      }
-
-      loopRunning = false;
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) stopLoop = true;
-      else if (stopLoop) {
-        stopLoop = false;
-        sequentialFlipLoop();
-      }
+    const willActive = !btn.classList.contains('active');
+    card.querySelectorAll('.wish').forEach((w) => {
+      w.classList.toggle('active', willActive);
+      w.setAttribute('aria-pressed', willActive ? 'true' : 'false');
     });
 
-    sequentialFlipLoop();
+    // 플립 루프 중단 방지
+    card.classList.add('liked'); // 클릭된 카드 표시
+  });
+
+  // ♻️ 순차 플립 루프
+  async function sequentialFlipLoop() {
+    if (loopRunning) return;
+    loopRunning = true;
+
+    while (!stopLoop) {
+      for (const card of cards) {
+        if (stopLoop) break;
+        while (isHovered && !stopLoop) await sleep(150);
+        if (stopLoop) break;
+
+        // 하트 눌린 카드(liked)는 건너뜀
+        if (card.classList.contains('liked')) continue;
+
+        card.classList.add('flipped');
+        await sleep(config.flipMs + config.stayMs + config.gapMs);
+      }
+      if (stopLoop) break;
+
+      await sleep(config.resetDelay);
+      cards.forEach((c) => {
+        if (!c.classList.contains('liked')) c.classList.remove('flipped');
+      });
+      await sleep(config.flipMs + 300);
+    }
+
+    loopRunning = false;
   }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopLoop = true;
+    else if (stopLoop) {
+      stopLoop = false;
+      sequentialFlipLoop();
+    }
+  });
+
+  sequentialFlipLoop();
+}
+
 
   /* -------------------------------
       🟣 3. 인플루언서 찜(하트) 기능
   ------------------------------- */
-  const KEY = 'wish:list';
-  const store = JSON.parse(localStorage.getItem(KEY) || '{}');
+  //   const KEY = 'wish:list';
+  // const store = JSON.parse(localStorage.getItem(KEY) || '{}');
 
-  const getId = (btn) => {
-    if (btn.dataset.id) return btn.dataset.id;
-    const card = btn.closest('.card');
-    if (!card) return null;
-    const idClass = [...card.classList].find((c) => /^card_\d+$/.test(c));
-    return idClass || null;
-  };
+  // const getId = (btn) => {
+  //   if (btn.dataset.id) return btn.dataset.id;
+  //   const card = btn.closest('.card');
+  //   if (!card) return null;
+  //   const idClass = [...card.classList].find((c) => /^card_\d+$/.test(c));
+  //   return idClass || null;
+  // };
 
-  const applyState = (btn, on) => {
-    btn.classList.toggle('active', on);
-    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-  };
+  // const applyState = (btn, on) => {
+  //   btn.classList.toggle('active', on);
+  //   btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  // };
 
-  document.querySelectorAll('.influencer .wish').forEach((btn) => {
-    const id = getId(btn);
-    const on = id ? store[id] === true : false;
-    applyState(btn, on);
+  // document.querySelectorAll('.influencer .wish').forEach((btn) => {
+  //   const id = getId(btn);
+  //   const on = id ? store[id] === true : false;
+  //   applyState(btn, on);
 
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const nowOn = !btn.classList.contains('active');
-      applyState(btn, nowOn);
-      const key = getId(btn);
-      if (key) {
-        store[key] = nowOn;
-        localStorage.setItem(KEY, JSON.stringify(store));
-      }
-    });
-  });
+  //   btn.addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     const nowOn = !btn.classList.contains('active');
+  //     applyState(btn, nowOn);
+  //     const key = getId(btn);
+  //     if (key) {
+  //       store[key] = nowOn;
+  //       localStorage.setItem(KEY, JSON.stringify(store));
+  //     }
+  //   });
+  // });
 
 
   /* -------------------------------
