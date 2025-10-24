@@ -15,15 +15,13 @@ window.addEventListener('load', function () {
         if (textBox) {
             gsap.set(textBox, {
                 opacity: 0,
-                y: 60,
-                x: item.classList.contains('reverse') ? 40 : -40,
+                y: 30,
             });
 
             gsap.to(textBox, {
                 opacity: 1,
                 y: 0,
-                x: 0,
-                duration: 1.2,
+                duration: 1,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: item,
@@ -48,11 +46,23 @@ window.addEventListener('load', function () {
         }
 
         if (icon) {
+            // 스크롤로 화면에 진입할 때 아이콘 글로우 효과
+            gsap.to(icon, {
+                boxShadow: '0 0 20px rgba(181, 144, 22, 0.5)',
+                duration: 0.6,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse',
+                },
+            });
+
+            // 마우스 호버 시 확대
             item.addEventListener('mouseenter', () => {
                 gsap.to(icon, {
-                    scale: 1.15,
-                    rotate: 5,
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
+                    scale: 1.25,
+                    boxShadow: '0 0 25px rgba(181, 144, 22, 0.7)',
                     duration: 0.3,
                     ease: 'back.out(1.7)',
                 });
@@ -61,8 +71,7 @@ window.addEventListener('load', function () {
             item.addEventListener('mouseleave', () => {
                 gsap.to(icon, {
                     scale: 1,
-                    rotate: 0,
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                    boxShadow: '0 0 15px rgba(181, 144, 22, 0.4)',
                     duration: 0.3,
                     ease: 'power2.out',
                 });
@@ -180,5 +189,3 @@ document.addEventListener('DOMContentLoaded', () => {
         initPhilosophyAnimation();
     });
 });
-
-
