@@ -1110,3 +1110,561 @@
     }
 
 }
+
+
+
+
+/* ===== MOBILE: 360px (320px Inner) ===== */
+/* ===== MOBILE: 360px (320px Inner) ===== */
+@media (max-width: 360px) {
+
+    .inner {
+        width: 320px !important;
+        max-width: 320px !important;
+        padding: 0 20px !important;
+        margin: 0 auto !important;
+        overflow: hidden;
+    }
+
+    /* ===== SECTION 1: HERO ===== */
+    .section-1 {
+        padding-top: 8%;
+        padding-bottom: 5%;
+    }
+
+    .section-1 .inner {
+        padding: 300px 20px 50px !important;
+        gap: 14px;
+    }
+
+    .hero-line {
+        height: 50px;
+    }
+
+    .est {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+    }
+
+    .kor {
+        font-size: 24px;
+        line-height: 1.2;
+    }
+
+    .eng {
+        font-size: 12px;
+    }
+
+    .section-1 p.tit {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    /* ===== SECTION 2: OUR STORY ===== */
+    .section-2 {
+        padding: 60px 0;
+    }
+
+    .section-title {
+        margin-bottom: 40px;
+    }
+
+    .section-title .line {
+        width: 30px;
+        height: 1px;
+        margin: 0 auto 12px;
+    }
+
+    .section-title h2 {
+        font-size: 22px;
+    }
+
+    .section-title p {
+        font-size: 13px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    .story-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+
+    .story-card.reverse {
+        flex-direction: column;
+    }
+
+    .card-img {
+        width: 100%;
+        height: auto;
+    }
+
+    .card-img img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .card-text {
+        width: 100%;
+        text-align: left;
+        gap: 12px;
+    }
+
+    .card-text h3 {
+        font-size: 18px;
+        line-height: 1.3;
+        margin-bottom: 10px;
+    }
+
+    .card-text p {
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 6px;
+    }
+
+    .card-text .number {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        color: var(--accent-gold);
+        margin-bottom: 6px;
+    }
+
+    .note {
+        font-size: 10px;
+        padding-left: 10px;
+        border-left: 2px solid var(--accent-gold);
+        margin-top: 8px;
+    }
+
+    .section-bottom {
+        margin-top: 40px;
+        padding-top: 40px;
+        border-top: 1px solid rgba(28, 28, 28, 0.1);
+    }
+
+    .section-bottom p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    /* ===== SECTION 4: PHILOSOPHY ===== */
+    .section-4 {
+        background-color: #0f0f0f;
+        color: #fff;
+        padding: 50px 0 60px;
+        text-align: center;
+    }
+
+    .section-4 .section-title h2 {
+        font-size: 18px;
+    }
+
+    .section-4 .section-title p {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Philosophy Cards: 호버 시 텍스트 표시 */
+    .philosophy-cards {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 25px;
+    }
+
+    /* 카드: 호버 효과 */
+    .philosophy-card {
+        position: relative;
+        width: 100%;
+        max-width: 240px;
+        height: 240px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.4s ease;
+    }
+
+    /* 좌우 교대 배치 */
+    .philosophy-card:nth-child(1) {
+        align-self: flex-start;
+        margin-left: 3%;
+    }
+
+    .philosophy-card:nth-child(2) {
+        align-self: flex-end;
+        margin-right: 3%;
+    }
+
+    .philosophy-card:nth-child(3) {
+        align-self: flex-start;
+        margin-left: 6%;
+    }
+
+    /* 기본 상태: 심볼만 보임 */
+    .philosophy-card .symbol-wrapper {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        z-index: 2;
+        transition: all 0.4s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .philosophy-card .symbol {
+        width: 50px;
+        height: 50px;
+        font-size: 26px;
+    }
+
+    /* 텍스트 영역: 기본적으로 숨김 */
+    .philosophy-card h3 {
+        position: absolute;
+        font-size: 13px;
+        color: #fff;
+        margin: 0;
+        opacity: 0;
+        transition: opacity 0.4s ease 0.1s;
+        z-index: 3;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        line-height: 1.3;
+    }
+
+    .philosophy-card p {
+        position: absolute;
+        font-size: 10px;
+        line-height: 1.25;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.8);
+        opacity: 0;
+        transition: opacity 0.4s ease 0.15s;
+        padding: 0 10px;
+        bottom: 12px;
+        left: 0;
+        right: 0;
+        z-index: 3;
+        margin: 0;
+    }
+
+    .philosophy-card .quote {
+        display: none;
+    }
+
+    /* 호버 상태: 배경 어두워짐 + 텍스트 표시 */
+    .philosophy-card:hover {
+        background: rgba(0, 0, 0, 0.7);
+        box-shadow: inset 0 0 12px rgba(181, 144, 22, 0.12);
+    }
+
+    /* 호버 시 심볼 축소 + 흐릿해짐 */
+    .philosophy-card:hover .symbol-wrapper {
+        opacity: 0.1;
+        transform: scale(0.85);
+    }
+
+    /* 호버 시 텍스트 표시 */
+    .philosophy-card:hover h3,
+    .philosophy-card:hover p {
+        opacity: 1;
+    }
+
+    .philosophy-bottom {
+        padding-top: 45px;
+    }
+
+    .philosophy-bottom p {
+        font-size: 12px;
+        margin-bottom: 16px;
+        line-height: 1.5;
+    }
+
+    .philosophy-bottom .btn {
+        margin-top: 12px;
+        width: 100%;
+        max-width: 200px;
+        font-size: 11px;
+        padding: 10px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: transparent;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .philosophy-bottom .btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ===== SECTION 5: TIMELINE ===== */
+    .section-5 {
+        padding: 60px 0;
+        background:
+            url(/asset/img/brandstory/image-6890.png) bottom center no-repeat,
+            linear-gradient(90deg, #fefefe, #fdfefe, #f7f7f7);
+        background-size: cover, cover;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        padding-bottom: 100px;
+        background-size: 100%, cover;
+    }
+
+    .section-5 .section-title h2 {
+        font-size: 18px;
+    }
+
+    .section-5 .section-title h3 {
+        font-size: 19px;
+        margin-bottom: 12px;
+    }
+
+    .section-5 .section-title p {
+        font-size: 11px;
+        margin-top: 10px;
+    }
+
+    /* 타임라인 라인 유지 */
+    .timeline-line {
+        display: block;
+    }
+
+    .timeline-divider {
+        display: block;
+    }
+
+    .articles {
+        display: flex;
+        flex-direction: column;
+        gap: 70px;
+        width: 100%;
+        padding: 20px 0;
+        margin-top: 30px;
+    }
+
+    /* 타임라인 아이템: 핀 먼저, 텍스트 나중 */
+    .timeline-item,
+    .timeline-item.reverse {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+        background: transparent;
+        border: none;
+        padding: 0;
+        box-shadow: none;
+        order: unset;
+    }
+
+    /* Reverse에서도 같은 순서 유지 */
+    .timeline-item.reverse .timeline-icon {
+        order: -1;
+    }
+
+    .timeline-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 15px;
+        border-width: 2px;
+        flex-shrink: 0;
+    }
+
+    .timeline-text {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+    }
+
+    .timeline-text time {
+        font-size: 11px;
+        color: var(--accent-gold);
+        font-weight: 500;
+        display: block;
+        margin-bottom: 3px;
+    }
+
+    .timeline-text h4 {
+        font-size: 13px;
+        margin: 0;
+        margin-bottom: 4px;
+    }
+
+    .timeline-text p {
+        font-size: 10px;
+        line-height: 1.4;
+        color: var(--text-gray);
+        margin: 0;
+    }
+
+    /* ===== SECTION 6: GYUHAP ===== */
+    .section-6 {
+        padding: 80px 0 140px;
+    }
+
+    .section-6 .section-title .subtitle {
+        font-size: 13px;
+        margin-top: 12px;
+    }
+
+    .gyuhap-hero {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        align-items: center;
+        margin: 60px 0;
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(66, 64, 58, 0.2);
+    }
+
+    .book-frame {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .year-badge {
+        width: 65px;
+        height: 65px;
+        font-size: 15px;
+    }
+
+    .book-description h3 {
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 1.2;
+        margin-bottom: 10px;
+    }
+
+    .author {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .intro {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .wisdom-quote {
+        padding: 20px;
+        margin-top: 15px;
+        border-left: 3px solid var(--accent-gold);
+    }
+
+    .wisdom-quote p {
+        font-size: 12px;
+        font-style: italic;
+    }
+
+    /* Wisdom Grid: 1-Column */
+    .wisdom-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 60px 0;
+    }
+
+    .wisdom-card {
+        padding: 20px 16px;
+        min-height: auto;
+    }
+
+    .card-number {
+        font-size: 10px;
+        margin-bottom: 12px;
+    }
+
+    .card-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        margin: 0 auto 12px;
+    }
+
+    .wisdom-card h4 {
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .wisdom-card p {
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+    .legacy-section {
+        padding: 35px 20px;
+        margin-top: 50px;
+    }
+
+    .legacy-header {
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .legacy-header h3 {
+        font-size: 18px;
+    }
+
+    .legacy-text {
+        font-size: 11px;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .legacy-section::before,
+    .legacy-section::after {
+        width: 35px;
+        height: 35px;
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery-item {
+        flex: 0 0 160px;
+        height: 160px;
+    }
+
+    /* ===== NEWSLETTER ===== */
+    .section-7 h2 {
+        font-size: 22px;
+    }
+
+    .section-7>p {
+        font-size: 12px;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .newsletter-form input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 12px;
+    }
+
+    .newsletter-form button {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 12px;
+    }
+
+}
