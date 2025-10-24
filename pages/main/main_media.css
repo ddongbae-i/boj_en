@@ -1,14 +1,20 @@
 @charset "utf-8";
 
+@media screen and (max-width:1280px) {
 
-@media (max-width: 1024px) {
-    .bestSeller .slide_wrap  {
+    .banner_1 .txt_box {
+        font-size: 3vw;
+    }
+
+}
+
+@media screen and (max-width:1024px) {
+    .bestSeller .slide_wrap {
         height: 400px;
     }
 
     .bestSeller .product .card {
         width: 350px;
-        height: 334px;
         align-items: flex-end;
     }
 
@@ -24,5 +30,74 @@
         right: 0;
         bottom: 0px;
     }
+
+    .banner_1 {
+        height: 1125px;
+    }
+
+    .banner_1 .txt_box {
+        font-size: 1.5rem;
+    }
+
+}
+
+@media screen and (max-width:768px) {
+    .bestSeller {
+        display: none;
+    }
+
+    .bestSeller_768 {
+        display: block;
+        background: #000000;
+    }
+
+    .bestSeller_768 .swiper {
+        width: 100%;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+     .bestSeller_768  .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-size: cover;
+        background-position: center;
+        text-align: center;
+    }
+
+    .bestSeller_768 .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+     .bestSeller_768 .mySwiper2 {
+        width: 100%;
+        height: 80%;
+    }
+
+    .bestSeller_768 .mySwiper {
+        width: 100%;
+        height: 20%;
+        box-sizing: border-box;
+    }
+
+    .bestSeller_768 .mySwiper .swiper-slide {
+        width: 25%;
+        height: 100%;
+        opacity: .4;
+        transition: opacity 0.3s ease;
+    }
+
+    .bestSeller_768 .mySwiper .swiper-slide-thumb-active {
+        opacity: 1;
+    }
+
+
+}
+
+@media screen and (max-width:360px) {
 
 }
