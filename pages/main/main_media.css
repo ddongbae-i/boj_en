@@ -91,44 +91,58 @@
 
     .hanbang {
         height: auto;
+        min-height: 100vh;
+        overflow: visible;
+        /* sticky 방해 제거 */
     }
 
     .hanbang .inner {
-        width: 90%;
-        flex-direction: column;
-        justify-content: flex-start;
-    }
-
-    .hanbang .inner li {
-        height: 100vh;
-        order: 1;
-    }
-
-    .hanbang .txt_all {
-        width: 50%
+        display: grid;
+        grid-template-columns: 1fr min(46vw, 520px);
+        column-gap: 32px;
+        grid-template-areas:
+            "left  image"
+            "right image";
+        align-items: start;
+        overflow: visible;
+        /* sticky 방해 제거 */
     }
 
 
-    .hanbang .inner .img_box {
-        width: 400px;
-        height: 50vh;
-        position: sticky;
-        top: 40%;
-        order: -1;
+    .hanbang .txt_left {
+        grid-area: left;
     }
 
-    .hanbang .inner .img_box .img_all {
-        width: 400px;
-        height: 50vh;
-        left: 65%;
+    .hanbang .txt_right {
+        grid-area: right;
 
+    }
+
+ 
+
+    .hanbang .img_box .img_all {
+        object-fit: cover;
+    }
+
+    .hanbang .img_box .txt_box1 img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .hanbang .img_box .txt_box2 img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .hanbang .img_box .txt_box3 img{
+        width: 140px;
+        width: 140px;
     }
 
     .blog .inner .product {
         width: 100%;
         gap: 0px;
     }
-
 
     .blog .inner .product .allstory {
         /*         background: red; */
@@ -253,6 +267,59 @@
         bottom: 60px;
         right: 42px;
         width: 90vw
+    }
+
+    .hanbang .inner {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "image"
+            "text";
+        row-gap: 24px;
+    }
+
+    .hanbang .img_box {
+        grid-area: image;
+        position: static;
+        /* sticky 해제(원하면 유지 가능) */
+        width: min(520px, 92vw);
+        justify-self: center;
+        align-self: start;
+    }
+
+    .hanbang .txt_left,
+    .hanbang .txt_right {
+        grid-area: text;
+    }
+
+    .hanbang .txt_all ul {
+        display: none;
+    }
+
+    /* 모두 숨김 */
+    .hanbang .txt_all ul.on {
+        display: block;
+    }
+
+    /* 활성만 보이기 */
+
+    /* 4) 모바일에서는 리스트처럼 클릭 유도 안 하므로 커서/여백 조정(선택) */
+    .hanbang .txt_all ul li {
+        cursor: default;
+    }
+
+    .hanbang .progress {
+        margin-top: 12px;
+    }
+
+    /* 5) 번호 표시가 필요하면 이미지 아래 중앙 정렬(선택) */
+    .hanbang .inner .num {
+        display: block;
+        grid-area: text;
+        order: 2;
+        /* 텍스트 아래쪽에S 배치하고 싶으면 조정 */
+        text-align: right;
+        margin-top: 8px;
     }
 
     .blog .inner .product {
