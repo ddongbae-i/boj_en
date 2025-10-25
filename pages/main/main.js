@@ -224,42 +224,125 @@ if (cards.length) {
 }
 
 
-  /* -------------------------------
-      🟣 3. 인플루언서 찜(하트) 기능
-  ------------------------------- */
-  //   const KEY = 'wish:list';
-  // const store = JSON.parse(localStorage.getItem(KEY) || '{}');
+(function(){
+  const section = document.querySelector('.product_grid.influencer');
+  if (!section) return;
 
-  // const getId = (btn) => {
-  //   if (btn.dataset.id) return btn.dataset.id;
-  //   const card = btn.closest('.card');
-  //   if (!card) return null;
-  //   const idClass = [...card.classList].find((c) => /^card_\d+$/.test(c));
-  //   return idClass || null;
-  // };
+  // 그룹 컨테이너
+  const leftGroup  = section.querySelector('.influencer_left');
+  const rightGroup = section.querySelector('.influencer_right');
 
-  // const applyState = (btn, on) => {
-  //   btn.classList.toggle('active', on);
-  //   btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-  // };
+  // 공통 설정 (기존과 유사)
+  const config = {
+    flipMs: 800,
+    stayMs: 500,
+    gapMs: 120,
+    resetDelay: 1000,
+  };
 
-  // document.querySelectorAll('.influencer .wish').forEach((btn) => {
-  //   const id = getId(btn);
-  //   const on = id ? store[id] === true : false;
-  //   applyState(btn, on);
+  let loopRunning = false;
+  let stopLoop = false;
+  let isHovered = false;
+  let currentSide = 'left'; // 768 이하 모드에서 사용
 
-  //   btn.addEventListener('click', (e) => {
-  //     e.preventDefault();
-  //     const nowOn = !btn.classList.contains('active');
-  //     applyState(btn, nowOn);
-  //     const key = getId(btn);
-  //     if (key) {
-  //       store[key] = nowOn;
-  //       localStorage.setItem(KEY, JSON.stringify(store));
-  //     }
-  //   });
-  // });
+  // 섹션 hover 시 전체 일시정지(요청에 맞게 유지)
+  section.addEventListener('pointerenter', () => (isHovered = true));
+  section.addEventListener('pointerleave', () => (isHovered = false));
 
+  const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+
+  // 현재 뷰포트 모드
+  const isNarrow = () => window.matchMedia('(max-width: 768px)').matches;
+
+  // 현재 활성 카드 목록
+  function getActiveCards(){
+    if (isNarrow()){
+      // 한 그룹만 (CSS로 다른 쪽은 display:none)
+      const container = currentSide === 'left' ? leftGroup : rightGroup;
+      return Array.from(container.querySelectorAll('.card'));
+    }else{
+      // 둘 다
+      return Array.from(section.querySelectorAll('.card'));
+    }
+  }
+
+  // 768 이하에서 그룹 표시 토글
+  function applyGroupVisibility(){
+    if (!isNarrow()){
+      section.classList.remove('show-right');
+      return;
+    }
+    if (currentSide === 'right') section.classList.add('show-right');
+    else section.classList.remove('show-right');
+  }
+
+  // 순차 플립 1회전 (넘겨받은 카드 배열 대상)
+  async function flipOnce(cards){
+    for (const card of cards) {
+      // hover 중엔 잠깐 대기
+      while (isHovered) await sleep(150);
+
+      card.classList.add('flipped');
+      await sleep(config.flipMs + config.stayMs);
+      card.classList.remove('flipped');
+      await sleep(config.gapMs);
+    }
+  }
+
+  async function mainLoop(){
+    if (loopRunning) return;
+    loopRunning = true;
+
+    while (!stopLoop){
+      const cards = getActiveCards();
+      if (cards.length === 0){ await sleep(200); continue; }
+
+      await flipOnce(cards);
+      await sleep(config.resetDelay);
+
+      // 768 이하 모드라면: 한 바퀴 끝날 때마다 그룹 전환
+      if (isNarrow()){
+        currentSide = (currentSide === 'left') ? 'right' : 'left';
+        applyGroupVisibility();
+        // reset 후 살짝 대기
+        await sleep(150);
+      }
+    }
+
+    loopRunning = false;
+  }
+
+  // 화면 전환/리사이즈에 대응 (루프 재시작)
+  function restartLoop(){
+    stopLoop = true;
+    // 플립 클래스 제거
+    section.querySelectorAll('.card.flipped').forEach(c => c.classList.remove('flipped'));
+    // 좁은 화면이면 왼쪽부터 시작
+    currentSide = 'left';
+    applyGroupVisibility();
+
+    // 다음 틱에 루프 재개
+    requestAnimationFrame(() => {
+      stopLoop = false;
+      mainLoop();
+    });
+  }
+
+  window.addEventListener('resize', () => {
+    // 모드가 바뀐 경우만 재시작(너무 잦은 재시작 방지)
+    clearTimeout(window.__influencerResizeTimer);
+    window.__influencerResizeTimer = setTimeout(restartLoop, 120);
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopLoop = true;
+    else if (stopLoop) restartLoop();
+  });
+
+  // 초기 진입
+  applyGroupVisibility();
+  mainLoop();
+})();
 
   /* -------------------------------
        한방 이미지 ON 상황

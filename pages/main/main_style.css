@@ -92,12 +92,6 @@ main {
 .bestSeller .product .card img {
   width: 100%;
   object-fit: cover;
-  /*   width: 425px;
-  height: 430px;
-  position: absolute;
-  left: 50%;
-  translate: -50% -50%;
-  top: 50%; */
 }
 
 .bestSeller_768 {
@@ -345,11 +339,21 @@ main {
   transition: opacity 0.25s ease;
 }
 
-.influencer .wish .icon_heart:nth-of-type(1) { opacity: 1; }
-.influencer .wish .icon_heart:nth-of-type(2) { opacity: 0; }
+.influencer .wish .icon_heart:nth-of-type(1) {
+  opacity: 1;
+}
 
-.influencer .wish.active .icon_heart:nth-of-type(1) { opacity: 0; }
-.influencer .wish.active .icon_heart:nth-of-type(2) { opacity: 1; }
+.influencer .wish .icon_heart:nth-of-type(2) {
+  opacity: 0;
+}
+
+.influencer .wish.active .icon_heart:nth-of-type(1) {
+  opacity: 0;
+}
+
+.influencer .wish.active .icon_heart:nth-of-type(2) {
+  opacity: 1;
+}
 
 /* backface 클릭 막힘 방지 */
 .front,
@@ -370,31 +374,6 @@ main {
 .back::after {
   pointer-events: none;
 }
-
-
-/* ===== RESPONSIVE ===== */
-@media (max-width:1280px) {
-  .influencer_right {
-    display: none;
-  }
-
-  .product_grid .card_all {
-    gap: 20px;
-    max-width: calc(421px*2 + 20px);
-  }
-}
-
-@media (max-width:768px) {
-  .influencer_left {
-    grid-template-columns: 1fr;
-  }
-
-  .product_grid .card {
-    width: 100%;
-    height: 421px;
-  }
-}
-
 
 /* membership */
 .membership {

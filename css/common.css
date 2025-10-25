@@ -124,7 +124,7 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 120px;
+    width: 170px;
     height: 45px;
     font-size: 1rem;
     font-weight: 400;
@@ -133,7 +133,7 @@ body {
     position: relative;
     overflow: hidden;
     border: 1px solid #fff;
-    background-color: #000;
+    /* background-color: #000; */
     transition: all 0.3s ease;
 }
 
