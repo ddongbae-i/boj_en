@@ -320,7 +320,7 @@
     }
 
     .wisdom-card p {
-        font-size: 12px;
+        font-size: 18px;
         line-height: 1.5;
     }
 
@@ -339,7 +339,7 @@
     }
 
     .legacy-text {
-        font-size: 13px;
+        font-size: 16px;
         line-height: 1.6;
         margin-bottom: 20px;
     }
@@ -368,11 +368,11 @@
     }
 
     .section-5 .section-title h2 {
-        font-size: 20px;
+        font-size: 32px;
     }
 
     .section-5 .section-title h3 {
-        font-size: 22px;
+        font-size: 24px;
         margin-bottom: 15px;
     }
 
@@ -748,7 +748,7 @@
     }
 
     .wisdom-card p {
-        font-size: 12px;
+        font-size: 16px;
         line-height: 1.5;
     }
 
@@ -1120,6 +1120,64 @@
     .newsletter-tag {
         font-size: 16px;
     }
+
+    .newsletter-form {
+        max-width: 100%;
+        gap: 8px;
+    }
+
+    .newsletter-form input {
+        padding: 12px 12px;
+        font-size: 12px; /* 11px */
+        height: 80px;
+    }
+
+    .newsletter-tag {
+        font-size: 0.625rem; /* 10px */
+    }
+
+    .newsletter-form button {
+        padding: 10px 16px;
+        font-size: 0.625rem; /* 10px */
+        height: 60px;
+    }
+
+    .slider-item .korean-quote {
+        font-size: 16px; /* 12px */
+    }
+
+    .slider-item .english-quote {
+        font-size: 12px; /* 10px */
+    }
+
+    .newsletter-features {
+        gap: 16px;
+        padding-top: 24px;
+    }
+
+    .feature h4 {
+        font-size: 16px; /* 10px */
+    }
+
+    .feature p {
+        font-size: 16px; /* 10px */
+    }
+
+    .disclaimer {
+        font-size: 16px; /* 12px */
+    }
+
+    .section-title p {
+        font-size: 16px; /* 12px */
+    }
+     .gallery-item {
+        flex: 0 0 120px;
+        height: 120px;
+    }
+
+    .gallery-row {
+        gap: 14px;
+    }
 }
 
 
@@ -1200,7 +1258,8 @@
     }
 
     .section-1 p.tit {
-        font-size: 12px;
+        font-size: 14px;
+        text-align: center;
     }
 
     .section-2 {
@@ -1277,7 +1336,22 @@
         width: 60px;
         height: 60px;
     }
-
+.btn-white {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 170px;
+    height: px;
+    font-size: 16px;
+    font-weight: 100;
+    color: #fff;
+    line-height: 45px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #fff;
+    /* background-color: #000; */
+    transition: all 0.3s 
+}
     .symbol {
         width: 36px;
         height: 36px;
@@ -1546,7 +1620,7 @@
     }
 
     .wisdom-card p {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .legacy-section {
@@ -1635,4 +1709,100 @@
     .section-title p {
         font-size: 12px;
     }
-}
+
+
+       .inner {
+            max-width: 320px;
+
+        }
+
+        body {
+            font-size: 0.875rem;
+        }
+
+        .tit {
+            font-size: 2rem;
+        }
+
+        footer .f_center_right .f_nav {
+            width: 100%;
+        }
+
+        .f_nav .f_nav_top {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .f_nav_top button {
+            display: block;
+        }
+
+        .f_nav ul {
+            display: none;
+        }
+
+        .f_nav ul.down {
+            display: block;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            color: var(--bg_white);
+            margin-top: 12px;
+
+        }
+
+        .f_bottom {
+            flex-direction: column;
+            gap: 8px;
+            align-items: start;
+        }
+
+        .f_sns {
+            order: -1;
+            gap: 8px;
+        }
+.newsletter-form {
+        flex-direction: row !important;
+        gap: 0 !important;
+        width: 320px;
+        max-width: 100%;
+        height: 50px !important;
+        padding: 4px !important;
+    }
+
+    .newsletter-form input {
+        flex: 1 !important;
+        width: auto !important;
+        height: 100% !important;
+        font-size: 0.75rem !important;
+        padding: 8px 12px !important;
+        border: none !important;
+    }
+
+    .newsletter-form button {
+        width: 70px !important;
+        height: 100% !important;
+        font-size: 0.75rem !important;
+        padding: 8px 10px !important;
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-indent: -9999px !important;
+        position: relative !important;
+    }
+    
+    .newsletter-form button::after {
+        content: 'Join' !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        text-indent: 0 !important;
+        font-size: 0.875rem !important;
+    }
+
+    .newsletter-tag {
+        font-size: 0.625rem;
+    }}

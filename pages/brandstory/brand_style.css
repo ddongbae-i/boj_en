@@ -845,7 +845,7 @@ html {
     color: rgba(255, 255, 255, 0.95);
 }
 
-.btn {
+.btn-white {
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -863,7 +863,7 @@ html {
     justify-content: center;
 }
 
-.btn::before {
+.btn-white::before {
     content: '';
     position: absolute;
     top: 0;
@@ -1334,7 +1334,7 @@ html {
 }
 
 .wisdom-card p {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 300;
     line-height: 1.6;
     color: var(--text-gray);
