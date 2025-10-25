@@ -91,13 +91,9 @@
 
     :root {
         --hb-header: var(--header-height, 80px);
-        /* 사이트 헤더 높이 */
         --hb-gap: 24px;
-        /* sticky 상단 여유 */
         --hb-pad: 100px;
-        /* .hanbang padding-block */
         --hb-gap-between-items: 28px;
-        /* 텍스트 아이템 간격(참고) */
     }
 
     .hanbang {
@@ -245,7 +241,7 @@
 
     .banner_2 img {
         height: 250px;
-        object-position: center top;
+        object-position: left top;
     }
 
     .banner_2 .txt_box {
@@ -383,11 +379,109 @@
         right: 42px;
         width: 90vw
     }
+}
+
+@media (max-width:768px) {
+
+    .membership {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        padding: 100px 0;
+    }
+
+    /* PC용 메인 영상은 모바일에서 숨김 */
+    .membership>video.full {
+        display: none;
+    }
+
+    /* 🔸 모바일용 비디오 컨테이너 (4개의 비디오 그룹) */
+    .membership .mem768 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 100px;
+        /* 각 비디오 간 간격 */
+        width: 100%;
+    }
+
+    /* 🔹 비디오 프레임 (보이는 영역 = 384×657) */
+    .membership .mem768 .mem_video {
+        position: relative;
+        width: 384px;
+        height: 657px;
+        overflow: hidden;
+        /* 프레임 밖 영상은 안 보이게 */
+        border-radius: 24px;
+        opacity: 0;
+        transform: translateY(60px);
+        transition: opacity 1s ease, transform 1s ease;
+    }
+
+    /* 🔹 스크롤 등장 시 활성화 */
+    .membership .mem768 .mem_video.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 🔹 프레임보다 훨씬 큰 비디오 (실제 영상) */
+    .membership .mem768 .mem_video video.full_768 {
+        position: absolute;
+        top: var(--y, 50%);
+        left: var(--x, 50%);
+        transform: translate(-50%, -50%) scale(var(--scale, 2));
+        /* scale값으로 비디오 확대 (2 = 200%) */
+        width: auto;
+        height: auto;
+        min-width: 180%;
+        min-height: 180%;
+        object-fit: cover;
+        pointer-events: none;
+        /* 클릭 방지 */
+    }
+
+    /* 🔹 교차 정렬 (왼→오→왼→오) */
+    .membership .mem768 .green,
+    .membership .mem768 .blue {
+        align-self: flex-start;
+    }
+
+    .membership .mem768 .red,
+    .membership .mem768 .yellow {
+        align-self: flex-end;
+    }
+
+    /* 🔹 각 영상별 초기 위치값 (영상 안 보이는 부분 조정용) */
+    .membership .mem768 .green {
+        --x: 120%;
+        --y: 80%;
+        --scale: 1;
+    }
+
+    .membership .mem768 .red {
+        --x: 55%;
+        --y: 48%;
+        --scale: 2;
+    }
+
+    .membership .mem768 .blue {
+        --x: 46%;
+        --y: 58%;
+        --scale: 2;
+    }
+
+    .membership .mem768 .yellow {
+        --x: 54%;
+        --y: 50%;
+        --scale: 2;
+    }
 
     .hanbang {
         height: auto;
         min-height: 0;
-        padding-block: 28px 36px;
+        padding-block: 80px;
         overflow: visible;
     }
 
@@ -494,6 +588,25 @@
         pointer-events: auto;
     }
 
+    .banner_2 img {
+        height: 200px;
+        object-position: left top;
+    }
+
+    .banner_2 .txt {
+        font-size: 1.25rem;
+    }
+
+    .banner_2 .txt_box {
+        gap: 28px;
+        top: 40px;
+        right: 32px;
+    }
+
+    .blog {
+        padding-block: 80px;
+    }
+
     .blog .inner .product {
         flex-direction: column;
         align-items: center;
@@ -592,6 +705,10 @@
 
 @media (max-width: 440px) {
 
+    .hanbang {
+        padding-block: 40px;
+    }
+
     .hanbang .txt_all .tit {
         font-size: 1.875rem;
     }
@@ -613,14 +730,20 @@
 
     /* 2) 텍스트 컨테이너를 '슬롯'이 아니라 일반 블록으로 되돌림 */
     .hanbang .txt_col {
-        display: block;
+        overflow: hidden;
+        /* 스크롤 막기 */
+        max-height: none;
+        /* 불필요한 고정값 제거 */
+        height: auto;
+        /* 내용에 맞게 높이 자동 조정 */
+        pointer-events: none;
+        /* 스크롤 이벤트 방지 (선택적으로) */
+        /* display: block;
         grid-area: text;
         width: clamp(260px, 92vw, 360px);
         height: auto;
-        /* 고정/최대 높이 제거 */
         max-height: none;
-        overflow: visible;
-        /* 768의 overflow:hidden 해제 (잘림 방지) */
+        overflow: visible; */
     }
 
     /* 3) 내부 스트림/아이템 높이를 자동으로 (겹침·잘림 방지) */
@@ -629,7 +752,8 @@
     }
 
     .hanbang .txt_stream {
-        min-height: 0;
+        overflow: hidden;
+        /* 내부 스트림도 스크롤 차단 */
     }
 
     /* 4) 768에서 절대배치로 겹쳐놓은 카드들을 440에선 '보이는 것만' 상대배치 */
@@ -663,9 +787,17 @@
         right: 30px;
     }
 
+    .banner_2 img {
+        height: 100%;
+    }
+
+    .banner_2 .txt {
+        font-size: 1rem;
+    }
+
 
     .blog {
-        padding-block: 40px 20px;
+        padding-block: 40px;
     }
 
     .blog .inner h2 {

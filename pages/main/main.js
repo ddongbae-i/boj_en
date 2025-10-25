@@ -64,6 +64,7 @@ Observer.create({
 
   // ↑ 위로: 베스트셀러 꼭대기 근처 → 메인으로 스냅
   onUp() {
+    if (window.innerWidth <= 1024) return;
     if (snapping) return;
     const y = window.pageYOffset;
     const top = getBestTopY();
@@ -83,6 +84,7 @@ Observer.create({
     }
   }
 });
+
 
 /* -------------------------------
     ✅ GSAP 무한 흐름
@@ -344,6 +346,44 @@ if (cards.length) {
   mainLoop();
 })();
 
+//membership
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 등장 순서: green → red → blue → yellow
+  const videos = [
+    document.querySelector('.mem768 .green'),
+    document.querySelector('.mem768 .red'),
+    document.querySelector('.mem768 .blue'),
+    document.querySelector('.mem768 .yellow')
+  ].filter(Boolean);
+
+  // IntersectionObserver로 스크롤 등장 애니메이션 제어
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      const idx = videos.indexOf(entry.target);
+
+      // 순차적으로 지연 등장
+      setTimeout(() => {
+        entry.target.classList.add('active');
+        const v = entry.target.querySelector('video');
+        if (v) {
+          v.setAttribute('playsinline', '');
+          v.setAttribute('loop', '');
+          v.setAttribute('muted', '');
+          const p = v.play?.();
+          if (p && typeof p.catch === 'function') p.catch(() => { });
+        }
+      }, idx * 400);
+
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+
+  videos.forEach(v => io.observe(v));
+});
+
 /* -------------------------------
      한방 이미지 ON 상황
 ------------------------------- */
@@ -560,3 +600,27 @@ if (cards.length) {
   mq1024.addEventListener('change', applyMode);
   window.addEventListener('resize', debounce(() => { if (mq768.matches) setActive(index); }, 120));
 })();
+
+//banner_2 
+
+document.addEventListener('DOMContentLoaded', () => {
+  const bannerImg = document.querySelector('.banner_2 img');
+  if (!bannerImg) return;
+
+  const changeBannerImage = () => {
+    const isMobile = window.innerWidth <= 440;
+
+    if (isMobile) {
+      bannerImg.src = "/asset/img/main/banner02_440.png";
+    } else {
+      // 👇 기본 데스크톱 이미지 경로
+      bannerImg.src = "/asset/img/main/banner02.png";
+    }
+  };
+
+  // 최초 1회 실행
+  changeBannerImage();
+
+  // 화면 크기 바뀔 때도 자동 갱신
+  window.addEventListener('resize', changeBannerImage);
+});
