@@ -307,19 +307,19 @@
         margin-bottom: 54px;
         ;
     }
-
-
 }
 
 @media screen and (max-width:768px) {
     .bestSeller {
         display: none;
+
     }
 
 
     .bestSeller_768 {
         display: block;
         background: #000000;
+        padding-bottom: 40px;
     }
 
     .bestSeller_768 .swiper {
@@ -384,8 +384,10 @@
     }
 
     .hanbang {
-        padding-block: 50px;
-        overflow: hidden;
+        height: auto;
+        min-height: 0;
+        padding-block: 28px 36px;
+        overflow: visible;
     }
 
     /* 레이아웃: 이미지 위, 텍스트 아래 */
@@ -395,7 +397,10 @@
         grid-template-areas:
             "center"
             "text";
-        row-gap: 24px;
+        grid-template-rows: auto auto;
+        /* 각 행을 내용만큼만 */
+        row-gap: 20px;
+        /* ✅ 텍스트가 이미지와 겹치지 않도록 간격 */
         align-items: start;
         justify-items: center;
     }
@@ -404,11 +409,12 @@
     .hanbang .img_box {
         grid-area: center;
         position: relative;
-        top: auto;
-        width: 70vw;
-        /* 줄이기: 92vw → 80vw */
-        aspect-ratio: 4 / 5;
-        /* 살짝 세로 줄임 */
+        width: min(70vw, 560px);
+        /* 폭은 기존 느낌 유지 */
+        height: clamp(300px, 56vw, 440px);
+        /* ✅ 확정 높이: 너무 작거나/큰 경우를 모두 방지 */
+        max-height: 60vh;
+        /* 화면 대비 상한 */
         margin-inline: auto;
         pointer-events: none;
         z-index: 1;
@@ -419,16 +425,27 @@
         inset: 0;
     }
 
-    /* 텍스트 박스: 1개만 보여주고 나머지는 숨김 */
-    .hanbang .txt_col {
-        grid-area: text;
-        position: relative;
-        max-height: none;
-        overflow: hidden;
-        /* ✅ 스크롤바 제거 */
+    .hanbang .img_box>div,
+    .hanbang .img_box img {
         width: 100%;
-        display: flex;
-        justify-content: center;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .hanbang .txt_all>ul {
+        margin: 0 0 14px;
+        /* 위쪽 0으로 고정 */
+    }
+
+    /* 텍스트 박스: 1개만 보여주고 나머지는 숨김 */
+    /* .hanbang .txt_col {
+        grid-area: text;
+        display: block;
+        width: min(88vw, 640px);
+    } */
+
+    .hanbang .txt_all {
+        height: 400px;
     }
 
     .hanbang .txt_stream {
@@ -450,6 +467,37 @@
         opacity: 1;
         transform: translateY(0);
         position: relative;
+    }
+
+    .hanbang .txt_stream {
+        position: relative;
+        overflow: hidden;
+        /* 슬롯 밖은 가림 */
+        /* 초기 슬롯 높이. 너무 크면 줄이세요 */
+        min-height: 150px;
+        /* 예: 140~180px 선호 */
+    }
+
+    /* 모든 카드(좌/우) – 슬롯 안에 겹치기 + 보이지 않기 */
+    .hanbang .txt_left ul,
+    .hanbang .txt_right ul {
+        position: absolute;
+        inset: 0;
+        /* top:0; right:0; bottom:0; left:0; */
+        margin: 0;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity .35s ease;
+    }
+
+    /* 활성 카드만 보이게 */
+    .hanbang .txt_all ul.on {
+        position: relative;
+        /* 필요 시 relative */
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
     }
 
     .blog .inner .product {
