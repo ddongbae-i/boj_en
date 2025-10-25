@@ -53,7 +53,7 @@ body {
     font-weight: 500;
 }
 
-.btn {
+/* 기존 .btn {
     width: 120px;
     height: 45px;
     font-size: 1rem;
@@ -61,6 +61,119 @@ body {
     border: 1px solid var(--txt_main);
     text-align: center;
     line-height: 45px;
+}
+ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 45px;
+    /*             padding: 12px 20px; */
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000;
+    line-height: 45px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #000;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+/*____________________________ 버튼 호버 효과 추가  */
+
+.btn::before { /* 기본 흰>검정 ver */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    /* 번쩍임 레이어 */
+    transform: skewX(-20deg);
+    transition: left 0.5s ease;
+    pointer-events: none;
+}
+
+.btn:hover::before {
+    left: 120%;
+}
+
+.btn:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: #fff;
+}
+
+.btn .line {
+    width: 27px;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.6);
+    /* 기본 라인 블랙 */
+    transition: 0.3s ease;
+}
+
+.btn:hover .line {
+    background: rgba(255, 255, 255, 0.6);
+    /* 호버 시 라인 화이트 */
+}
+
+.btn-white { /* 검>흰ver */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 170px;
+    height: 45px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+    line-height: 45px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #fff;
+    /* background-color: #000; */
+    transition: all 0.3s ease;
+}
+
+.btn-white::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: skewX(-20deg);
+    transition: left 0.5s ease;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.btn-white:hover::before {
+    left: 150%;
+    opacity: 1;
+}
+
+.btn-white:hover {
+    /*     background-color: #fff;
+    color: #000;
+    border-color: #000; */
+    background: rgba(255, 255, 255, 0.05);
+    
+}
+
+.btn-white .line {
+    width: 27px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.6);
+    transition: 0.3s ease;
+}
+
+.btn-white:hover .line {
+/*     background: rgba(0, 0, 0, 0.6); */
+    background: rgba(255, 255, 255, 0.6);
 }
 
 /* 가운데 정렬하기 */
@@ -80,23 +193,26 @@ header {
     right: 0;
     /* display: none; */
     /* dn 지우기 */
-      transition: background-color 0.3s, top 0.4s ease;
-  background-color: transparent;
-  z-index: 100;
+    transition: background-color 0.3s, top 0.4s ease;
+    background-color: transparent;
+    z-index: 100;
 }
 
 /* 기본 (위로 스크롤 시 노출) */
 header.scrolled-up {
-  background-color: rgba(254, 254, 254, 0.94); /* 반투명 */
+    background-color: rgba(254, 254, 254, 0.94);
+    /* 반투명 */
 }
 
 /* hover 시 (위로 스크롤 상태일 때만 진하게) */
 header.scrolled-up.hovered {
-  background-color: #fefefe; /* 완전 불투명 or 더 진한 색 */
+    background-color: #fefefe;
+    /* 완전 불투명 or 더 진한 색 */
 }
 
 header.hovered {
-  background-color: #fefefe; /* hover 시 더 채워진 불투명색 */
+    background-color: #fefefe;
+    /* hover 시 더 채워진 불투명색 */
 }
 
 header .inner {
@@ -131,7 +247,8 @@ nav:hover .ham_bottom {
     border-top: 1px solid var(--grey_aa);
 }
 
-.ham_bottom ul li:nth-child(1), .ham_bottom ul li:nth-child(2) {
+.ham_bottom ul li:nth-child(1),
+.ham_bottom ul li:nth-child(2) {
     display: none;
 }
 
@@ -159,7 +276,7 @@ nav ul.gnb:hover>li {
     color: var(--txt_sub_77);
 }
 
-nav ul.gnb>li:hover >a {
+nav ul.gnb>li:hover>a {
     color: var(--txt_main);
 }
 

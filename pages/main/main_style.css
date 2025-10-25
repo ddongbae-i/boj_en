@@ -28,12 +28,10 @@ main {
 }
 
 .main .mainVisual {
-  height: 100dvh;
   height: 100vh;
   max-width: 100%;
+  width: 100%;
   overflow: hidden;
-  display: grid;
-  place-items: center;
 }
 
 .main .mainVisual video {
@@ -94,12 +92,6 @@ main {
 .bestSeller .product .card img {
   width: 100%;
   object-fit: cover;
-  /*   width: 425px;
-  height: 430px;
-  position: absolute;
-  left: 50%;
-  translate: -50% -50%;
-  top: 50%; */
 }
 
 .bestSeller_768 {
@@ -129,6 +121,7 @@ main {
   font-size: 2.5rem;
   line-height: 140%;
 
+
 }
 
 .banner_1 .txt_box .txt_top {
@@ -136,6 +129,7 @@ main {
   text-align: left;
   left: 110px;
   top: 180px;
+  width: 795px;
 }
 
 .banner_1 .txt_box .txt_bottom {
@@ -143,232 +137,246 @@ main {
   text-align: right;
   right: 110px;
   bottom: 90px;
+  width: 1300px;
 }
 
-.influencer {
-  --card: 421px;
-  --gap: 5px;
-  width: 100%;
-  padding: 100px 0;
+.banner_1 .txt_box .txt_bottom :first-child {
+  margin-bottom: 50px;
+}
+
+/* influencer */
+
+/* ===== SECTION LAYOUT ===== */
+.product_grid.influencer {
   background: var(--bg_black);
+  padding-block: 100px;
+  padding-inline: clamp(42px, 6vw, 110px)
 }
 
-.influencer>.inner {
-  padding-inline: 0;
-  max-width: 1700px;
-  margin: 0 auto;
-  height: auto;
+.product_grid .card_all {
   display: flex;
-  gap: var(--gap);
-  align-items: flex-start;
   justify-content: center;
+  gap: 5px;
+  margin: 0 auto;
+
 }
 
-.influencer .card_left,
-.influencer .card_right {
-  width: calc(var(--card) * 2 + var(--gap));
-  height: calc(var(--card) * 3 + var(--gap) * 2);
-  /* 절대배치 카드까지 감싸도록 */
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap);
-  align-items: flex-start;
+.influencer_left,
+.influencer_right {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(2, minmax(clamp(260px, 21vw, 421px), 1fr));
+  grid-auto-rows: clamp(260px, 21vw, 421px);
 }
 
-.influencer .card {
-  width: var(--card);
-  height: var(--card);
+/* LEFT (1~5) */
+.influencer_left .card1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.influencer_left .card2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.influencer_left .card3 {
+  grid-column: 1;
+  grid-row: 2 / span 2;
+}
+
+/* 세로 영상 */
+.influencer_left .card4 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.influencer_left .card5 {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+/* RIGHT (6~10) */
+.influencer_right .card6 {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+/* 세로 영상 */
+.influencer_right .card7 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.influencer_right .card8 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.influencer_right .card9 {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.influencer_right .card10 {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+/* ===== CARD & FLIP ===== */
+.product_grid .card {
   position: relative;
-  border-radius: 10px;
-  background: var(--img_bg);
+  width: 100%;
+  height: 100%;
+  perspective: 1200px;
+  border-radius: 8px;
   overflow: hidden;
-  display: block;
-  pointer-events: auto;
 }
 
-/* 세로형 카드(3,6)는 두 칸 높이 */
-.influencer .card_3,
-.influencer .card_6 {
-  height: calc(var(--card) * 2 + var(--gap));
-}
-
-/* 카드 회전 (카드 전체를 한 번만 회전) */
-.influencer .card {
+/* 플립 컨테이너 */
+.in_inner {
   position: relative;
-  /* 크기는 기존 선언( var(--card) )을 사용하도록 width/height 제거 */
-  perspective: 1000px;
-  -webkit-perspective: 1000px;
+  width: 100%;
+  height: 100%;
   transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  transition: transform 1.6s cubic-bezier(.2, .8, .2, 1);
-  /* flipMs:1600ms와 일치 */
-  will-change: transform;
-  /* flipped 클래스가 붙으면 카드 전체를 한 번 회전시킴 */
+  transition: transform .6s cubic-bezier(.22, .61, .36, 1);
+  cursor: pointer;
 }
 
-.influencer .card.flipped {
+/* ★ JS가 .card에 flipped를 붙인다 */
+.card.flipped .in_inner {
   transform: rotateY(180deg);
 }
 
-/* front/back 레이어 설정 — 위치를 겹치게 하고 back은 뒤집어둠 */
-.influencer .card .front,
-.influencer .card .back {
+.front,
+.back {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  display: block;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-/* front는 정면, back은 180도로 미리 뒤집어서 카드 전체가 180deg 회전하면 보이도록 */
-.influencer .card .front {
-  transform: rotateY(0deg);
-  z-index: 2;
-}
-
-.influencer .card .back {
+.back {
   transform: rotateY(180deg);
-  z-index: 1;
 }
 
-/* 이미지가 따로 transform을 갖고 있지 않도록 안전장치 */
-.influencer .card img {
-  transform: none !important;
-}
-
-/* 회전 미사용: back 숨김 */
-
-/* 미디어 공통 */
-.influencer .card .media {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.influencer .card .media img,
-.influencer .card .media video {
+/* 미디어 */
+.product_grid img,
+.product_grid video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 12px;
 }
 
-/* 오버레이 공통 */
-.influencer .card .black {
+/* ===== HOVER TEXT / ICON (BG 없이 간단히) ===== */
+.pro_txt {
   position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-  background: rgba(0, 0, 0, .45);
-  color: var(--white_ff);
   opacity: 0;
-  pointer-events: none;
-  transition: opacity .25s ease;
+  transition: opacity .2s ease;
+  color: #fff;
   z-index: 2;
-}
-
-.influencer .card:hover .black {
-  opacity: 1;
   pointer-events: auto;
 }
 
-.influencer .black_top {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  top: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.influencer .black_top .name {
+/* 위치 */
+.card h4.pro_txt {
+  top: 20px;
+  left: 20px;
   font-size: 1rem;
   line-height: 1.4;
 }
 
-.influencer .black_center {
+.card small.pro_txt {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  display: grid;
-  gap: 10px;
-}
-
-.influencer .black_center p {
-  margin: 0;
+  line-height: 1.4;
   font-size: 1.125rem;
   font-weight: 500;
 }
 
-/* 위시 아이콘(두 장 방식) */
-.influencer .wish {
-  all: unset;
+.card .wish.pro_txt {
+  top: 20px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  background: none;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 0;
 }
 
+/* hover 시에만 텍스트/하트 보이기 */
+.card:hover .pro_txt {
+  opacity: 1;
+}
+
+.card:hover .pro {
+  opacity: 0.3;
+}
+
+.influencer .wish {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* 하트 아이콘 opacity로 전환 */
 .influencer .wish .icon_heart {
-  width: 20px;
-  height: 20px;
-  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.25s ease;
+}
+
+.influencer .wish .icon_heart:nth-of-type(1) {
+  opacity: 1;
 }
 
 .influencer .wish .icon_heart:nth-of-type(2) {
-  display: none;
+  opacity: 0;
 }
 
 .influencer .wish.active .icon_heart:nth-of-type(1) {
-  display: none;
+  opacity: 0;
 }
 
 .influencer .wish.active .icon_heart:nth-of-type(2) {
-  display: block;
+  opacity: 1;
 }
 
-/* 레이아웃 특수 카드 위치(기존과 동일) */
-.influencer .card_left .card_5 {
+/* backface 클릭 막힘 방지 */
+.front,
+.back {
   position: absolute;
-  right: 0;
-  top: calc(var(--card) * 2 + var(--gap) * 2);
-  width: var(--card);
-  height: var(--card);
-}
-
-.influencer .card_right .card_8 {
-  position: absolute;
-  right: 0;
-  top: calc(var(--card) + var(--gap));
-  width: var(--card);
-  height: var(--card);
-}
-
-
-/* 카드회전 */
-/* .influencer .inner .card .front {
-  background: red;
-}
-
-.influencer .inner .card .back {
-  background: pink;
-  transform: rotateY(180deg);
-
-}
-
-.hidden {
+  inset: 0;
   backface-visibility: hidden;
-} */
+  transform-style: preserve-3d;
+  z-index: 0;
+}
 
+/* 이미지, 오버레이는 클릭 막지 않게 */
+.front img,
+.back img,
+.front video,
+.back video,
+.front::after,
+.back::after {
+  pointer-events: none;
+}
 
-
+/* membership */
 .membership {
   width: 100%;
   height: 100%;
@@ -405,9 +413,8 @@ main {
 /* 한방 */
 .hanbang {
   width: 100%;
-  height: 973px;
+  height: 100vh;
   background: var(--white_ff);
-  display: flex;
 }
 
 .hanbang .inner {
@@ -417,7 +424,6 @@ main {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   /* gap: 0; */
   position: relative;
 }
@@ -500,18 +506,6 @@ main {
 
 }
 
-/* txt on */
-/* .hanbang .inner .txt1.on .txt,
-.hanbang .inner .txt2.on .txt,
-.hanbang .inner .txt3.on .txt,
-.hanbang .inner .txt4.on .txt,
-.hanbang .inner .txt5.on .txt,
-.hanbang .inner .txt6.on .txt,
-.hanbang .inner .txt7.on .txt,
-.hanbang .inner .txt8.on .txt {
-  color: var(--txt_main);
-} */
-
 .hanbang .txt_all ul.on .txt {
   color: var(--txt_main);
 }
@@ -562,6 +556,7 @@ main {
   }
 }
 
+
 /* 2️⃣ 기본 스타일 */
 .hanbang .inner .progress .playbar {
   position: absolute;
@@ -576,63 +571,58 @@ main {
 }
 
 /* 3️⃣ 상태별 실행 */
-.hanbang .txt_all ul.on .playbar {
+.hanbang .txt_all ul.on .progress .playbar {
   display: block;
-  background: var(--ginseng);
+  background: var(--grey_de);
   animation: fill-bar 4s linear forwards;
   width: 100%;
 }
 
-
-/* 프로그레스 on */
-
-
-.hanbang .txt_all ul.on .txt1 .progress .playbar {
+/* 각 항목별 색상 오버라이드 */
+.hanbang .txt_all ul.txt1.on .progress .playbar {
   background: var(--ginseng);
-
 }
 
-.hanbang .txt_all ul.on .txt2 .progress .playbar {
+.hanbang .txt_all ul.txt2.on .progress .playbar {
   background: var(--rice);
 }
 
-.hanbang .txt_all ul.on .txt3 .progress .playbar {
+/* .c → .progress */
+.hanbang .txt_all ul.txt3.on .progress .playbar {
   background: var(--greentea);
 }
 
-.hanbang .txt_all ul.on .txt4 .progress .playbar {
+.hanbang .txt_all ul.txt4.on .progress .playbar {
   background: var(--redbean);
 }
 
-.hanbang .txt_all ul.on .txt5 .progress .playbar {
+.hanbang .txt_all ul.txt5.on .progress .playbar {
   background: var(--propulis);
 }
 
-.hanbang .txt_all ul.on .txt6 .progress .playbar {
+/* --propulis → --propolis */
+.hanbang .txt_all ul.txt6.on .progress .playbar {
   background: var(--greenplum);
 }
 
-.hanbang .txt_all ul.on .txt7 .progress .playbar {
+.hanbang .txt_all ul.txt7.on .progress .playbar {
   background: var(--centella);
 }
 
-.hanbang .txt_all ul.on .txt8 .progress .playbar {
+.hanbang .txt_all ul.txt8.on .progress .playbar {
   background: var(--mugwort);
 }
 
 
-
 .hanbang .inner .img_box {
-  width: 644px;
-  height: 753px;
+
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  width: 644px;
+  height: 753px;
+
 }
 
 .hanbang .img_box>div {
@@ -693,7 +683,7 @@ main {
   height: 170px;
   position: absolute;
   right: 25%;
-  bottom: 0;
+  bottom: 10px;
 }
 
 
@@ -712,11 +702,11 @@ main {
 }
 
 .hanbang .inner .on .imgTxt .txt_box2 img {
-  animation-delay: 2.0s;
+  animation-delay: 1.2s;
 }
 
 .hanbang .inner .on .imgTxt .txt_box3 img {
-  animation-delay: 3.00s;
+  animation-delay: 1.6s;
 }
 
 @keyframes hanbang-fadeup {
@@ -815,4 +805,89 @@ main {
 .banner_2 .txt {
   font-size: 1.875rem;
   line-height: 1.4;
+}
+
+.blog {
+  width: 100%;
+  height: 100%;
+  padding-block: 100px;
+}
+
+.blog .inner .product {
+  margin-top: 40px;
+  display: flex;
+  gap: 140px;
+}
+
+.blog .inner .product .allstory {
+  width: 730px;
+  height: 1009px;
+}
+
+.blog .inner .product .allstory img {
+  width: 730px;
+  height: 640px;
+}
+
+.blog .inner .product .allstory .txt_box {
+  margin-top: 87px;
+  display: grid;
+  row-gap: 42px;
+  justify-items: center;
+  text-align: center;
+}
+
+.blog .inner .product .allstory .txt_box .tit {
+  font-size: 40px;
+  text-align: center;
+}
+
+.blog .inner .product .allstory .txt_box .txt {
+  width: 630px;
+  text-align: center;
+}
+
+.blog .inner .product .allstory .txt_box .btn {
+  margin: 20px auto 0;
+}
+
+.blog .inner .product .allstory .txt_box .btn:hover {
+  background: var(--txt_main);
+  color: var(--white_ff);
+}
+
+.blog .inner .product .cards {
+  width: 830px;
+  display: grid;
+  grid-template-columns: repeat(2, 395px);
+  /* 2열 고정 */
+  column-gap: 40px;
+  row-gap: 100px;
+  width: 830px;
+}
+
+.blog .inner .product .card {
+  width: 395px;
+}
+
+.blog .inner .product .card img {
+  width: 100%;
+  height: 344px;
+  object-fit: cover;
+}
+
+.blog .inner .product .card .txt_box {
+  margin-top: 12px;
+  gap: 16px;
+}
+
+.blog .inner .product .card .txt_box .date {
+  font-size: 14px;
+  color: var(--txt_sub_77);
+}
+
+.blog .inner .product .card .txt_box .txt {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 140%;
 }
