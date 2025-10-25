@@ -761,7 +761,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 122px;
+  gap: 120px;
 }
 
 .banner_2 .txt_box .txt {
@@ -769,19 +769,12 @@ main {
   text-align: right;
 }
 
-.banner_2 .txt_box .btn {
+.banner_2 .btn-white {
   width: 170px;
-  color: var(--white_ff);
-  border-color: var(--white_ff);
-}
-
-.banner_2 .txt_box .btn:hover {
-  background: var(--white_ff);
-  color: var(--txt_main);
 }
 
 .banner_2 .txt {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   line-height: 1.4;
 }
 

@@ -91,15 +91,6 @@
 
     :root {
         --hb-header: var(--header-height, 80px);
-        /* 사이트 헤더 높이 맞춰 조정 */
-        --hb-gap: 24px;
-        /* 상단 여유 */
-        --hb-pad: 100px;
-        /* .hanbang padding-block 값 */
-    }
-
-    :root {
-        --hb-header: var(--header-height, 80px);
         /* 사이트 헤더 높이 */
         --hb-gap: 24px;
         /* sticky 상단 여유 */
@@ -111,10 +102,10 @@
 
     .hanbang {
         height: auto;
-        min-height: 100vh;
-        /* 가로 스크롤 방지 */
-        overflow-x: hidden;
-        overflow-y: visible;
+        /* 기존 min-height:100vh 제거 효과 */
+        min-height: unset;
+        /* ← 이 한 줄로 100vh 강제 해제 */
+        overflow: visible;
     }
 
     /* 2열: 왼쪽(텍스트 묶음) | 오른쪽(이미지) */
@@ -252,6 +243,17 @@
         animation-play-state: paused;
     }
 
+    .banner_2 img {
+        height: 250px;
+        object-position: center top;
+    }
+
+    .banner_2 .txt_box {
+        gap: 50px;
+        top: 40px;
+        right: 32px;
+    }
+
 
     .blog .inner .product {
         width: 100%;
@@ -312,7 +314,6 @@
 @media screen and (max-width:768px) {
     .bestSeller {
         display: none;
-
     }
 
 
@@ -394,13 +395,12 @@
     .hanbang .inner {
         display: grid;
         grid-template-columns: 1fr;
+        grid-auto-flow: row;
         grid-template-areas:
             "center"
             "text";
-        grid-template-rows: auto auto;
-        /* 각 행을 내용만큼만 */
-        row-gap: 20px;
-        /* ✅ 텍스트가 이미지와 겹치지 않도록 간격 */
+        /* 이미지(1행) → 텍스트(2행) */
+        row-gap: 16px;
         align-items: start;
         justify-items: center;
     }
@@ -409,15 +409,8 @@
     .hanbang .img_box {
         grid-area: center;
         position: relative;
-        width: min(70vw, 560px);
-        /* 폭은 기존 느낌 유지 */
-        height: clamp(300px, 56vw, 440px);
-        /* ✅ 확정 높이: 너무 작거나/큰 경우를 모두 방지 */
-        max-height: 60vh;
-        /* 화면 대비 상한 */
-        margin-inline: auto;
-        pointer-events: none;
-        z-index: 1;
+        /* ← sticky 해제 */
+        top: auto;
     }
 
     .hanbang .img_box>div {
@@ -438,15 +431,16 @@
     }
 
     /* 텍스트 박스: 1개만 보여주고 나머지는 숨김 */
-    /* .hanbang .txt_col {
-        grid-area: text;
+    .hanbang .txt_col {
         display: block;
-        width: min(88vw, 640px);
-    } */
-
-    .hanbang .txt_all {
-        height: 400px;
+        /* 1024에서 display:contents였던 것 되돌리기 */
+        grid-area: text;
+        /* 2행으로 고정 */
+        width: 100%;
+        margin-top: 0;
+        margin-bottom: 50px;
     }
+
 
     .hanbang .txt_stream {
         display: flex;
@@ -575,37 +569,140 @@
         width: 282px;
     }
 
+    .hanbang .img_box .txt_box1 img {
+        width: 120px;
+        height: 120px;
+        top: 15%;
+    }
+
+    .hanbang .img_box .txt_box2 img {
+        width: 80px;
+        height: 80px;
+        left: 5%;
+    }
+
+    .hanbang .img_box .txt_box3 img {
+        width: 110px;
+        height: 110px;
+        bottom: 15%;
+    }
+
+
 }
 
 @media (max-width: 440px) {
 
+    .hanbang .txt_all .tit {
+        font-size: 1.875rem;
+    }
+
+    .hanbang .img_box {
+        width: clamp(260px, 92vw, 360px);
+        aspect-ratio: 4 / 3;
+        /* 높이는 가로로부터 자동 계산 */
+        height: auto;
+        /* 768에서 준 고정/상한 높이 해제 */
+        max-height: none;
+        margin-inline: auto;
+        margin-bottom: 50px;
+        /* 텍스트와 간격 */
+        position: relative;
+        /* sticky 영향 제거 */
+        overflow: visible;
+    }
+
+    /* 2) 텍스트 컨테이너를 '슬롯'이 아니라 일반 블록으로 되돌림 */
+    .hanbang .txt_col {
+        display: block;
+        grid-area: text;
+        width: clamp(260px, 92vw, 360px);
+        height: auto;
+        /* 고정/최대 높이 제거 */
+        max-height: none;
+        overflow: visible;
+        /* 768의 overflow:hidden 해제 (잘림 방지) */
+    }
+
+    /* 3) 내부 스트림/아이템 높이를 자동으로 (겹침·잘림 방지) */
+    .hanbang .txt_all {
+        height: auto;
+    }
+
+    .hanbang .txt_stream {
+        min-height: 0;
+    }
+
+    /* 4) 768에서 절대배치로 겹쳐놓은 카드들을 440에선 '보이는 것만' 상대배치 */
+    .hanbang .txt_left ul,
+    .hanbang .txt_right ul {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .hanbang .txt_all ul.on {
+        position: relative;
+        /* ✅ 현재 항목만 흐름에 참여하게 */
+        opacity: 1;
+        visibility: visible;
+    }
+
+
+    .hanbang .img_box .txt_box1 img {
+        top: 0;
+        right: 0;
+    }
+
+    .hanbang .img_box .txt_box2 img {
+        left: 10px;
+    }
+
+    .hanbang .img_box .txt_box3 img {
+        bottom: -20px;
+        right: 30px;
+    }
+
+
+    .blog {
+        padding-block: 40px 20px;
+    }
 
     .blog .inner h2 {
         font-size: 1.875rem;
     }
 
+    .blog .inner .product {
+        margin: 0;
+        width: 100%;
+
+    }
+
     .blog .inner .product .allstory {
-        width: 320px;
-        height: 682px;
+        width: 100%;
+        height: 100%;
     }
 
     .blog .inner .product .allstory img {
         height: 280px;
+        margin-top: 40px;
     }
 
     .blog .inner .product .allstory .txt_box {
         width: 280px;
         margin-top: 62px;
+        margin-inline: auto;
     }
 
     .blog .inner .product .allstory .txt_box .tit {
-        width: 260px;
-        font-size: 1.125rem;
+        width: 130px;
+        font-size: 1.25rem;
     }
 
     .blog .inner .product .allstory .txt_box .txt {
         width: 230px;
         font-size: 0.87rem;
+        color: var(--txt_sub_77);
     }
 
     .blog .inner .product .card {
