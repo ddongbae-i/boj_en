@@ -344,45 +344,6 @@ if (cards.length) {
   mainLoop();
 })();
 
-
-
-  /* -------------------------------
-      🟣 3. 인플루언서 찜(하트) 기능
-  ------------------------------- */
-  //   const KEY = 'wish:list';
-  // const store = JSON.parse(localStorage.getItem(KEY) || '{}');
-
-  // const getId = (btn) => {
-  //   if (btn.dataset.id) return btn.dataset.id;
-  //   const card = btn.closest('.card');
-  //   if (!card) return null;
-  //   const idClass = [...card.classList].find((c) => /^card_\d+$/.test(c));
-  //   return idClass || null;
-  // };
-
-  // const applyState = (btn, on) => {
-  //   btn.classList.toggle('active', on);
-  //   btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-  // };
-
-  // document.querySelectorAll('.influencer .wish').forEach((btn) => {
-  //   const id = getId(btn);
-  //   const on = id ? store[id] === true : false;
-  //   applyState(btn, on);
-
-  //   btn.addEventListener('click', (e) => {
-  //     e.preventDefault();
-  //     const nowOn = !btn.classList.contains('active');
-  //     applyState(btn, nowOn);
-  //     const key = getId(btn);
-  //     if (key) {
-  //       store[key] = nowOn;
-  //       localStorage.setItem(KEY, JSON.stringify(store));
-  //     }
-  //   });
-  // });
-
-
   /* -------------------------------
        한방 이미지 ON 상황
   ------------------------------- */
