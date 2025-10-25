@@ -151,7 +151,7 @@ header {
 }
 
 .puzzle_right .btn:first-child {
-    border-color : var(--white_ff);
+    border-color: var(--white_ff);
     display: block;
 }
 
@@ -159,7 +159,7 @@ header {
     border: none;
     background: var(--white_ff);
     color: var(--txt_main);
-} 
+}
 
 /* 섹션2 세일존 */
 
@@ -191,7 +191,7 @@ header {
 .swiper {
     display: flex;
     flex-direction: column;
-    
+
 }
 
 
@@ -245,7 +245,7 @@ header {
     margin-top: 8px;
 }
 
-.pro_card:last-child  {
+.pro_card:last-child {
     margin-right: 250px;
 }
 
@@ -354,9 +354,58 @@ header {
 }
 
 .right_arrow::after {
-     content: '';
+    content: '';
     display: block;
     width: 24px;
     height: 24px;
     background-image: url(/asset/img/shop/icon_left_arrow.svg);
+}
+
+
+/* Banner Section */
+.banner {
+    width: 100%;
+    background: var(--bg_black, #0f0f0f);
+    padding: 60px 0;
+}
+
+.banner_inner {
+    width: 100%;
+    margin-inline: auto;
+    width: min(100%, calc(1700px + 110px * 2));
+    padding-inline: 110px;
+    background: var(--grey_de, #dedede);
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.banner_content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding-right: 150px;
+}
+
+
+.banner_subtitle {
+    color: var(--txt_sub_44, #444);
+    font-family: var(--txt_font, "Public Sans", sans-serif);
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 130%;
+    margin: 0;
+}
+
+
+.banner_title {
+    color: var(--txt_main, #1c1c1c);
+    font-family: var(--tit_font, "Cormorant", serif);
+    font-size: 2.5rem; 
+    font-weight: 500;
+    line-height: 120%;
+    margin: 0 0 12px 0;
 }
