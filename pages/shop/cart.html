@@ -1,0 +1,222 @@
+Shopping Cart
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test Cart</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="cart.css">
+</head>
+
+<body>
+    <div class="cart_wrap">
+        <div class="cart_corner top_left"></div>
+        <div class="cart_corner top_right"></div>
+        <div class="cart_corner bottom_left"></div>
+        <div class="cart_corner bottom_right"></div>
+
+        <div class="cart_header">
+            <div class="cart_title">
+                My Bag <span class="cart_count">(2items)</span>
+            </div>
+            <button class="cart_close">&times;</button>
+        </div>
+
+        <div class="cart_progress">
+            <div class="progress_labels">
+                <span>$ 50</span>
+                <span>$ 70</span>
+                <span>$ 100</span>
+            </div>
+            <div class="progress_bar">
+                <div class="progress_fill"></div>
+            </div>
+            <div class="free_gift">
+                <div class="gift"><img src="/asset/img/hanbang/cream_img.png" alt="Gift"></div>
+                <div class="gift_txt"><span>Add <span class="red">$9</span> more to unlock your free<br>[Light On Serum
+                        Mini 10ml]</span></div>
+            </div>
+        </div>
+
+        <div class="cart_list">
+            <div class="cart_item">
+                <div class="cart_thumb"><img src="/asset/img/hanbang/cream_img.png" alt="Product"></div>
+                <div class="cart_info">
+                    <div class="cart_product">Glow Serum : Propolis + Niacinamide</div>
+                    <div class="cart_price_row">
+                        <div class="cart_price">
+                            $ 36.90 <span class="old_price">41.00</span>
+                        </div>
+                        <div class="cart_option">
+                            <select class="option_select">
+                                <option>60ml</option>
+                                <option>30ml</option>
+                                <option>100ml</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="cart_qty">
+                        <button class="qty_btn" onclick="decreaseQty(this)">-</button>
+                        <span class="qty_num">1</span>
+                        <button class="qty_btn" onclick="increaseQty(this)">+</button>
+                    </div>
+                </div>
+                <button class="cart_remove">&times;</button>
+            </div>
+
+            <div class="cart_item">
+                <div class="cart_thumb"><img src="/asset/img/hanbang/cream_img.png" alt="Product"></div>
+                <div class="cart_info">
+                    <div class="cart_product">Revive Eye Serum : Ginseng + Retinal</div>
+                    <div class="cart_price_row">
+                        <div class="cart_price">$ 17.00</div>
+                        <div class="cart_option">
+                            <select class="option_select">
+                                <option>30ml - 1Pack</option>
+                                <option>30ml - 2Pack</option>
+                                <option>50ml</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="cart_qty">
+                        <button class="qty_btn" onclick="decreaseQty(this)">-</button>
+                        <span class="qty_num">1</span>
+                        <button class="qty_btn" onclick="increaseQty(this)">+</button>
+                    </div>
+                </div>
+                <button class="cart_remove">&times;</button>
+            </div>
+        </div>
+
+        <div class="cart_goeswell">
+            <div class="goeswell_title">Goes well with</div>
+            <div class="cart_related">
+                <div class="related_item">
+                    <div class="related_thumb"><img src="/asset/img/hanbang/cream_img.png" alt="Dynasty Cream"></div>
+                    <div class="related_info">
+                        <div class="related_name">Dynasty Cream</div>
+                        <div class="related_price_row">
+                            <div class="related_price">$ 24.00</div>
+                            <div class="related_size">
+                                <select class="option_select">
+                                    <option>50ml</option>
+                                    <option>30ml</option>
+                                    <option>100ml</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="related_add">+</button>
+                </div>
+
+                <div class="related_item">
+                    <div class="related_thumb"><img src="/asset/img/hanbang/cream_img.png" alt="Ginseng Water"></div>
+                    <div class="related_info">
+                        <div class="related_name">Ginseng Essence Water</div>
+                        <div class="related_price_row">
+                            <div class="related_price">$ 18.00</div>
+                            <div class="related_size">
+                                <select class="option_select">
+                                    <option>150ml</option>
+                                    <option>100ml</option>
+                                    <option>200ml</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="related_add">+</button>
+                </div>
+
+                <div class="related_item">
+                    <div class="related_thumb"><img src="/asset/img/hanbang/cream_img.png" alt="Green Plum Toner"></div>
+                    <div class="related_info">
+                        <div class="related_name">Green Plum Refreshing Toner : AHA + BHA</div>
+                        <div class="related_price_row">
+                            <div class="related_price">$ 18.00</div>
+                            <div class="related_size">
+                                <select class="option_select">
+                                    <option value="30ml-1pack">30ml - 1Pack</option>
+                                    <option value="50ml-1pack">50ml - 1Pack</option>
+                                    <option value="30ml-2pack">30ml - 2Pack</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="related_add">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart_signup">
+            <form class="signup_form" onsubmit="return false;">
+                <input type="email" class="signup_input" placeholder="Email" required>
+                <button type="submit" class="signup_btn">SIGN UP NOW</button>
+            </form>
+            <div class="cart_perk">
+                Become part of the BOJ Community and enjoy<br>
+                a <span class="red">10% off code</span> plus exclusive member perks!
+            </div>
+        </div>
+
+        <div class="cart_footer">
+            <div class="cart_total">
+                <button class="cart_checkout">$ 41.00 <span>(2items)</span> CHECK OUT</button>
+            </div>
+            <div class="cart_note">
+                Shipping, taxes, and discount codes are calculated at checkout
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function increaseQty(btn) {
+            const qtyNum = btn.previousElementSibling;
+            let qty = parseInt(qtyNum.textContent);
+            qtyNum.textContent = qty + 1;
+            updateTotal();
+        }
+
+        function decreaseQty(btn) {
+            const qtyNum = btn.nextElementSibling;
+            let qty = parseInt(qtyNum.textContent);
+            if (qty > 1) {
+                qtyNum.textContent = qty - 1;
+                updateTotal();
+            }
+        }
+
+        function updateTotal() {
+            console.log('Total updated');
+        }
+
+        document.querySelector('.cart_close').addEventListener('click', function () {
+            alert('장바구니를 닫습니다');
+        });
+
+        document.querySelectorAll('.cart_remove').forEach(btn => {
+            btn.addEventListener('click', function () {
+                if (confirm('이 상품을 장바구니에서 삭제하시겠습니까?')) {
+                    this.closest('.cart_item').remove();
+                    updateTotal();
+                }
+            });
+        });
+
+        document.querySelectorAll('.related_add').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const item = this.closest('.related_item');
+                const name = item.querySelector('.related_name').textContent;
+                alert(`"${name}" 상품이 장바구니에 추가되었습니다`);
+            });
+        });
+
+        document.querySelector('.cart_checkout').addEventListener('click', function () {
+            alert('결제 페이지로 이동합니다');
+        });
+    </script>
+</body>
+
+</html>
