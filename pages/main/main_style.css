@@ -407,38 +407,46 @@ main {
 }
 
 
+/* hanbang */
 
-
-
-/* 한방 */
+/* ===== 데스크톱(웹) 복구: 텍스트 | 이미지 | 텍스트 ===== */
 .hanbang {
   width: 100%;
   height: 100vh;
   background: var(--white_ff);
+  padding-block: 100px;
 }
 
+/* 그리드 기본: 좌 | 중앙 | 우 */
 .hanbang .inner {
-  padding-inline: 0;
-  max-width: 1700px;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  /* gap: 0; */
+  display: grid;
+  grid-template-columns: 1fr clamp(420px, 36vw, 560px) 1fr;
+  column-gap: 48px;
+  grid-template-areas: "left center right";
+  align-items: start;
+}
+
+/* 래퍼를 레이아웃에서 투명화 → 손자(.txt_left/.txt_right)를 그리드에 바로 참여 */
+.hanbang .inner>.txt_col,
+.hanbang .inner>.txt_col>.txt_stream {
+  display: contents;
+}
+
+/* 좌/우 컬럼이 실제로 그리드 영역을 차지 */
+.hanbang .txt_left {
+  grid-area: left;
   position: relative;
+  z-index: 2;
 }
 
-.hanbang .inner .num {
-  /* position: absolute;
-  font-size: 3rem;
-  right: 50px;
-  bottom: 50px; */
-  display: none;
+.hanbang .txt_right {
+  grid-area: right;
+  position: relative;
+  z-index: 2;
 }
 
+/* 공통 텍스트 스타일 */
 .hanbang .txt_all {
-  width: calc(50% - 352px);
-  /* width: 528px; */
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -465,7 +473,17 @@ main {
   margin-bottom: 6px;
 }
 
-/* tit on */
+.hanbang .txt_all .txt {
+  color: var(--txt_sub_77);
+  line-height: 140%;
+  font-size: 1.125rem;
+}
+
+.hanbang .txt_all ul.on .txt {
+  color: var(--txt_main);
+}
+
+/* 활성 타이틀 색 */
 .hanbang .inner .txt1.on .tit {
   color: var(--ginseng);
 }
@@ -483,9 +501,10 @@ main {
 }
 
 .hanbang .inner .txt5.on .tit {
-  color: var(--propulis);
+  color: var(--propolis);
 }
 
+/* 오타 수정 */
 .hanbang .inner .txt6.on .tit {
   color: var(--greenplum);
 }
@@ -498,18 +517,7 @@ main {
   color: var(--mugwort);
 }
 
-
-.hanbang .txt_all .txt {
-  color: var(--txt_sub_77);
-  line-height: 140%;
-  font-size: 1.125rem;
-
-}
-
-.hanbang .txt_all ul.on .txt {
-  color: var(--txt_main);
-}
-
+/* 프로그레스 */
 .hanbang .progress {
   position: relative;
   height: 16px;
@@ -527,13 +535,10 @@ main {
   z-index: 1;
 }
 
-/* bar on */
 .hanbang .txt_all ul.on .bar {
   display: none;
 }
 
-
-/* 1️⃣ 애니메이션 정의 */
 @keyframes fill-bar {
   0% {
     width: 0%;
@@ -556,8 +561,6 @@ main {
   }
 }
 
-
-/* 2️⃣ 기본 스타일 */
 .hanbang .inner .progress .playbar {
   position: absolute;
   left: 0;
@@ -570,7 +573,6 @@ main {
   width: 0%;
 }
 
-/* 3️⃣ 상태별 실행 */
 .hanbang .txt_all ul.on .progress .playbar {
   display: block;
   background: var(--grey_de);
@@ -578,7 +580,7 @@ main {
   width: 100%;
 }
 
-/* 각 항목별 색상 오버라이드 */
+/* 항목별 바 색 */
 .hanbang .txt_all ul.txt1.on .progress .playbar {
   background: var(--ginseng);
 }
@@ -587,7 +589,6 @@ main {
   background: var(--rice);
 }
 
-/* .c → .progress */
 .hanbang .txt_all ul.txt3.on .progress .playbar {
   background: var(--greentea);
 }
@@ -597,10 +598,9 @@ main {
 }
 
 .hanbang .txt_all ul.txt5.on .progress .playbar {
-  background: var(--propulis);
+  background: var(--propolis);
 }
 
-/* --propulis → --propolis */
 .hanbang .txt_all ul.txt6.on .progress .playbar {
   background: var(--greenplum);
 }
@@ -613,88 +613,115 @@ main {
   background: var(--mugwort);
 }
 
-
-.hanbang .inner .img_box {
-
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 644px;
-  height: 753px;
-
+/* 중앙 이미지 컬럼 */
+.hanbang .img_box {
+  grid-area: center;
+  justify-self: center;
+  width: 100%;
+  aspect-ratio: 644 / 753;
+  position: relative;
+  /* 오버레이 기준 */
+  z-index: 1;
+  /* 텍스트 아래 */
+  pointer-events: none;
 }
 
+/* 슬라이드 래퍼: 겹치도록 절대배치(포개기) */
 .hanbang .img_box>div {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  transition: .3s;
+  transition: opacity .3s;
 }
 
 .hanbang .img_box>div.on {
   opacity: 1;
 }
 
-.hanbang .inner .img_box .img_all {
-  width: 644px;
-  height: 753px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: cover;
-  align-items: center;
-  justify-content: center;
+/* 메인이미지/버블 */
+.hanbang .img_box .img_all {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: multiply;
+  /* 필요 없으면 제거 */
 }
 
-.hanbang .inner .img_box .imgTxt {
+.hanbang .img_box .imgTxt {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-.hanbang .inner .img_box .txt_box1 img {
-  width: 190px;
-  height: 190px;
+.hanbang .img_box .txt_box1 img {
   position: absolute;
   right: 8%;
   top: 0%;
+  width: 190px;
+  height: 190px;
 }
 
-
-.hanbang .inner .img2 .txt_box1 img {
-  right: 8%;
-  bottom: 15%;
-}
-
-.hanbang .inner .img7 .txt_box1 img {
-  right: 8%;
-  bottom: 8%;
-}
-
-.hanbang .inner .imgTxt .txt_box2 img {
-  width: 120px;
-  height: 120px;
+.hanbang .img_box .txt_box2 img {
   position: absolute;
   left: 10%;
   top: 28%;
+  width: 120px;
+  height: 120px;
 }
 
-.hanbang .inner .imgTxt .txt_box3 img {
-  width: 170px;
-  height: 170px;
+.hanbang .img_box .txt_box3 img {
   position: absolute;
   right: 25%;
   bottom: 10px;
+  width: 170px;
+  height: 170px;
 }
 
+/* 페이드업 */
+@keyframes hanbang-fadeup {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 
-/* txt_box1/2/3 서서히 나타나게 (fade up) */
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hanbang-fadeup-soft {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(.98);
+    filter: blur(4px);
+  }
+
+  50% {
+    opacity: .5;
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
 .hanbang .inner .img_box .on .imgTxt {
   opacity: 0;
   transform: translateY(12px);
-  animation-name: hanbang-fadeup;
-  animation-duration: 1.5s;
-  animation-fill-mode: forwards;
-  animation-timing-function: cubic-bezier(.2, .8, .2, 1);
+  animation: hanbang-fadeup 1.5s cubic-bezier(.2, .8, .2, 1) forwards;
+}
+
+.hanbang .inner .on .imgTxt img {
+  opacity: 0;
+  transform: translateY(20px) scale(.98);
+  animation: hanbang-fadeup-soft 2s ease-in-out forwards;
 }
 
 .hanbang .inner .on .imgTxt .txt_box1 img {
@@ -709,61 +736,8 @@ main {
   animation-delay: 1.6s;
 }
 
-@keyframes hanbang-fadeup {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 1️⃣ 애니메이션 정의 */
-@keyframes hanbang-fadeup-soft {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-    filter: blur(4px);
-  }
-
-  50% {
-    opacity: 0.5;
-    filter: blur(2px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-/* 2️⃣ 애니메이션 적용 */
-.hanbang .inner .on .imgTxt img {
-  opacity: 0;
-  transform: translateY(20px) scale(0.98);
-  animation-name: hanbang-fadeup-soft;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-in-out;
-  filter: blur(4px);
-}
-
-/* 3️⃣ 순차적 등장 (delay 조정) */
-.hanbang .inner .on .imgTxt .txt_box1 img {
-  animation-delay: 0.5s;
-}
-
-.hanbang .inner .on .imgTxt .txt_box2 img {
-  animation-delay: 1.0s;
-}
-
-.hanbang .inner .imgTxt .txt_box3 img {
-  animation-delay: 1.5s;
-}
+/* banner2 */
 
 
 .banner_2 {

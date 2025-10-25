@@ -397,3 +397,103 @@ if (cards.length) {
   })
 
 });
+
+//한방 1024
+
+document.addEventListener('DOMContentLoaded', () => {
+  const leftList = document.querySelector('.hanbang .txt_left .txt_all'); // <ul>들의 부모
+  if (!leftList) return;
+
+  // ====== 설정 ======
+  const DURATION_MS = 4000;    // 각 항목 재생 시간(프로그레스와 동일)
+  const ANIM_MS     = 600;     // 위로 미는 애니메이션 시간
+  const VISIBLE_ROWS = 6;      // 동시에 보일 줄 수(예: 6줄)
+
+  // 1024px 이하에서만 동작
+  const mq = window.matchMedia('(max-width: 1024px)');
+
+  let tickerTimer = null;
+  let rowGapPx = 0;
+
+  function getRowHeight(el){
+    const first = el.querySelector('ul');
+    if (!first) return 0;
+    const ulStyle = getComputedStyle(first);
+    const mb = parseFloat(ulStyle.marginBottom) || 0;
+    const h = first.getBoundingClientRect().height;
+    return h + mb; // 한 줄 + 행간
+  }
+
+  function setViewportHeight(){
+    // VISIBLE_ROWS 줄 높이를 합산해 부모 높이로 고정
+    const h = getRowHeight(leftList);
+    const viewportH = h * Math.min(VISIBLE_ROWS, leftList.children.length);
+    leftList.parentElement.style.height = viewportH + 'px'; // .txt_left의 실제 높이 고정
+  }
+
+  // playbar 애니메이션 재트리거
+  function restartPlaybar(ul){
+    const bar = ul.querySelector('.playbar');
+    if (!bar) return;
+    bar.style.animation = 'none';
+    // 강제 리플로우
+    // eslint-disable-next-line no-unused-expressions
+    bar.offsetWidth;
+    bar.style.animation = '';
+  }
+
+  function markActiveFirst(){
+    [...leftList.children].forEach(ul => ul.classList.remove('on'));
+    if (leftList.firstElementChild) {
+      leftList.firstElementChild.classList.add('on');
+      restartPlaybar(leftList.firstElementChild);
+    }
+  }
+
+  function slideUpOnce(){
+    const first = leftList.firstElementChild;
+    if (!first) return;
+
+    const delta = getRowHeight(leftList);
+
+    leftList.style.transition = `transform ${ANIM_MS}ms ease`;
+    leftList.style.transform  = `translateY(-${delta}px)`;
+
+    setTimeout(() => {
+      // 맨 앞을 뒤로 보내고 위치 리셋
+      leftList.appendChild(first);
+      leftList.style.transition = 'none';
+      leftList.style.transform  = 'translateY(0)';
+
+      // 새 맨 앞을 활성화
+      markActiveFirst();
+    }, ANIM_MS);
+  }
+
+  function startTicker(){
+    stopTicker();
+    setViewportHeight();
+    markActiveFirst();
+    tickerTimer = setInterval(slideUpOnce, DURATION_MS);
+    window.addEventListener('resize', setViewportHeight);
+  }
+
+  function stopTicker(){
+    if (tickerTimer) clearInterval(tickerTimer);
+    tickerTimer = null;
+    leftList.style.transition = 'none';
+    leftList.style.transform  = 'translateY(0)';
+    window.removeEventListener('resize', setViewportHeight);
+  }
+
+  function handleMQ(e){
+    if (e.matches) startTicker(); else stopTicker(); // 1024px 이하면 시작, 아니면 정지
+  }
+
+  // 초기화
+  handleMQ(mq);
+  mq.addEventListener('change', handleMQ);
+
+  // 기존 클릭/자동 순환 로직과도 함께 사용 가능
+  // (사용 중인 interHanbang과 간섭 없도록 left 컬럼만 이 로직이 돌게 설계)
+});
