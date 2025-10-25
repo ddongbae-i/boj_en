@@ -92,12 +92,6 @@ main {
 .bestSeller .product .card img {
   width: 100%;
   object-fit: cover;
-  /*   width: 425px;
-  height: 430px;
-  position: absolute;
-  left: 50%;
-  translate: -50% -50%;
-  top: 50%; */
 }
 
 .bestSeller_768 {
@@ -320,7 +314,7 @@ main {
 }
 
 .card:hover .pro {
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 .influencer .wish {
@@ -336,6 +330,7 @@ main {
   pointer-events: auto;
 }
 
+/* 하트 아이콘 opacity로 전환 */
 .influencer .wish .icon_heart {
   position: absolute;
   inset: 0;
@@ -360,6 +355,17 @@ main {
   opacity: 1;
 }
 
+/* backface 클릭 막힘 방지 */
+.front,
+.back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  z-index: 0;
+}
+
+/* 이미지, 오버레이는 클릭 막지 않게 */
 .front img,
 .back img,
 .front video,
@@ -368,31 +374,6 @@ main {
 .back::after {
   pointer-events: none;
 }
-
-
-/* ===== RESPONSIVE ===== */
-@media (max-width:1280px) {
-  .influencer_right {
-    display: none;
-  }
-
-  .product_grid .card_all {
-    gap: 20px;
-    max-width: calc(421px*2 + 20px);
-  }
-}
-
-@media (max-width:768px) {
-  .influencer_left {
-    grid-template-columns: 1fr;
-  }
-
-  .product_grid .card {
-    width: 100%;
-    height: 421px;
-  }
-}
-
 
 /* membership */
 .membership {

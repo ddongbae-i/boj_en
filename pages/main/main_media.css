@@ -173,6 +173,18 @@
         width: 90vw
     }
 
+    .influencer_right {
+        display: none;
+    }
+
+    .product_grid.influencer.show-right .influencer_right {
+        display: grid;
+    }
+
+    .product_grid.influencer.show-right .influencer_left {
+        display: none;
+    }
+
 
     .blog .inner .product {
         flex-direction: column;
@@ -223,8 +235,8 @@
 
 }
 
- @media screen and (max-width:540px) {
-        .banner_1 {
+@media screen and (max-width:540px) {
+    .banner_1 {
         height: 60%;
     }
 
@@ -249,7 +261,7 @@
         width: 282px;
     }
 
- }
+}
 
 @media (max-width: 440px) {
 
