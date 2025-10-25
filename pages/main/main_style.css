@@ -573,10 +573,11 @@ main {
   width: 0%;
 }
 
+
 .hanbang .txt_all ul.on .progress .playbar {
   display: block;
   background: var(--grey_de);
-  animation: fill-bar 4s linear forwards;
+  animation: fill-bar 4000ms linear forwards;
   width: 100%;
 }
 
@@ -736,6 +737,10 @@ main {
   animation-delay: 1.6s;
 }
 
+.hanbang .num {
+  display: none;
+}
+
 
 /* banner2 */
 
@@ -760,7 +765,6 @@ main {
 }
 
 .banner_2 .txt_box .txt {
-  margin-bottom: 20px;
   color: var(--white_ff);
   text-align: right;
 }
@@ -777,9 +781,11 @@ main {
 }
 
 .banner_2 .txt {
-  font-size: 1.875rem;
+  font-size: 1.7rem;
   line-height: 1.4;
 }
+
+/* blog */
 
 .blog {
   width: 100%;
