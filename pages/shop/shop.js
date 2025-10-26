@@ -142,13 +142,39 @@ optionBtn.forEach(function (btn, index) {
 
 //best seller
 
-  const swiperBest = new Swiper('.bestSwiper', {
-    loop: true,
-    effect: 'fade',
-    speed: 300,
-    fadeEffect: { crossFade: true },
-    navigation: {
-      nextEl: '.right_arrow',
-      prevEl: '.left_arrow',
-    },
+const swiperBest = new Swiper('.bestSwiper', {
+  loop: true,
+  effect: 'fade',
+  speed: 300,
+  fadeEffect: { crossFade: true },
+  navigation: {
+    nextEl: '.right_arrow',
+    prevEl: '.left_arrow',
+  },
+});
+
+
+
+//더보기
+
+document.addEventListener('DOMContentLoaded', () => {
+  const list = document.getElementById('productList');
+  const btn = document.getElementById('moreBtn');
+  const cards = Array.from(list.querySelectorAll('.pro_card'));
+
+  const INITIAL = 9;  // 처음 보여줄 개수
+  const BATCH = 6;    // 더보기로 추가로 보일 개수
+
+  // 초기 설정
+  cards.forEach((card, index) => {
+    if (index >= INITIAL) card.classList.add('is-hidden');
   });
+
+  btn.addEventListener('click', () => {
+    const hidden = cards.filter(card => card.classList.contains('is-hidden'));
+    hidden.slice(0, BATCH).forEach(card => card.classList.remove('is-hidden'));
+
+    // 더 이상 숨긴 게 없으면 버튼 숨기기
+    if (hidden.length <= BATCH) btn.style.display = 'none';
+  });
+});

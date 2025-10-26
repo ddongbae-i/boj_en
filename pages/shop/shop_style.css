@@ -2,6 +2,7 @@
 
 
 a.btn2 {
+    position: relative;
     width: 98px;
     height: 40px;
     line-height: 1.4;
@@ -12,11 +13,28 @@ a.btn2 {
     align-items: center;
     font-weight: 400;
     justify-content: center;
+    text-decoration: none;
 }
 
-a.btn2:hover {
-    border-bottom: 1.5px solid var(--white_ff);
+a.btn2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--white_ff);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+    z-index: 1;
+    /* 아이콘보다 아래 */
 }
+
+a.btn2:hover::before {
+    transform: scaleX(1);
+}
+
 
 .btn2::after {
     content: '';
@@ -27,8 +45,10 @@ a.btn2:hover {
 }
 
 a.btn3 {
+    position: relative;
     width: 98px;
     height: 40px;
+    line-height: 1.4;
     font-size: 1.125rem;
     display: flex;
     color: var(--txt_main);
@@ -36,10 +56,25 @@ a.btn3 {
     align-items: center;
     font-weight: 400;
     justify-content: center;
+    text-decoration: none;
 }
 
-a.btn3:hover {
-    border-bottom: 1.5px solid var(--bg_black);
+a.btn3::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--txt_main);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+a.btn3:hover::before {
+    transform: scaleX(1);
 }
 
 .btn3::after {
@@ -235,7 +270,6 @@ header {
     flex-direction: column;
 
 }
-
 
 .swiper .product_wrap {
     display: flex;
@@ -793,4 +827,32 @@ header {
 
 .star_all .review {
     color: var(--txt_sub_77);
+}
+
+.pro_card.out {
+    display: none;
+}
+
+/* 숨겨진 상품 */
+.pro_card.is-hidden {
+    display: none;
+}
+
+/* 버튼 꾸미기 (원하는 스타일로 바꿔도 돼) */
+.more_btn {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 150px;
+    padding: 12px 32px;
+    background: var(--white_ff);
+    border: 1px solid var(--grey_de);
+    color: var(--txt_main);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+}
+
+.more_btn:hover {
+    background: var(--txt_main);
+    color: var(--white_ff);
 }
