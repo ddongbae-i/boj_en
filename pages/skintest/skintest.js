@@ -576,17 +576,31 @@
   }
 
   // MBTI/레이더용 프로필 취득
-  function getProfile() { 
+  function getProfile() {
     if (hasSK && window.SKINTEST.state.profile) {
       const p = window.SKINTEST.state.profile;
       const radar = p.radar || {
-        Oil: 50, Hydration: 50, Sensitivity: 50, Pigment: 50, Wrinkle: 50,
+        Oil: 50,
+        Hydration: 50,
+        Sensitivity: 50,
+        Pigment: 50,
+        Wrinkle: 50,
       };
       return { code: p.code, facets: p.facets, radar };
     }
     // fallback
-    const radar = { Oil: 50, Hydration: 50, Sensitivity: 50, Pigment: 50, Wrinkle: 50 };
-    return { code: "DSNT", facets: ["Dry","Sensitive","Non-Pigment","Tight"], radar };
+    const radar = {
+      Oil: 50,
+      Hydration: 50,
+      Sensitivity: 50,
+      Pigment: 50,
+      Wrinkle: 50,
+    };
+    return {
+      code: "DSNT",
+      facets: ["Dry", "Sensitive", "Non-Pigment", "Tight"],
+      radar,
+    };
   }
 
   // 요약/팁
@@ -623,8 +637,12 @@
         ? "Reapply sunscreen every 2–3 hours."
         : "Maintain radiance with antioxidants (vitamin C, EGCG, etc.)."
     );
-    if (wink === "Wrinkle") tips.push("At night, consider combining retinoids and peptides.");
-    else tips.push("Do light exfoliation 1–2 times a week to keep texture smooth.");
+    if (wink === "Wrinkle")
+      tips.push("At night, consider combining retinoids and peptides.");
+    else
+      tips.push(
+        "Do light exfoliation 1–2 times a week to keep texture smooth."
+      );
     return { summary: summaryParts.join(" "), tips };
   }
 
@@ -633,8 +651,14 @@
     const svg = $("#radar");
     if (!svg) return;
 
-    const W = 460, H = 460, cx = W / 2, cy = H / 2;
-    const R = 180, N = 5, rings = 5, start = -Math.PI / 2;
+    const W = 460,
+      H = 460,
+      cx = W / 2,
+      cy = H / 2;
+    const R = 180,
+      N = 5,
+      rings = 5,
+      start = -Math.PI / 2;
 
     function el(name, attrs = {}) {
       const e = document.createElementNS("http://www.w3.org/2000/svg", name);
@@ -647,12 +671,16 @@
       return { x: cx + r * Math.cos(ang), y: cy + r * Math.sin(ang) };
     }
     function polyFrom(values) {
-      return values.map((v, i) => {
-        const p = pt(i, v);
-        return `${p.x.toFixed(1)},${p.y.toFixed(1)}`;
-      }).join(" ");
+      return values
+        .map((v, i) => {
+          const p = pt(i, v);
+          return `${p.x.toFixed(1)},${p.y.toFixed(1)}`;
+        })
+        .join(" ");
     }
-    function axisTip(i) { return pt(i, 100); }
+    function axisTip(i) {
+      return pt(i, 100);
+    }
 
     while (svg.firstChild) svg.removeChild(svg.firstChild);
 
@@ -665,7 +693,12 @@
       svg.appendChild(el("polygon", { points, class: "radar-grid" }));
       if (r < 100) {
         const lab = pt(0, r);
-        const t = el("text", { x: lab.x + 6, y: lab.y + 4, fill: "#9ca3af", "font-size": 10 });
+        const t = el("text", {
+          x: lab.x + 6,
+          y: lab.y + 4,
+          fill: "#9ca3af",
+          "font-size": 10,
+        });
         t.textContent = r;
         svg.appendChild(t);
       }
@@ -674,7 +707,15 @@
     // 축
     for (let i = 0; i < N; i++) {
       const tip = axisTip(i);
-      svg.appendChild(el("line", { x1: cx, y1: cy, x2: tip.x, y2: tip.y, class: "radar-axis" }));
+      svg.appendChild(
+        el("line", {
+          x1: cx,
+          y1: cy,
+          x2: tip.x,
+          y2: tip.y,
+          class: "radar-axis",
+        })
+      );
     }
 
     // 값(A=평균, B=내 점수)
@@ -687,8 +728,20 @@
       Math.round(100 - Wrinkle), // Elasticity proxy
     ];
 
-    const polyAvg = el("polygon", { class: "radar-area-a", points: polyFrom(avg), fill: "rgba(16,185,129,.60)", stroke: "rgba(16,185,129,1)", "stroke-width": 2 });
-    const polyMe = el("polygon", { class: "radar-area-b", points: polyFrom(me), fill: "rgba(244,63,94,.35)", stroke: "rgba(244,63,94,1)", "stroke-width": 2 });
+    const polyAvg = el("polygon", {
+      class: "radar-area-a",
+      points: polyFrom(avg),
+      fill: "rgba(16,185,129,.60)",
+      stroke: "rgba(16,185,129,1)",
+      "stroke-width": 2,
+    });
+    const polyMe = el("polygon", {
+      class: "radar-area-b",
+      points: polyFrom(me),
+      fill: "rgba(244,63,94,.35)",
+      stroke: "rgba(244,63,94,1)",
+      "stroke-width": 2,
+    });
     svg.appendChild(polyAvg);
     svg.appendChild(polyMe);
 
@@ -697,7 +750,9 @@
       const g = el("g", { style: `color:${color}` });
       values.forEach((v, i) => {
         const p = pt(i, v);
-        g.appendChild(el("circle", { cx: p.x, cy: p.y, r: 3, class: "radar-node" }));
+        g.appendChild(
+          el("circle", { cx: p.x, cy: p.y, r: 3, class: "radar-node" })
+        );
       });
       svg.appendChild(g);
     }
@@ -749,26 +804,80 @@
 
   // 카탈로그(간단 예시)
   const catalog = [
-    { id: "relief_sun",    name: "Relief Sun: Rice + Probiotics",         fit: ["Dry","Sensitive","Non-Pigment","Tight"] },
-    { id: "matte_stick",   name: "Matte Sun Stick: Mugwort + Camelia",    fit: ["Oily","Resistant","Pigment","Tight"] },
-    { id: "glow_serum",    name: "Glow Serum: Propolis + Niacinamide",    fit: ["Dry","Sensitive","Pigment","Wrinkle"] },
-    { id: "calming_serum", name: "Calming Serum: Green Tea + Panthenol",  fit: ["Oily","Sensitive","Non-Pigment","Tight"] },
-    { id: "revive_serum",  name: "Revive Serum: Ginseng + Snail Mucin",   fit: ["Dry","Resistant","Wrinkle","Non-Pigment"] },
-    { id: "ginseng_water", name: "Ginseng Essence Water",                  fit: ["Dry","Resistant","Wrinkle","Non-Pigment"] },
-    { id: "dynasty_cream", name: "Dynasty Cream",                          fit: ["Dry","Sensitive","Non-Pigment","Wrinkle"] },
-    { id: "red_bean_gel",  name: "Red Bean Water Gel",                     fit: ["Oily","Resistant","Tight","Non-Pigment"] },
-    { id: "cleanser",      name: "Green Plum Refreshing Cleanser",         fit: ["Sensitive","Oily","Non-Pigment","Tight"] },
-    { id: "toner",         name: "Green Plum Toner: AHA + BHA",            fit: ["Oily","Resistant","Pigment","Tight"] },
-    { id: "eye_serum",     name: "Revive Eye Serum: Ginseng + Retinal",    fit: ["Wrinkle","Resistant","Dry"] },
-    { id: "light_on",      name: "Light On Serum: Centella + Vitamin C",   fit: ["Pigment","Sensitive","Tight"] },
-    { id: "balm",          name: "Radiance Cleansing Balm",                fit: ["Dry","Sensitive","Non-Pigment"] },
+    {
+      id: "relief_sun",
+      name: "Relief Sun: Rice + Probiotics",
+      fit: ["Dry", "Sensitive", "Non-Pigment", "Tight"],
+    },
+    {
+      id: "matte_stick",
+      name: "Matte Sun Stick: Mugwort + Camelia",
+      fit: ["Oily", "Resistant", "Pigment", "Tight"],
+    },
+    {
+      id: "glow_serum",
+      name: "Glow Serum: Propolis + Niacinamide",
+      fit: ["Dry", "Sensitive", "Pigment", "Wrinkle"],
+    },
+    {
+      id: "calming_serum",
+      name: "Calming Serum: Green Tea + Panthenol",
+      fit: ["Oily", "Sensitive", "Non-Pigment", "Tight"],
+    },
+    {
+      id: "revive_serum",
+      name: "Revive Serum: Ginseng + Snail Mucin",
+      fit: ["Dry", "Resistant", "Wrinkle", "Non-Pigment"],
+    },
+    {
+      id: "ginseng_water",
+      name: "Ginseng Essence Water",
+      fit: ["Dry", "Resistant", "Wrinkle", "Non-Pigment"],
+    },
+    {
+      id: "dynasty_cream",
+      name: "Dynasty Cream",
+      fit: ["Dry", "Sensitive", "Non-Pigment", "Wrinkle"],
+    },
+    {
+      id: "red_bean_gel",
+      name: "Red Bean Water Gel",
+      fit: ["Oily", "Resistant", "Tight", "Non-Pigment"],
+    },
+    {
+      id: "cleanser",
+      name: "Green Plum Refreshing Cleanser",
+      fit: ["Sensitive", "Oily", "Non-Pigment", "Tight"],
+    },
+    {
+      id: "toner",
+      name: "Green Plum Toner: AHA + BHA",
+      fit: ["Oily", "Resistant", "Pigment", "Tight"],
+    },
+    {
+      id: "eye_serum",
+      name: "Revive Eye Serum: Ginseng + Retinal",
+      fit: ["Wrinkle", "Resistant", "Dry"],
+    },
+    {
+      id: "light_on",
+      name: "Light On Serum: Centella + Vitamin C",
+      fit: ["Pigment", "Sensitive", "Tight"],
+    },
+    {
+      id: "balm",
+      name: "Radiance Cleansing Balm",
+      fit: ["Dry", "Sensitive", "Non-Pigment"],
+    },
   ];
 
   // 제품 스코어링
   function makeScorer(profileFacets) {
     return function (item) {
       let score = 0;
-      item.fit.forEach((f) => { if (profileFacets.includes(f)) score += 22; });
+      item.fit.forEach((f) => {
+        if (profileFacets.includes(f)) score += 22;
+      });
       score += Math.random() * 10;
       return Math.max(60, Math.min(99, Math.round(score)));
     };
@@ -798,31 +907,44 @@
         while (used.has(unique)) unique += 0.1;
         used.add(unique);
 
-        const scoreEl = card.querySelector(".score") || (() => {
-          const s = document.createElement("span");
-          s.className = "score";
-          if (info) info.appendChild(s); else card.appendChild(s);
-          return s;
-        })();
+        const scoreEl =
+          card.querySelector(".score") ||
+          (() => {
+            const s = document.createElement("span");
+            s.className = "score";
+            if (info) info.appendChild(s);
+            else card.appendChild(s);
+            return s;
+          })();
         scoreEl.textContent = `Score : ${Math.round(unique)} / 100`;
 
         // tags (max 4)
-        const tags = card.querySelector(".tags") || (() => {
-          const d = document.createElement("div");
-          d.className = "tags";
-          card.insertBefore(d, info || card.firstChild);
-          return d;
-        })();
+        const tags =
+          card.querySelector(".tags") ||
+          (() => {
+            const d = document.createElement("div");
+            d.className = "tags";
+            card.insertBefore(d, info || card.firstChild);
+            return d;
+          })();
         tags.innerHTML = "";
-        const pos = ["Niacinamide","Ginseng","Green Tea","Centella","Panthenol","Ceramide","Hyaluronic Acid"];
-        const neg = ["AHA + BHA","Fragrance","Alcohol"];
+        const pos = [
+          "Niacinamide",
+          "Ginseng",
+          "Green Tea",
+          "Centella",
+          "Panthenol",
+          "Ceramide",
+          "Hyaluronic Acid",
+        ];
+        const neg = ["AHA + BHA", "Fragrance", "Alcohol"];
         const list = [
           `+ ${name || "Care"}`,
           `+ ${pos[idx % pos.length]}`,
           `- ${neg[idx % neg.length]}`,
-          `+ ${pos[(idx+3) % pos.length]}`
+          `+ ${pos[(idx + 3) % pos.length]}`,
         ];
-        list.slice(0,4).forEach(t => {
+        list.slice(0, 4).forEach((t) => {
           const s = document.createElement("span");
           s.textContent = t;
           tags.appendChild(s);
@@ -836,8 +958,9 @@
           btn.addEventListener("click", () => {
             const active = !btn.classList.contains("active");
             btn.classList.toggle("active", active);
-            img.src = active ? "/asset/img/skintest/icon_heart_fill.svg"
-                             : "/asset/img/skintest/icon_heart_stroke.svg";
+            img.src = active
+              ? "/asset/img/skintest/icon_heart_fill.svg"
+              : "/asset/img/skintest/icon_heart_stroke.svg";
             btn.setAttribute("aria-pressed", active ? "true" : "false");
           });
         }
@@ -865,8 +988,16 @@
 
         const tags = document.createElement("div");
         tags.className = "tags";
-        const pos = ["Niacinamide","Ginseng","Green Tea","Centella","Panthenol","Ceramide","Hyaluronic Acid"];
-        const neg = ["AHA + BHA","Fragrance","Alcohol"];
+        const pos = [
+          "Niacinamide",
+          "Ginseng",
+          "Green Tea",
+          "Centella",
+          "Panthenol",
+          "Ceramide",
+          "Hyaluronic Acid",
+        ];
+        const neg = ["AHA + BHA", "Fragrance", "Alcohol"];
         function addSpan(text) {
           const s = document.createElement("span");
           s.textContent = text;
@@ -917,11 +1048,17 @@
     box.innerHTML = "";
     const h2 = document.createElement("h2");
     h2.className = "center";
-    h2.textContent = `Skin MBTI : ${profile.code} (${profile.facets.join(" / ")})`;
+    h2.textContent = `Skin MBTI : ${profile.code} (${profile.facets.join(
+      " / "
+    )})`;
     box.appendChild(h2);
 
     const { summary, tips } = buildSummary(profile.facets);
-    const shortSummary = summary.split(". ").slice(0, 2).join(". ").replace(/\s+$/, "");
+    const shortSummary = summary
+      .split(". ")
+      .slice(0, 2)
+      .join(". ")
+      .replace(/\s+$/, "");
     const tipLine = "TIP: " + tips.slice(0, 2).join(" · ");
     summaryEl.innerHTML = `${shortSummary}.<br>${tipLine}`;
   };
@@ -1011,26 +1148,53 @@
 
   // GSAP animations (safe)
   (function () {
-    function safe() { return typeof window.gsap !== "undefined"; }
+    function safe() {
+      return typeof window.gsap !== "undefined";
+    }
 
     // 전역 노출(ReferenceError 방지)
     window.animateQuizCard = function () {
       if (!safe()) return;
       gsap.from(".card, #options .choice", {
-        duration: 0.6, y: 14, opacity: 0, stagger: 0.06, ease: "power3.out",
+        duration: 0.6,
+        y: 14,
+        opacity: 0,
+        stagger: 0.06,
+        ease: "power3.out",
       });
     };
 
     window.animateLoading = function () {
       if (!safe()) return;
-      gsap.to(".spinner", { rotation: 360, duration: 1, repeat: -1, ease: "none" });
-      gsap.from(".loading-text, .loading-sub", { duration: 0.8, y: 20, opacity: 0, stagger: 0.2 });
+      gsap.to(".spinner", {
+        rotation: 360,
+        duration: 1,
+        repeat: -1,
+        ease: "none",
+      });
+      gsap.from(".loading-text, .loading-sub", {
+        duration: 0.8,
+        y: 20,
+        opacity: 0,
+        stagger: 0.2,
+      });
     };
 
     window.animateResults = function () {
       if (!safe()) return;
-      gsap.from(".radar-wrap", { duration: 1, scale: 0.8, opacity: 0, ease: "power3.out" });
-      gsap.from(".product_card", { duration: 0.8, y: 50, opacity: 0, stagger: 0.12, ease: "power3.out" });
+      gsap.from(".radar-wrap", {
+        duration: 1,
+        scale: 0.8,
+        opacity: 0,
+        ease: "power3.out",
+      });
+      gsap.from(".product_card", {
+        duration: 0.8,
+        y: 50,
+        opacity: 0,
+        stagger: 0.12,
+        ease: "power3.out",
+      });
     };
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -1040,18 +1204,42 @@
       }
 
       if (document.querySelector(".home-title")) {
-        gsap.from(".home-title", { duration: 1, y: 50, opacity: 0, ease: "power3.out" });
+        gsap.from(".home-title", {
+          duration: 1,
+          y: 50,
+          opacity: 0,
+          ease: "power3.out",
+        });
       }
       if (document.querySelector(".home-sub")) {
-        gsap.from(".home-sub", { duration: 1, y: 30, opacity: 0, delay: 0.3, ease: "power3.out" });
+        gsap.from(".home-sub", {
+          duration: 1,
+          y: 30,
+          opacity: 0,
+          delay: 0.3,
+          ease: "power3.out",
+        });
       }
       if (document.querySelectorAll(".badges .badge").length) {
-        gsap.from(".badges .badge", { duration: 0.8, scale: 0.5, opacity: 0, delay: 0.6, stagger: 0.2, ease: "back.out(1.7)" });
+        gsap.from(".badges .badge", {
+          duration: 0.8,
+          scale: 0.5,
+          opacity: 0,
+          delay: 0.6,
+          stagger: 0.2,
+          ease: "back.out(1.7)",
+        });
       }
 
       document.querySelectorAll(".btn-white").forEach((btn) => {
-        btn.addEventListener("mouseenter", () => { if (!safe()) return; gsap.to(btn, { duration: 0.25, scale: 1.05, ease: "power2.out" }); });
-        btn.addEventListener("mouseleave", () => { if (!safe()) return; gsap.to(btn, { duration: 0.25, scale: 1, ease: "power2.out" }); });
+        btn.addEventListener("mouseenter", () => {
+          if (!safe()) return;
+          gsap.to(btn, { duration: 0.25, scale: 1.05, ease: "power2.out" });
+        });
+        btn.addEventListener("mouseleave", () => {
+          if (!safe()) return;
+          gsap.to(btn, { duration: 0.25, scale: 1, ease: "power2.out" });
+        });
       });
 
       const start = document.getElementById("startBtn");
