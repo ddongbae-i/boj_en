@@ -13,11 +13,10 @@
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/media.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="shop_style.css">
     <link rel="stylesheet" href="shop_media.css">
-    <script src="/js/common.js" defer></script>
-    <script src="/pages/shop/shop.js" defer></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
 </head>
 
 <body>
@@ -48,7 +47,7 @@
                         <div class="sub_wrap">
                             <ul class="sub">
                                 <li><a href="/pages/brandstory/brandstory.html">Brand Story</a></li>
-                                <li><a href="pages/hanbang/hanbang.html">Hanbang</a></li>
+                                <li><a href="/pages/hanbang/hanbang.html">Hanbang</a></li>
                                 <li><a href="">Blog</a></li>
                                 <li><a href="">Find a Retailer</a></li>
                             </ul>
@@ -153,332 +152,339 @@
     </header>
 
     <main>
-        <section class="puzzle" id="puzzleSection">
-            <div class="inner">
-                <div class="flex_area">
-                    <!-- 퍼즐(왼쪽) -->
-                    <div class="puzzle_wrap">
-                        <div class="media" id="media">
-                            <div class="stage">
-                                <div class="grid" id="grid">
-                                    <img class="tile" data-key="1" src="/asset/img/shop/puzzle_1.png" alt="">
-                                    <img class="tile" data-key="2" src="/asset/img/shop/puzzle_2.png" alt="">
-                                    <img class="tile" data-key="3" src="/asset/img/shop/puzzle_3.png" alt="">
-                                    <img class="tile" data-key="4" src="/asset/img/shop/puzzle_4.png" alt="">
-                                    <img class="tile" data-key="5" src="/asset/img/shop/puzzle_5.png" alt="">
-                                    <img class="tile" data-key="6" src="/asset/img/shop/puzzle_6.png" alt="">
-                                    <img class="tile" data-key="7" src="/asset/img/shop/puzzle_7.png" alt="">
-                                    <img class="tile" data-key="8" src="/asset/img/shop/puzzle_8.png" alt="">
-                                    <img class="tile" data-key="9" src="/asset/img/shop/puzzle_9.png" alt="">
-                                    <img class="tile" data-key="10" src="/asset/img/shop/puzzle_10.png" alt="">
-                                    <img class="tile" data-key="11" src="/asset/img/shop/puzzle_11.png" alt="">
-                                    <img class="tile" data-key="12" src="/asset/img/shop/puzzle_12.png" alt="">
-                                </div>
-                                <video id="finalVideo" class="video" src="/asset/video/shop/new_product.mp4" muted
-                                    playsinline webkit-playsinline preload="metadata"></video>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 텍스트 -->
-                    <div class="puzzle_right">
-                        <img src="" alt="">
-                        <div class="txt_area">
-                            <div class="tit">Peptide & Ginseng Firming Ritual</div>
-                            <div class="txt">Smooth, firm, and plump — powered by Hanbang wisdom. A ritual for radiant
-                                firmness</div>
-                            <div class="new_btn">
-                                <a href="" class="btn">Learn More</a>
-                                <a href="" class="btn">Shop Now</a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="sale_zone">
-            <div class="inner">
-                <div class="txt_area">
-                    <div class="tit">
-                        The Beauty Sale Zone
-                    </div>
-
-                    <div class="txt">
-                        More value, more beauty,
-                        discover our limited offers.
-                    </div>
-                    <a class="btn2" href="">
-                        View All
-                    </a>
-                </div>
-
-                <div class="swiper">
-                    <div class="product_wrap swiper-wrapper">
-                        <div class="pro_card swiper-slide">
-                            <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
-                            <a href="" class="add_btn">
-                                <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
-                            </a>
-                            <h3 class="pro_tit">Dynasty Cream</h3>
-                            <div class="pro_bottom">
-                                <div class="p_left">
-                                    <em>29%</em>
-                                    <strong class="price"><span>$</span> 34.00</strong><s>48.00</s>
-                                </div>
-                                <div class="p_right">
-                                    <p>100ml</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="pro_card swiper-slide">
-                            <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
-                            <a href="" class="add_btn">
-                                <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
-                            </a>
-                            <h3 class="pro_tit">Glass Skin Duo</h3>
-                            <div class="pro_bottom">
-                                <div class="p_left">
-                                    <em>40%</em>
-                                    <strong class="price"><span>$</span> 49.30</strong><s>82.00</s>
-                                </div>
-                                <div class="p_right">
-                                    <div class="option">
-                                        <button><em>Large</em></button>
-                                        <ul>
-                                            <li><em>Large</em></li>
-                                            <li><em>Original</em></li>
-                                        </ul>
+        <div class="dark">
+            <section class="puzzle" id="puzzleSection">
+                <div class="inner">
+                    <div class="flex_area">
+                        <!-- 퍼즐(왼쪽) -->
+                        <div class="puzzle_wrap">
+                            <div class="media" id="media">
+                                <div class="stage">
+                                    <div class="grid" id="grid">
+                                        <img class="tile" data-key="1" src="/asset/img/shop/puzzle_1.png" alt="">
+                                        <img class="tile" data-key="2" src="/asset/img/shop/puzzle_2.png" alt="">
+                                        <img class="tile" data-key="3" src="/asset/img/shop/puzzle_3.png" alt="">
+                                        <img class="tile" data-key="4" src="/asset/img/shop/puzzle_4.png" alt="">
+                                        <img class="tile" data-key="5" src="/asset/img/shop/puzzle_5.png" alt="">
+                                        <img class="tile" data-key="6" src="/asset/img/shop/puzzle_6.png" alt="">
+                                        <img class="tile" data-key="7" src="/asset/img/shop/puzzle_7.png" alt="">
+                                        <img class="tile" data-key="8" src="/asset/img/shop/puzzle_8.png" alt="">
+                                        <img class="tile" data-key="9" src="/asset/img/shop/puzzle_9.png" alt="">
+                                        <img class="tile" data-key="10" src="/asset/img/shop/puzzle_10.png" alt="">
+                                        <img class="tile" data-key="11" src="/asset/img/shop/puzzle_11.png" alt="">
+                                        <img class="tile" data-key="12" src="/asset/img/shop/puzzle_12.png" alt="">
                                     </div>
+                                    <video id="finalVideo" class="video" src="/asset/video/shop/new_product.mp4" muted
+                                        playsinline webkit-playsinline preload="metadata"></video>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="pro_card swiper-slide">
-                            <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
-                            <a href="" class="add_btn">
-                                <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
-                            </a>
-                            <h3 class="pro_tit">Green Plum Refreshing Cleanser</h3>
-                            <div class="pro_bottom">
-                                <div class="p_left">
-                                    <em>23%</em>
-                                    <strong class="price"><span>$</span> 20.00</strong><s>26.00</s>
+                        <!-- 텍스트 -->
+                        <div class="puzzle_right">
+                            <img src="" alt="">
+                            <div class="txt_area">
+                                <div class="tit">Peptide & Ginseng Firming Ritual</div>
+                                <div class="txt">Smooth, firm, and plump — powered by Hanbang wisdom. A ritual for
+                                    radiant
+                                    firmness</div>
+                                <div class="new_btn">
+                                    <a href="" class="btn-white">Learn More</a>
+                                    <a href="" class="btn">Shop Now</a>
                                 </div>
-                                <div class="p_right">
-                                    <p>200ml</p>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="pro_card swiper-slide">
-                            <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
-                            <a href="" class="add_btn">
-                                <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
-                            </a>
-                            <h3 class="pro_tit">Revive Eye Serum : Ginseng + Retinal</h3>
-                            <div class="pro_bottom">
-                                <div class="p_left">
-                                    <em>15%</em>
-                                    <strong class="price"><span>$</span> 28.90</strong><s>34.00</s>
-                                </div>
-                                <div class="p_right">
-                                    <p>30ml-2Pack</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="pro_card swiper-slide">
-                            <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
-                            <a href="" class="add_btn">
-                                <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
-                            </a>
-                            <h3 class="pro_tit">Deep Double Cleansing Duo</h3>
-                            <div class="pro_bottom">
-                                <div class="p_left">
-                                    <em>26%</em>
-                                    <strong class="price"><span>$</span> 34.00</strong><s>46.00</s>
-                                </div>
-                                <div class="p_right">
-                                    <div class="option">
-                                        <button><em>Large</em></button>
-                                        <ul>
-                                            <li><em>Large</em></li>
-                                            <li><em>Original</em></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="pro_card swiper-slide">
-                            <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
-                            <a href="" class="add_btn">
-                                <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
-                            </a>
-                            <h3 class="pro_tit">Glow Serum : Propolis + Niacinamide</h3>
-                            <div class="pro_bottom">
-                                <div class="p_left">
-                                    <em>29%</em>
-                                    <strong class="price"><span>$</span> 24.00</strong><s>34.00</s>
-                                </div>
-                                <div class="p_right">
-                                    <p>60ml</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="pro_card swiper-slide">
-                            <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
-                            <a href="" class="add_btn">
-                                <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
-                            </a>
-                            <h3 class="pro_tit">Glow Deep Serum : Rice + Alpha-Arbutin</h3>
-                            <div class="pro_bottom">
-                                <div class="p_left">
-                                    <em>29%</em>
-                                    <strong class="price"><span>$</span> 24.00</strong><s>34.00</s>
-                                </div>
-                                <div class="p_right">
-                                    <p>60ml</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="pro_card swiper-slide">
-                            <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
-                            <a href="" class="add_btn">
-                                <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
-                            </a>
-                            <h3 class="pro_tit">Revive Serum : Ginseng + Snail Mucin</h3>
-                            <div class="pro_bottom">
-                                <div class="p_left">
-                                    <em>29%</em>
-                                    <strong class="price"><span>$</span> 24.00</strong><s>34.00</s>
-                                </div>
-                                <div class="p_right">
-                                    <p>60ml</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="pro_card swiper-slide">
-                            <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
-                            <a href="" class="add_btn">
-                                <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
-                            </a>
-                            <h3 class="pro_tit">Calming Serum : Green tea + Panthenol</h3>
-                            <div class="pro_bottom">
-                                <div class="p_left">
-                                    <em>29%</em>
-                                    <strong class="price"><span>$</span> 24.00</strong><s>34.00</s>
-                                </div>
-                                <div class="p_right">
-                                    <p>60ml</p>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="aorrw_all">
-                        <button type="button" class="left_arrow"></button>
-                        <button type="button" class="right_arrow"></button>
-                    </div>
-
-
                 </div>
+            </section>
 
-            </div>
-        </section>
-
-        <!-- Banner Section -->
-        <section class="banner">
-            <div class="banner_inner">
-                <div class="banner_content">
-                    <p class="banner_subtitle">Join today and receive your</p>
-                    <h2 class="banner_title">10% off code</h2>
-                    <a href="#" class="btn">Join Now</a>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- Best Seller Detail Section -->
-        <section class="best_seller_detail">
-            <div class="inner">
-                <article class="product_detail">
-                    <!-- 제품 이미지 영역 -->
-                    <figure class="product_image_wrap">
-                        <img src="/asset/img/shop/shop_bestseller.png" alt="Revive Eye Serum Product Image"
-                            class="product_image">
-                    </figure>
-
-                    <!-- 제품 정보 영역 -->
-                    <div class="product_info">
-                        <!-- 헤더: 뱃지와 캐러셀 네비게이션 -->
-                        <header class="product_header">
-                            <h2 class="tit">Best Seller</h2>
-                            <nav class="carousel_nav" aria-label="Product carousel navigation">
-                                <button type="button" class="nav_btn prev" aria-label="Previous product">
-                                    <img src="/asset/img/shop/icon_left_arrow.svg" alt="">
-                                </button>
-                                <button type="button" class="nav_btn next" aria-label="Next product">
-                                    <img src="/asset/img/shop/icon_right_arrow.svg" alt="">
-                                </button>
-                            </nav>
-                        </header>
-
-                        <!-- 제품 상세 정보 -->
-                        <div class="product_content">
-                            <!-- 제품 이미지 -->
-                            <img src="/asset/img/shop/bestsellercream.png" alt="Product Swatch"
-                                class="bestseller_image">
-
-                            <!-- 제품명과 설명 -->
-                            <div class="product_text">
-                                <h3 class="product_title">Revive Eye Serum : Ginseng + Retinal</h3>
-                                <p class="product_description">
-                                    A fast-absorbing Korean eye cream that targets wrinkles,
-                                    visibly brightens, and hydrates for firmer-looking, refreshed under-eyes.
-                                </p>
-                            </div>
-
-                            <!-- 옵션 및 가격 -->
-                            <div class="product_purchase">
-                                <div class="product_options">
-                                    <label for="product_volume" class="blind">Volume</label>
-                                    <select id="product_volume" class="option_select">
-                                        <option value="30ml">30ml</option>
-                                        <option value="50ml">50ml</option>
-                                    </select>
-                                </div>
-
-                                <div class="product_price">
-                                    <strong class="price">$ 17.00</strong>
-                                </div>
-                            </div>
+            <section class="sale_zone">
+                <div class="inner">
+                    <div class="txt_area">
+                        <div class="tit">
+                            The Beauty Sale Zone
                         </div>
 
-                        <!-- 액션 버튼 -->
-                        <div class="product_actions">
-                            <button type="button" class="btn_action btn_wishlist" aria-label="Add to wishlist">
-                                <img src="/asset/img/common/icon_heart.svg" alt="">
-                            </button>
-                            <button type="button" class="btn_action btn_cart" aria-label="Add to cart">
-                                <img src="/asset/img/common/icon_bag.svg" alt="">
-                            </button>
+                        <div class="txt">
+                            More value, more beauty,
+                            discover our limited offers.
                         </div>
-
-                        <!-- Shop All 링크 -->
-                        <a href="/pages/shop/shop.html" class="shop_all_link">
-                            <span>SHOP All</span>
-                            <img src="/asset/img/shop/arrow_up.svg" alt="" class="arrow_icon">
+                        <a class="btn2" href="">
+                            View All
                         </a>
                     </div>
-                </article>
-            </div>
-        </section>
+
+                    <div class="swiper">
+                        <div class="product_wrap swiper-wrapper">
+                            <div class="pro_card swiper-slide">
+                                <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
+                                <a href="" class="add_btn">
+                                    <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
+                                </a>
+                                <h3 class="pro_tit">Dynasty Cream</h3>
+                                <div class="pro_bottom">
+                                    <div class="p_left">
+                                        <em>29%</em>
+                                        <strong class="price"><span>$</span> 34.00</strong><s>48.00</s>
+                                    </div>
+                                    <div class="p_right">
+                                        <p>100ml</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pro_card swiper-slide">
+                                <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
+                                <a href="" class="add_btn">
+                                    <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
+                                </a>
+                                <h3 class="pro_tit">Glass Skin Duo</h3>
+                                <div class="pro_bottom">
+                                    <div class="p_left">
+                                        <em>40%</em>
+                                        <strong class="price"><span>$</span> 49.30</strong><s>82.00</s>
+                                    </div>
+                                    <div class="p_right">
+                                        <div class="option">
+                                            <button><em>Large</em></button>
+                                            <ul>
+                                                <li><em>Large</em></li>
+                                                <li><em>Original</em></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pro_card swiper-slide">
+                                <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
+                                <a href="" class="add_btn">
+                                    <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
+                                </a>
+                                <h3 class="pro_tit">Green Plum Refreshing Cleanser</h3>
+                                <div class="pro_bottom">
+                                    <div class="p_left">
+                                        <em>23%</em>
+                                        <strong class="price"><span>$</span> 20.00</strong><s>26.00</s>
+                                    </div>
+                                    <div class="p_right">
+                                        <p>200ml</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pro_card swiper-slide">
+                                <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
+                                <a href="" class="add_btn">
+                                    <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
+                                </a>
+                                <h3 class="pro_tit">Revive Eye Serum : Ginseng + Retinal</h3>
+                                <div class="pro_bottom">
+                                    <div class="p_left">
+                                        <em>15%</em>
+                                        <strong class="price"><span>$</span> 28.90</strong><s>34.00</s>
+                                    </div>
+                                    <div class="p_right">
+                                        <p>30ml-2Pack</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pro_card swiper-slide">
+                                <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
+                                <a href="" class="add_btn">
+                                    <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
+                                </a>
+                                <h3 class="pro_tit">Deep Double Cleansing Duo</h3>
+                                <div class="pro_bottom">
+                                    <div class="p_left">
+                                        <em>26%</em>
+                                        <strong class="price"><span>$</span> 34.00</strong><s>46.00</s>
+                                    </div>
+                                    <div class="p_right">
+                                        <div class="option">
+                                            <button><em>Large</em></button>
+                                            <ul>
+                                                <li><em>Large</em></li>
+                                                <li><em>Original</em></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pro_card swiper-slide">
+                                <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
+                                <a href="" class="add_btn">
+                                    <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
+                                </a>
+                                <h3 class="pro_tit">Glow Serum : Propolis + Niacinamide</h3>
+                                <div class="pro_bottom">
+                                    <div class="p_left">
+                                        <em>29%</em>
+                                        <strong class="price"><span>$</span> 24.00</strong><s>34.00</s>
+                                    </div>
+                                    <div class="p_right">
+                                        <p>60ml</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pro_card swiper-slide">
+                                <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
+                                <a href="" class="add_btn">
+                                    <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
+                                </a>
+                                <h3 class="pro_tit">Glow Deep Serum : Rice + Alpha-Arbutin</h3>
+                                <div class="pro_bottom">
+                                    <div class="p_left">
+                                        <em>29%</em>
+                                        <strong class="price"><span>$</span> 24.00</strong><s>34.00</s>
+                                    </div>
+                                    <div class="p_right">
+                                        <p>60ml</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pro_card swiper-slide">
+                                <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
+                                <a href="" class="add_btn">
+                                    <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
+                                </a>
+                                <h3 class="pro_tit">Revive Serum : Ginseng + Snail Mucin</h3>
+                                <div class="pro_bottom">
+                                    <div class="p_left">
+                                        <em>29%</em>
+                                        <strong class="price"><span>$</span> 24.00</strong><s>34.00</s>
+                                    </div>
+                                    <div class="p_right">
+                                        <p>60ml</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pro_card swiper-slide">
+                                <img src="/asset/img/common/product1.png" alt="Revive Under Eye Patch" class="pro_img">
+                                <a href="" class="add_btn">
+                                    <img src="/asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
+                                </a>
+                                <h3 class="pro_tit">Calming Serum : Green tea + Panthenol</h3>
+                                <div class="pro_bottom">
+                                    <div class="p_left">
+                                        <em>29%</em>
+                                        <strong class="price"><span>$</span> 24.00</strong><s>34.00</s>
+                                    </div>
+                                    <div class="p_right">
+                                        <p>60ml</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aorrw_all">
+                            <button type="button" class="left_arrow"></button>
+                            <button type="button" class="right_arrow"></button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Banner Section -->
+            <section class="banner">
+                <div class="inner">
+                    <div class="banner_content">
+                        <div class="txt_area">
+                            <h2>Join today and get your exclusive 10% off code.</h2>
+                            <p class="txt">Be part of our community and enjoy limited-time offers, new releases, and the
+                                beauty secrets inspired by Korea’s timeless heritage.</p>
+                        </div>
+                        <a href="#" class="btn">Join Now</a>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Best Seller Detail Section -->
+            <section class="best_seller_detail">
+                <div class="inner">
+                    <article class="product_detail">
+                        <!-- 제품 이미지 영역 -->
+                        <figure class="product_image_wrap">
+                            <img src="/asset/img/shop/shop_bestseller.png" alt="Revive Eye Serum Product Image"
+                                class="product_image">
+                        </figure>
+
+                        <!-- 제품 정보 영역 -->
+                        <div class="product_info">
+                            <!-- 헤더: 뱃지와 캐러셀 네비게이션 -->
+                            <header class="product_header">
+                                <h2 class="tit">Best Seller</h2>
+                                <nav class="carousel_nav" aria-label="Product carousel navigation">
+                                    <button type="button" class="nav_btn prev" aria-label="Previous product">
+                                        <img src="/asset/img/shop/icon_left_arrow.svg" alt="">
+                                    </button>
+                                    <button type="button" class="nav_btn next" aria-label="Next product">
+                                        <img src="/asset/img/shop/icon_right_arrow.svg" alt="">
+                                    </button>
+                                </nav>
+                            </header>
+
+                            <!-- 제품 상세 정보 -->
+                            <div class="product_content">
+                                <!-- 제품 이미지 -->
+                                <img src="/asset/img/shop/bestsellercream.png" alt="Product Swatch"
+                                    class="bestseller_image">
+
+                                <!-- 제품명과 설명 -->
+                                <div class="product_text">
+                                    <h3 class="product_title">Revive Eye Serum : Ginseng + Retinal</h3>
+                                    <p class="product_description">
+                                        A fast-absorbing Korean eye cream that targets wrinkles,
+                                        visibly brightens, and hydrates for firmer-looking, refreshed under-eyes.
+                                    </p>
+                                </div>
+
+                                <!-- 옵션 및 가격 -->
+                                <div class="product_purchase">
+                                    <div class="product_options">
+                                        <label for="product_volume" class="blind">Volume</label>
+                                        <select id="product_volume" class="option_select">
+                                            <option value="30ml">30ml</option>
+                                            <option value="50ml">50ml</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="product_price">
+                                        <strong class="price">$ 17.00</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 액션 버튼 -->
+                            <div class="product_actions">
+                                <button type="button" class="btn_action btn_wishlist" aria-label="Add to wishlist">
+                                    <img src="/asset/img/common/icon_heart.svg" alt="">
+                                </button>
+                                <button type="button" class="btn_action btn_cart" aria-label="Add to cart">
+                                    <img src="/asset/img/common/icon_bag.svg" alt="">
+                                </button>
+                            </div>
+
+                            <!-- Shop All 링크 -->
+                            <a href="/pages/shop/shop.html" class="shop_all_link">
+                                <span>SHOP All</span>
+                                <img src="/asset/img/shop/arrow_up.svg" alt="" class="arrow_icon">
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
 
 
         <section class="shop_cate">
@@ -663,7 +669,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
+    <script src="/js/common.js"></script>
+    <script src="/pages/shop/shop.js"></script>
 </body>
 
 </html>
