@@ -2,13 +2,17 @@
 
 
 a.btn2 {
+    width: 100px;
     height: 40px;
     font-size: 1.125rem;
     display: flex;
-    color: #fff;
+    color: var(--white_ff);
     gap: 5px;
     align-items: center;
+}
 
+a.btn2:hover {
+    border-bottom: 1.5px solid var(--white_ff);
 }
 
 .btn2::after {
@@ -19,8 +23,8 @@ a.btn2 {
     background-image: url(/asset/img/shop/arrow_up.svg);
 }
 
-header {
-    z-index: 6;
+.dark {
+    background: var(--bg_black);
 }
 
 .puzzle {
@@ -150,15 +154,8 @@ header {
     justify-content: center;
 }
 
-.puzzle_right .btn:first-child {
-    border-color: var(--white_ff);
-    display: block;
-}
-
-.puzzle_right .btn:last-child {
-    border: none;
-    background: var(--white_ff);
-    color: var(--txt_main);
+.btn-white {
+    width: 120px;
 }
 
 /* 섹션2 세일존 */
@@ -174,6 +171,7 @@ header {
 .sale_zone .inner .txt_area {
     width: 100%;
     padding-right: 80px;
+    position: relative;
 }
 
 .sale_zone .txt {
@@ -351,6 +349,7 @@ header {
     width: 24px;
     height: 24px;
     background-image: url(/asset/img/shop/icon_left_arrow.svg);
+    display: none;
 }
 
 .right_arrow::after {
@@ -359,35 +358,46 @@ header {
     width: 24px;
     height: 24px;
     background-image: url(/asset/img/shop/icon_left_arrow.svg);
+    display: none;
 }
 
 
 /* Banner Section */
 .banner {
     width: 100%;
-    background: var(--bg_black, #0f0f0f);
-    padding: 60px 0;
-}
-
-.banner_inner {
-    width: 100%;
-    margin-inline: auto;
-    width: min(100%, calc(1700px + 110px * 2));
-    padding-inline: 110px;
-    background: var(--grey_de, #dedede);
     height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    background: var(--bg_footer);
+    color: var(--white_ff);
+    margin-block: 60px;
 }
 
+.banner .inner {
+    width: 100%;
+    height: 100%;
+}
+ 
+.banner .banner_content {
+    height: 100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+}
 
-.banner_content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    padding-right: 150px;
+.banner h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.banner .txt {
+    margin-top: 8px;
+    color: var(--txt_sub_77);
+    width: 520px;
+}
+
+.banner .btn {
+    margin-top: 32px;
 }
 
 
