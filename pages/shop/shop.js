@@ -120,15 +120,13 @@ const swiper = new Swiper('.sale_zone .swiper', {
 });
 //option
 
-const optionMenu = document.querySelectorAll('.option ul li');
+const optionMenu = document.querySelectorAll('.p_right .option');
 const optionBtn = document.querySelectorAll('.p_right .option button');
 
 optionBtn.forEach(function (btn, index) {
   btn.addEventListener('click', function () {
-    const isActive = selectMenuAll[index].classList.contains('active');
+    const isActive = optionMenu[index].classList.contains('active');
     //contains - 클래스 리스트에 active가 포함되어 있는가
-    console.log(isActive)
-    //모두닫기
     optionMenu.forEach(function (p_right) {
       p_right.classList.remove('active');
     });
@@ -138,6 +136,7 @@ optionBtn.forEach(function (btn, index) {
     }
   })
 })
+
 
 
 //best seller
@@ -190,3 +189,31 @@ toggleBtn.addEventListener('click', () => {
   panel.hidden = !isOpen;
 });
 
+
+//heart
+
+document.querySelectorAll('.pro_card').forEach(card => {
+  if (!card.querySelector('.heart_btn')) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'heart_btn';
+    btn.setAttribute('aria-label', 'Add to wishlist');
+    btn.setAttribute('aria-pressed', 'false');
+    card.appendChild(btn);
+  }
+});
+
+// 이벤트 위임: 하트 클릭 시만 토글, 상세 이동 막기
+document.querySelector('.product_wrap').addEventListener('click', (e) => {
+  const btn = e.target.closest('.heart_btn');
+  if (!btn) return;                       // 하트가 아니면 패스(상세 이동 유지)
+
+  e.stopPropagation();                    // 카드/부모 클릭 이벤트 차단
+  e.preventDefault();                     // 앵커(상세) 이동 차단
+
+  btn.classList.toggle('is-on');
+  const on = btn.classList.contains('is-on');
+  btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+
+  // 필요하면 서버/로컬 저장 로직 여기서 호출
+});
