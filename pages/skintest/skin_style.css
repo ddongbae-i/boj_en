@@ -486,7 +486,7 @@ p#summary.center {
 .product_grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 80px 37px;
+  gap: 30px 30px;
 }
 
 .product_card {
