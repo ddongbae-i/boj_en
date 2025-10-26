@@ -137,3 +137,16 @@ optionBtn.forEach(function (btn, index) {
   })
 })
 
+
+//best seller
+
+  const swiperBest = new Swiper('.bestSwiper', {
+    loop: true,
+    effect: 'fade',
+    speed: 300,
+    fadeEffect: { crossFade: true },
+    navigation: {
+      nextEl: '.right_arrow',
+      prevEl: '.left_arrow',
+    },
+  });
