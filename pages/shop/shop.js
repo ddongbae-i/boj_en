@@ -1,15 +1,15 @@
 gsap.registerPlugin(ScrollTrigger, Flip);
 
-function shuffleChildren(container){
+function shuffleChildren(container) {
   const nodes = Array.from(container.children);
-  for(let i=nodes.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
+  for (let i = nodes.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
     [nodes[i], nodes[j]] = [nodes[j], nodes[i]];
   }
   nodes.forEach(n => container.appendChild(n));
 }
 
-function scatterTiles(tiles){
+function scatterTiles(tiles) {
   tiles.forEach(t => {
     gsap.set(t, {
       rotation: gsap.utils.random(-15, 15),
@@ -24,10 +24,10 @@ function scatterTiles(tiles){
 
 window.addEventListener('load', () => {
   const section = document.getElementById('puzzleSection');
-  const grid    = document.getElementById('grid');
-  const video   = document.getElementById('finalVideo');
+  const grid = document.getElementById('grid');
+  const video = document.getElementById('finalVideo');
   const hintBtn = document.getElementById('scrollHint');
-  const tiles   = [...grid.children];
+  const tiles = [...grid.children];
 
   // 🧷 1️⃣ 섞인 상태로 시작
   shuffleChildren(grid);
@@ -57,10 +57,10 @@ window.addEventListener('load', () => {
       // ✅ (A) 섞인 상태 → 퍼즐 완성
       if (p > 0.05 && p <= 0.33 && !assembled) {
         const state = Flip.getState('.tile');
-        const sorted = [...grid.children].sort((a,b)=> (+a.dataset.key) - (+b.dataset.key));
+        const sorted = [...grid.children].sort((a, b) => (+a.dataset.key) - (+b.dataset.key));
         sorted.forEach(el => grid.appendChild(el));
-        gsap.set('.tile', { rotation:0, x:0, y:0, scale:1, zIndex:1, boxShadow:"0 0 0 rgba(0,0,0,0)" });
-        Flip.from(state, { absolute:true, duration:1.0, ease:"power3.out", stagger:0.02 });
+        gsap.set('.tile', { rotation: 0, x: 0, y: 0, scale: 1, zIndex: 1, boxShadow: "0 0 0 rgba(0,0,0,0)" });
+        Flip.from(state, { absolute: true, duration: 1.0, ease: "power3.out", stagger: 0.02 });
         assembled = true;
       }
 
@@ -80,11 +80,11 @@ window.addEventListener('load', () => {
         document.documentElement.style.overflow = 'hidden';
         setTimeout(() => { document.documentElement.style.overflow = ''; }, 1200);
 
-        const play = () => { 
-          video.currentTime = 0; 
-          video.play().catch(()=>{}); 
+        const play = () => {
+          video.currentTime = 0;
+          video.play().catch(() => { });
         };
-        (video.readyState >= 2) ? play() : video.addEventListener('canplay', play, { once:true });
+        (video.readyState >= 2) ? play() : video.addEventListener('canplay', play, { once: true });
 
         played = true;
       }
@@ -122,18 +122,18 @@ const optionMenu = document.querySelectorAll('.option ul li');
 const optionBtn = document.querySelectorAll('.p_right .option button');
 
 optionBtn.forEach(function (btn, index) {
-    btn.addEventListener('click', function () {
-        const isActive = selectMenuAll[index].classList.contains('active');
-        //contains - 클래스 리스트에 active가 포함되어 있는가
-        console.log(isActive)
-        //모두닫기
-        optionMenu.forEach(function (p_right) {
-            p_right.classList.remove('active');
-        });
-        //클릭한게 원래 열려있지 않았다면 다시 열기
-        if (!isActive) {
-            optionMenu[index].classList.add('active');
-        }
-    })
+  btn.addEventListener('click', function () {
+    const isActive = selectMenuAll[index].classList.contains('active');
+    //contains - 클래스 리스트에 active가 포함되어 있는가
+    console.log(isActive)
+    //모두닫기
+    optionMenu.forEach(function (p_right) {
+      p_right.classList.remove('active');
+    });
+    //클릭한게 원래 열려있지 않았다면 다시 열기
+    if (!isActive) {
+      optionMenu[index].classList.add('active');
+    }
+  })
 })
 
