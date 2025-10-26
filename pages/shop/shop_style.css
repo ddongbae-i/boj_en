@@ -107,6 +107,19 @@ header {
     inset: 0;
 }
 
+.video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 기본은 cover */
+    transition: object-fit 0.3s ease, opacity 0.6s ease;
+    opacity: 0;
+    z-index: 0;
+}
+
+
 .grid {
     position: absolute;
     inset: 0;
@@ -244,7 +257,8 @@ header {
     height: 542px;
     background: var(--shop_bg);
 }
-.pro_card .pro_img > img {
+
+.pro_card .pro_img>img {
     width: auto;
     height: auto;
     margin-top: 8px;
@@ -543,7 +557,6 @@ header {
 }
 
 
-
 .white {
     background: var(--bg_white);
 }
@@ -623,45 +636,55 @@ header {
 }
 
 .product_list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 37px;
+    grid-auto-rows: auto;
+    align-items: start;
 }
 
 .product_list .pro_card {
     display: flex;
     flex-direction: column;
-    flex: 1 1 calc((100% - 74px) / 3)
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 0;
+    padding-bottom: 80px;
 }
 
 .product_list .pro_img {
     position: relative;
- aspect-ratio: 4 / 5;  
+    width: 100%;
     background: var(--img_bg);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    height: auto;
 }
 
 .product_list .pro_img::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url(/asset/img/shop/pro_bg.png) ;
-    width: 100%;
-    height: 100%;
-     background: url(/asset/img/shop/pro_bg.png);
-    background-size: cover; 
+    inset: 0;
+    background-image: url(/asset/img/shop/pro_bg.png);
+    /* width: 100%;
+    height: 100%; */
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .product_list .pro_img img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 450px;
-    height: 450px;
+    position: static;
+    width: auto;
+    height: auto;
+    max-width: 92%;
+    max-height: 92%;
+    object-fit: contain;
     z-index: 5;
+    display: block;
 }
 
 .label {
@@ -671,7 +694,7 @@ header {
     padding: 6px 12px;
     font-size: 0.875rem;
     font-weight: 400;
-    z-index: 2;
+    z-index: 8;
     color: var(--white_ff);
 }
 
@@ -691,16 +714,13 @@ header {
     background: var(--rice);
 }
 
-.product_list .add_btn {
-    align-self: stretch;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+.product_list .pro_card .add_btn {
     background: var(--white_ff);
     border: 1px solid var(--grey_de);
     color: var(--txt_sub_44);
+    width: 100%;
     margin-top: 8px;
+    box-sizing: border-box;
 }
 
 .product_list .add_btn img {
@@ -709,7 +729,7 @@ header {
 }
 
 .product_list .pro_all {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -721,23 +741,56 @@ header {
 
 .product_list .pro_top .pro_tit {
     height: 50px;
+    width: 95%;
 }
 
 .product_list .pro_top em {
     color: var(--txt_sub_77);
+    margin-top: 4px;
 }
 
-.pro_top  .tag_all {
+.pro_top .tag_all {
     display: flex;
     flex-direction: row;
     gap: 8px;
 }
 
-.pro_top  .tag_all .tag {
+.pro_top .tag_all .tag {
     padding: 4px 8px;
     border: 1px solid var(--grey_c7);
     border-radius: 2px;
     font-weight: 400;
     font-size: 0.875rem;
     margin-top: 12px;
+}
+
+.product_list .pro_bottom {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.p_all {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.p_all .option,
+.p_all .p_right {
+    color: var(--txt_sub_44);
+}
+
+.p_all .option button em::after {
+    content: url(/asset/img/shop/icon_down_w.svg);
+}
+
+.star_all {
+    font-size: 0.875rem;
+    color: var(--txt_sub_44);
+    margin-top: 24px;
+}
+
+.star_all .review {
+    color: var(--txt_sub_77);
 }

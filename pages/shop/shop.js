@@ -103,6 +103,8 @@ window.addEventListener('load', () => {
   });
 });
 
+
+
 //shop
 
 const swiper = new Swiper('.sale_zone .swiper', {

@@ -1,0 +1,225 @@
+@charset "uft-8";
+
+@media screen and (max-width:1280px) {
+    .puzzle .inner {
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        /* ✅ 세로 정렬 */
+        padding-block: 50px;
+        gap: 50px;
+    }
+
+    .flex_area {
+        flex-direction: column;
+        /* ✅ 세로 전환 */
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+    }
+
+    .puzzle_wrap {
+        order: 1;
+        /* 위쪽 */
+    }
+
+    .puzzle_right {
+        order: 2;
+        /* 아래쪽 */
+        padding-right: 0;
+    }
+
+    .media {
+        width: calc(180px * 4 + 4px * 6);
+        height: calc(180px * 3 + 4px * 6);
+    }
+
+    .grid {
+        grid-template-columns: repeat(4, 180px);
+        grid-auto-rows: 180px;
+        gap: 4px;
+    }
+
+    .tile {
+        width: 180px;
+        height: 180px;
+    }
+
+}
+
+@media screen and (max-width:1024px) {
+
+    .puzzle .inner {
+        padding-block: 40px;
+    }
+
+    .flex_area {
+        flex-direction: column;
+        /* ✅ 세로 전환 */
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+    }
+
+    .puzzle_wrap {
+        order: 1;
+        /* 위쪽 */
+    }
+
+    .puzzle_right {
+        order: 2;
+        /* 아래쪽 */
+        padding-right: 0;
+    }
+
+    .media {
+        width: calc(180px * 4 + 4px * 6);
+        height: calc(180px * 3 + 4px * 6);
+    }
+
+    .grid {
+        grid-template-columns: repeat(4, 180px);
+        grid-auto-rows: 180px;
+        gap: 4px;
+    }
+
+    .tile {
+        width: 180px;
+        height: 180px;
+    }
+
+    .product_list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .product_list .pro_card {
+        padding-bottom: 60px;
+    }
+
+}
+
+@media screen and (max-width:768px) {
+    .puzzle .inner {
+        padding-inline: 40px;
+        gap: 40px;
+    }
+
+    .media {
+        width: calc(140px * 4 + 3px * 6);
+        height: calc(140px * 3 + 3px * 6);
+    }
+
+    .grid {
+        grid-template-columns: repeat(4, 140px);
+        grid-auto-rows: 140px;
+        gap: 3px;
+    }
+
+    .tile {
+        width: 140px;
+        height: 140px;
+    }
+
+    .puzzle .txt_area .tit {
+        font-size: 1.5rem;
+    }
+
+    .puzzle .txt_area .txt {
+        font-size: 1rem;
+    }
+
+
+       .product_list .pro_card {
+        padding-bottom: 50px;
+    }
+
+}
+
+@media screen and (max-width:600px) {
+    .puzzle .inner {
+        padding-inline: 24px;
+        gap: 32px;
+    }
+
+    .media {
+        width: calc(120px * 4 + 3px * 6);
+        height: calc(120px * 3 + 3px * 6);
+    }
+
+    .grid {
+        grid-template-columns: repeat(4, 120px);
+        grid-auto-rows: 120px;
+        gap: 3px;
+    }
+
+    .tile {
+        width: 120px;
+        height: 120px;
+    }
+
+    .puzzle .txt_area {
+        width: 100%;
+    }
+
+    .puzzle .txt_area .tit {
+        font-size: 1.25rem;
+        line-height: 1.3;
+    }
+
+    .puzzle_right .new_btn {
+        margin-top: 40px;
+    }
+
+    .pro_top .tag_all {
+        display: none;
+    }
+
+    .product_list .pro_top .pro_tit {
+        font-size: 1rem;
+    }
+
+    .label {
+        display: none;
+    }
+
+    .p_all {
+        flex-direction: column;
+        gap: 12px;
+    }
+       .product_list .pro_card {
+        padding-bottom: 20px;
+    }
+
+}
+
+@media screen and (max-width: 360px) {
+
+    .puzzle .inner {
+        padding-inline: 20px;
+    }
+
+    .media {
+        width: calc(100px * 4 + 2px * 6);
+        height: calc(100px * 3 + 2px * 6);
+    }
+
+    .grid {
+        grid-template-columns: repeat(4, 100px);
+        grid-auto-rows: 100px;
+        gap: 2px;
+    }
+
+    .tile {
+        width: 100px;
+        height: 100px;
+    }
+
+    .puzzle .txt_area .tit {
+        font-size: 1rem;
+    }
+
+    .puzzle .txt_area .txt {
+        font-size: 0.875rem;
+    }
+}
