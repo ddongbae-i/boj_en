@@ -466,6 +466,10 @@ header {
     text-align: center;
 }
 
+.banner .txt_area {
+    text-align: center;
+}
+
 .banner h2 {
     font-size: 1.5rem;
     font-weight: 400;
@@ -606,6 +610,10 @@ header {
     margin-inline: auto;
 }
 
+.step .cate_hd>img {
+    width: 100%;
+}
+
 .step .inner .step_wrap {
     display: flex;
     width: 100%;
@@ -627,7 +635,7 @@ header {
 
 .step .txt_area {
     margin-top: 12px;
-    width: 300px;
+    width: 95%;
     padding-right: 10px;
 }
 
@@ -855,4 +863,100 @@ header {
 .more_btn:hover {
     background: var(--txt_main);
     color: var(--white_ff);
+}
+
+/* filters */
+
+.filters {
+    position: fixed;
+    bottom: 0;
+    z-index: 50;
+    width: 100%;
+    background: var(--bg_white);
+    box-shadow: 0 -2px 10px 0 rgba(107, 107, 107, 0.10);
+}
+
+.filters .open {
+    width: 100%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    padding-block: 28px;
+    gap: 8px;
+    border-bottom: 1px solid var(--grey_c7);
+}
+
+.filters_bar {
+    width: 100%;
+    border-bottom: 1px solid var(--grey_c7);
+    padding-block: 20px;
+}
+
+.filters_bar button {
+    padding-left: 10px;
+}
+
+.filters .open img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+    rotate: 180deg;
+}
+
+.filters.active .open img {
+  transform: rotate(540deg); 
+}
+
+#filters-panel {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.filters.active #filters-panel {
+    max-height: 900px;
+    opacity: 1;
+    overflow: visible;
+    
+}
+
+.filters_group {
+    display: flex;
+    padding-block: 12px;
+    border-bottom: 1px solid var(--white_f0);
+    gap: 48px;
+    align-items: center;
+}
+
+.filter_tit {
+    font-weight: 400;
+    color: var(--txt_main);
+    padding-left: 10px;
+    width: 110px;
+}
+
+.keyword {
+    display: flex;
+    gap: 12px;
+}
+
+.keyword button {
+    color: var(--txt_sub_44);
+    padding: 6px 12px;
+    transition: all 0.2s ease;
+}
+
+.keyword button:hover {
+    background:var(--white_f2);
+    font-weight: 400;
+    border-radius: 2px;
+}
+
+.filters_close{
+    margin-bottom: 40px;
 }

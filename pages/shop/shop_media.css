@@ -169,6 +169,9 @@
         margin-right: 16px;
     }
 
+    .step .txt_area .tit {
+        font-size: 1.5rem;
+    }
 
     .product_list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -186,6 +189,7 @@
         min-height: none;
         height: auto;
     }
+
     .puzzle .inner {
         padding-inline: 40px;
         gap: 40px;
@@ -208,7 +212,7 @@
     }
 
     .puzzle .txt_area .tit {
-        font-size:2rem;
+        font-size: 2rem;
     }
 
     .puzzle .txt_area .txt {
@@ -240,6 +244,7 @@
 
     .bestseller .tit {
         margin-bottom: 40px;
+        font-size: 2rem;
     }
 
     /* 밑으로 밀림 방지 */
@@ -276,8 +281,58 @@
         margin-bottom: 32px;
     }
 
-    .pro_tit {
-        font-size: 0.95rem;
+    .step {
+        padding-block: 60px;
+    }
+
+    .step .cate_hd {
+        width: 80vw;
+    }
+
+
+    .step .inner {
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .step .inner .step_wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+        margin-top: 48px;
+        width: 100%;
+    }
+
+    .step .step_wrap li {
+        flex: 0 0 calc((100% - 16px * 2) / 3);
+        max-width: calc((100% - 16px * 2) / 3);
+        width: auto;
+        /* 기존 20% 덮어쓰기 */
+        box-sizing: border-box;
+    }
+
+    .step .step_num {
+        margin-top: 20px;
+    }
+
+    /* 이미지 꽉 차게 */
+    .step .step_wrap li img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* 카드 내부 여백 보정(선택) */
+    .step .txt_bottom {
+        padding-left: 0;
+    }
+
+    .step .txt_area {
+        width: 100%;
+        padding-right: 0;
+        margin-top: 10px;
     }
 
     .pro_bottom {
@@ -286,12 +341,12 @@
     }
 
     .pro_bottom .price {
-        font-size: 1.0625rem;
+        font-size: 1rem;
     }
 
     .p_right {
         width: 110px;
-        font-size: .9375rem;
+        font-size: 1rem;
         margin-right: 12px;
     }
 
@@ -341,10 +396,22 @@
         margin-top: 40px;
     }
 
+    .banner .txt_area {
+        width: 80%;
+    }
+
+    .banner h2 {
+        font-size: 1.25rem;
+    }
+
+    .banner .txt {
+        font-size: 0.875rem;
+        width: 100%;
+    }
+
     .product_list .pro_card {
         padding-bottom: 20px;
     }
-
 
     .pro_top .tag_all {
         display: none;
@@ -378,6 +445,20 @@
 }
 
 @media screen and (max-width: 440px) {
+
+    .step {
+        padding-block: 40px;
+    }
+
+    .step .inner .step_wrap {
+        gap: 12px;
+    }
+
+    .step .step_wrap li {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
     .pro_card.swiper-slide {
         width: 86vw;
     }
@@ -389,6 +470,8 @@
     .pro_card {
         padding-bottom: 52px;
     }
+
+    .pro_card .add_btn{ font-size:0; }     
 }
 
 

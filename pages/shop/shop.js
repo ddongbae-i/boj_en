@@ -178,3 +178,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hidden.length <= BATCH) btn.style.display = 'none';
   });
 });
+
+
+//filters
+const filters = document.querySelector('.filters');
+const toggleBtn = filters.querySelector('.open');
+const panel = document.getElementById('filters-panel');
+
+toggleBtn.addEventListener('click', () => {
+  const isOpen = filters.classList.toggle('active');
+  panel.hidden = !isOpen;
+});
+
