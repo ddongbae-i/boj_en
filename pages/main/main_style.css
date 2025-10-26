@@ -29,13 +29,12 @@ main {
 
 .main .mainVisual {
   height: 100vh;
-  max-width: 100%;
   width: 100%;
   overflow: hidden;
 }
 
 .main .mainVisual video {
-  width: 100%;
+  width: 105%;
   height: 100vh;
   object-fit: cover;
   display: block;
@@ -389,10 +388,10 @@ main {
 }
 
 
-.membership .mem768{
-   display: none;
+.membership .mem768 {
+  display: none;
 }
- 
+
 .membership .login_box {
   position: absolute;
   left: 50%;
@@ -423,7 +422,7 @@ main {
   width: 100%;
   height: 100%;
   background: var(--white_ff);
-  padding-block: 100px;
+  padding-block: 80px 120px;
 }
 
 /* 그리드 기본: 좌 | 중앙 | 우 */
