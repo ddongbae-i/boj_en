@@ -194,7 +194,7 @@ header {
 .sale_zone .inner {
     background: var(--bg_black);
     color: var(--white_ff);
-    padding-block: 60px;
+    padding-top: 60px;
     display: flex;
     padding-right: 0;
 }
