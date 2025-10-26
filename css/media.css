@@ -376,11 +376,7 @@
     }
 
     @media screen and (max-width:400px) {
-        .inner {
-            max-width: 320px;
-
-        }
-
+        
         footer .f_center_right .f_nav {
             width: 100%;
         }

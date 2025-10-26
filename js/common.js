@@ -19,6 +19,7 @@ window.addEventListener('scroll', () => {
     // 아래로 스크롤
     header.classList.remove('scrolled-up');
     header.style.top = '-124px';
+    header.style.color = '#1c1c1c'
   } else {
     // 위로 스크롤 → header 등장
     header.classList.add('scrolled-up');

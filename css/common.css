@@ -245,6 +245,7 @@ nav:hover .ham_bottom {
     display: none;
     padding-top: 56px;
     border-top: 1px solid var(--grey_aa);
+    color: var(--txt_main);
 }
 
 .ham_bottom ul li:nth-child(1),
