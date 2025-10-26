@@ -189,6 +189,9 @@ const bannerData = {
   }
 };
 
+
+
+
 // 3. 클릭 이벤트 설정
 filterItems.forEach(item => {
   item.addEventListener("click", () => {
@@ -441,3 +444,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// Bag Count 기능 추가 __헤더 +1
+document.addEventListener("DOMContentLoaded", () => {
+  const addBtns = document.querySelectorAll(".product_card .add_btn");
+  const bagBtn = document.querySelector(".bag");
+  
+  // 숫자 배지 생성
+  const bagCount = document.createElement("span");
+  bagCount.classList.add("bag_count");
+  bagCount.textContent = "0";
+  bagBtn.appendChild(bagCount);
+
+  let count = 0;
+
+  addBtns.forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      count++;
+      bagCount.textContent = count;
+      bagCount.style.display = "flex"; // 표시 활성화
+    });
+  });
+});
+
+/* 버튼 +1 */
+document.addEventListener("DOMContentLoaded", () => {
+  const addBtns = document.querySelectorAll(".add_btn");
+
+  addBtns.forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+
+      // 배지(span.count_badge) 가져오기 혹은 생성
+      let badge = btn.querySelector(".count_badge");
+      if (!badge) {
+        badge = document.createElement("span");
+        badge.classList.add("count_badge");
+        badge.textContent = "0"; // 초기값 0으로 설정
+        btn.appendChild(badge);
+      }
+
+      // 현재 숫자를 정수로 가져와서 +1 증가 후 다시 텍스트 반영
+      let count = parseInt(badge.textContent, 10);
+      count++;
+      badge.textContent = count.toString();
+
+      // show 클래스 부착 (필요할 경우 애니메이션 처리용)
+      badge.classList.add("show");
+    });
+  });
+});
+
