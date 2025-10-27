@@ -10,7 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BEAUTY OF JOSEON</title>
     <meta property="og:title" content="BEAUTY OF JOSEON">
-    <meta property="og:description" content="Beauty of Joseon — Korean skincare inspired by timeless Hanbang tradition.">
+    <meta property="og:description"
+        content="Beauty of Joseon — Korean skincare inspired by timeless Hanbang tradition.">
     <meta property="og:image" content="https://ddongbae-i.github.io/boj_en/asset/img/boj.png">
     <meta property="og:url" content="https://ddongbae-i.github.io">
     <link rel="icon" type="imge/png" href="./asset/img/common/favicon32x32.ico">
@@ -78,7 +79,7 @@
                                 <li><a href="">Life Style</a></li>
                             </ul>
                             <div class="sub_img">
-                                <img src="./asset/img/common/prac.png" alt="brand_img">
+                                <img src="./asset/img/common/gnb_1.png" alt="brand_img">
                             </div>
                         </div>
 
@@ -91,7 +92,7 @@
                                 <li><a href="./skintest/jb-test.html">Joseon Beauty Test</a></li>
                             </ul>
                             <div class="sub_img">
-                                <img src="./pages/skintest/jb-test.html" alt="brand_img">
+                                <img src="./asset/img/common/gnb_3.png" alt="brand_img">
                             </div>
                         </div>
                     </li>
@@ -102,7 +103,7 @@
                                 <li><a href="./pages/reward/reward.html">Membership</a></li>
                             </ul>
                             <div class="sub_img">
-                                <img src="./asset/img/common/prac.png" alt="brand_img">
+                                <img src="./asset/img/common/gnb_4.png" alt="brand_img">
                             </div>
                         </div>
                     </li>
@@ -149,6 +150,169 @@
                     <a href="">Black Sesame</a>
                     <a href="">Amino Acids</a>
                     <a href="">Green Plum & Plum Flower</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart_wrap">
+            <div class="cart_corner top_left"></div>
+            <div class="cart_corner top_right"></div>
+            <div class="cart_corner bottom_left"></div>
+            <div class="cart_corner bottom_right"></div>
+
+            <div class="cart_header">
+                <div class="cart_title">
+                    My Bag <span class="cart_count">(2items)</span>
+                </div>
+                <button class="cart_close">&times;</button>
+            </div>
+
+            <div class="cart_progress">
+                <div class="progress_labels">
+                    <span>$ 50</span>
+                    <span>$ 70</span>
+                    <span>$ 100</span>
+                </div>
+                <div class="progress_bar">
+                    <div class="progress_fill"></div>
+                </div>
+                <div class="free_gift">
+                    <div class="gift"><img src="./asset/img/common/cream.png" alt="Gift"></div>
+                    <div class="gift_txt"><span>Add <span class="red">$9</span> more to unlock your free<br>[Light On
+                            Serum
+                            Mini 10ml]</span></div>
+                </div>
+            </div>
+
+            <div class="cart_list">
+                <div class="cart_item">
+                    <div class="cart_thumb"><img src="/asset/img/hanbang/cream_img.png" alt="Product"></div>
+                    <div class="cart_info">
+                        <div class="cart_product">Revive Serum : Ginseng + Snail Mucin</div>
+                        <div class="cart_price_row">
+                            <div class="cart_price">
+                                $ 18.00
+                            </div>
+                            <div class="cart_option">
+                                <select class="option_select">
+                                    <option>60ml</option>
+                                    <option>30ml</option>
+                                    <option>100ml</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="cart_qty">
+                            <button class="qty_btn" onclick="decreaseQty(this)">-</button>
+                            <span class="qty_num">1</span>
+                            <button class="qty_btn" onclick="increaseQty(this)">+</button>
+                        </div>
+                    </div>
+                    <button class="cart_remove">&times;</button>
+                </div>
+
+                <div class="cart_item">
+                    <div class="cart_thumb"><img src="/asset/img/hanbang/cream_img.png" alt="Product"></div>
+                    <div class="cart_info">
+                        <div class="cart_product">Revive Eye Serum : Ginseng + Retinal</div>
+                        <div class="cart_price_row">
+                            <div class="cart_price">$ 17.00</div>
+                            <div class="cart_option">
+                                <select class="option_select">
+                                    <option>30ml - 1Pack</option>
+                                    <option>30ml - 2Pack</option>
+                                    <option>50ml</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="cart_qty">
+                            <button class="qty_btn" onclick="decreaseQty(this)">-</button>
+                            <span class="qty_num">1</span>
+                            <button class="qty_btn" onclick="increaseQty(this)">+</button>
+                        </div>
+                    </div>
+                    <button class="cart_remove">&times;</button>
+                </div>
+            </div>
+
+            <div class="cart_goeswell">
+                <div class="goeswell_title">Goes well with</div>
+                <div class="cart_related">
+                    <div class="related_item">
+                        <div class="related_thumb"><img src="/asset/img/hanbang/cream_img.png" alt="Dynasty Cream">
+                        </div>
+                        <div class="related_info">
+                            <div class="related_name">Dynasty Cream</div>
+                            <div class="related_price_row">
+                                <div class="related_price">$ 24.00</div>
+                                <div class="related_size">
+                                    <select class="option_select">
+                                        <option>50ml</option>
+                                        <option>30ml</option>
+                                        <option>100ml</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="related_add">+</button>
+                    </div>
+
+                    <div class="related_item">
+                        <div class="related_thumb"><img src="/asset/img/hanbang/cream_img.png" alt="Ginseng Water">
+                        </div>
+                        <div class="related_info">
+                            <div class="related_name">Ginseng Essence Water</div>
+                            <div class="related_price_row">
+                                <div class="related_price">$ 18.00</div>
+                                <div class="related_size">
+                                    <select class="option_select">
+                                        <option>150ml</option>
+                                        <option>100ml</option>
+                                        <option>200ml</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="related_add">+</button>
+                    </div>
+
+                    <div class="related_item">
+                        <div class="related_thumb"><img src="/asset/img/hanbang/cream_img.png" alt="Green Plum Toner">
+                        </div>
+                        <div class="related_info">
+                            <div class="related_name">Green Plum Refreshing Toner : AHA + BHA</div>
+                            <div class="related_price_row">
+                                <div class="related_price">$ 18.00</div>
+                                <div class="related_size">
+                                    <select class="option_select">
+                                        <option value="30ml-1pack">30ml - 1Pack</option>
+                                        <option value="50ml-1pack">50ml - 1Pack</option>
+                                        <option value="30ml-2pack">30ml - 2Pack</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="related_add">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart_signup">
+                <form class="signup_form" onsubmit="return false;">
+                    <input type="email" class="signup_input" placeholder="Email" required>
+                    <button type="submit" class="signup_btn">SIGN UP NOW</button>
+                </form>
+                <div class="cart_perk">
+                    Become part of the BOJ Community and enjoy<br>
+                    a <span class="red">10% off code</span> plus exclusive member perks!
+                </div>
+            </div>
+
+            <div class="cart_footer">
+                <div class="cart_total">
+                    <button class="cart_checkout">$ 41.00 <span>(2items)</span> CHECK OUT</button>
+                </div>
+                <div class="cart_note">
+                    Shipping, taxes, and discount codes are calculated at checkout
                 </div>
             </div>
         </div>

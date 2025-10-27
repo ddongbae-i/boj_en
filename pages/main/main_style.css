@@ -873,3 +873,20 @@ main {
   font-weight: 400;
   line-height: 140%;
 }
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fbf8f2;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ab9595;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #d4cebb;
+}
