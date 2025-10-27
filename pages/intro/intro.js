@@ -47,3 +47,21 @@ document.querySelectorAll('.nav-link').forEach(link => {
         cursor.style.borderColor = 'rgba(206, 159, 39, 0.5)';
     });
 });
+
+
+function resizeVideo() {
+    const video = document.querySelector('.background-image');
+    const windowRatio = window.innerWidth / window.innerHeight;
+    const videoRatio = 16 / 9; // 비디오 원본 비율 (1920/1080)
+
+    if (windowRatio > videoRatio) {
+        video.style.width = '100vw';
+        video.style.height = 'auto';
+    } else {
+        video.style.width = 'auto';
+        video.style.height = '100vh';
+    }
+}
+
+window.addEventListener('resize', resizeVideo);
+window.addEventListener('load', resizeVideo);
