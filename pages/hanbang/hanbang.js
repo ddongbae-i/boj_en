@@ -54,17 +54,14 @@ document.addEventListener("scroll", () => {
   }
 
   // 스크롤이 main 높이의 30% 이상 내려가면 sub_main으로 자동 이동
-  if (scrollY > mainHeight * 0.3 && scrollY < mainHeight) {
+  if (scrollY > mainHeight * 0.15 && scrollY < mainHeight) {
     smoothScrollTo(mainHeight, 1000); // 1초 동안 천천히 이동
     locked = true;
   }
 });
 
 
-
-/* 영상  */
-
-/* 
+/* 영상  
 document.addEventListener('DOMContentLoaded', () => {
   const subMain = document.querySelector('.sub_main');
   const subMain2 = document.querySelector('.sub_main2');
@@ -102,9 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     subMain.style.pointerEvents = 'none';
   });
 });
-
  */
-
 
 
 // 1. DOM 요소 선택
@@ -191,8 +186,7 @@ const bannerData = {
 
 
 
-
-// 3. 클릭 이벤트 설정
+// 필터 클릭 
 filterItems.forEach(item => {
   item.addEventListener("click", () => {
     // 3-1. active 클래스 갱신
@@ -225,51 +219,8 @@ filterItems.forEach(item => {
   });
 });
 
-
-
-
-
-/*  let locked = false; // 락 여부 플래그
-
-const main = document.querySelector(".main");
-const subMain = document.querySelector(".sub_main");
-const subMain2 = document.querySelector(".sub_main2");
-
-document.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
-    const mainHeight = main.offsetHeight;
-    const subMain2Top = subMain2.offsetTop;
-
-    // sub_main2에 도달하면 락 해제
-    if (scrollY >= subMain2Top) {
-        locked = false;
-        return;
-    }
-
-    // 이미 락이 걸렸으면 sub_main 위치에 고정
-    if (locked) {
-        window.scrollTo({
-            top: mainHeight,
-            behavior: "auto" // 순간적으로 위치 고정
-        });
-        return;
-    }
-
-    // 스크롤이 main 높이의 30% 이상 내려가면 sub_main으로 자동 이동
-    if (scrollY > mainHeight * 0.3 && scrollY < mainHeight) {
-        
-        window.scrollTo({
-            top: mainHeight,
-            behavior: "smooth",
-        });
-        locked = true; // 락 걸림
-    }
-});  */
-
-
-
+// 하트 클릭 이벤트
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. 하트 클릭 이벤트
   const hearts = document.querySelectorAll(".product_card .heart img");
   hearts.forEach((heart) => {
     heart.addEventListener("click", (e) => {
@@ -369,9 +320,27 @@ document.querySelectorAll('.tags span').forEach(span => {
   });
 });
 
+/*  애드백 컬러까지 변경
+document.querySelectorAll('.product_card').forEach(card => {
+  card.querySelectorAll('.tags span').forEach(tag => {
+    tag.style.cursor = 'pointer'; // 클릭 가능 커서
+
+    tag.addEventListener('click', () => {
+      const word = tag.textContent.trim();
+      const colorStyle = wordColors[word];
+      const addBtn = card.querySelector('.add_btn');
+      if (colorStyle && addBtn) {
+        addBtn.style.color = colorStyle.color;
+        addBtn.style.backgroundColor = colorStyle.background;
+        addBtn.style.borderColor = colorStyle.border;
+      }
+    });
+  });
+}); */
 
 
 
+/*sub_main2 호버 시 디테일 내용 */
 document.addEventListener('DOMContentLoaded', () => {
   const octs = document.querySelectorAll('.octagon');
   const side = document.getElementById('sideInfo');
@@ -413,6 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+/*클릭 시 sub_main2 전환 */
 document.addEventListener('DOMContentLoaded', () => {
   const subMainImg = document.querySelector('.sub_main_img');
   const subMain = document.querySelector('.sub_main');
@@ -449,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener("DOMContentLoaded", () => {
   const addBtns = document.querySelectorAll(".product_card .add_btn");
   const bagBtn = document.querySelector(".bag");
-  
+
   // 숫자 배지 생성
   const bagCount = document.createElement("span");
   bagCount.classList.add("bag_count");
@@ -468,31 +438,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/* 버튼 +1 */
-/* document.addEventListener("DOMContentLoaded", () => {
-  const addBtns = document.querySelectorAll(".add_btn");
-
-  addBtns.forEach(btn => {
-    btn.addEventListener("click", e => {
-      e.preventDefault();
-
-      // 배지(span.count_badge) 가져오기 혹은 생성
-      let badge = btn.querySelector(".count_badge");
-      if (!badge) {
-        badge = document.createElement("span");
-        badge.classList.add("count_badge");
-        badge.textContent = "0"; // 초기값 0으로 설정
-        btn.appendChild(badge);
-      }
-
-      // 현재 숫자를 정수로 가져와서 +1 증가 후 다시 텍스트 반영
-      let count = parseInt(badge.textContent, 10);
-      count++;
-      badge.textContent = count.toString();
-
-      // show 클래스 부착 (필요할 경우 애니메이션 처리용)
-      badge.classList.add("show");
-    });
+//heart
+document.querySelectorAll('.heart_btn').forEach(btn => {
+  const img = btn.querySelector('img');
+  btn.addEventListener('click', function () {
+    if (btn.classList.toggle('is-on')) {
+      btn.style.background = 'none';
+      img.style.display = 'block';
+      img.src = '/asset/img/common/icon_heart_shop.svg';
+    } else {
+      btn.style.background = "transparent url('/asset/img/shop/icon_heart_x.svg') no-repeat center/24px 24px";
+      img.style.display = 'none';
+    }
   });
 });
- */
+

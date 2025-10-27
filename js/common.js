@@ -1,6 +1,6 @@
 const header = document.querySelector('header');
 const menuItems = document.querySelectorAll('ul.gnb > li');
-const headerImgs = header.querySelectorAll('img');
+const headerImgs = header.querySelectorAll('.nav_right img');
 
 let lastScrollY = window.scrollY;
 
