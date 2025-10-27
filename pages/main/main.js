@@ -618,10 +618,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const isMobile = window.innerWidth <= 440;
 
     if (isMobile) {
-      bannerImg.src = "/asset/img/main/banner02_440.png";
+      bannerImg.src = "./asset/img/main/banner02_440.png";
     } else {
       // 👇 기본 데스크톱 이미지 경로
-      bannerImg.src = "/asset/img/main/banner02.png";
+      bannerImg.src = ".//asset/img/main/banner02.png";
     }
   };
 
