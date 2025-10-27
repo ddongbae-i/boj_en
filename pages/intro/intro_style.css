@@ -22,16 +22,14 @@ body {
     background: #0f0f0f;
 }
 
-/* 배경 이미지 */
 .background-image {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
-    min-width: 100vw;
-    min-height: 100vh;
-    width: auto;
-    height: auto;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1, 0.95);
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
     z-index: 1;
 }
 
