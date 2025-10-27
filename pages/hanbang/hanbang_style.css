@@ -1006,3 +1006,20 @@ body {
     padding-bottom: 100px;
     position: relative;
 }
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fbf8f2;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b59016;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9a7612;
+}
