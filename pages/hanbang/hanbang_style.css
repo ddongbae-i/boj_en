@@ -10,7 +10,7 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
-    /*   background: url('/asset/img/hanbang/main_img4.png') top/cover no-repeat; */
+    /*   background: url('../../asset/img/hanbang/main_img4.png') top/cover no-repeat; */
 }
 
 .main video {
@@ -131,7 +131,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: url(/asset/img/hanbang/bg_img.png) center/cover no-repeat;
+    background: url(../../asset/img/hanbang/bg_img.png) center/cover no-repeat;
     opacity: 0.2;
 }
 
@@ -241,7 +241,7 @@ body {
     position: fixed;
     inset: 0;
     /* top:0; right:0; bottom:0; left:0; 과 동일 */
-    background: url('/asset/img/hanbang/bg_img.png') center / cover no-repeat;
+    background: url('../../asset/img/hanbang/bg_img.png') center / cover no-repeat;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
@@ -450,7 +450,7 @@ body {
     color: var(--white_ff);
     display: flex;
     align-items: center;
-    background: url('/asset/img/hanbang/banner01.png') right center/cover no-repeat;
+    background: url('../../asset/img/hanbang/banner01.png') right center/cover no-repeat;
 }
 
 
@@ -527,7 +527,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url("/asset/img/hanbang/bg_img.png") center no-repeat;
+    background: url("../../asset/img/hanbang/bg_img.png") center no-repeat;
     opacity: 0.1;
     z-index: 0;
     overflow-x: hidden;
@@ -719,7 +719,7 @@ body {
 }
 
 .add_btn:hover img {
-    content: url('/asset/img/hanbang/icon_bag_w.png');
+    content: url('../../asset/img/hanbang/icon_bag_w.png');
 }
 
 /* 하트 */
@@ -732,7 +732,7 @@ body {
     height: 24px;
     border: 0;
     border-radius: 50%;
-    background: transparent url('/asset/img/shop/icon_heart_x.svg') no-repeat center;
+    background: transparent url('../../asset/img/shop/icon_heart_x.svg') no-repeat center;
     background-size: 24px 24px;
     cursor: pointer;
     z-index: 5;
