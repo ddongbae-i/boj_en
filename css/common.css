@@ -571,25 +571,24 @@ footer .f_join span {
     will-change: transform;
 }
 
-body.cart-open .cart_wrap{ transform: translateX(0); }
-
-
-.cart_overlay{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.35);
-  z-index: 999;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .25s ease;
-}
-body.cart-open .cart_overlay{
-  opacity: 1;
-  pointer-events: auto;
+.cart_wrap.is-open {
+    transform: translateX(0);
 }
 
-/* 스크롤 잠금(선택) */
-html.cart-open, body.cart-open{ overflow: hidden; }
+.cart_overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .35);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity .25s ease;
+    pointer-events: none;
+}
+
+.cart_overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
 
 html.cart-locked,
 body.cart-locked {
@@ -1020,7 +1019,6 @@ input[type="search"],
 input[type="email"] {
     -webkit-appearance: none;
     appearance: none;
-    background: #fff;
     border: none;
     outline: none;
 }

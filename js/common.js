@@ -285,3 +285,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('a[href="#"]');
+    if (target) e.preventDefault();
+  });
