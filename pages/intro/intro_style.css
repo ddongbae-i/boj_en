@@ -1,176 +1,150 @@
- @charset "UTF-8";
+@charset "UTF-8";
 
- * {
-     margin: 0;
-     padding: 0;
-     box-sizing: border-box;
- }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
- body {
-     font-family: 'Cormorant', serif;
-     overflow: hidden;
-     background: #0f0f0f;
- }
+body {
+    font-family: 'Cormorant', serif;
+    overflow: hidden;
+    background: #0f0f0f;
+}
 
- .intro-container {
-     width: 100vw;
-     height: 100vh;
-     position: relative;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     background: #0f0f0f;
- }
+.intro-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0f0f0f;
+}
 
- /* 배경 이미지 */
- .background-image {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     object-fit: cover;
-     z-index: 1;
- }
+/* 배경 이미지 */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
 
- .content-wrapper {
-     position: relative;
-     z-index: 2;
-     display: flex;
-     gap: 100px;
-     align-items: center;
-     justify-content: center;
- }
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 100px;
+    align-items: center;
+    justify-content: center;
+}
 
- .nav-link {
-     position: relative;
-     text-decoration: none;
-     color: #ffffff;
-     font-size: 74px;
-     font-weight: 500;
-     line-height: 120%;
-     cursor: pointer;
-     transition: all 0.5s ease;
-     opacity: 0;
-     transform: translateY(20px);
-     animation: fadeInUp 1s ease forwards;
-     padding: 40px 60px;
-     display: inline-block;
- }
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 74px;
+    font-weight: 500;
+    line-height: 120%;
+    cursor: pointer;
+    transition: color 0.5s ease, opacity 0.5s ease, text-shadow 0.5s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    padding: 40px 60px;
+    display: inline-block;
+}
 
- @keyframes fadeInUp {
-     to {
-         opacity: 1;
-         transform: translateY(0);
-     }
- }
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
- .nav-link.shop {
-     animation-delay: 0.5s;
- }
+.nav-link.shop {
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.5s;
+}
 
- .nav-link.brand {
-     animation-delay: 0.7s;
-     color: #4c4c4c;
- }
+.nav-link.brand {
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.7s;
+}
 
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    transition: all 0.5s ease;
+    z-index: -1;
+    opacity: 0;
+    filter: blur(50px);
+}
 
- .nav-link::before {
-     content: '';
-     position: absolute;
-     top: 50%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     width: 500px;
-     height: 500px;
-     border-radius: 50%;
-     transition: all 0.5s ease;
-     z-index: -1;
-     opacity: 0;
-     filter: blur(50px);
- }
+.nav-link.shop::before {
+    background: rgba(206, 159, 39, 0.1);
+}
 
- .nav-link.shop::before {
-     background: rgba(206, 159, 39, 0.1);
- }
+.nav-link.brand::before {
+    background: rgba(206, 159, 39, 0.1);
+}
 
- .nav-link.brand::before {
-     background: rgba(206, 159, 39, 0.1);
- }
+/* 호버한 링크 */
+.nav-link:hover {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    text-shadow: 0 0 30px rgba(206, 159, 39, 0.8);
+}
 
- .nav-link:hover {
-     color: #ffffff;
-     text-shadow: 0 0 30px rgba(206, 159, 39, 0.8);
- }
+.nav-link:hover::before {
+    opacity: 1;
+    width: 600px;
+    height: 600px;
+}
 
- .nav-link:hover::before {
-     opacity: 1;
-     width: 600px;
-     height: 600px;
- }
+/* SHOP 호버 시 BRAND 어둡게 */
+.content-wrapper:has(.nav-link.shop:hover) .nav-link.brand {
+    color: #4c4c4c !important;
+    opacity: 0.6 !important;
+    text-shadow: none !important;
+}
 
- /* SHOP 호버 시 BRAND 어둡게 */
- .nav-link.shop:hover~.nav-link.brand {
-     color: #2c2c2c;
-     opacity: 0.6;
- }
+/* BRAND 호버 시 SHOP 어둡게 */
+.content-wrapper:has(.nav-link.brand:hover) .nav-link.shop {
+    color: #4c4c4c !important;
+    opacity: 0.6 !important;
+    text-shadow: none !important;
+}
 
- /* BRAND 호버 시 효과 */
- .nav-link.brand:hover {
-     color: #ffffff;
-     text-shadow: 0 0 30px rgba(206, 159, 39, 0.8);
- }
+.loading {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: pulse 2s ease-in-out infinite;
+    animation-delay: 0.3s;
+}
 
+@keyframes pulse {
 
- .content-wrapper:hover .nav-link.brand {
-     color: #4c4c4c;
-     opacity: 1;
- }
+    0%,
+    100% {
+        opacity: 0.3;
+    }
 
- .content-wrapper .nav-link.shop:hover~.nav-link.brand {
-     color: #2c2c2c;
-     opacity: 0.6;
- }
-
- .content-wrapper .nav-link.brand:hover {
-     color: #ffffff;
-     opacity: 1;
- }
-
- .content-wrapper .nav-link.brand:hover~.nav-link.shop,
- .content-wrapper:has(.nav-link.brand:hover) .nav-link.shop {
-     color: #4c4c4c;
-     opacity: 0.6;
- }
-
-
- @keyframes fadeIn {
-     to {
-         opacity: 1;
-     }
- }
-
- .loading {
-     position: absolute;
-     bottom: 50px;
-     left: 50%;
-     transform: translateX(-50%);
-     color: rgba(255, 255, 255, 0.3);
-     font-size: 14px;
-     letter-spacing: 2px;
-     opacity: 0;
-     animation: pulse 2s ease-in-out infinite;
-     animation-delay: 0.3s;
- }
-
- @keyframes pulse {
-
-     0%,
-     100% {
-         opacity: 0.3;
-     }
-
-     50% {
-         opacity: 0.6;
-     }
- }
+    50% {
+        opacity: 0.6;
+    }
+}
