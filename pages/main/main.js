@@ -160,10 +160,10 @@ const cards = document.querySelectorAll('.influencer .card');
 
 if (cards.length) {
   const config = {
-    flipMs: 600,
-    stayMs: 400,
+    flipMs: 160,
+    stayMs: 200,
     gapMs: 120,
-    resetDelay: 800,
+    resetDelay: 500,
   };
 
   let loopRunning = false;
