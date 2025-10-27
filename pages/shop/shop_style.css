@@ -348,6 +348,25 @@ header {
     align-items: center;
     gap: 8px;
     margin-top: 8px;
+    transition: 0.3s ease;
+}
+
+.add_btn:hover {
+    background-color: var(--bg_black);
+    color: var(--tit_font);
+    border: 1px solid var(--bg_white);
+}
+
+.add_btn img {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    /*     margin-top: 10px; */
+    color: var(--white_ff);
+}
+
+.add_btn:hover img {
+    content: url('/asset/img/hanbang/icon_bag_w.png');
 }
 
 .pro_card:last-child {

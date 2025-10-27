@@ -445,9 +445,9 @@ document.querySelectorAll('.heart_btn').forEach(btn => {
     if (btn.classList.toggle('is-on')) {
       btn.style.background = 'none';
       img.style.display = 'block';
-      img.src = '/asset/img/common/icon_heart_shop.svg';
+      img.src = '../..../../asset/img/common/icon_heart_shop.svg';
     } else {
-      btn.style.background = "transparent url('/asset/img/shop/icon_heart_x.svg') no-repeat center/24px 24px";
+      btn.style.background = "transparent url('../..../../asset/img/shop/icon_heart_x.svg') no-repeat center/24px 24px";
       img.style.display = 'none';
     }
   });
