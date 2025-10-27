@@ -33,7 +33,7 @@ main .inner {
 .line {
     width: 492px;
     height: 44px;
-    background: url(/hanbang/img/line.png) no-repeat;
+    background: url(../../asset/img/hanbang/line.png) no-repeat;
     margin: auto;
     background-size: cover;
 }
@@ -106,7 +106,7 @@ main .inner {
     left: -20px;
     width: 100%;
     height: 100%;
-    background-image: url("/asset/img/reward/reward_green.png");
+    background-image: url("../../asset/img/reward/reward_green.png");
     background-repeat: no-repeat;
     background-size: contain;
     filter: brightness(0) blur(20px);
@@ -135,7 +135,7 @@ main .inner {
     text-align: center;
     background-color: var(--img_bg);
     border: 40px solid transparent;
-    border-image: url('/asset/img/reward/corner.png') 40 fill stretch;
+    border-image: url('../../asset/img/reward/corner.png') 40 fill stretch;
 }
 
 .vip_tiers .list {
@@ -305,7 +305,7 @@ main .inner {
     line-height: 100%;
     text-align: center;
     border: 26px solid transparent;
-    border-image: url('/asset/img/reward/toggle_redeem_02.svg') 25 fill stretch;
+    border-image: url('../../asset/img/reward/toggle_redeem_02.svg') 25 fill stretch;
 }
 
 .toggle_flex .off {
@@ -318,16 +318,16 @@ main .inner {
     height: 54px;
     line-height: 100%;
     border: 26px solid transparent;
-    border-image: url('/asset/img/reward/toggle_redeem_01.svg') 25 fill stretch;
+    border-image: url('../../asset/img/reward/toggle_redeem_01.svg') 25 fill stretch;
     color: var(--txt_sub_77);
 }
 
 .ways_to_earn .toggle_flex .on {
-    border-image: url('/asset/img/reward/toggle_redeem_04.svg') 25 fill stretch;
+    border-image: url('../../asset/img/reward/toggle_redeem_04.svg') 25 fill stretch;
 }
 
 .ways_to_earn .toggle_flex .off {
-    border-image: url('/asset/img/reward/toggle_redeem_03.svg') 25 fill stretch;
+    border-image: url('../../asset/img/reward/toggle_redeem_03.svg') 25 fill stretch;
 }
 
 .redeem_for_products .line,
@@ -352,7 +352,7 @@ main .inner {
     display: inline-block;
     width: 14px;
     height: 14px;
-    background-image: url(/asset/img/reward/reward_arrow.svg);
+    background-image: url(../../asset/img/reward/reward_arrow.svg);
     background-size: 100% 100%;
     margin-right: 8px;
 }
@@ -375,7 +375,7 @@ main .inner {
 }
 
 .artlcle_g .box {
-    background: var(--bg_footer) url(/asset/img/reward/img_Earn_Birthday.png) no-repeat calc(100% - 20px) calc(100% - 20px);
+    background: var(--bg_footer) url(../../asset/img/reward/img_Earn_Birthday.png) no-repeat calc(100% - 20px) calc(100% - 20px);
     flex: 1;
     height: 180px;
     min-width: 300px;
@@ -403,7 +403,7 @@ main .inner {
 
 .ways_to_earn {
     position: relative;
-    background: url('/asset/img/reward/Earn_bg.png') center/cover no-repeat;
+    background: url('../../asset/img/reward/Earn_bg.png') center/cover no-repeat;
     overflow: hidden;
 }
 
@@ -414,7 +414,7 @@ main .inner {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('/asset/img/reward/Earn_bg_blur.png') center/cover no-repeat;
+    background: url('../../asset/img/reward/Earn_bg_blur.png') center/cover no-repeat;
     opacity: 1;
     pointer-events: none;
 }
@@ -434,75 +434,75 @@ main .inner {
 }
 
 .redeem_for_products .box1 {
-    background-image: url(/asset/img/reward/img_Redeem_01.png);
+    background-image: url(../../asset/img/reward/img_Redeem_01.png);
     background-size: auto 55px;
 }
 
 .redeem_for_products .box2 {
-    background-image: url(/asset/img/reward/img_Redeem_02.png);
+    background-image: url(../../asset/img/reward/img_Redeem_02.png);
     background-size: auto 60px;
 }
 
 .redeem_for_products .box3 {
-    background-image: url(/asset/img/reward/img_Redeem_03.png);
+    background-image: url(../../asset/img/reward/img_Redeem_03.png);
     background-size: auto 50px;
 }
 
 .redeem_for_products .box4 {
-    background-image: url(/asset/img/reward/img_Redeem_04.png);
+    background-image: url(../../asset/img/reward/img_Redeem_04.png);
     background-size: auto 80px;
 }
 
 .redeem_for_products .box5 {
-    background-image: url(/asset/img/reward/img_Redeem_Convert.png);
+    background-image: url(../../asset/img/reward/img_Redeem_Convert.png);
     background-size: auto 50px;
 }
 
 .redeem_for_products .box6 {
-    background-image: url(/asset/img/reward/img_Redeem_off.png);
+    background-image: url(../../asset/img/reward/img_Redeem_off.png);
     background-size: auto 50px;
 }
 
 .redeem_for_products .box7 {
-    background-image: url(/asset/img/reward/img_Redeem_off.png);
+    background-image: url(../../asset/img/reward/img_Redeem_off.png);
     background-size: auto 50px;
 }
 
 
 
 .ways_to_earn .box1 {
-    background-image: url(/asset/img/reward/img_Earn_Join.png);
+    background-image: url(../../asset/img/reward/img_Earn_Join.png);
 }
 
 .ways_to_earn .box1 .arrow::before {
-    background-image: url(/asset/img/reward/reward_check.svg);
+    background-image: url(../../asset/img/reward/reward_check.svg);
     width: 20px;
     height: 14px;
 }
 
 .ways_to_earn .box2 {
-    background-image: url(/asset/img/reward/img_Earn_Order.png);
+    background-image: url(../../asset/img/reward/img_Earn_Order.png);
 }
 
 .ways_to_earn .box3 {
-    background-image: url(/asset/img/reward/img_Earn_Review.png);
+    background-image: url(../../asset/img/reward/img_Earn_Review.png);
 }
 
 .ways_to_earn .box4 {
-    background-image: url(/asset/img/reward/img_Earn_Friend.png);
+    background-image: url(../../asset/img/reward/img_Earn_Friend.png);
     background-size: auto 50px;
 }
 
 .ways_to_earn .box5 {
-    background-image: url(/asset/img/reward/img_Earn_Instagram.png);
+    background-image: url(../../asset/img/reward/img_Earn_Instagram.png);
 }
 
 .ways_to_earn .box6 {
-    background-image: url(/asset/img/reward/img_Earn_TikTok.png);
+    background-image: url(../../asset/img/reward/img_Earn_TikTok.png);
 }
 
 .ways_to_earn .box7 {
-    background-image: url(/asset/img/reward/img_Earn_Birthday.png);
+    background-image: url(../../asset/img/reward/img_Earn_Birthday.png);
 }
 
 .arrow {
@@ -565,7 +565,7 @@ main .inner {
 .FAQ {
     width: 100%;
     padding: 160px 0;
-    background-image: url(/asset/img/reward/reward_FAQ_bg.png);
+    background-image: url(../../asset/img/reward/reward_FAQ_bg.png);
     background-position: center bottom;
     background-repeat: no-repeat;
     background-size: 100% auto;
@@ -619,4 +619,21 @@ main .inner {
 
 .accordion-content.active {
     display: block;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ab9595;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #d4cebb;
 }
