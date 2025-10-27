@@ -357,7 +357,7 @@
     .section-5 {
         padding: 50px 0;
         background:
-            url(/asset/img/brandstory/image-6890.png) bottom center no-repeat,
+            url(../../asset/img/brandstory/image-6890.png) bottom center no-repeat,
             linear-gradient(90deg, #fefefe, #fdfefe, #f7f7f7);
         background-size: cover, cover;
         background-position: center bottom;
@@ -796,7 +796,7 @@
     .section-5 {
         padding: 80px 0;
         background:
-            url(/asset/img/brandstory/image-6890.png) bottom center no-repeat,
+            url(../../asset/img/brandstory/image-6890.png) bottom center no-repeat,
             linear-gradient(90deg, #fefefe, #fdfefe, #f7f7f7);
         background-size: cover, cover;
         background-position: center bottom;
@@ -1723,7 +1723,7 @@
     }
 
 
-    .inner {
+    main .inner {
         max-width: 320px;
 
     }

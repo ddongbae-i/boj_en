@@ -49,7 +49,7 @@
             <div class="sub_wrap">
               <ul class="sub">
                 <li><a href="/pages/brandstory/brandstory.html">Brand Story</a></li>
-                <li><a href="pages/hanbang/hanbang.html">Hanbang</a></li>
+                <li><a href="/pages/hanbang/hanbang.html">Hanbang</a></li>
                 <li><a href="">Blog</a></li>
                 <li><a href="">Find a Retailer</a></li>
               </ul>
@@ -165,7 +165,7 @@
           <span class="badge">5 minutes</span>
           <span class="badge">Desktop/Mobile</span>
         </div>
-        <button id="startBtn" class="startBtn" type="button">Start Test</button>
+        <button id="startBtn" class="startBtn btn-white" type="button">Start Test</button>
       </div>
     </section>
 
@@ -177,8 +177,8 @@
           <h2 id="question" tabindex="-1"></h2>
           <form id="options" class="choices" role="radiogroup" aria-labelledby="question"></form>
           <div class="actions">
-            <button id="prevBtn" class="btn secondary btn-white" type="button">Back</button>
-            <button id="nextBtn" class="btn btn-white" type="button">Next</button>
+            <button id="prevBtn" class="secondary btn-white" type="button">Back</button>
+            <button id="nextBtn" class="nextbtn btn-white" type="button">Next</button>
           </div>
         </div>
       </div>
@@ -203,107 +203,185 @@
         </div>
         <div class="radar-wrap">
           <div class="chart">
-            <svg id="radar" viewBox="0 0 460 460"></svg>
-            <div id="chip0" class="axis-chip mid">Oil</div>
-            <div id="chip1" class="axis-chip mid">Elasticity</div>
-            <div id="chip2" class="axis-chip mid">Water Retention</div>
-            <div id="chip3" class="axis-chip mid">Moisturizing</div>
-            <div id="chip4" class="axis-chip mid">Sensitivity</div>
+            <svg id="radar" viewBox="0 0 520 520" width="100%" height="100%">
+              <polygon
+                points="260,215.2 302.6073319300229,246.15603865200237 286.3327793027028,296.24396134799764 233.6672206972972,296.24396134799764 217.3926680699771,246.15603865200237"
+                fill="none" stroke="#e5e7eb" stroke-width="1"></polygon>
+              <polygon
+                points="260,170.39999999999998 345.2146638600458,232.3120773040047 312.6655586054056,332.4879226959953 207.33444139459442,332.4879226959953 174.7853361399542,232.31207730400473"
+                fill="none" stroke="#e5e7eb" stroke-width="1"></polygon>
+              <polygon
+                points="260,125.6 387.8219957900686,218.46811595600707 338.9983379081084,368.731884043993 181.0016620918916,368.731884043993 132.17800420993134,218.46811595600707"
+                fill="none" stroke="#e5e7eb" stroke-width="1"></polygon>
+              <polygon
+                points="260,80.79999999999998 430.4293277200915,204.6241546080094 365.3311172108112,404.97584539199056 154.66888278918884,404.97584539199056 89.57067227990845,204.62415460800943"
+                fill="none" stroke="#e5e7eb" stroke-width="1"></polygon>
+              <polygon
+                points="260,36 473.0366596501144,190.7801932600118 391.663896513514,441.21980673998826 128.33610348648605,441.21980673998826 46.963340349885584,190.7801932600118"
+                fill="none" stroke="#e5e7eb" stroke-width="1"></polygon>
+              <line x1="260" y1="260" x2="260" y2="36" stroke="#e5e7eb" stroke-width="1"></line>
+              <line x1="260" y1="260" x2="473.0366596501144" y2="190.7801932600118" stroke="#e5e7eb" stroke-width="1">
+              </line>
+              <line x1="260" y1="260" x2="391.663896513514" y2="441.21980673998826" stroke="#e5e7eb" stroke-width="1">
+              </line>
+              <line x1="260" y1="260" x2="128.33610348648605" y2="441.21980673998826" stroke="#e5e7eb" stroke-width="1">
+              </line>
+              <line x1="260" y1="260" x2="46.963340349885584" y2="190.7801932600118" stroke="#e5e7eb" stroke-width="1">
+              </line>
+              <polygon
+                points="260,148 377.1701628075629,221.92910629300647 325.83194825675696,350.60990336999413 181.0016620918916,368.731884043993 149.2209369819405,224.00570049520616"
+                fill="rgba(24,169,153,0.16)" stroke="#18A999" stroke-width="2.5" stroke-linejoin="round"></polygon>
+              <circle cx="260" cy="148" r="3.5" fill="#18A999"></circle>
+              <circle cx="377.1701628075629" cy="221.92910629300647" r="3.5" fill="#18A999"></circle>
+              <circle cx="325.83194825675696" cy="350.60990336999413" r="3.5" fill="#18A999"></circle>
+              <circle cx="181.0016620918916" cy="368.731884043993" r="3.5" fill="#18A999"></circle>
+              <circle cx="149.2209369819405" cy="224.00570049520616" r="3.5" fill="#18A999"></circle>
+              <polygon
+                points="260,165.92000000000002 347.3450304565469,231.61987923660485 348.21481066405437,381.4172705157921 199.43460760378358,343.3611111003946 155.61203677144394,226.08229469740579"
+                fill="rgba(255,107,107,0.16)" stroke="#FF6B6B" stroke-width="2.5" stroke-linejoin="round"></polygon>
+              <circle cx="260" cy="165.92000000000002" r="3.5" fill="#FF6B6B"></circle>
+              <circle cx="347.3450304565469" cy="231.61987923660485" r="3.5" fill="#FF6B6B"></circle>
+              <circle cx="348.21481066405437" cy="381.4172705157921" r="3.5" fill="#FF6B6B"></circle>
+              <circle cx="199.43460760378358" cy="343.3611111003946" r="3.5" fill="#FF6B6B"></circle>
+              <circle cx="155.61203677144394" cy="226.08229469740579" r="3.5" fill="#FF6B6B"></circle>
+            </svg>
+            <div id="chip0" class="axis-chip mid" style="left: 50%; top: 5%;">Oil 42</div>
+            <div id="chip1" class="axis-chip mid" style="left: 100%; top: 34%;">Water retention 41</div>
+            <div id="chip2" class="axis-chip good" style="left: 75%; top: 82%;">Sensitivity 67</div>
+            <div id="chip3" class="axis-chip mid" style="left: 25%; top: 82%;">Moisturizing 46</div>
+            <div id="chip4" class="axis-chip mid" style="left: 5%; top: 34%;">Elasticity 49</div>
           </div>
         </div>
-        <div class="separator">
-          <div class="dot"></div>
-          <div class="line"></div>
+        <div class="result_aricle">
+          <div class="separator">
+            <div class="dot"></div>
+            <div class="line"></div>
+            <div class="mbti" id="mbti">DSNT</div>
+            <p id="summary" class="center">Oil is average, water retention is average, sensitivity is
+              high;<br>moisturizing
+              is average, elasticity is average.</p>
+          </div>
         </div>
-        <div class="mbti" id="mbti"></div>
-        <p id="summary" class="center"></p>
-
-        <h3 class="product-tit">Recommended products-/h3>
-          <section class="product">
-            <div class="product_grid">
-              <!-- 카드 6종: 기존 구조 그대로 -->
-              <div class="product_card">
-                <img class="product_img" src="/asset/img/skintest/product1.png" alt="Dynasty Cream">
-                <div class="tags"><span></span><span></span><span></span><span></span></div>
-                <div class="info">
-                  <h3>Dynasty Cream</h3>
-                  <p>Nourishing Cream Moisturizer</p>
-                  <span class="score"></span>
-                </div>
-                <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
-                    alt="찜하기 아이콘">ADD TO WISHLIST</button>
+        <h3 class="product-tit">Recommended products</h3>
+        <section class="product">
+          <div class="product_grid">
+            <!-- 카드 6종 : 기존 구조 그대로 -->
+            <div class="product_card">
+              <img class="product_img" width="581" height="581" src="/asset/img/skintest/product1.png"
+                alt="Light On Serum">
+              <div class="tags">
+                <span>+ Centella</span>
+                <span>+ Vitamin C</span>
+                <span>- Retinoids</span>
+                <span>- AHA/BHA</span>
               </div>
-
-              <div class="product_card">
-                <img class="product_img" src="/asset/img/skintest/product2.png" alt="Glow Replenishing Rice Milk">
-                <div class="tags"><span></span><span></span><span></span><span></span></div>
-                <div class="info">
-                  <h3>Glow Replenishing Rice Milk</h3>
-                  <p>Hydrating + Balancing Toner</p>
-                  <span class="score"></span>
-                </div>
-                <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
-                    alt="찜하기 아이콘">ADD TO WISHLIST</button>
+              <div class="info">
+                <h3>Light On Serum : Centella + Vita C</h3>
+                <p>Refreshing Brightening Serum</p>
+                <span class="score">Score : 80 / 100</span>
               </div>
-
-              <div class="product_card">
-                <img class="product_img" src="/asset/img/skintest/product3.png" alt="Ginseng Essence Water">
-                <div class="tags"><span></span><span></span><span></span><span></span></div>
-                <div class="info">
-                  <h3>Ginseng Essence Water</h3>
-                  <p>Barrier-Boosting Hydrating Essence</p>
-                  <span class="score"></span>
-                </div>
-                <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
-                    alt="찜하기 아이콘">ADD TO WISHLIST</button>
-              </div>
-
-              <div class="product_card">
-                <img class="product_img" src="/asset/img/skintest/product4.png"
-                  alt="Revive Serum: Ginseng + Snail Mucin">
-                <div class="tags"><span></span><span></span><span></span><span></span></div>
-                <div class="info">
-                  <h3>Revive Serum: Ginseng + Snail Mucin</h3>
-                  <p>Nourishing Cream Moisturizer</p>
-                  <span class="score"></span>
-                </div>
-                <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
-                    alt="찜하기 아이콘">ADD TO WISHLIST</button>
-              </div>
-
-              <div class="product_card">
-                <img class="product_img" src="/asset/img/skintest/product5.png" alt="Ginseng Cleansing Oil">
-                <div class="tags"><span></span><span></span><span></span><span></span></div>
-                <div class="info">
-                  <h3>Ginseng Cleansing Oil</h3>
-                  <p>Hydrating + Balancing Toner</p>
-                  <span class="score"></span>
-                </div>
-                <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
-                    alt="찜하기 아이콘">ADD TO WISHLIST</button>
-              </div>
-
-              <div class="product_card">
-                <img class="product_img" src="/asset/img/skintest/product6.png" alt="Day Dew Sunscreen">
-                <div class="tags"><span></span><span></span><span></span><span></span></div>
-                <div class="info">
-                  <h3>Day Dew Sunscreen</h3>
-                  <p>Lightweight SPF 50</p>
-                  <span class="score"></span>
-                </div>
-                <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
-                    alt="찜하기 아이콘">ADD TO WISHLIST</button>
-              </div>
+              <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
+                  alt="찜하기 아이콘">ADD TO WISHLIST</button>
             </div>
-          </section>
 
-          <div class="result-actions center">
-            <button id="wishlistBtn" class="btn-white" type="button">ALL TO WISHLIST</button>
-            <div class="row-ghosts">
-              <button id="homeBtn" type="button">HOME</button>
-              <button id="resetBtn" type="button">RESET</button>
+            <div class="product_card">
+              <img class="product_img" width="581" height="581" src="/asset/img/skintest/product2.png"
+                alt="Dynasty Cream">
+              <div class="tags">
+                <span>+ Niacinamide</span>
+                <span>+ Squalane</span>
+                <span>- Occlusives </span>
+                <span>- Botanicals</span>
+              </div>
+              <div class="info">
+                <h3>Dynasty Cream</h3>
+                <p>Nourishing Cream Moisturizer</p>
+                <span class="score">Score : 76 / 100</span>
+              </div>
+              <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
+                  alt="찜하기 아이콘">ADD TO WISHLIST</button>
+            </div>
+
+            <div class="product_card">
+              <img class="product_img" width="581" height="581" src="/asset/img/skintest/product3.png" alt="Glow Serum">
+              <div class="tags">
+                <span>+ Niacinamide</span>
+                <span>+ Propolis</span>
+                <span>- Propolis</span>
+                <span>- AHA/BHA</span>
+              </div>
+              <div class="info">
+                <h3>Glow Serum : Propolis + Niacinamide</h3>
+                <p>Hydrating + Balancing Serum</p>
+                <span class="score">Score : 76 / 100</span>
+              </div>
+              <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
+                  alt="찜하기 아이콘">ADD TO WISHLIST</button>
+            </div>
+
+            <div class="product_card">
+              <img class="product_img" width="581" height="581" src="/asset/img/skintest/product4.png"
+                alt="Ginseng Essence Water">
+              <div class="tags">
+                <span>+ Extract</span>
+                <span>+ Glycerin</span>
+                <span>- Botanicals</span>
+                <span>- Overlayering</span>
+              </div>
+              <div class="info">
+                <h3>Ginseng Essence Water</h3>
+                <p>Barrier-Boosting Hydrating Essence</p>
+                <span class="score">Score : 75 / 100</span>
+              </div>
+              <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
+                  alt="찜하기 아이콘">ADD TO WISHLIST</button>
+            </div>
+
+            <div class="product_card">
+              <img class="product_img" width="581" height="581" src="/asset/img/skintest/product5.png"
+                alt="Red Bean Water Gel">
+              <div class="tags">
+                <span>+ Extract</span>
+                <span>+ Glycerin</span>
+                <span>- Botanicals</span>
+                <span>- Dehydration</span>
+              </div>
+              <div class="info">
+                <h3>Red Bean Water Gel</h3>
+                <p>Lightweight Gel Moisturizer</p>
+                <span class="score">Score : 29 / 100</span>
+              </div>
+              <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
+                  alt="찜하기 아이콘">ADD TO WISHLIST</button>
+            </div>
+
+            <div class="product_card">
+              <img class="product_img" width="581" height="581" src="/asset/img/skintest/product6.png"
+                alt="Calming Serum">
+              <div class="tags">
+                <span>+ Extract</span>
+                <span>+ Panthenol</span>
+                <span>- Botanicals</span>
+                <span>- Retinoids</span>
+              </div>
+              <div class="info">
+                <h3>Calming Serum : Green tea + Panthenol</h3>
+                <p>Calming Soothing Serum</p>
+                <span class="score">Score : 18 / 100</span>
+              </div>
+              <button class="add_btn"><img src="/asset/img/skintest/icon_heart_stroke.svg" class="heart"
+                  alt="찜하기 아이콘">ADD TO WISHLIST</button>
             </div>
           </div>
+        </section>
+
+        <div class="actions center">
+          <button id="wishlistBtn" class="btn-white" type="button">ALL TO WISHLIST</button>
+          <div class="row-ghosts">
+            <button id="homeBtn" type="button">HOME</button>
+            <button id="resetBtn" type="button">RESET</button>
+          </div>
+        </div>
       </div>
       </div>
     </section>
