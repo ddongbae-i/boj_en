@@ -138,7 +138,6 @@ optionBtn.forEach(function (btn, index) {
 })
 
 
-
 //best seller
 
 const swiperBest = new Swiper('.bestSwiper', {
