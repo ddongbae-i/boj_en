@@ -239,4 +239,48 @@ footerBtn?.addEventListener('click', function () {
   });
 
 })();
-// ...existing code...
+
+
+//cart
+
+// 요소 캐싱
+const cartWrap   = document.querySelector('.cart_wrap');
+const cartOpen   = document.querySelector('.nav_right .bag');      // 여는 버튼
+const cartClose  = document.querySelector('.cart_close');          // X 버튼
+const overlay    = document.querySelector('.cart_overlay');
+
+// 열기/닫기
+function openCart(){
+  cartWrap.classList.add('is-open');
+  overlay.hidden = false;
+  // reflow 후 트랜지션
+  requestAnimationFrame(() => overlay.classList.add('is-open'));
+  document.documentElement.classList.add('cart-locked');
+  document.body.classList.add('cart-locked');
+  // 접근성
+  cartWrap.setAttribute('role','dialog');
+  cartWrap.setAttribute('aria-modal','true');
+  cartWrap.setAttribute('aria-hidden','false');
+  // 포커스 이동(옵션)
+  const firstFocus = cartWrap.querySelector('.cart_close') || cartWrap;
+  firstFocus.focus?.();
+}
+
+function closeCart(){
+  cartWrap.classList.remove('is-open');
+  overlay.classList.remove('is-open');
+  document.documentElement.classList.remove('cart-locked');
+  document.body.classList.remove('cart-locked');
+  cartWrap.setAttribute('aria-hidden','true');
+  // 트랜지션 끝나면 overlay 숨김
+  setTimeout(() => { overlay.hidden = true; }, 250);
+}
+
+cartOpen?.addEventListener('click', openCart);
+cartClose?.addEventListener('click', closeCart);
+overlay?.addEventListener('click', closeCart);
+
+// Esc로 닫기
+window.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape' && cartWrap.classList.contains('is-open')) closeCart();
+});
