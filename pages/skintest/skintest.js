@@ -1895,7 +1895,7 @@ el,
   }
 
   // 토글 동작(상태 반전)
-  function toggleAddBtn(btn) {
+  function toggleAddBtn(btn) { 
     const isOn = btn.classList.contains("on");
     const next = !isOn;
     updateAddBtnUI(btn, next);

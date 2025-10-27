@@ -638,7 +638,7 @@ p#summary.center {
   position: relative;
   top: 20px;
 }
-
+ 
 #wishlistBtn {
   font-size: .875rem;
   border: 1px solid var(--bg_black);
