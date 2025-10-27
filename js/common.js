@@ -243,27 +243,22 @@ footerBtn?.addEventListener('click', function () {
 
 //cart
 document.addEventListener('DOMContentLoaded', () => {
-  const bagBtn   = document.querySelector('.nav_right .bag');   // 열기 버튼
+  const bagBtn = document.querySelector('.nav_right .bag');
   const cartWrap = document.querySelector('.cart_wrap');
-  const closeBtn = document.querySelector('.cart_close');        // X 버튼
-  const overlay  = document.querySelector('.cart_overlay');
+  const closeBtn = document.querySelector('.cart_close');
 
-  if (!bagBtn || !cartWrap) {
-    console.warn('bag 버튼 또는 cart_wrap을 찾을 수 없음');
-    return;
-  }
+  if (!bagBtn || !cartWrap) return;
 
   const openCart = () => {
-    document.documentElement.classList.add('cart-open');
-    document.body.classList.add('cart-open');
-    if (overlay) overlay.hidden = false; // 먼저 보여주고
+    cartWrap.classList.add('is-open');              // ← 핵심
+    document.documentElement.classList.add('cart-locked');
+    document.body.classList.add('cart-locked');
   };
 
   const closeCart = () => {
-    document.documentElement.classList.remove('cart-open');
-    document.body.classList.remove('cart-open');
-    // 트랜지션 끝난 뒤 오버레이 숨김
-    if (overlay) setTimeout(() => (overlay.hidden = true), 250);
+    cartWrap.classList.remove('is-open');           // ← 핵심
+    document.documentElement.classList.remove('cart-locked');
+    document.body.classList.remove('cart-locked');
   };
 
   bagBtn.addEventListener('click', (e) => {
@@ -277,16 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
     closeCart();
   });
 
-  overlay?.addEventListener('click', closeCart);
-
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && document.body.classList.contains('cart-open')) {
-      closeCart();
-    }
+    if (e.key === 'Escape' && cartWrap.classList.contains('is-open')) closeCart();
   });
 });
-
-  document.addEventListener('click', (e) => {
-    const target = e.target.closest('a[href="#"]');
-    if (target) e.preventDefault();
-  });
