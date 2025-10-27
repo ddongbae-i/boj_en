@@ -223,7 +223,7 @@ document.querySelectorAll('.pro_card').forEach(card => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const addBtns = document.querySelectorAll(".product_card .add_btn");
+  const addBtns = document.querySelectorAll(".pro_card .add_btn");
   const bagBtn = document.querySelector(".bag");
 
   // 숫자 배지 생성
@@ -241,5 +241,47 @@ document.addEventListener("DOMContentLoaded", () => {
       bagCount.textContent = count;
       bagCount.style.display = "flex"; // 표시 활성화
     });
+  });
+});
+
+/*  add_btn 컬러 변경 */
+document.querySelectorAll('.all_product .add_btn').forEach(btn => {
+  btn.addEventListener('mouseenter', () => {
+    btn.style.backgroundColor = 'black';
+    btn.style.color = 'white';
+
+    const img = btn.querySelector('img');
+    if (img) {
+      img.style.filter = 'brightness(0) invert(1)'; // 아이콘 색상 조정
+    }
+  });
+
+  btn.addEventListener('mouseleave', () => {
+    btn.style.backgroundColor = '';
+    btn.style.color = '';
+
+    const img = btn.querySelector('img');
+    if (img) {
+      img.style.filter = '';
+    }
+  });
+});
+
+/* 헤더 아이콘 컬러 변경 */
+document.addEventListener('scroll', () => {
+  const whiteSection = document.querySelector('.white');
+  const headerImgs = document.querySelectorAll('header img');
+
+  if (!whiteSection) return;
+
+  const whiteRect = whiteSection.getBoundingClientRect();
+  const inView = whiteRect.top < window.innerHeight && whiteRect.bottom > 0;
+
+  headerImgs.forEach(img => {
+    if (inView) {
+      img.style.filter = 'brightness(0) saturate(100%)'; // 검정색 아이콘
+    } else {
+      img.style.filter = ''; // 원래 상태
+    }
   });
 });
