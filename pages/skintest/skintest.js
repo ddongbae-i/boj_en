@@ -31,6 +31,24 @@
     );
     if (focusTarget) setTimeout(() => focusTarget.focus(), 0);
     window.location.hash = `#${id}`;
+    // 스크롤 잠금: loading에서만 잠금
+    SK.lockScroll(id === "loading");
+
+    // 결과 화면 진입 시 .legend로 스크롤 정렬
+    if (id === "result") {
+      const legend = document.querySelector("#result .legend");
+      if (legend) {
+        setTimeout(
+          () =>
+            legend.scrollIntoView({
+              block: "start",
+              inline: "nearest",
+              behavior: "instant" in window ? "instant" : "auto",
+            }),
+          0
+        );
+      }
+    }
   };
 
   // 키보드 헬퍼
@@ -38,6 +56,18 @@
 
   // 부드러운 지연(로딩전환)
   SK.sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  // 스크롤 잠금/해제 유틸
+  SK.lockScroll = function (on) {
+    const d = document.documentElement,
+      b = document.body;
+    if (on) {
+      d.style.overflow = "hidden";
+      b.style.overflow = "hidden";
+    } else {
+      d.style.overflow = "";
+      b.style.overflow = "";
+    }
+  };
 
   // DOM 유틸
   SK.$ = (sel) => document.querySelector(sel);
@@ -118,6 +148,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    SK.lockScroll(false);
     initRouting();
     ensureFixedButtons();
   });
@@ -469,6 +500,7 @@
   w.SKINTEST_QUIZ_RENDER = renderQuestion;
 
   document.addEventListener("DOMContentLoaded", () => {
+    SK.lockScroll(false);
     initQuizControls();
     renderQuestion(); // 초기 렌더
   });
@@ -493,7 +525,34 @@
 
     await SK.sleep(300);
     SK.showSection("result");
+    const result = document.getElementById("result");
     window.dispatchEvent(new Event("SKINTEST_SHOW_RESULT"));
+    // MBTI 박스/요약 보장
+    if (!result.querySelector(".mbti#mbti")) {
+      const mb = document.createElement("div");
+      mb.className = "mbti";
+      mb.id = "mbti";
+      result.appendChild(mb);
+    }
+    if (!result.querySelector("#summary")) {
+      const p = document.createElement("p");
+      p.id = "summary";
+      p.className = "center";
+      result.appendChild(p);
+    }
+
+    // 제품 섹션 보강
+    let ps = result.querySelector("section.product");
+    if (!ps) {
+      ps = document.createElement("section");
+      ps.className = "product";
+      result.appendChild(ps);
+    }
+    if (!ps.querySelector(".cards")) {
+      const cards = document.createElement("div");
+      cards.className = "cards";
+      ps.appendChild(cards);
+    }
   }
 
   // 프로필 계산 완료 시 시작
@@ -532,46 +591,6 @@
         </svg>
       `;
       result.prepend(wrap);
-    }
-
-    // MBTI 박스/요약 보장
-    if (!result.querySelector(".mbti#mbti")) {
-      const mb = document.createElement("div");
-      mb.className = "mbti";
-      mb.id = "mbti";
-      result.appendChild(mb);
-    }
-    if (!result.querySelector("#summary")) {
-      const p = document.createElement("p");
-      p.id = "summary";
-      p.className = "center";
-      result.appendChild(p);
-    }
-
-    // 제품 섹션 보강
-    let ps = result.querySelector("section.product");
-    if (!ps) {
-      ps = document.createElement("section");
-      ps.className = "product";
-      result.appendChild(ps);
-    }
-    if (!ps.querySelector(".cards")) {
-      const cards = document.createElement("div");
-      cards.className = "cards";
-      ps.appendChild(cards);
-    }
-
-    // 고정 버튼 컨테이너(이미 있으면 유지)
-    let fa = result.querySelector(".fixed-actions");
-    if (!fa) {
-      fa = document.createElement("div");
-      fa.className = "fixed-actions";
-      fa.innerHTML = `
-        <button id="homeBtn" class="btn-white" type="button">HOME</button>
-        <button id="resetBtn" class="btn-white" type="button">RESET</button>
-        <button id="wishlistBtn" class="btn-white" type="button">ALL TO WISHLIST</button>
-      `;
-      result.appendChild(fa);
     }
   }
 
@@ -691,6 +710,7 @@
         return `${p.x.toFixed(1)},${p.y.toFixed(1)}`;
       }).join(" ");
       svg.appendChild(el("polygon", { points, class: "radar-grid" }));
+      // 링 라벨(선택): 최상단에만
       if (r < 100) {
         const lab = pt(0, r);
         const t = el("text", {
@@ -718,7 +738,7 @@
       );
     }
 
-    // 값(A=평균, B=내 점수)
+    // 값(A=평균, B=내 점수) — 평균은 50으로 표시(필요 시 state.avg로 교체)
     const avg = [50, 50, 50, 50, 50];
     const me = [
       Oil,
@@ -756,8 +776,8 @@
       });
       svg.appendChild(g);
     }
-    drawNodes(avg, "#10b981");
-    drawNodes(me, "#f43f5e");
+    drawNodes(avg, "#10b981"); // teal
+    drawNodes(me, "#f43f5e"); // rose
 
     // 칩 텍스트
     const chips = [
@@ -798,9 +818,10 @@
     }
     requestAnimationFrame(placeChips);
     window.addEventListener("resize", () => requestAnimationFrame(placeChips));
+
+    // 전역 노출
+    window.drawRadar = drawRadar;
   }
-  // 전역 노출
-  window.drawRadar = drawRadar;
 
   // 카탈로그(간단 예시)
   const catalog = [
@@ -871,7 +892,7 @@
     },
   ];
 
-  // 제품 스코어링
+  // 제품 스코어링: MBTI facet 교집합 가중치 + 미세 난수
   function makeScorer(profileFacets) {
     return function (item) {
       let score = 0;
@@ -891,8 +912,8 @@
     const grid = section.querySelector(".product_grid");
     const container = section.querySelector(".cards");
 
+    // Case A) 정적 그리드가 있을 때 → 증강
     if (grid) {
-      // Case A) 정적 그리드 증강
       const cards = Array.from(grid.querySelectorAll(".product_card"));
       const scorer = makeScorer(profile.facets);
       const used = new Set();
@@ -965,14 +986,12 @@
           });
         }
       });
-    } else if (container) {
-      // Case B) 동적 카드 생성
+    } else {
       const scorer = makeScorer(profile.facets);
       const scored = catalog
         .map((p) => ({ ...p, score: scorer(p) }))
         .sort((a, b) => b.score - a.score);
 
-      container.innerHTML = "";
       scored.forEach((item, idx) => {
         const card = document.createElement("article");
         card.className = "product_card";
@@ -1063,8 +1082,8 @@
     summaryEl.innerHTML = `${shortSummary}.<br>${tipLine}`;
   };
 
-  // HOME / RESET / WISHLIST 위치 고정 보장 및 동작
-  function bindFixedActions() {
+  // HOME / RESET / WISHLIST 위치 고정 보장 및 동작(라우터에도 존재하지만 결과만 접근 시 대비)
+  var bindFixedActions = function () {
     const homeBtn = $("#homeBtn");
     const resetBtn = $("#resetBtn");
     const wishlistBtn = $("#wishlistBtn");
@@ -1123,7 +1142,7 @@
         });
       });
     }
-  }
+  };
 
   // 결과 전체 렌더링
   function renderResultAll() {
@@ -1139,10 +1158,12 @@
     renderMBTI(profile);
     renderProducts(profile);
     bindFixedActions();
+  if (typeof window.animateResultButtonsSafe === 'function') window.animateResultButtonsSafe();
   }
 
   window.addEventListener("SKINTEST_SHOW_RESULT", renderResultAll);
   document.addEventListener("DOMContentLoaded", () => {
+    SK.lockScroll(false);
     if (location.hash === "#result") renderResultAll();
   });
 
@@ -1198,11 +1219,13 @@
     };
 
     document.addEventListener("DOMContentLoaded", () => {
+      SK.lockScroll(false);
       if (!safe()) return;
       if (gsap.registerPlugin && window.ScrollTrigger) {
         gsap.registerPlugin(ScrollTrigger);
       }
 
+      // 홈 타이틀
       if (document.querySelector(".home-title")) {
         gsap.from(".home-title", {
           duration: 1,
@@ -1231,6 +1254,7 @@
         });
       }
 
+      // 버튼 호버
       document.querySelectorAll(".btn-white").forEach((btn) => {
         btn.addEventListener("mouseenter", () => {
           if (!safe()) return;
@@ -1242,10 +1266,678 @@
         });
       });
 
+      // 안전 바인딩: 요소 존재 시만
       const start = document.getElementById("startBtn");
       const next = document.getElementById("nextBtn");
       if (start) start.addEventListener("click", window.animateQuizCard);
       if (next) next.addEventListener("click", window.animateQuizCard);
     });
   })();
+
+  (function () {
+    "use strict";
+
+    // 0) Safe DOM helpers
+    const $ = (sel, ctx = document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+    const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
+    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+    // 1) Simple state (demo-ready; replace with real quiz calc as needed)
+    const defaultScores = [65, 60, 55, 70, 40]; // Oil / Elasticity / Water / Moist / Sens
+    const avgScores = [55, 55, 55, 55, 55];
+
+    function getTypeSummary() {
+      return "피부 유수분 밸런스를 빠르게 맞추고, 자극 최소화에 집중합니다. 꼭 필요한 진정·보습 성분만 권장합니다.";
+    }
+
+    // 2) Radar chart
+    function renderRadar(svg, my = defaultScores, avg = avgScores) {
+      if (!svg) return;
+      const size = Math.min(svg.clientWidth || 300, svg.clientHeight || 300);
+      const cx = size / 2,
+        cy = size / 2,
+        r = size * 0.4;
+      svg.setAttribute("viewBox", `0 0 ${size} ${size}`);
+      svg.innerHTML = "";
+
+      const axes = 5;
+      const startDeg = -90;
+      const toRad = (d) => (d * Math.PI) / 180;
+
+      // grid (concentric)
+      const gridLevels = 4;
+      for (let g = 1; g <= gridLevels; g++) {
+        const gr = r * (g / gridLevels);
+        const circ = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle"
+        );
+        circ.setAttribute("cx", cx);
+        circ.setAttribute("cy", cy);
+        circ.setAttribute("r", gr);
+        circ.setAttribute("fill", "none");
+        circ.setAttribute("stroke", "#e9eef3");
+        circ.setAttribute("stroke-width", "1");
+        svg.appendChild(circ);
+      }
+
+      // axis lines
+      for (let i = 0; i < axes; i++) {
+        const ang = toRad(startDeg + i * (360 / axes));
+        const x = cx + r * Math.cos(ang);
+        const y = cy + r * Math.sin(ang);
+        const line = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "line"
+        );
+        line.setAttribute("x1", cx);
+        line.setAttribute("y1", cy);
+        line.setAttribute("x2", x);
+        line.setAttribute("y2", y);
+        line.setAttribute("stroke", "#d4dde6");
+        line.setAttribute("stroke-width", "1");
+        svg.appendChild(line);
+      }
+
+      // polygon builder
+      const polyFor = (vals, color, fillAlpha) => {
+        const pts = vals
+          .map((v, i) => {
+            const ang = toRad(startDeg + i * (360 / axes));
+            const rr = (clamp(v, 0, 100) / 100) * r;
+            const x = cx + rr * Math.cos(ang);
+            const y = cy + rr * Math.sin(ang);
+            return `${x},${y}`;
+          })
+          .join(" ");
+        const poly = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "polygon"
+        );
+        poly.setAttribute("points", pts);
+        poly.setAttribute("fill", color);
+        poly.setAttribute("fill-opacity", fillAlpha);
+        poly.setAttribute("stroke", color);
+        poly.setAttribute("stroke-width", "2");
+        return poly;
+      };
+
+      // avg (green) then my (pink) so my is on top
+      svg.appendChild(polyFor(avg, "#3bb273", 0.15));
+      svg.appendChild(polyFor(my, "#ff579a", 0.2));
+    }
+
+    // 3) Chip auto placement around chart
+    function placeChips(container) {
+      const chart = $(".chart", container) || container;
+      const svg = $("#radar", chart);
+      if (!chart || !svg) return;
+
+      const rect = chart.getBoundingClientRect();
+      const size = Math.min(rect.width, rect.height);
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const r = size * 0.46; // a bit outside polygon
+
+      const axes = 5;
+      const startDeg = -90;
+      const toRad = (d) => (d * Math.PI) / 180;
+
+      for (let i = 0; i < axes; i++) {
+        const chip = $(`#chip${i}`, chart);
+        if (!chip) continue;
+        const ang = toRad(startDeg + i * (360 / axes));
+        const x = cx + r * Math.cos(ang);
+        const y = cy + r * Math.sin(ang);
+        // center chip around its size after next paint
+        chip.style.position = "absolute";
+        chip.style.left = `${x}px`;
+        chip.style.top = `${y}px`;
+        chip.style.transform = "translate(-50%, -50%)";
+        chip.style.pointerEvents = "auto";
+      }
+    }
+
+    // 4) Wishlist logic
+    function isWished(btn) {
+      if (!btn) return false;
+      if (btn.getAttribute("aria-pressed") === "true") return true;
+      if (btn.classList.contains("is-on")) return true;
+      if (btn.dataset.wish === "on") return true;
+      const t = (btn.textContent || "").trim().toLowerCase();
+      return t.includes("remove") || t.includes("wishlisted");
+    }
+    function setVisualWish(btn, onState) {
+      btn.setAttribute("aria-pressed", onState ? "true" : "false");
+      btn.classList.toggle("is-on", onState);
+      btn.dataset.wish = onState ? "on" : "off";
+      if (btn.dataset.labelOn && btn.dataset.labelOff) {
+        btn.textContent = onState ? btn.dataset.labelOn : btn.dataset.labelOff;
+      }
+    }
+    function toggleBtn(btn) {
+      // Prefer native click if site wires events
+      btn.click?.();
+      // Also ensure visible state toggles for safety
+      setVisualWish(btn, !isWished(btn));
+    }
+    function syncAllButton(allBtn, buttons) {
+      const wished = buttons.filter(isWished);
+      const allOn = wished.length === buttons.length && buttons.length > 0;
+      allBtn.setAttribute("aria-pressed", allOn ? "true" : "false");
+      allBtn.textContent = allOn
+        ? allBtn.dataset.labelOn || "REMOVE ALL"
+        : allBtn.dataset.labelOff || "ALL TO WISHLIST";
+    }
+    function initWishlist() {
+      const allBtn = $("#wishlistAll");
+      const buttons = $$(".add_btn");
+
+      buttons.forEach((btn) => {
+        // default text labels if not provided
+        if (!btn.dataset.labelOn) btn.dataset.labelOn = "REMOVE";
+        if (!btn.dataset.labelOff) btn.dataset.labelOff = "ADD TO WISHLIST";
+        on(btn, "click", (e) => {
+          // small debounce of visual sync
+          setTimeout(() => {
+            setVisualWish(btn, isWished(btn));
+            if (allBtn) syncAllButton(allBtn, buttons);
+          }, 0);
+        });
+      });
+
+      if (allBtn) {
+        if (!allBtn.dataset.labelOn) allBtn.dataset.labelOn = "REMOVE ALL";
+        if (!allBtn.dataset.labelOff)
+          allBtn.dataset.labelOff = "ALL TO WISHLIST";
+        syncAllButton(allBtn, buttons);
+        on(allBtn, "click", () => {
+          const allOn = allBtn.getAttribute("aria-pressed") === "true";
+          if (allOn) {
+            // turn all off
+            buttons.forEach((btn) => {
+              if (isWished(btn)) toggleBtn(btn);
+            });
+          } else {
+            // turn all on
+            buttons.forEach((btn) => {
+              if (!isWished(btn)) toggleBtn(btn);
+            });
+          }
+          setTimeout(() => syncAllButton(allBtn, buttons), 0);
+        });
+      }
+    }
+
+    // 5) Main render
+    function renderResult() {
+      const svg = $("#radar");
+      renderRadar(svg, defaultScores, avgScores);
+
+      // MBTI + summary
+      const mbti = $("#mbti");
+      if (mbti) {
+        mbti.innerHTML = '<h2 class="mbti-badge">DRNT</h2>';
+      }
+      const summary = $("#summary");
+      if (summary) {
+        summary.textContent = getTypeSummary();
+      }
+
+      // chips
+      const container = $(".chart") || svg?.parentElement;
+      if (container) {
+        // ensure relative for absolute chips
+        const cs = getComputedStyle(container);
+        if (cs.position === "static") {
+          container.style.position = "relative";
+        }
+        placeChips(container);
+        window.addEventListener("resize", () => placeChips(container));
+      }
+
+      // wishlist
+      initWishlist();
+    }
+
+    // 6) Init
+    document.addEventListener("DOMContentLoaded", renderResult);
+  })();
+
+  // bootstrap fallback merged
+  (function () {
+    // Ensure namespace
+    var w = window;
+    if (!w.SKINTEST || typeof w.SKINTEST !== "object") {
+      w.SKINTEST = {};
+    }
+    var SK = w.SKINTEST;
+
+    // Safe helper: show/hide sections by id
+    if (typeof SK.showSection !== "function") {
+      SK.showSection = function (id) {
+        try {
+          var ids = ["home", "quiz", "loading", "result"];
+          for (var i = 0; i < ids.length; i++) {
+            var el = document.getElementById(ids[i]);
+            if (!el) continue;
+            el.hidden = ids[i] !== id;
+          }
+          if (typeof history !== "undefined" && history.replaceState) {
+            history.replaceState(null, "", "#" + id);
+          }
+        } catch (e) {
+          console.warn("[bootstrap] showSection error:", e);
+        }
+      };
+    }
+
+    function bindStart() {
+      var btn = document.getElementById("startBtn");
+      if (!btn || btn.__bound) return;
+      btn.__bound = true;
+      btn.addEventListener("click", function () {
+        try {
+          SK.showSection("quiz");
+        } catch (e) {}
+      });
+      console.log("[bootstrap] #startBtn bound");
+    }
+
+    // Bind on DOM ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", bindStart, { once: true });
+    } else {
+      bindStart();
+    }
+  })();
+});
+
+// RESULT GSAP
+(function () {
+  // Namespace safety
+  window.SK = window.SK || {};
+
+  // 1) Scroll lock utility (idempotent)
+  SK.lockScroll = function (on) {
+    var d = document.documentElement,
+      b = document.body;
+    if (on) {
+      d.style.overflow = "hidden";
+      b.style.overflow = "hidden";
+    } else {
+      d.style.overflow = "";
+      b.style.overflow = "";
+    }
+  };
+
+  // 2) Wrap SK.showSection to add policies
+  var originalShowSection =
+    typeof SK.showSection === "function" ? SK.showSection.bind(SK) : null;
+
+  function afterShow(id) {
+    // Policy: lock only on loading
+    var lock = id === "loading";
+    SK.lockScroll(lock);
+
+    // If result, align to .legend and emit event
+    if (id === "result") {
+      // Wait for layout/paint
+      setTimeout(function () {
+        try {
+          var target =
+            document.querySelector("#result .legend") ||
+            document.getElementById("result");
+          if (target && typeof target.scrollIntoView === "function") {
+            target.scrollIntoView({ behavior: "auto", block: "start" });
+          }
+        } catch (e) {
+          /* noop */
+        }
+        // Custom event for animations
+        var ev;
+        try {
+          ev = new CustomEvent("SKINTEST_SHOW_RESULT");
+        } catch (_) {
+          ev = document.createEvent("Event");
+          ev.initEvent("SKINTEST_SHOW_RESULT", true, true);
+        }
+        window.dispatchEvent(ev);
+      }, 0);
+    }
+  }
+
+  // Provide a fallback showSection if not present
+  SK.showSection = function (id) {
+    if (originalShowSection) {
+      originalShowSection(id);
+    } else {
+      // Basic fallback: toggle [hidden] on .page sections
+      var pages = document.querySelectorAll(".page[id]");
+      pages.forEach(function (el) {
+        el.hidden = el.id !== id;
+      });
+    }
+    afterShow(id);
+  };
+
+  // 3) Ensure scroll unlocked on initial load
+  document.addEventListener("DOMContentLoaded", function () {
+    SK.lockScroll(false);
+  });
+
+  // 4) Optional: hash-based navigation support (if app uses #ids)
+  window.addEventListener("hashchange", function () {
+    var id = (location.hash || "").replace(/^#/, "");
+    if (!id) return;
+    // If page exists, use our showSection to apply policies
+    if (document.getElementById(id)) {
+      SK.showSection(id);
+    }
+  });
+
+  // 5) GSAP entrance animations for #result (safe to include without GSAP)
+  (function setupGSAP() {
+    function hasGSAP() {
+      return typeof window.gsap !== "undefined";
+    }
+    var resultTL = null;
+
+    function killResultAnim() {
+      if (resultTL) {
+        resultTL.kill();
+        resultTL = null;
+      }
+      var sel =
+        "#result .legend, #result .radar-wrap, #result .axis-chip, #result .product_card, #result .actions .btn-white, #result .row-ghosts button";
+      document.querySelectorAll(sel).forEach(function (el) {
+        el.style.opacity = "";
+        el.style.transform = "";
+      });
+    }
+
+    function animateResultSection() {
+      if (!hasGSAP()) return;
+      var gsap = window.gsap;
+
+      killResultAnim();
+
+      var result = document.getElementById("result");
+      if (!result || result.hidden) return;
+
+      var legend = result.querySelector(".legend");
+      var radar = result.querySelector(".radar-wrap");
+      var chips = result.querySelectorAll(".axis-chip");
+      var cards = result.querySelectorAll(".product_card");
+      var ctaAll = result.querySelector("#wishlistBtn");
+      var ctas = result.querySelectorAll(".row-ghosts button");
+
+      resultTL = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      if (legend) {
+        resultTL.from(legend, { y: -12, opacity: 0, duration: 0.35 }, 0);
+      }
+      if (radar) {
+        resultTL.from(radar, { scale: 0.92, opacity: 0, duration: 0.6 }, 0.05);
+      }
+      if (chips && chips.length) {
+        resultTL.from(
+          chips,
+          { y: 8, opacity: 0, stagger: 0.06, duration: 0.3 },
+          0.15
+        );
+      }
+      if (cards && cards.length) {
+        resultTL.from(
+          cards,
+          { y: 28, opacity: 0, stagger: 0.08, duration: 0.42 },
+          0.25
+        );
+      }
+      if (ctaAll) {
+        resultTL.from(ctaAll, { y: 14, opacity: 0, duration: 0.3 }, "+=0.05");
+      }
+      if (ctas && ctas.length) {
+        resultTL.from(
+          ctas,
+          { y: 10, opacity: 0, stagger: 0.06, duration: 0.28 },
+          "-=0.10"
+        );
+      }
+    }
+
+    // ScrollTrigger 기반 카드 개별 트리거
+    if (typeof ScrollTrigger !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+      document.querySelectorAll("#result .product_card").forEach((card) => {
+        gsap.from(card, {
+          y: 24,
+          opacity: 0,
+          duration: 0.35,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      });
+    }
+
+    // Fire when result is shown
+    window.addEventListener("SKINTEST_SHOW_RESULT", animateResultSection);
+
+    // Clean up animations when leaving result
+    window.addEventListener("hashchange", function () {
+      if (location.hash.replace(/^#/, "") !== "result") {
+        killResultAnim();
+      }
+    });
+
+    // Direct load to #result
+    document.addEventListener("DOMContentLoaded", function () {
+      if (location.hash === "#result") {
+        requestAnimationFrame(animateResultSection);
+      }
+    });
+  })();
+})();
+
+/* HOME 섹션 애니메이션 (제공하신 마크업 전용) */
+(function () {
+  function hasGSAP() { return typeof window.gsap !== "undefined"; }
+
+  let homeTL = null;
+  function killHomeAnim() {
+    if (homeTL) { homeTL.kill(); homeTL = null; }
+    const reset = document.querySelectorAll("#home .home-title, #home .home-sub, #home .badges .badge, #home #startBtn");
+    reset.forEach(el => {
+      el.style.opacity = "";
+      el.style.transform = "";
+      el.style.filter = "";
+    });
+  }
+
+  function animateHomeSection() {
+    if (!hasGSAP()) return;
+    const home = document.getElementById("home");
+    if (!home || home.hidden) return;
+
+    // 사용자 접근성: 줄인 모션 환경이면 간단 페이드만
+    const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    killHomeAnim();
+
+    const title  = home.querySelector(".home-title");
+    const sub    = home.querySelector(".home-sub");
+    const badges = home.querySelectorAll(".badges .badge");
+    const start  = home.querySelector("#startBtn");
+
+    homeTL = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    if (prefersReduced) {
+      // 간단 페이드
+      if (title)  homeTL.from(title,  { opacity: 0, duration: 0.20 }, 0);
+      if (sub)    homeTL.from(sub,    { opacity: 0, duration: 0.20 }, 0.05);
+      if (badges && badges.length) homeTL.from(badges, { opacity: 0, duration: 0.18, stagger: 0.04 }, 0.10);
+      if (start)  homeTL.from(start,  { opacity: 0, duration: 0.22 }, 0.18);
+      return;
+    }
+
+    // 리치 애니메이션
+    if (title) {
+      homeTL.from(title, {
+        y: 18, opacity: 0, duration: 0.42
+      }, 0);
+    }
+    if (sub) {
+      homeTL.from(sub, {
+        y: 14, opacity: 0, duration: 0.34
+      }, 0.08);
+    }
+    if (badges && badges.length) {
+      homeTL.from(badges, {
+        y: 10, opacity: 0, duration: 0.26, stagger: 0.06
+      }, 0.14);
+    }    
+  }
+
+  // 커스텀 이벤트로도 트리거 가능
+  window.addEventListener("SKINTEST_SHOW_HOME", animateHomeSection);
+
+  // 해시 기반 라우팅 대응(#home 진입 시 실행)
+  function onRouteChange() {
+    if ((location.hash || "#home") === "#home") {
+      requestAnimationFrame(animateHomeSection);
+    } else {
+      killHomeAnim();
+    }
+  }
+  window.addEventListener("hashchange", onRouteChange);
+
+  // 초기 진입 처리
+  document.addEventListener("DOMContentLoaded", () => {
+    killHomeAnim();
+    onRouteChange();
+  });
+
+  // 앱 내부 라우터가 SK.showSection(id)를 쓰는 경우 훅킹(기존 기능 보존)
+  if (window.SK && typeof SK.showSection === "function") {
+    const orig = SK.showSection.bind(SK);
+    SK.showSection = function (id) {
+      const ret = orig(id);
+      try {
+        if (id === "home") {
+          window.dispatchEvent(new Event("SKINTEST_SHOW_HOME"));
+        } else {
+          killHomeAnim();
+        }
+      } catch (_) {}
+      return ret;
+    };
+  }
+})();
+
+// Buttons (wishlist/home/reset) — safe animation with clearProps.
+window.animateResultButtonsSafe = function () {
+function safe() { return typeof window.gsap !== "undefined"; }
+const sel = ["#wishlistBtn", "#homeBtn", "#resetBtn"];
+const btns = sel.map((s) => document.querySelector(s)).filter(Boolean);
+
+// 1) 항상 가시성 보장: 이전 애니메이션 잔여 인라인 스타일 제거
+btns.forEach((el) => {
+if (!el || !el.style) return;
+if (el.style.opacity === "0") el.style.opacity = "";
+if (el.style.transform && el.style.transform !== "none") el.style.transform = "";
+});
+
+// 2) GSAP 미로딩 시 애니메이션은 생략(버튼은 이미 정상 노출)
+if (!safe() || !btns.length) return;
+
+// 3) 안전 애니메이션: 완료 시 transform/opacity를 지워 후속 레이아웃/스타일에 영향 없게
+btns.forEach((el, i) => {
+gsap.fromTo(
+el,
+{ y: 14, opacity: 0 },
+{ y: 0, opacity: 1, duration: 0.30, ease: "power3.out", delay: 0.05 + i * 0.05, clearProps: "transform,opacity" }
+);
+});
+};
+
+/* 개별 상품카드의 ADD TO WISHLIST 버튼 토글 */
+(function () {
+  // 아이콘 경로(프로젝트 경로에 맞게 필요 시 수정)
+  const ICON_STROKE = "/asset/img/skintest/icon_heart_stroke.svg";
+  const ICON_FILL   = "/asset/img/skintest/icon_heart_fill.svg";
+
+  // 버튼 UI를 상태(on/off)에 맞게 갱신
+  function updateAddBtnUI(btn, on) {
+    if (!btn) return;
+    btn.classList.toggle("on", on);                 // 스타일용
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+
+    // 텍스트/아이콘 갱신
+    const img = btn.querySelector("img.heart");
+    if (img) img.src = on ? ICON_FILL : ICON_STROKE;
+
+    // 버튼 라벨(문구는 원하시는 대로)
+    const labelOn  = "ADD TO WISHLIST";
+    const labelOff = "ADD TO WISHLIST";
+    // 버튼 내부 노드에서 아이콘을 제외하고 텍스트만 바꾸기
+    const textNode = [...btn.childNodes].find(n => n.nodeType === Node.TEXT_NODE);
+    if (textNode) {
+      textNode.nodeValue = (on ? " " + labelOn : " " + labelOff); // 아이콘 뒤에 공백 포함
+    } else {
+      // 텍스트 노드가 없다면 추가
+      btn.append(document.createTextNode(on ? " " + labelOn : " " + labelOff));
+    }
+  }
+
+  // 토글 동작(상태 반전)
+  function toggleAddBtn(btn) {
+    const isOn = btn.classList.contains("on");
+    const next = !isOn;
+    updateAddBtnUI(btn, next);
+
+    // 선택: 전역 상태(SKU/상품ID)를 같이 관리하고 싶다면 여기서 처리
+    // const card = btn.closest(".product_card");
+    // const pid = card?.dataset.pid; // <div class="product_card" data-pid="...">
+    // if (pid) { SK?.wishlist?.set(pid, next); }
+
+    // 기본 클릭 동작(폼 제출 등) 방지
+    return next;
+  }
+
+  // 이벤트 위임: .product_card 내부의 .add_btn 클릭을 처리
+  function onDocClick(e) {
+    const btn = e.target.closest(".product_card .add_btn");
+    if (!btn) return;
+    e.preventDefault();
+    toggleAddBtn(btn);
+  }
+
+  // 중복 바인딩 방지
+  if (!window.__ADD_BTN_TOGGLE_BOUND__) {
+    document.addEventListener("click", onDocClick, false);
+    window.__ADD_BTN_TOGGLE_BOUND__ = true;
+  }
+
+  // 초기 상태 정리(필요 시): 렌더 시 이미 on/off가 지정돼 있으면 UI 동기화
+  document.querySelectorAll(".product_card .add_btn").forEach((btn) => {
+    const on = btn.classList.contains("on") || btn.getAttribute("aria-pressed") === "true";
+    updateAddBtnUI(btn, on);
+  });
+
+  // 선택: 외부에서 프로그램적으로 토글/설정하고 싶을 때 사용할 수 있게 공개
+  window.WishlistBtn = Object.assign(window.WishlistBtn || {}, {
+    set(btnOrSelector, on) {
+      const btn = typeof btnOrSelector === "string" ? document.querySelector(btnOrSelector) : btnOrSelector;
+      updateAddBtnUI(btn, !!on);
+    },
+    toggle(btnOrSelector) {
+      const btn = typeof btnOrSelector === "string" ? document.querySelector(btnOrSelector) : btnOrSelector;
+      return toggleAddBtn(btn);
+    }
+  });
 })();
