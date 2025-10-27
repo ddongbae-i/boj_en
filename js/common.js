@@ -276,3 +276,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape' && cartWrap.classList.contains('is-open')) closeCart();
   });
 });
+
+document.addEventListener('click', (e) => {
+  const target = e.target.closest('a[href="#"]');
+  if (target) {
+    e.preventDefault();
+  }
+});
