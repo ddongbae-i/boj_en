@@ -874,6 +874,7 @@ main {
   line-height: 140%;
 }
 
+/* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -883,10 +884,10 @@ main {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ab9595;
+    background: #b59016;
     border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #d4cebb;
+    background: #9a7612;
 }

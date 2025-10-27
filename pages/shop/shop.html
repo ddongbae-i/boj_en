@@ -37,7 +37,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">Find a Store<img src="../../asset/img/common/icon_map.svg" alt="find a store"></a>
+                            <a href="#">Find a Store<img src="../../asset/img/common/icon_map.svg"
+                                    alt="find a store"></a>
                         </li>
                     </ul>
                 </div>
@@ -149,6 +150,126 @@
                 </div>
             </div>
         </div>
+        <div class="cart_wrap">
+            <div class="cart_corner top_left"></div>
+            <div class="cart_corner top_right"></div>
+            <div class="cart_corner bottom_left"></div>
+            <div class="cart_corner bottom_right"></div>
+
+            <div class="cart_header">
+                <div class="cart_title">
+                    My Bag <span class="cart_count">(2items)</span>
+                </div>
+                <button class="cart_close">&times;</button>
+            </div>
+
+            <div class="cart_progress">
+                <div class="progress_labels">
+                    <span>$ 50</span>
+                    <span>$ 70</span>
+                    <span>$ 100</span>
+                </div>
+                <div class="progress_bar">
+                    <div class="progress_fill"></div>
+                </div>
+                <div class="free_gift">
+                    <div class="gift"><img src="../../asset/img/common/cream.png" alt="Gift"></div>
+                    <div class="gift_txt"><span>Add <span class="red">$32</span> more to unlock your free<br>[Light On
+                            Serum
+                            Mini 10ml]</span></div>
+                </div>
+            </div>
+
+            <!-- <div class="cart_overlay" hidden></div> -->
+
+            <div class="cart_list">
+                <div class="cart_item">
+                    <div class="cart_thumb"><img src="../../asset/img/shop/serum_snail.png" alt="Product"></div>
+                    <div class="cart_info">
+                        <div class="cart_product">Revive Serum : Ginseng + Snail Mucin</div>
+                        <div class="cart_price_row">
+                            <div class="cart_price">
+                                $ 18.00
+                            </div>
+                            <div class="cart_option">
+                                <select class="option_select">
+                                    <option>30ml</option>
+                                    <option>30ml</option>
+                                    <option>60ml</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="cart_qty">
+                            <button class="qty_btn" onclick="decreaseQty(this)">-</button>
+                            <span class="qty_num">1</span>
+                            <button class="qty_btn" onclick="increaseQty(this)">+</button>
+                        </div>
+                    </div>
+                    <button class="cart_remove">&times;</button>
+                </div>
+            </div>
+
+            <div class="cart_goeswell">
+                <div class="goeswell_title">Goes well with</div>
+                <div class="cart_related">
+                    <div class="related_item">
+                        <div class="related_thumb"><img src="../../asset/img/shop/ginseng_essence.png" alt="Dynasty Cream">
+                        </div>
+                        <div class="related_info">
+                            <div class="related_name">Ginseng Essence Water</div>
+                            <div class="related_price_row">
+                                <div class="related_price">$ 18.00</div>
+                                <div class="related_size">
+                                    <select class="option_select">
+                                        <option>150ml</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="related_add">+</button>
+                    </div>
+
+                    <div class="related_item">
+                        <div class="related_thumb"><img src="../../asset/img/common/dynastycream.png" alt="Ginseng Water">
+                        </div>
+                        <div class="related_info">
+                            <div class="related_name">Dynasty Cream</div>
+                            <div class="related_price_row">
+                                <div class="related_price">$ 24.00</div>
+                                <div class="related_size">
+                                    <select class="option_select">
+                                        <option>50ml</option>
+                                        <option>50ml</option>
+                                        <option>100ml</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="related_add">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart_signup">
+                <form class="signup_form" onsubmit="return false;">
+                    <input type="email" class="signup_input" placeholder="Email" required>
+                    <button type="submit" class="signup_btn">SIGN UP NOW</button>
+                </form>
+                <div class="cart_perk">
+                    Become part of the BOJ Community and enjoy<br>
+                    a <span class="red">10% off code</span> plus exclusive member perks!
+                </div>
+            </div>
+
+            <div class="cart_footer">
+                <div class="cart_total">
+                    <button class="cart_checkout">$ 18.00 <span>(1items)</span> CHECK OUT</button>
+                </div>
+                <div class="cart_note">
+                    Shipping, taxes, and discount codes are calculated at checkout
+                </div>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -174,8 +295,8 @@
                                         <img class="tile" data-key="11" src="../../asset/img/shop/puzzle_11.png" alt="">
                                         <img class="tile" data-key="12" src="../../asset/img/shop/puzzle_12.png" alt="">
                                     </div>
-                                    <video id="finalVideo" class="video" src="../../asset/video/shop/new_pro_end.mp4" muted
-                                        playsinline webkit-playsinline preload="metadata"></video>
+                                    <video id="finalVideo" class="video" src="../../asset/video/shop/new_pro_end.mp4"
+                                        muted playsinline webkit-playsinline preload="metadata"></video>
                                 </div>
                             </div>
                         </div>
@@ -238,7 +359,8 @@
                             </div>
 
                             <div class="pro_card swiper-slide">
-                                <img src="../../asset/img/common/glass_skin_duo.png" alt="Glass Skin Duo" class="pro_img">
+                                <img src="../../asset/img/common/glass_skin_duo.png" alt="Glass Skin Duo"
+                                    class="pro_img">
                                 <a href="" class="add_btn">
                                     <img src="../../asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
                                 </a>
@@ -279,8 +401,8 @@
                             </div>
 
                             <div class="pro_card swiper-slide">
-                                <img src="../../asset/img/common/eye_serum.png" alt="Revive Eye Serum : Ginseng + Retinal"
-                                    class="pro_img">
+                                <img src="../../asset/img/common/eye_serum.png"
+                                    alt="Revive Eye Serum : Ginseng + Retinal" class="pro_img">
                                 <a href="" class="add_btn">
                                     <img src="../../asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
                                 </a>
@@ -339,8 +461,8 @@
                             </div>
 
                             <div class="pro_card swiper-slide">
-                                <img src="../../asset/img/common/rice_serum.png" alt="Glow Deep Serum : Rice + Alpha-Arbutin"
-                                    class="pro_img">
+                                <img src="../../asset/img/common/rice_serum.png"
+                                    alt="Glow Deep Serum : Rice + Alpha-Arbutin" class="pro_img">
                                 <a href="" class="add_btn">
                                     <img src="../../asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
                                 </a>
@@ -357,8 +479,8 @@
                             </div>
 
                             <div class="pro_card swiper-slide">
-                                <img src="../../asset/img/shop/serum_snail.png" alt="Revive Serum : Ginseng + Snail Mucin"
-                                    class="pro_img">
+                                <img src="../../asset/img/shop/serum_snail.png"
+                                    alt="Revive Serum : Ginseng + Snail Mucin" class="pro_img">
                                 <a href="" class="add_btn">
                                     <img src="../../asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
                                 </a>
@@ -375,7 +497,8 @@
                             </div>
 
                             <div class="pro_card swiper-slide">
-                                <img src="../../asset/img/common/greentea_serum.png" alt="Revive Under Eye Patch" class="pro_img">
+                                <img src="../../asset/img/common/greentea_serum.png" alt="Revive Under Eye Patch"
+                                    class="pro_img">
                                 <a href="" class="add_btn">
                                     <img src="../../asset/img/common/shop_bag.svg" alt="bag">ADD TO BAG
                                 </a>
@@ -508,8 +631,8 @@
                                     </div>
                                     <div class="info_area">
                                         <div class="info">
-                                            <img src="../../asset/img/shop/t_dynasty_cream.png" alt="Dynasty Cream txture"
-                                                class="pro_texture">
+                                            <img src="../../asset/img/shop/t_dynasty_cream.png"
+                                                alt="Dynasty Cream txture" class="pro_texture">
                                             <h3 class="pro_tit">Dynasty Cream
                                             </h3>
                                             <p class="txt">Our breathable, buildable formula combines tint, skincare,
@@ -687,7 +810,8 @@
                             <div class="pro_card">
                                 <div class="pro_img">
                                     <span class="label new">NEW</span>
-                                    <img src="../../asset/img/common/eyepatch.png" alt="Revive Under Eye Patch" class="pro">
+                                    <img src="../../asset/img/common/eyepatch.png" alt="Revive Under Eye Patch"
+                                        class="pro">
                                 </div>
                                 <a href="" class="add_btn">
                                     <img src="../../asset/img/shop/icon_bag_pro.png" alt="bag">ADD TO BAG
@@ -763,7 +887,8 @@
                             <div class="pro_card">
                                 <div class="pro_img">
                                     <span class="label size">100ml-SALE</span>
-                                    <img src="../../asset/img/common/dynastycream.png" alt="Day Dew Sunscreen" class="pro">
+                                    <img src="../../asset/img/common/dynastycream.png" alt="Day Dew Sunscreen"
+                                        class="pro">
                                 </div>
                                 <a href="" class="add_btn">
                                     <img src="../../asset/img/shop/icon_bag_pro.png" alt="bag">ADD TO BAG
@@ -808,7 +933,8 @@
                             <div class="pro_card">
                                 <div class="pro_img">
                                     <span class="label set">SET SALE</span>
-                                    <img src="../../asset/img/common/glass_skin_duo.png" alt="Glass Skin Duo" class="pro">
+                                    <img src="../../asset/img/common/glass_skin_duo.png" alt="Glass Skin Duo"
+                                        class="pro">
                                 </div>
                                 <a href="" class="add_btn">
                                     <img src="../../asset/img/shop/icon_bag_pro.png" alt="bag">ADD TO BAG
@@ -1167,7 +1293,8 @@
 
                             <div class="pro_card">
                                 <div class="pro_img">
-                                    <img src="../../asset/img/shop/ginseng_oil.png" alt="Ginseng Cleansing Oil" class="pro">
+                                    <img src="../../asset/img/shop/ginseng_oil.png" alt="Ginseng Cleansing Oil"
+                                        class="pro">
                                 </div>
                                 <a href="" class="add_btn">
                                     <img src="../../asset/img/shop/icon_bag_pro.png" alt="bag">ADD TO BAG
@@ -1255,8 +1382,8 @@
 
                             <div class="pro_card">
                                 <div class="pro_img">
-                                    <img src="../../asset/img/shop/red_bean_mask.png" alt="Red Bean Refreshing Pore Mask"
-                                        class="pro">
+                                    <img src="../../asset/img/shop/red_bean_mask.png"
+                                        alt="Red Bean Refreshing Pore Mask" class="pro">
                                 </div>
                                 <a href="" class="add_btn">
                                     <img src="../../asset/img/shop/icon_bag_pro.png" alt="bag">ADD TO BAG

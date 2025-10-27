@@ -126,8 +126,8 @@
           const img = btn.querySelector(".heart");
           if (img) {
             img.src = targetActive
-              ? "/asset/img/skintest/icon_heart_fill.svg"
-              : "/asset/img/skintest/icon_heart_stroke.svg";
+              ? "../../asset/img/skintest/icon_heart_fill.svg"
+              : "../../asset/img/skintest/icon_heart_stroke.svg";
           }
           btn.setAttribute("aria-pressed", targetActive ? "true" : "false");
         });
@@ -980,8 +980,8 @@
             const active = !btn.classList.contains("active");
             btn.classList.toggle("active", active);
             img.src = active
-              ? "/asset/img/skintest/icon_heart_fill.svg"
-              : "/asset/img/skintest/icon_heart_stroke.svg";
+              ? "../../asset/img/skintest/icon_heart_fill.svg"
+              : "../../asset/img/skintest/icon_heart_stroke.svg";
             btn.setAttribute("aria-pressed", active ? "true" : "false");
           });
         }
@@ -1036,7 +1036,7 @@
         wish.type = "button";
         wish.setAttribute("aria-pressed", "false");
         const img = document.createElement("img");
-        img.src = "/asset/img/skintest/icon_heart_stroke.svg";
+        img.src = "../../asset/img/skintest/icon_heart_stroke.svg";
         img.alt = "찜하기 아이콘";
         img.className = "heart";
         wish.appendChild(img);
@@ -1044,8 +1044,8 @@
           const active = !wish.classList.contains("active");
           wish.classList.toggle("active", active);
           img.src = active
-            ? "/asset/img/skintest/icon_heart_fill.svg"
-            : "/asset/img/skintest/icon_heart_stroke.svg";
+            ? "../../asset/img/skintest/icon_heart_fill.svg"
+            : "../../asset/img/skintest/icon_heart_stroke.svg";
           wish.setAttribute("aria-pressed", active ? "true" : "false");
         });
 
@@ -1136,8 +1136,8 @@
           const img = btn.querySelector(".heart");
           if (img)
             img.src = active
-              ? "/asset/img/skintest/icon_heart_fill.svg"
-              : "/asset/img/skintest/icon_heart_stroke.svg";
+              ? "../../asset/img/skintest/icon_heart_fill.svg"
+              : "../../asset/img/skintest/icon_heart_stroke.svg";
           btn.setAttribute("aria-pressed", active ? "true" : "false");
         });
       });
@@ -1868,8 +1868,8 @@ el,
 /* 개별 상품카드의 ADD TO WISHLIST 버튼 토글 */
 (function () {
   // 아이콘 경로(프로젝트 경로에 맞게 필요 시 수정)
-  const ICON_STROKE = "/asset/img/skintest/icon_heart_stroke.svg";
-  const ICON_FILL   = "/asset/img/skintest/icon_heart_fill.svg";
+  const ICON_STROKE = "../../asset/img/skintest/icon_heart_stroke.svg";
+  const ICON_FILL   = "../../asset/img/skintest/icon_heart_fill.svg";
 
   // 버튼 UI를 상태(on/off)에 맞게 갱신
   function updateAddBtnUI(btn, on) {

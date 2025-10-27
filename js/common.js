@@ -242,45 +242,46 @@ footerBtn?.addEventListener('click', function () {
 
 
 //cart
+document.addEventListener('DOMContentLoaded', () => {
+  const bagBtn   = document.querySelector('.nav_right .bag');   // 열기 버튼
+  const cartWrap = document.querySelector('.cart_wrap');
+  const closeBtn = document.querySelector('.cart_close');        // X 버튼
+  const overlay  = document.querySelector('.cart_overlay');
 
-// 요소 캐싱
-const cartWrap   = document.querySelector('.cart_wrap');
-const cartOpen   = document.querySelector('.nav_right .bag');      // 여는 버튼
-const cartClose  = document.querySelector('.cart_close');          // X 버튼
-const overlay    = document.querySelector('.cart_overlay');
+  if (!bagBtn || !cartWrap) {
+    console.warn('bag 버튼 또는 cart_wrap을 찾을 수 없음');
+    return;
+  }
 
-// 열기/닫기
-function openCart(){
-  cartWrap.classList.add('is-open');
-  overlay.hidden = false;
-  // reflow 후 트랜지션
-  requestAnimationFrame(() => overlay.classList.add('is-open'));
-  document.documentElement.classList.add('cart-locked');
-  document.body.classList.add('cart-locked');
-  // 접근성
-  cartWrap.setAttribute('role','dialog');
-  cartWrap.setAttribute('aria-modal','true');
-  cartWrap.setAttribute('aria-hidden','false');
-  // 포커스 이동(옵션)
-  const firstFocus = cartWrap.querySelector('.cart_close') || cartWrap;
-  firstFocus.focus?.();
-}
+  const openCart = () => {
+    document.documentElement.classList.add('cart-open');
+    document.body.classList.add('cart-open');
+    if (overlay) overlay.hidden = false; // 먼저 보여주고
+  };
 
-function closeCart(){
-  cartWrap.classList.remove('is-open');
-  overlay.classList.remove('is-open');
-  document.documentElement.classList.remove('cart-locked');
-  document.body.classList.remove('cart-locked');
-  cartWrap.setAttribute('aria-hidden','true');
-  // 트랜지션 끝나면 overlay 숨김
-  setTimeout(() => { overlay.hidden = true; }, 250);
-}
+  const closeCart = () => {
+    document.documentElement.classList.remove('cart-open');
+    document.body.classList.remove('cart-open');
+    // 트랜지션 끝난 뒤 오버레이 숨김
+    if (overlay) setTimeout(() => (overlay.hidden = true), 250);
+  };
 
-cartOpen?.addEventListener('click', openCart);
-cartClose?.addEventListener('click', closeCart);
-overlay?.addEventListener('click', closeCart);
+  bagBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openCart();
+  });
 
-// Esc로 닫기
-window.addEventListener('keydown', (e)=>{
-  if(e.key === 'Escape' && cartWrap.classList.contains('is-open')) closeCart();
+  closeBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeCart();
+  });
+
+  overlay?.addEventListener('click', closeCart);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('cart-open')) {
+      closeCart();
+    }
+  });
 });
