@@ -469,7 +469,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* 버튼 +1 */
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
   const addBtns = document.querySelectorAll(".add_btn");
 
   addBtns.forEach(btn => {
@@ -495,4 +495,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
+ */
