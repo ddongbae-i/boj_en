@@ -653,6 +653,13 @@ p#summary.center {
   font-weight: 300;
 }
 
+#startBtn:hover {
+  background: var(--bg_black);
+  color: var(--white_ff);
+  font-weight: 500;
+}
+
+
 /* 1) 숨겨진 섹션을 레이아웃/인터랙션에서 완전히 분리 */
 .page[hidden] {
   display: none !important;
