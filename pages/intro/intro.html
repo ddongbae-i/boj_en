@@ -57,13 +57,13 @@
       /* ⬅️ ⭐️ 수정: 중앙 대신 상단 시작으로 변경 */
       align-items: flex-start;
       /* ⬅️ ⭐️ 추가: 위에서 200px만큼 떨어지게 설정 (원하는 만큼 조절 가능) */
-      padding-top: 200px;
+      padding-top: 20vh;
       flex-direction: row;
       align-items: center;
       transform: translateY(50px);
       gap: 22vw;
       opacity: 0;
-      transition: opacity 1.5s ease;
+      transition: opacity 3s ease;
       z-index: 30;
     }
 
@@ -172,34 +172,6 @@
       background: rgba(218, 158, 4, 0.11);
     }
 
-
-    /* ⭐️ 모바일 세로 모드 강제 회전 - 텍스트 포함 ⭐️ */
-    @media screen and (orientation: portrait) and (max-width: 900px) {
-
-      /* body를 90도 회전시켜 가로 화면처럼 보이게 합니다. */
-      body {
-        transform: rotate(90deg);
-        transform-origin: bottom left;
-        width: 100vh;
-        height: 100vw;
-        overflow-x: hidden;
-        position: absolute;
-        top: 100%;
-        left: 0;
-      }
-
-      /* 텍스트도 눕혀야 하므로, 역회전을 제거합니다. */
-      .main-content *,
-      .brand,
-      .shop {
-        transform: none !important;
-      }
-
-      /* 오버레이 숨김 */
-      .orientation-overlay {
-        display: none;
-      }
-    }
   </style>
 </head>
 
