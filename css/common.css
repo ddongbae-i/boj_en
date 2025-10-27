@@ -558,6 +558,7 @@ footer .f_join span {
     position: fixed;
     top: 0;
     right: 0;
+    height: 100vh;
     max-width: 446px;
     margin: 0 auto;
     background: #fff;
