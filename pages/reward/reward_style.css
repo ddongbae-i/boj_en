@@ -24,17 +24,11 @@ main .inner {
     width: 80vw;
 }
 
-.btn {
-    display: inline-block;
-}
-
 .tit {
     font-size: 2.5rem;
     margin: 80px 0;
     text-align: center;
 }
-
-/* 한방에서 라인 가져와야 함 */
 
 .line {
     width: 492px;
@@ -102,13 +96,13 @@ main .inner {
 .norigae_wrapper img {
     width: 100%;
     position: relative;
-    z-index: 2; 
+    z-index: 2;
 }
 
 .norigae_wrapper::after {
     content: "";
     position: absolute;
-    top: 5px;      
+    top: 5px;
     left: -20px;
     width: 100%;
     height: 100%;
@@ -117,9 +111,8 @@ main .inner {
     background-size: contain;
     filter: brightness(0) blur(20px);
     opacity: 0.5;
-    z-index: 1; 
+    z-index: 1;
 }
-
 
 .main_visual .right {
     flex: 3;
@@ -129,7 +122,11 @@ main .inner {
 }
 
 .btn:first-child {
-    margin-right: 24px;
+    margin-right: 12px;
+}
+
+.btn-white:first-child {
+    margin-right: 12px;
 }
 
 .list {
@@ -140,8 +137,6 @@ main .inner {
     border: 40px solid transparent;
     border-image: url('/asset/img/reward/corner.png') 40 fill stretch;
 }
-
-
 
 .vip_tiers .list {
     padding: 40px 0;
@@ -154,9 +149,10 @@ main .inner {
     justify-content: space-around;
 }
 
-.list>ul>li{
+.list>ul>li {
     margin-right: 24px;
 }
+
 /* 색상 추가 해야함 */
 .vip_tiers .list>ul>li>ul {
     display: flex;
@@ -207,9 +203,9 @@ main .inner {
     font-size: 0.9rem;
     color: var(--txt_sub_77);
     display: block;
-width: 92%;
-  text-align: right;
-  margin-top: 8px;
+    width: 92%;
+    text-align: right;
+    margin-top: 8px;
 }
 
 .horizontal-scroll-container {
@@ -218,7 +214,7 @@ width: 92%;
     white-space: nowrap;
     -ms-overflow-style: none;
     scrollbar-width: none;
- 
+
 }
 
 .how_it_work .vid {
@@ -228,23 +224,25 @@ width: 92%;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: -1; /* 컨텐츠 뒤로 보내기 */
-        background-color: var(--bg_black);
+    z-index: -1;
+    /* 컨텐츠 뒤로 보내기 */
+    background-color: var(--bg_black);
 }
 
 .how_it_work .vid video {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 섹션 전체를 꽉 채움 */
+    object-fit: cover;
+    /* 섹션 전체를 꽉 채움 */
     display: block;
 }
 
- .how_it_work {
+.how_it_work {
     width: 100%;
     min-height: 1080px;
 
-       padding: 160px 0;
-       position: relative;
+    padding: 160px 0;
+    position: relative;
 }
 
 .how_it_work .tit {
@@ -352,7 +350,7 @@ width: 92%;
 .arrow::before {
     content: "";
     display: inline-block;
-     width: 14px;
+    width: 14px;
     height: 14px;
     background-image: url(/asset/img/reward/reward_arrow.svg);
     background-size: 100% 100%;
@@ -398,25 +396,10 @@ width: 92%;
 
 .redeem_for_products {
     position: relative;
-    background: url('/asset/img/reward/Redeem_bg.png') center/cover no-repeat;
     overflow: hidden;
+    background: linear-gradient(180deg, #000 0%, #040403 100%);
 }
 
-.redeem_for_products::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('/asset/img/reward/Redeem_bg_blur.png') center/cover no-repeat;
-    opacity: 1;
-    pointer-events: none;
-}
-
-.redeem_for_products.animate::before {
-    animation: fadeInOut 3s ease-out forwards;
-}
 
 .ways_to_earn {
     position: relative;
@@ -521,34 +504,42 @@ width: 92%;
 .ways_to_earn .box7 {
     background-image: url(/asset/img/reward/img_Earn_Birthday.png);
 }
+
 .arrow {
-display: inline-block;
-transform-origin: left bottom; /* 왼쪽 아래 기준 */
-transition: transform 0.3s ease; /* 부드럽게 애니메이션 */
+    display: inline-block;
+    transform-origin: left bottom;
+    /* 왼쪽 아래 기준 */
+    transition: transform 0.3s ease;
+    /* 부드럽게 애니메이션 */
 }
 
 .box:hover .arrow {
-transform: scale(1.1); /* 1.1배 확대 */
+    transform: scale(1.1);
+    /* 1.1배 확대 */
 }
 
 .box::after {
-content: "";
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: var(--bg_footer);
-z-index: 0; /* 콘텐츠 뒤로 보내기 */
-transition: transform 0.3s ease, opacity 0.3s ease;
-opacity: 0;
-mix-blend-mode: screen; /* 밝게 섞이게 함 */
-  filter: brightness(1.2) contrast(1.1) saturate(1.1); /* 좀 더 선명하고 밝게 */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg_footer);
+    z-index: 0;
+    /* 콘텐츠 뒤로 보내기 */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    mix-blend-mode: screen;
+    /* 밝게 섞이게 함 */
+    filter: brightness(1.2) contrast(1.1) saturate(1.1);
+    /* 좀 더 선명하고 밝게 */
 
 }
 
 .box:hover::after {
-opacity: 1; /* 살짝 투명도 변경 가능 */
+    opacity: 1;
+    /* 살짝 투명도 변경 가능 */
 }
 
 .friend {
@@ -570,9 +561,7 @@ opacity: 1; /* 살짝 투명도 변경 가능 */
     font-weight: 500;
     line-height: 1;
 }
-.friend .btn{
-    border: 1px solid var(--white_f0);
-}
+
 .FAQ {
     width: 100%;
     padding: 160px 0;

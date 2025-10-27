@@ -203,16 +203,21 @@ document.querySelectorAll('.pro_card').forEach(card => {
 });
 
 // 이벤트 위임: 하트 클릭 시만 토글, 상세 이동 막기
-document.querySelector('.product_wrap').addEventListener('click', (e) => {
-  const btn = e.target.closest('.heart_btn');
-  if (!btn) return;                       // 하트가 아니면 패스(상세 이동 유지)
+['.product_wrap', '.product_list'].forEach(selector => {
+  const container = document.querySelector(selector);
+  if (!container) return;
 
-  e.stopPropagation();                    // 카드/부모 클릭 이벤트 차단
-  e.preventDefault();                     // 앵커(상세) 이동 차단
+  container.addEventListener('click', (e) => {
+    const btn = e.target.closest('.heart_btn');
+    if (!btn) return; // 하트가 아니면 패스
 
-  btn.classList.toggle('is-on');
-  const on = btn.classList.contains('is-on');
-  btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    e.stopPropagation();  // 카드 클릭 이벤트 차단
+    e.preventDefault();   // a 링크 이동 차단
 
-  // 필요하면 서버/로컬 저장 로직 여기서 호출
+    btn.classList.toggle('is-on');
+    const on = btn.classList.contains('is-on');
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+
+    // 필요하면 서버나 로컬스토리지 로직 추가
+  });
 });
