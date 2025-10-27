@@ -376,9 +376,9 @@
     }
 
     @media screen and (max-width:400px) {
-        .inner {
-            max-width: 320px;
-
+        
+        header .logo {
+            font-size: 1.5rem;
         }
 
         footer .f_center_right .f_nav {
