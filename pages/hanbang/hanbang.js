@@ -320,6 +320,25 @@ document.querySelectorAll('.tags span').forEach(span => {
   });
 });
 
+/*  애드백 컬러까지 변경
+document.querySelectorAll('.product_card').forEach(card => {
+  card.querySelectorAll('.tags span').forEach(tag => {
+    tag.style.cursor = 'pointer'; // 클릭 가능 커서
+
+    tag.addEventListener('click', () => {
+      const word = tag.textContent.trim();
+      const colorStyle = wordColors[word];
+      const addBtn = card.querySelector('.add_btn');
+      if (colorStyle && addBtn) {
+        addBtn.style.color = colorStyle.color;
+        addBtn.style.backgroundColor = colorStyle.background;
+        addBtn.style.borderColor = colorStyle.border;
+      }
+    });
+  });
+}); */
+
+
 
 /*sub_main2 호버 시 디테일 내용 */
 document.addEventListener('DOMContentLoaded', () => {
@@ -433,3 +452,4 @@ document.querySelectorAll('.heart_btn').forEach(btn => {
     }
   });
 });
+
