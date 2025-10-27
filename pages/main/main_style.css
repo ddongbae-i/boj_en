@@ -21,6 +21,45 @@
   -webkit-user-drag: none;
   pointer-events: auto;
   opacity: .5;
+  will-change: transform, opacity;
+  animation:
+    floatY 3.2s ease-in-out infinite,
+    pulse 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, .18))
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skintest_btu img {
+    animation: none;
+  }
+}
+
+/* 위아래 둥둥 */
+@keyframes floatY {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  /* 진폭 조절 */
+}
+
+/* 밝기 펄스 */
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: .7;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 main {
@@ -876,18 +915,18 @@ main {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-    width: 12px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #fbf8f2;
+  background: #fbf8f2;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #b59016;
-    border-radius: 6px;
+  background: #b59016;
+  border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #9a7612;
+  background: #9a7612;
 }
