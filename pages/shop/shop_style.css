@@ -960,6 +960,22 @@ header {
     border-bottom: 1px solid var(--grey_c7);
 }
 
+.filters .open img {
+  display: inline-block;
+  animation: floatUpDown 2.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* 위아래 둥둥 효과 */
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px); /* 움직임 크기, 6~10px 선호 */
+  }
+}
+
 .filters_bar {
     width: 100%;
     border-bottom: 1px solid var(--grey_c7);
