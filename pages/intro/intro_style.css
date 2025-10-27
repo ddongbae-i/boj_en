@@ -22,7 +22,7 @@ body {
     background: #0f0f0f;
 }
 
-.background-image {
+#introVideo {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -37,17 +37,25 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 17vw;
     z-index: 2;
+    pointer-events: none;
+    left: 44px;
+    top: 160px;
 }
 
+.content-wrapper.show {
+    pointer-events: auto;
+}
 
 .nav-link {
-    position: absolute;
-    top: 58%;
-    transform: translateY(50%);
+    position: relative;
     text-decoration: none;
     color: #ffffff;
-    font-size: 74px;
+    font-size: 65px;
     font-weight: 500;
     line-height: 120%;
     cursor: pointer;
@@ -55,58 +63,63 @@ body {
     opacity: 0;
     padding: 40px 60px;
     display: inline-block;
+    pointer-events: none;
+    z-index: 2;
 }
 
-.nav-link.shop {
-    right: 25%;
+/* show 클래스가 추가되면 링크 활성화 */
+.content-wrapper.show .nav-link {
+    pointer-events: auto;
+}
+
+/* show 클래스가 추가되면 애니메이션 시작 */
+.content-wrapper.show .nav-link.shop {
     animation: fadeInUp 1s ease forwards;
     animation-delay: 0.5s;
 }
 
-.nav-link.brand {
-    left: 25%;
+.content-wrapper.show .nav-link.brand {
     animation: fadeInUp 1s ease forwards;
     animation-delay: 0.7s;
 }
 
 @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-.nav-link.shop {
-    animation: fadeInUp 1s ease forwards;
-    animation-delay: 0.5s;
-}
-
-.nav-link.brand {
-    animation: fadeInUp 1s ease forwards;
-    animation-delay: 0.7s;
-}
-
 .nav-link::before {
     content: '';
     position: absolute;
+    
+    /* 기본 상태 크기 */
+    width: 400px;
+    height: 500px;
+    
+    /* 중앙 배치 */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
+    
+    /* 기본 상태: 검은색 투명 블러 */
+    border-radius: 500px;
+    background: rgba(0, 0, 0, 0.3);
+    filter: blur(50px);
+    
+    /* 트랜지션 효과 */
     transition: all 0.5s ease;
     z-index: -1;
-    opacity: 0;
-    filter: blur(50px);
 }
 
-.nav-link.shop::before {
-    background: rgba(206, 159, 39, 0.1);
-}
-
+.nav-link.shop::before,
 .nav-link.brand::before {
-    background: rgba(206, 159, 39, 0.1);
+    /* 동일한 스타일 적용 */
 }
 
 /* 호버한 링크 */
@@ -117,7 +130,8 @@ body {
 }
 
 .nav-link:hover::before {
-    opacity: 1;
+    /* 호버 시 금색으로 변경 */
+    background: rgba(206, 159, 39, 0.1);
     width: 600px;
     height: 600px;
 }
@@ -147,10 +161,10 @@ body {
     opacity: 0;
     animation: pulse 2s ease-in-out infinite;
     animation-delay: 0.3s;
+    z-index: 2;
 }
 
 @keyframes pulse {
-
     0%,
     100% {
         opacity: 0.3;
