@@ -565,6 +565,29 @@ footer .f_join span {
     border-radius: 0;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
     border: 1.5px solid #e7d8ae;
+    display: none;
+}
+
+.cart_wrap.is-open{
+  transform: translateX(0);
+}
+
+.cart_overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+.cart_overlay.is-open{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+html.cart-locked, body.cart-locked{
+  overflow: hidden;
 }
 
 /* 코너 장식 */
