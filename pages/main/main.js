@@ -347,37 +347,42 @@ if (cards.length) {
 })();
 
 //membership
-
 document.addEventListener('DOMContentLoaded', () => {
-  // 등장 순서: green → red → blue → yellow
+  // 등장 순서: green → yellow → red → blue
   const videos = [
     document.querySelector('.mem768 .green'),
+    document.querySelector('.mem768 .yellow'),
     document.querySelector('.mem768 .red'),
-    document.querySelector('.mem768 .blue'),
-    document.querySelector('.mem768 .yellow')
+    document.querySelector('.mem768 .blue')
   ].filter(Boolean);
 
   // IntersectionObserver로 스크롤 등장 애니메이션 제어
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
+      if (entry.isIntersecting) {
+        const idx = videos.indexOf(entry.target);
 
-      const idx = videos.indexOf(entry.target);
-
-      // 순차적으로 지연 등장
-      setTimeout(() => {
-        entry.target.classList.add('active');
+        // 순차적으로 지연 등장
+        setTimeout(() => {
+          entry.target.classList.add('active');
+          const v = entry.target.querySelector('video');
+          if (v) {
+            v.setAttribute('playsinline', '');
+            v.setAttribute('muted', '');
+            v.currentTime = 0; // 처음부터 재생
+            const p = v.play?.();
+            if (p && typeof p.catch === 'function') p.catch(() => { });
+          }
+        }, idx * 400);
+      } else {
+        // 화면에서 벗어나면 active 클래스 제거 및 비디오 정지
+        entry.target.classList.remove('active');
         const v = entry.target.querySelector('video');
         if (v) {
-          v.setAttribute('playsinline', '');
-          v.setAttribute('loop', '');
-          v.setAttribute('muted', '');
-          const p = v.play?.();
-          if (p && typeof p.catch === 'function') p.catch(() => { });
+          v.pause();
+          v.currentTime = 0;
         }
-      }, idx * 400);
-
-      io.unobserve(entry.target);
+      }
     });
   }, { threshold: 0.4 });
 
