@@ -221,3 +221,25 @@ document.querySelectorAll('.pro_card').forEach(card => {
     // 필요하면 서버나 로컬스토리지 로직 추가
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addBtns = document.querySelectorAll(".product_card .add_btn");
+  const bagBtn = document.querySelector(".bag");
+
+  // 숫자 배지 생성
+  const bagCount = document.createElement("span");
+  bagCount.classList.add("bag_count");
+  bagCount.textContent = "0";
+  bagBtn.appendChild(bagCount);
+
+  let count = 0;
+
+  addBtns.forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      count++;
+      bagCount.textContent = count;
+      bagCount.style.display = "flex"; // 표시 활성화
+    });
+  });
+});
