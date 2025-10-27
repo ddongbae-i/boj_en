@@ -53,6 +53,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
 // 영상 재생
 const introVideo = document.getElementById('introVideo');
 const mainContent = document.getElementById('mainContent');
+const skipButton = document.getElementById('skipButton');
 
 // 비디오 리사이즈 함수
 function resizeVideo() {
@@ -68,14 +69,42 @@ function resizeVideo() {
     }
 }
 
+// 영상 종료 처리 함수
+function endVideo() {
+    // 영상을 마지막 프레임으로 이동
+    introVideo.currentTime = introVideo.duration - 0.01;
+    
+    // 스킵 버튼 페이드아웃
+    skipButton.style.transition = 'opacity 0.5s ease';
+    skipButton.classList.add('hidden');
+    
+    // 메인 컨텐츠 표시
+    mainContent.classList.add('show');
+}
+
+// 스킵 버튼 클릭 이벤트
+skipButton.addEventListener('click', () => {
+    endVideo();
+});
+
+// 스킵 버튼 호버 효과
+skipButton.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'scale(1.5)';
+    cursor.style.borderColor = 'rgba(206, 159, 39, 0.8)';
+});
+
+skipButton.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'scale(1)';
+    cursor.style.borderColor = 'rgba(206, 159, 39, 0.5)';
+});
+
 window.addEventListener('resize', resizeVideo);
 window.addEventListener('load', () => {
     resizeVideo();
     introVideo.play();
 });
 
-// 영상이 끝나면 마지막 프레임에서 멈추고 버튼 등장
+// 영상이 자연스럽게 끝났을 때도 같은 처리
 introVideo.addEventListener('ended', () => {
-    // 영상을 마지막 프레임에 고정 (재생하지 않음)
-    mainContent.classList.add('show');
+    endVideo();
 });
