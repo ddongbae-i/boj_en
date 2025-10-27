@@ -34,16 +34,17 @@ body {
 }
 
 .content-wrapper {
-    position: relative;
+    position: absolute;
+    width: 100%;
+    height: 100%;
     z-index: 2;
-    display: flex;
-    gap: 100px;
-    align-items: center;
-    justify-content: center;
 }
 
+
 .nav-link {
-    position: relative;
+    position: absolute;
+    top: 58%;
+    transform: translateY(50%);
     text-decoration: none;
     color: #ffffff;
     font-size: 74px;
@@ -52,9 +53,20 @@ body {
     cursor: pointer;
     transition: color 0.5s ease, opacity 0.5s ease, text-shadow 0.5s ease;
     opacity: 0;
-    transform: translateY(20px);
     padding: 40px 60px;
     display: inline-block;
+}
+
+.nav-link.shop {
+    right: 25%;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.5s;
+}
+
+.nav-link.brand {
+    left: 25%;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.7s;
 }
 
 @keyframes fadeInUp {
@@ -100,8 +112,8 @@ body {
 /* 호버한 링크 */
 .nav-link:hover {
     color: #ffffff !important;
-    opacity: 1 !important;
-    text-shadow: 0 0 30px rgba(206, 159, 39, 0.8);
+    opacity: 1;
+    text-shadow: 0 0 30px rgba(255, 183, 0, 0.774);
 }
 
 .nav-link:hover::before {
