@@ -156,10 +156,8 @@ main {
   z-index: 2;
   color: var(--white_ff);
   font-family: var(--txt_font);
-  font-size: 2.5rem;
+  font-size: 2.5rem !important;
   line-height: 140%;
-
-
 }
 
 .banner_1 .txt_box .txt_top {
