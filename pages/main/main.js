@@ -626,7 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bannerImg.src = "./asset/img/main/banner02_440.png";
     } else {
       // 👇 기본 데스크톱 이미지 경로
-      bannerImg.src = ".//asset/img/main/banner02.png";
+      bannerImg.src = "./asset/img/main/banner02.png";
     }
   };
 
