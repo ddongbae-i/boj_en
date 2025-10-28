@@ -363,23 +363,110 @@
         opacity: 1;
     }
 
-    .banner_1 .txt_box {
-        font-size: 1.25rem;
-
+    .membership {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        padding: 100px 0;
     }
 
-    .banner_1 .txt_box .txt_top {
-        top: 50px;
-        left: 42px;
-        width: 390px
+    .membership>video {
+        display: none;
     }
 
-    .banner_1 .txt_box .txt_bottom {
-        bottom: 60px;
-        right: 42px;
-        width: 90vw
+    .membership {
+        padding: 0;
+        position: relative;
+        /* 자식 absolute 요소의 기준점 */
+        /* 섹션에 내용물이 많지 않다면, 높이를 확보해야 합니다. */
+        min-height: 800px;
+    }
+
+    .membership .mem768 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        /* 추가 */
+        row-gap: 20px;
+        gap: 0px;
+        /* height: 1200px; */
+    }
+
+    .membership .mem768 .mem_video {
+        width: calc(50% - 10px);
+        box-sizing: border-box;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .membership .mem768 .mem_video.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .membership .mem768 .mem_video:nth-child(even) {
+        margin-top: 80px;
+    }
+
+    .membership .mem768 video {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .login_box {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+
+        /* 👇 Flexbox를 사용하여 내부 요소 정렬 */
+        display: flex;
+        flex-direction: column;
+        /* 자식 요소들을 수직으로 쌓고 */
+        justify-content: center;
+        /* 수직 방향으로 가운데 정렬 */
+        align-items: center;
+        /* 수평 방향으로 가운데 정렬 (대신 text-align: center;를 썼다면 불필요) */
+
+        /* 로그인 박스의 높이를 강제 지정 (예시) */
+        /* height: 100px;  */
+    }
+
+    /* 추가적으로, .btn_box 등을 Flexbox로 가운데 정렬할 수도 있습니다. */
+    .login_box .btn_box {
+        display: flex;
+        justify-content: center;
+        /* 버튼들을 가로 가운데로 정렬 */
+        gap: 10px;
+        /* 버튼 사이 간격 */
     }
 }
+
+
+
+.banner_1 .txt_box {
+    font-size: 1.25rem;
+
+}
+
+.banner_1 .txt_box .txt_top {
+    top: 50px;
+    left: 42px;
+    width: 390px
+}
+
+.banner_1 .txt_box .txt_bottom {
+    bottom: 60px;
+    right: 42px;
+    width: 90vw
+}
+
 
 @media (max-width:768px) {
 
@@ -619,6 +706,14 @@
 }
 
 @media (max-width: 440px) {
+
+    .membership {
+        padding: 0;
+        position: relative;
+        /* 자식 absolute 요소의 기준점 */
+        /* 섹션에 내용물이 많지 않다면, 높이를 확보해야 합니다. */
+        min-height: 600px;
+    }
 
     .hanbang {
         padding-block: 40px;

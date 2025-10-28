@@ -1,5 +1,6 @@
 const header = document.querySelector('header');
 const menuItems = document.querySelectorAll('ul.gnb > li');
+const headerImgs = header.querySelectorAll('.nav_right img');
 
 let lastScrollY = window.scrollY;
 
@@ -20,6 +21,10 @@ window.addEventListener('scroll', () => {
     header.classList.remove('scrolled-up');
     header.style.top = '-124px';
     header.style.color = '#1c1c1c'
+    header.style.boxShadow = '0 2px 6px rgba(0,0,0,0.08)';
+    headerImgs.forEach(img => {
+      img.style.filter = 'brightness(0) saturate(100%)'; // 💡 검은색 아이콘 처리
+    });
   } else {
     // 위로 스크롤 → header 등장
     header.classList.add('scrolled-up');
@@ -234,4 +239,47 @@ footerBtn?.addEventListener('click', function () {
   });
 
 })();
-// ...existing code...
+
+
+//cart
+document.addEventListener('DOMContentLoaded', () => {
+  const bagBtn = document.querySelector('.nav_right .bag');
+  const cartWrap = document.querySelector('.cart_wrap');
+  const closeBtn = document.querySelector('.cart_close');
+
+  if (!bagBtn || !cartWrap) return;
+
+  const openCart = () => {
+    cartWrap.classList.add('is-open');              // ← 핵심
+    document.documentElement.classList.add('cart-locked');
+    document.body.classList.add('cart-locked');
+  };
+
+  const closeCart = () => {
+    cartWrap.classList.remove('is-open');           // ← 핵심
+    document.documentElement.classList.remove('cart-locked');
+    document.body.classList.remove('cart-locked');
+  };
+
+  bagBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openCart();
+  });
+
+  closeBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeCart();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cartWrap.classList.contains('is-open')) closeCart();
+  });
+});
+
+document.addEventListener('click', (e) => {
+  const target = e.target.closest('a[href="#"]');
+  if (target) {
+    e.preventDefault();
+  }
+});

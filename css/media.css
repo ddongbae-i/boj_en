@@ -379,6 +379,7 @@
         
         header .logo {
             font-size: 1.5rem;
+            margin-top: 20px;
         }
 
         footer .f_center_right .f_nav {

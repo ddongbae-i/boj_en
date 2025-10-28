@@ -66,14 +66,13 @@ body::-webkit-scrollbar {
   display: none !important;
 }
 
-
 /* Home */
 #home {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("/asset/img/skintest/skintest-bg.jpg") center/cover no-repeat;
+  background: url("../../asset/img/skintest/skintest-bg.jpg") center/cover no-repeat;
   text-align: center;
 }
 
@@ -106,10 +105,10 @@ body::-webkit-scrollbar {
   font-size: .875rem;
   font-weight: 300;
   display: flex;
-  gap: 8px;
+  gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin-bottom: 40px;
 }
 
 .badge {
@@ -190,7 +189,7 @@ body::-webkit-scrollbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("/asset/img/skintest/skintest-quiz-bg.jpg") center/cover no-repeat;
+  background: url("../../asset/img/skintest/skintest-quiz-bg.jpg") center/cover no-repeat;
   text-align: center;
 }
 
@@ -224,9 +223,9 @@ body::-webkit-scrollbar {
 .choices {
   display: grid;
   grid-template-columns: repeat(2, minmax(240px, 1fr));
-  gap: 10px;
+  gap: 12px;
   max-width: 640px;
-  margin: 0 auto 18px;
+  margin: 0 auto 30px;
   padding: 0;
   border: 0;
 }
@@ -654,6 +653,13 @@ p#summary.center {
   font-weight: 300;
 }
 
+#startBtn:hover {
+  background: var(--bg_black);
+  color: var(--white_ff);
+  font-weight: 500;
+}
+
+
 /* 1) 숨겨진 섹션을 레이아웃/인터랙션에서 완전히 분리 */
 .page[hidden] {
   display: none !important;
@@ -755,4 +761,21 @@ p#summary.center {
   position: static !important;
   z-index: 10 !important;
   pointer-events: auto !important;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fbf8f2;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b59016;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9a7612;
 }

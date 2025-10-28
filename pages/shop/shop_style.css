@@ -960,6 +960,22 @@ header {
     border-bottom: 1px solid var(--grey_c7);
 }
 
+.filters .open img {
+  display: inline-block;
+  animation: floatUpDown 2.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* 위아래 둥둥 효과 */
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px); /* 움직임 크기, 6~10px 선호 */
+  }
+}
+
 .filters_bar {
     width: 100%;
     border-bottom: 1px solid var(--grey_c7);
@@ -1050,20 +1066,19 @@ header {
     align-items: center;
     justify-content: center;
 }
-
 ::-webkit-scrollbar {
     width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #ffffff;
+    background: #fbf8f2;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ab9595;
+    background: #b59016;
     border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #d4cebb;
+    background: #9a7612;
 }
