@@ -267,21 +267,21 @@ document.querySelectorAll('.all_product .add_btn').forEach(btn => {
   });
 });
 
-// /* 헤더 아이콘 컬러 변경 */
-// document.addEventListener('scroll', () => {
-//   const whiteSection = document.querySelector('.white');
-//   const headerImgs = document.querySelectorAll('header img');
+/* 헤더 아이콘 컬러 변경 */
+document.addEventListener('scroll', () => {
+  const whiteSection = document.querySelector('.white');
+  const headerImgs = document.querySelectorAll('header img');
 
-//   if (!whiteSection) return;
+  if (!whiteSection) return;
 
-//   const whiteRect = whiteSection.getBoundingClientRect();
-//   const inView = whiteRect.top < window.innerHeight && whiteRect.bottom > 0;
+  const whiteRect = whiteSection.getBoundingClientRect();
+  const inView = whiteRect.top < window.innerHeight && whiteRect.bottom > 0;
 
-//   headerImgs.forEach(img => {
-//     if (inView) {
-//       img.style.filter = 'brightness(0) saturate(100%)'; // 검정색 아이콘
-//     } else {
-//       img.style.filter = ''; // 원래 상태
-//     }
-//   });
-// });
+  headerImgs.forEach(img => {
+    if (inView) {
+      img.style.filter = 'brightness(0) saturate(100%)'; // 검정색 아이콘
+    } else {
+      img.style.filter = ''; // 원래 상태
+    }
+  });
+});
