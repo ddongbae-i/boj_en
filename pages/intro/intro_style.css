@@ -1,178 +1,168 @@
 @charset "UTF-8";
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* 페이지 페이드 인/아웃 공통 */
+html, body { height: 100%; }
 body {
-    font-family: 'Cormorant', serif;
-    overflow: hidden;
-    background: #0f0f0f;
+  font-family: 'Cormorant', serif;
+  background: #0f0f0f;
+  opacity: 0;                 /* 처음에는 투명 */
+  transition: opacity .5s ease;
+  overflow: hidden;           /* 인트로 중 스크롤 잠금 */
 }
 
 .intro-container {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #0f0f0f;
-}
-
-#introVideo {
- height: 100vh;
-  width: 100%;
-  overflow: hidden;
-}
-
-#introVideo video {
-   width: 107%;
+  position: relative;
+  width: 100vw;
   height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #0f0f0f;
+}
+
+/* 비디오: 창보다 살짝 크게(여백 방지), JS로 덮어쓰지 않음 */
+#introVideo {
+  width: 100vw;               /* 100 → 110으로 살짝 확대 */
+  height: 100vh;              /* 100 → 110으로 살짝 확대 */
   object-fit: cover;
   display: block;
 }
 
-.content-wrapper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 17vw;
-    z-index: 2;
-    pointer-events: none;
-    left: 44px;
-    top: 160px;
+#introVideo video {
+    width: 107%;
 }
 
-.content-wrapper.show {
-    pointer-events: auto;
+/* 인트로 위 링크/텍스트 레이어 */
+.content-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 17vw;
+  z-index: 2;
+  pointer-events: none;       /* 기본 비활성 (인트로 중) */
+  padding-left: 44px;
+  padding-top: 160px;
+}
+
+.content-wrapper.show {       /* 인트로 끝나면 활성화 */
+  pointer-events: auto;
 }
 
 .nav-link {
-    position: relative;
-    text-decoration: none;
-    color: #ffffff;
-    font-size: 65px;
-    font-weight: 500;
-    line-height: 120%;
-    cursor: pointer;
-    transition: color 0.5s ease, opacity 0.5s ease, text-shadow 0.5s ease;
-    opacity: 0;
-    padding: 40px 60px;
-    display: inline-block;
-    pointer-events: none;
-    z-index: 2;
+  position: relative;
+  text-decoration: none;
+  color: #fff;
+  font-size: 65px;
+  font-weight: 500;
+  line-height: 120%;
+  cursor: pointer;
+  transition: color .5s ease, opacity .5s ease, text-shadow .5s ease;
+  opacity: 0;                 /* 애니메이션 시작 전에는 숨김 */
+  padding: 40px 60px;
+  display: inline-block;
+  z-index: 2;
+  pointer-events: none;       /* show가 붙어야 클릭 가능 */
 }
 
-/* show 클래스가 추가되면 링크 활성화 */
-.content-wrapper.show .nav-link {
-    pointer-events: auto;
-}
-
-/* show 클래스가 추가되면 애니메이션 시작 */
+/* show가 붙으면 순차 등장 */
+.content-wrapper.show .nav-link { pointer-events: auto; }
 .content-wrapper.show .nav-link.shop {
-    animation: fadeInUp 1s ease forwards;
-    animation-delay: 0.5s;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: .5s;
 }
-
 .content-wrapper.show .nav-link.brand {
-    animation: fadeInUp 1s ease forwards;
-    animation-delay: 0.7s;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: .7s;
 }
-
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from { opacity: 0; transform: translateY(50px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.nav-link::before {
-    content: '';
-    position: absolute;
-    
-    /* 기본 상태 크기 */
-    width: 400px;
-    height: 500px;
-    
-    /* 중앙 배치 */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    /* 기본 상태: 검은색 투명 블러 */
-    border-radius: 500px;
-    background: rgba(0, 0, 0, 0.3);
-    filter: blur(50px);
-    
-    /* 트랜지션 효과 */
-    transition: all 0.5s ease;
-    z-index: -1;
+/* 글로우 배경 오브젝트 */
+.nav-link::before{
+  content:'';
+  position:absolute;
+  width:400px;
+  height:500px;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border-radius:500px;
+  background:rgba(0,0,0,.3);
+  filter: blur(50px);
+  transition: all .5s ease;
+  z-index:-1;
+}
+.nav-link:hover{
+  color:#fff;
+  opacity:1;
+  text-shadow:0 0 30px rgba(255,183,0,.774);
+}
+.nav-link:hover::before{
+  background:rgba(206,159,39,.1);
+  width:600px;
+  height:600px;
 }
 
-.nav-link.shop::before,
-.nav-link.brand::before {
-    /* 동일한 스타일 적용 */
+/* 상호 디밍 (:has 지원 브라우저용) */
+.content-wrapper:has(.nav-link.shop:hover) .nav-link.brand{
+  color:#4c4c4c;
+  opacity:.6;
+  text-shadow:none;
+}
+.content-wrapper:has(.nav-link.brand:hover) .nav-link.shop{
+  color:#4c4c4c;
+  opacity:.6;
+  text-shadow:none;
 }
 
-/* 호버한 링크 */
-.nav-link:hover {
-    color: #ffffff !important;
-    opacity: 1;
-    text-shadow: 0 0 30px rgba(255, 183, 0, 0.774);
+/* 로딩 텍스트(필요 시) */
+.loading{
+  position:absolute;
+  bottom:50px;
+  left:50%;
+  transform:translateX(-50%);
+  color:rgba(255,255,255,.3);
+  font-size:14px;
+  letter-spacing:2px;
+  opacity:0;
+  animation:pulse 2s ease-in-out infinite .3s;
+  z-index:2;
+}
+@keyframes pulse{
+  0%,100%{opacity:.3;}
+  50%{opacity:.6;}
 }
 
-.nav-link:hover::before {
-    /* 호버 시 금색으로 변경 */
-    background: rgba(206, 159, 39, 0.1);
-    width: 600px;
-    height: 600px;
+/* 스킵 버튼 */
+.skip-button{
+  position:fixed;
+  right:50px;
+  bottom:50px;
+  padding:15px 35px;
+  background:rgba(206,159,39,.2);
+  border:1px solid rgba(206,159,39,.5);
+  border-radius:30px;
+  color:#fff;
+  font-size:14px;
+  letter-spacing:2px;
+  cursor:pointer;
+  z-index:10;
+  transition: all .3s ease;
+  opacity:1;
+  backdrop-filter: blur(10px);
+}
+.skip-button:hover{
+  background:rgba(206,159,39,.4);
+  border-color:rgba(206,159,39,.8);
+  transform:translateY(-2px);
+  box-shadow:0 5px 20px rgba(206,159,39,.3);
+}
+.skip-button.hidden{
+  opacity:0;
+  pointer-events:none;
 }
 
-/* SHOP 호버 시 BRAND 어둡게 */
-.content-wrapper:has(.nav-link.shop:hover) .nav-link.brand {
-    color: #4c4c4c !important;
-    opacity: 0.6 !important;
-    text-shadow: none !important;
-}
-
-/* BRAND 호버 시 SHOP 어둡게 */
-.content-wrapper:has(.nav-link.brand:hover) .nav-link.shop {
-    color: #4c4c4c !important;
-    opacity: 0.6 !important;
-    text-shadow: none !important;
-}
-
-.loading {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 14px;
-    letter-spacing: 2px;
-    opacity: 0;
-    animation: pulse 2s ease-in-out infinite;
-    animation-delay: 0.3s;
-    z-index: 2;
-}
-
-@keyframes pulse {
-    0%,
-    100% {
-        opacity: 0.3;
-    }
-
-    50% {
-        opacity: 0.6;
-    }
-}
+/* 커스텀 커서는 JS에서 동적 생성 (중심 정렬은 JS에서 transform으로 처리) */

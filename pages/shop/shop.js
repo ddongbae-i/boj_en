@@ -267,7 +267,7 @@ document.querySelectorAll('.all_product .add_btn').forEach(btn => {
   });
 });
 
-// /* 헤더 아이콘 컬러 변경 */
+/* 헤더 아이콘 컬러 변경 */
 // document.addEventListener('scroll', () => {
 //   const whiteSection = document.querySelector('.white');
 //   const headerImgs = document.querySelectorAll('header img');

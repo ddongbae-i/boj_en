@@ -2,9 +2,7 @@
 
 @media screen and (max-width:1280px) {
 
-    .main .mainVisual {}
-
-    .banner_1 .txt_box {
+    .banner1 .txt_box {
         font-size: 3vw;
     }
 
@@ -20,22 +18,21 @@
         align-items: flex-end;
     }
 
-    .banner_1 {
+    .banner1 {
         height: 80%;
     }
 
-    .banner_1 .txt_box {
+    .banner1 .txt_box {
         font-size: 1.5rem;
-
     }
 
-    .banner_1 .txt_box .txt_top {
+    .banner1 .txt_box .txt_top {
         top: 90px;
         left: 56px;
         width: 450px;
     }
 
-    .banner_1 .txt_box .txt_bottom {
+    .banner1 .txt_box .txt_bottom {
         bottom: 60px;
         right: 56px;
         width: 800px;
@@ -450,18 +447,18 @@
 
 
 
-.banner_1 .txt_box {
+.banner1 .txt_box {
     font-size: 1.25rem;
 
 }
 
-.banner_1 .txt_box .txt_top {
+.banner1 .txt_box .txt_top {
     top: 50px;
     left: 42px;
     width: 390px
 }
 
-.banner_1 .txt_box .txt_bottom {
+.banner1 .txt_box .txt_bottom {
     bottom: 60px;
     right: 42px;
     width: 90vw
@@ -659,15 +656,15 @@
 }
 
 @media screen and (max-width:540px) {
-    .banner_1 {
+    .banner1 {
         height: 60%;
     }
 
-    .banner_1 .txt_box {
+    .banner1 .txt_box {
         font-size: 1rem;
     }
 
-    .banner_1 .txt_box .txt_top {
+    .banner1 .txt_box .txt_top {
         top: 50px;
         text-align: center;
         left: 50%;
@@ -675,7 +672,7 @@
         width: 300px;
     }
 
-    .banner_1 .txt_box .txt_bottom {
+    .banner1 .txt_box .txt_bottom {
         bottom: 60px;
         text-align: center;
         left: 50%;

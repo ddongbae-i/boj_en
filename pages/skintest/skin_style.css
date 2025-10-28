@@ -72,7 +72,7 @@ body::-webkit-scrollbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("../../asset/img/skintest/skintest-bg.jpg") center/cover no-repeat;
+  background: url("/asset/img/skintest/skintest-bg.jpg") center/cover no-repeat;
   text-align: center;
 }
 
@@ -189,7 +189,7 @@ body::-webkit-scrollbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("../../asset/img/skintest/skintest-quiz-bg.jpg") center/cover no-repeat;
+  background: url("/asset/img/skintest/skintest-quiz-bg.jpg") center/cover no-repeat;
   text-align: center;
 }
 
@@ -761,21 +761,4 @@ p#summary.center {
   position: static !important;
   z-index: 10 !important;
   pointer-events: auto !important;
-}
-
-::-webkit-scrollbar {
-    width: 12px;
-}
-
-::-webkit-scrollbar-track {
-    background: #fbf8f2;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #b59016;
-    border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #9a7612;
 }
