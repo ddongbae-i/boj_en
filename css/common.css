@@ -1115,3 +1115,9 @@ body.cart-locked {
         border-right: none;
     }
 }
+
+html.menu-open, body.menu-open { overflow: hidden; }
+.search_tab { pointer-events:none; }
+.search_tab.open { pointer-events:auto; }
+.cart_wrap { pointer-events:none; }
+.cart_wrap.is-open { pointer-events:auto; }
