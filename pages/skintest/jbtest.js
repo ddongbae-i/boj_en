@@ -20,7 +20,7 @@
   };
 
   JB.showSection = function (id) {
-    const ids = ["home", "quiz", "loading"];
+    const ids = ["home", "quiz", "loading", "result"];
     ids.forEach((sec) => {
       const el = JB.$("#" + sec);
       if (!el) return;
@@ -168,7 +168,8 @@
     const evt = new CustomEvent("JB_TEST_READY", { detail });
     document.dispatchEvent(evt);
     await JB.sleep(Number.isFinite(delay) ? delay : 1200);
-    // We intentionally stop at #loading as requested. Downstream code can listen to JB_TEST_READY to proceed.
+    // After loading, go to result.
+    JB.showSection("result");
   }
 
   function bindControls() {
@@ -205,7 +206,7 @@
     // hash routing: allow direct links
     w.addEventListener("hashchange", () => {
       const id = (w.location.hash || "#home").slice(1);
-      if (["home", "quiz", "loading"].includes(id)) {
+      if (["home", "quiz", "loading", "result"].includes(id)) {
         JB.showSection(id);
         if (id === "quiz") renderQuestion();
       }
@@ -216,7 +217,7 @@
     bindControls();
     // initial route
     const id = (w.location.hash || "#home").slice(1);
-    if (["home", "quiz", "loading"].includes(id)) {
+    if (["home", "quiz", "loading", "result"].includes(id)) {
       JB.showSection(id);
       if (id === "quiz") renderQuestion();
     } else {
@@ -440,3 +441,323 @@
     });
   };
 })(window);
+
+
+
+// jb_card.js — set background image for .job_card.card-main and optional flip
+(function(w){
+  var card = document.querySelector('.job_card.card-main');
+  if(!card) return;
+  // If data-front is set, use it as background
+  var front = card.dataset.front;
+  if(front) card.style.backgroundImage = 'url("'+front+'")';
+
+  // Optional: click to flip to back image if data-back provided
+  var back = card.dataset.back;
+  if(!back) return;
+  card.setAttribute('role','button');
+  card.setAttribute('tabindex','0');
+  var flipped=false;
+  function apply(){
+    card.style.backgroundImage = 'url("'+(flipped?back:front)+'")';
+  }
+  function toggle(){ flipped=!flipped; apply(); }
+  card.addEventListener('click', toggle);
+  card.addEventListener('keydown', function(e){
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); }
+  });
+})(window);
+
+
+/* === GSAP: #home entrance animation === */
+(function(w){
+  function hasGSAP(){ return typeof w.gsap !== "undefined"; }
+  function animateHome(){
+    if(!hasGSAP()) return;
+    var home = document.getElementById('home');
+    if(!home || home.hidden) return;
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    var title = home.querySelector('.home-title');
+    var sub   = home.querySelector('.home-sub');
+    var badges= home.querySelectorAll('.badges .badge');
+    var btn   = document.getElementById('startBtn');
+    tl.from(title, {y: 16, opacity: 0, duration: 0.38}, 0)
+      .from(sub,   {y: 12, opacity: 0, duration: 0.32}, 0.05)
+      .from(badges,{y: 10, opacity: 0, duration: 0.28, stagger: 0.05}, 0.10)
+      .from(btn,   {y: 12, opacity: 0, duration: 0.28}, 0.20);
+  }
+
+  document.addEventListener('DOMContentLoaded', animateHome);
+  // re-run when returning to #home via nav
+  window.addEventListener('hashchange', function(){
+    if((location.hash||'#home') === '#home') requestAnimationFrame(animateHome);
+  });
+})(window);
+
+
+/* === GSAP Flip: stack → grid for .product_grid after results ready === */
+(function(w){
+  function ready(fn){ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
+  function hasFlip(){ return typeof w.gsap !== 'undefined' && typeof w.Flip !== 'undefined'; }
+  function prepStack(){
+    var grid = document.querySelector('#result .product_grid');
+    if(!grid || grid.classList.contains('flip-prepared')) return;
+    var cards = grid.querySelectorAll('.product_card');
+    // Apply initial stacked layout
+    grid.classList.add('flip-init','flip-prepared');
+    var y = 0, gap = 24;
+    cards.forEach(function(card, i){
+      card.style.setProperty('--stackY', y + 'px');
+      // rough height guess; actual Flip will resolve correctly
+      y += (card.offsetHeight || 480) * 0.08 + gap;
+    });
+  }
+  function runFlip(){
+    if(!hasFlip()) return;
+    var grid = document.querySelector('#result .product_grid');
+    if(!grid) return;
+    var cards = grid.querySelectorAll('.product_card');
+    if(!cards.length) return;
+    var state = Flip.getState(cards);
+    grid.classList.remove('flip-init');
+    Flip.from(state, {
+      duration: 0.6,
+      ease: 'power2.out',
+      stagger: 0.05,
+      absolute: true,
+      nested: true,
+      prune: true
+    });
+  }
+  ready(prepStack);
+  document.addEventListener('JB_TEST_READY', function(){
+    // ensure prep applied (in case user navigated fast)
+    prepStack();
+    // let result DOM paint
+    setTimeout(runFlip, 60);
+  });
+})(window);
+(function () {
+  'use strict';
+
+  // Utility: safe query
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+  // 1) Hovering wishlistBtn shouldn't trigger layout shift that shows scrollbars.
+  //    If existing scripts/styles add/remove borders on hover, that can increase element size by 1-2px,
+  //    causing the page to briefly overflow and show a scrollbar. We neutralize that by:
+  //    - Freezing computed width/height on hover
+  //    - Using outline/boxShadow instead of changing border/size
+  //    - Restoring after mouse leaves
+  (function fixWishlistHoverScroll() {
+    const btn = $('#wishlistBtn');
+    if (!btn) return;
+
+    // Defensive: remove any JS-driven hover handlers that add borders via inline styles
+    // (can't remove external CSS, but we can counteract the layout shift).
+    let frozen = false;
+    let prevWidth = '';
+    let prevHeight = '';
+
+    const onEnter = () => {
+      if (frozen) return;
+      const cs = getComputedStyle(btn);
+      // Freeze outer box to prevent reflow-caused scrollbars
+      prevWidth = btn.style.width;
+      prevHeight = btn.style.height;
+      btn.style.width = btn.offsetWidth + 'px';
+      btn.style.height = btn.offsetHeight + 'px';
+      // Prefer non-intrusive focus affordance
+      btn.style.outline = '2px solid rgba(0,0,0,0.15)';
+      btn.style.outlineOffset = '2px';
+      // If some CSS increases border on hover, cushion it with inset box-shadow instead
+      btn.style.boxShadow = '0 0 0 0 rgba(0,0,0,0), inset 0 0 0 0 rgba(0,0,0,0)';
+      frozen = true;
+    };
+
+    const onLeave = () => {
+      // Restore original sizing and outline
+      btn.style.width = prevWidth;
+      btn.style.height = prevHeight;
+      btn.style.outline = '';
+      btn.style.outlineOffset = '';
+      btn.style.boxShadow = '';
+      frozen = false;
+    };
+
+    btn.addEventListener('mouseenter', onEnter, { passive: true });
+    btn.addEventListener('mouseleave', onLeave, { passive: true });
+
+    // Also prevent programmatic focus styles from causing jumps
+    btn.addEventListener('focus', onEnter, { passive: true });
+    btn.addEventListener('blur', onLeave, { passive: true });
+  })();
+
+  // 2) .row-ghosts buttons should navigate properly
+  (function wireGhostButtons() {
+    const homeBtn = $('#homeBtn');
+    const resetBtn = $('#resetBtn');
+    const quizRoot = $('#quiz'); // if present
+    const goToId = (id, opts = { behavior: 'smooth', block: 'start' }) => {
+      const target = document.getElementById(id);
+      if (target) {
+        // Use scrollIntoView to avoid full page reloads and to work within scrollable containers
+        target.scrollIntoView(opts);
+        // Update hash for shareability / back button
+        if (location.hash !== '#' + id) {
+          history.pushState(null, '', '#' + id);
+        }
+        return true;
+      }
+      return false;
+    };
+
+    const goHome = (e) => {
+      e?.preventDefault();
+      // Prefer in-page #HOME if exists, else fallback to URL hash
+      if (!goToId('HOME')) {
+        // As a last resort, change hash (useful if SPA router handles it)
+        location.hash = '#HOME';
+      }
+    };
+
+    const goReset = (e) => {
+      e?.preventDefault();
+      // If #quiz section exists and contains #RESET (Q1), scroll to it, else fallback
+      const resetId = 'RESET';
+      if (quizRoot && $('#RESET', quizRoot)) {
+        $('#RESET', quizRoot).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (location.hash !== '#' + resetId) {
+          history.pushState(null, '', '#' + resetId);
+        }
+      } else if (!goToId(resetId)) {
+        // Fallback: set hash; outer router may navigate to quiz page
+        location.hash = '#RESET';
+      }
+    };
+
+    homeBtn && homeBtn.addEventListener('click', goHome);
+    resetBtn && resetBtn.addEventListener('click', goReset);
+
+    // Also allow keyboard activation via Enter/Space if not buttons (safety)
+    [homeBtn, resetBtn].forEach((el, idx) => {
+      if (!el) return;
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          (idx === 0 ? goHome : goReset)(e);
+        }
+      });
+    });
+  })();
+
+  // 3) Ensure product section becomes visible on #result and while scrolling there
+  (function ensureProductVisibility() {
+    const resultRoot = $('#result');
+    if (!resultRoot) return;
+
+    // Sometimes CSS like overflow:hidden or a tall sticky header can hide the first items.
+    // Make sure the scroll container can reveal content.
+    try {
+      // If a child is the scroll container, use that
+      const scrollable = (() => {
+        const cands = [resultRoot, ...resultRoot.children];
+        return cands.find(el => {
+          const cs = getComputedStyle(el);
+          const oy = cs.overflowY;
+          return oy === 'auto' || oy === 'scroll';
+        }) || resultRoot;
+      })();
+
+      // Reveal .product blocks on intersection (handles lazy 'opacity:0' / 'translateY' patterns)
+      const revealProducts = () => {
+        const products = $$('.product', resultRoot);
+        if (products.length === 0) return;
+
+        const reveal = (el) => {
+          el.classList.remove('is-hidden', 'invisible', 'opacity-0');
+          el.style.opacity = '';
+          el.style.transform = '';
+          el.style.visibility = '';
+          // If display was none due to classes, set a sensible default
+          if (getComputedStyle(el).display === 'none') {
+            el.style.display = 'block';
+          }
+        };
+
+        // If IntersectionObserver is available, animate-in on view
+        if ('IntersectionObserver' in window) {
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) reveal(entry.target);
+            });
+          }, { root: scrollable === document.body ? null : scrollable, threshold: 0.05 });
+
+          products.forEach(p => io.observe(p));
+        } else {
+          products.forEach(reveal);
+        }
+      };
+
+      // On arrival to #result (hash), scroll first product into view if not visible
+      const scrollFirstProductIntoView = () => {
+        const firstProduct = $('.product', resultRoot);
+        if (firstProduct) {
+          firstProduct.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+
+      // If the container is clipping, relax it
+      const relaxOverflow = (el) => {
+        const cs = getComputedStyle(el);
+        if (cs.overflowY === 'hidden') {
+          el.style.overflowY = 'auto';
+        }
+      };
+      relaxOverflow(resultRoot);
+      relaxOverflow(scrollable);
+
+      // Kick things on load and on hashchange
+      const onReady = () => {
+        revealProducts();
+        if (location.hash.replace('#', '') === 'result' || resultRoot.id === location.hash.replace('#','')) {
+          scrollFirstProductIntoView();
+        }
+      };
+      document.addEventListener('DOMContentLoaded', onReady);
+      // If this script loads after DOMContentLoaded, still run once
+      if (document.readyState !== 'loading') onReady();
+
+      window.addEventListener('hashchange', () => {
+        if (location.hash === '#result') {
+          revealProducts();
+          scrollFirstProductIntoView();
+        }
+      }, { passive: true });
+
+      // While scrolling inside #result, make sure products become visible
+      const onScroll = () => {
+        // If products still hidden due to CSS, try revealing again
+        $$('.product.is-hidden, .product.invisible, .product.opacity-0', resultRoot)
+          .forEach(el => {
+            const rect = el.getBoundingClientRect();
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+            if (rect.top < vh && rect.bottom > 0) {
+              el.classList.remove('is-hidden', 'invisible', 'opacity-0');
+              el.style.opacity = '';
+              el.style.transform = '';
+              el.style.visibility = '';
+              if (getComputedStyle(el).display === 'none') el.style.display = 'block';
+            }
+          });
+      };
+      scrollable.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('scroll', onScroll, { passive: true });
+    } catch (e) {
+      // Fail-safe: do nothing if environment is unusual
+      console.warn('[jbtest] product visibility patch skipped:', e);
+    }
+  })();
+
+})();

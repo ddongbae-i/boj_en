@@ -113,26 +113,7 @@
       });
     }
 
-    // ALL TO WISHLIST → 결과 카드의 .add_btn 전체 토글 (src 스왑)
-    if (wishlistBtn) {
-      wishlistBtn.addEventListener("click", () => {
-        const buttons = SK.$$("#result .add_btn");
-        const someInactive = buttons.some(
-          (btn) => !btn.classList.contains("active")
-        );
-        const targetActive = someInactive; // 하나라도 꺼져 있으면 전체 켜기, 아니면 전체 끄기
-        buttons.forEach((btn) => {
-          btn.classList.toggle("active", targetActive);
-          const img = btn.querySelector(".heart");
-          if (img) {
-            img.src = targetActive
-              ? "/asset/img/skintest/icon_heart_fill.svg"
-              : "/asset/img/skintest/icon_heart_stroke.svg";
-          }
-          btn.setAttribute("aria-pressed", targetActive ? "true" : "false");
-        });
-      });
-    }
+    // ALL TO WISHLIST → moved to WishlistAll module
 
     // 해시 직접 접근 시
     const initial = (location.hash || "#home").replace("#", "");
@@ -1915,6 +1896,10 @@ el,
     if (!btn) return;
     e.preventDefault();
     toggleAddBtn(btn);
+    // 개별 토글 후, ALL 버튼 라벨/상태 동기화
+    if (window.WishlistAll && typeof window.WishlistAll.sync === "function") {
+      window.WishlistAll.sync();
+    }
   }
 
   // 중복 바인딩 방지
@@ -1941,3 +1926,57 @@ el,
     }
   });
 })();
+
+
+// === Injected from jbtest.js: Wishlist ALL toggle + label sync ===
+/* ========== Wishlist: ALL TO WISHLIST toggle + sync ========== */
+(function (w) {
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+  function isOn(btn) {
+    return btn?.getAttribute("aria-pressed") === "true" || btn?.classList.contains("on");
+  }
+
+  function buttons() {
+    return $$(".product_card .add_btn");
+  }
+
+  function setAll(on) {
+    buttons().forEach((b) => window.WishlistBtn?.set(b, on));
+  }
+
+  function syncAllButton() {
+    const allBtn = $("#wishlistBtn") || $("#wishlistAll");
+    if (!allBtn) return;
+    const btns = buttons();
+    const allOn = btns.length > 0 && btns.every(isOn);
+    allBtn.setAttribute("aria-pressed", allOn ? "true" : "false");
+    allBtn.textContent = allOn ? (allBtn.dataset.labelOn || "REMOVE ALL") : (allBtn.dataset.labelOff || "ALL TO WISHLIST");
+  }
+
+  function bind() {
+    const allBtn = $("#wishlistBtn") || $("#wishlistAll");
+    if (!allBtn) return;
+    if (!allBtn.dataset.labelOn)  allBtn.dataset.labelOn  = "REMOVE ALL";
+    if (!allBtn.dataset.labelOff) allBtn.dataset.labelOff = "ALL TO WISHLIST";
+
+    allBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const allOn = allBtn.getAttribute("aria-pressed") === "true";
+      setAll(!allOn);
+      // microtask 이후 동기화
+      setTimeout(syncAllButton, 0);
+    });
+    syncAllButton();
+  }
+
+  // expose
+  w.WishlistAll = { sync: syncAllButton };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})(window);
