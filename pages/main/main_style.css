@@ -136,46 +136,7 @@ main {
   display: none;
 }
 
-.banner1 {
-  width: 100%;
-  height: 1857px;
-  position: relative;
-} 
-
-.banner1 img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.banner1 .txt_box {
-  font-size: 2.5rem;
-  line-height: 140%;
-  color: var(--white_ff);
-}
-
-.banner1 .txt_box .txt_top {
-  position: absolute;
-  text-align: left;
-  left: 110px;
-  top: 180px;
-  width: 798px;
-  z-index: 10;
-}
-
-.banner1 .txt_box .txt_bottom {
-  position: absolute;
-  text-align: right;
-  right: 110px;
-  bottom: 90px;
-  width: 1300px;
-}
-
-
-
-
-/* .banner_1 {
+.banner_1 {
   width: 100%;
   height: 1857px;
   box-sizing: border-box;
@@ -188,24 +149,23 @@ main {
   height: 100%;
   object-fit: cover;
   z-index: 0;
-} */
+}
 
-/* .banner_1 .txt_box {
+.banner_1 .txt_box {
   padding: 0;
   z-index: 2;
   color: var(--white_ff);
   font-family: var(--txt_font);
+  font-size: 2.5rem;
   line-height: 140%;
-} */
+}
 
 .banner_1 .txt_box .txt_top {
   position: absolute;
   text-align: left;
   left: 110px;
   top: 180px;
-  width: 1300px;
-  font-size: 2.5rem;
-  line-height: 140%;
+  width: 795px;
 }
 
 .banner_1 .txt_box .txt_bottom {
@@ -214,8 +174,6 @@ main {
   right: 110px;
   bottom: 90px;
   width: 1300px;
-  font-size: 2.5rem;
-  line-height: 140%;
 }
 
 .banner_1 .txt_box .txt_bottom :first-child {
