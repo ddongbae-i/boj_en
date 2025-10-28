@@ -27,15 +27,18 @@
 </head>
 
 <body>
-    <section class="intro-container">
-        <video id="introVideo" src="./asset/video/intro/intro.mp4" muted playsinline></video>
+  <section class="intro-container">
+    <video id="introVideo" src="./asset/video/intro/intro.mp4" muted playsinline></video>
 
-        <!-- 메인 컨텐츠 -->
-        <div class="content-wrapper" id="mainContent">
-            <a href="./main.html" class="nav-link shop">SHOP</a>
-            <a href="./pages/brandstory/brandstory.html" class="nav-link brand">BRAND</a>
-        </div>
-    </section>
+    <button class="skip-button" id="skipButton">SKIP INTRO</button>
+
+    <div class="content-wrapper" id="mainContent">
+      <a href="./main.html" class="nav-link shop">SHOP</a>
+      <a href="./pages/brandstory/brandstory.html" class="nav-link brand">BRAND</a>
+    </div>
+  </section>
+
+  <script src="./pages/intro/intro.js" defer></script>
 </body>
 
 </html>
