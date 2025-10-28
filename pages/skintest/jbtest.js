@@ -230,3 +230,213 @@
     init();
   }
 })(window);
+
+/* ========== Wishlist: Individual add_btn (delegated) ========== */
+(function (w) {
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+  const ICON_STROKE = "/asset/img/skintest/icon_heart_stroke.svg";
+  const ICON_FILL   = "/asset/img/skintest/icon_heart_fill.svg";
+
+  function updateAddBtnUI(btn, on) {
+    if (!btn) return;
+    btn.classList.toggle("on", on);
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+    const img = btn.querySelector("img.heart");
+    if (img) img.src = on ? ICON_FILL : ICON_STROKE;
+
+    const labelOn  = btn.dataset.labelOn  || "ADD TO WISHLIST";
+    const labelOff = btn.dataset.labelOff || "ADD TO WISHLIST";
+    const textNode = [...btn.childNodes].find(n => n.nodeType === Node.TEXT_NODE);
+    const txt = (on ? " " + labelOn : " " + labelOff);
+    if (textNode) textNode.nodeValue = txt;
+    else btn.append(document.createTextNode(txt));
+  }
+
+  function toggleAddBtn(btn) {
+    const next = !btn.classList.contains("on");
+    updateAddBtnUI(btn, next);
+    return next;
+  }
+
+  function onDocClick(e) {
+    const btn = e.target.closest(".product_card .add_btn");
+    if (!btn) return;
+    e.preventDefault();
+    toggleAddBtn(btn);
+    // after individual toggle, also resync ALL button if present
+    if (window.WishlistAll && typeof window.WishlistAll.sync === "function") {
+      window.WishlistAll.sync();
+    }
+  }
+
+  function primeInitial() {
+    $$(".product_card .add_btn").forEach((btn) => {
+      const on = btn.classList.contains("on") || btn.getAttribute("aria-pressed") === "true";
+      updateAddBtnUI(btn, !!on);
+    });
+  }
+
+  if (!w.__ADD_BTN_TOGGLE_BOUND__) {
+    document.addEventListener("click", onDocClick, false);
+    w.__ADD_BTN_TOGGLE_BOUND__ = true;
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", primeInitial);
+  } else {
+    primeInitial();
+  }
+
+  // small API
+  w.WishlistBtn = Object.assign(w.WishlistBtn || {}, {
+    set: (btnOrSelector, on) => {
+      const btn = typeof btnOrSelector === "string" ? $(btnOrSelector) : btnOrSelector;
+      updateAddBtnUI(btn, !!on);
+    },
+    toggle: (btnOrSelector) => {
+      const btn = typeof btnOrSelector === "string" ? $(btnOrSelector) : btnOrSelector;
+      return toggleAddBtn(btn);
+    }
+  });
+})(window);
+
+/* ========== Wishlist: ALL TO WISHLIST toggle + sync ========== */
+(function (w) {
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+  function isOn(btn) {
+    return btn?.getAttribute("aria-pressed") === "true" || btn?.classList.contains("on");
+  }
+
+  function buttons() {
+    return $$(".product_card .add_btn");
+  }
+
+  function setAll(on) {
+    buttons().forEach((b) => window.WishlistBtn?.set(b, on));
+  }
+
+  function syncAllButton() {
+    const allBtn = $("#wishlistBtn") || $("#wishlistAll");
+    if (!allBtn) return;
+    const btns = buttons();
+    const allOn = btns.length > 0 && btns.every(isOn);
+    allBtn.setAttribute("aria-pressed", allOn ? "true" : "false");
+    allBtn.textContent = allOn ? (allBtn.dataset.labelOn || "REMOVE ALL") : (allBtn.dataset.labelOff || "ALL TO WISHLIST");
+  }
+
+  function bind() {
+    const allBtn = $("#wishlistBtn") || $("#wishlistAll");
+    if (!allBtn) return;
+    if (!allBtn.dataset.labelOn)  allBtn.dataset.labelOn  = "REMOVE ALL";
+    if (!allBtn.dataset.labelOff) allBtn.dataset.labelOff = "ALL TO WISHLIST";
+
+    allBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const allOn = allBtn.getAttribute("aria-pressed") === "true";
+      setAll(!allOn);
+      // microtask 이후 동기화
+      setTimeout(syncAllButton, 0);
+    });
+    syncAllButton();
+  }
+
+  // expose
+  w.WishlistAll = { sync: syncAllButton };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
+})(window);
+
+/* ========== Result-like animations (GSAP safe) ========== */
+(function (w) {
+  function hasGSAP(){ return typeof w.gsap !== "undefined"; }
+
+  function clearStyles(els) {
+    els.forEach(el => {
+      if (!el || !el.style) return;
+      el.style.opacity = "";
+      el.style.transform = "";
+      el.style.filter = "";
+    });
+  }
+
+  let tl = null;
+  function kill() {
+    if (tl) { tl.kill(); tl = null; }
+    clearStyles([
+      document.querySelector(".cl-card"),
+      document.querySelector(".type"),
+      document.querySelector("#summary"),
+      ...document.querySelectorAll(".product_card"),
+      document.querySelector("#wishlistBtn"),
+      document.querySelector("#resetBtn")
+    ]);
+  }
+
+  function animate() {
+    if (!hasGSAP()) return;
+    const card = document.querySelector(".cl-card");
+    const type = document.querySelector(".type");
+    const summary = document.querySelector("#summary");
+    const cards = document.querySelectorAll(".product_card");
+    const allBtn = document.querySelector("#wishlistBtn");
+    const resetBtn = document.querySelector("#resetBtn");
+
+    kill();
+    tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    if (card)   tl.from(card,   { y: -16, opacity: 0, duration: 0.40 }, 0);
+    if (type)   tl.from(type,   { y:  10, opacity: 0, duration: 0.30 }, 0.06);
+    if (summary)tl.from(summary,{ y:  10, opacity: 0, duration: 0.30 }, 0.10);
+    if (cards && cards.length) tl.from(cards, { y: 26, opacity: 0, duration: 0.42, stagger: 0.06 }, 0.18);
+    if (allBtn) tl.from(allBtn, { y: 12, opacity: 0, duration: 0.28 }, "+=0.02");
+    if (resetBtn) tl.from(resetBtn, { y: 10, opacity: 0, duration: 0.24 }, "-=0.10");
+  }
+
+  // Scroll-trigger per product card (if plugin present)
+  function bindScrollTriggers() {
+    if (typeof w.ScrollTrigger === "undefined" || !hasGSAP()) return;
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll(".product_card").forEach((card) => {
+      gsap.from(card, {
+        y: 24, opacity: 0, duration: 0.35, ease: "power2.out",
+        scrollTrigger: { trigger: card, start: "top 85%", toggleActions: "play none none reverse" }
+      });
+    });
+  }
+
+  // Run when test completes (from jbtest.js finish → JB_TEST_READY)
+  document.addEventListener("JB_TEST_READY", () => {
+    // if sections exist, you may scroll or show them, here we just animate
+    requestAnimationFrame(() => { animate(); bindScrollTriggers(); });
+  });
+
+  // Also run on first load if already visible
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => { animate(); bindScrollTriggers(); });
+  } else {
+    animate(); bindScrollTriggers();
+  }
+
+  // Public helper for buttons only
+  w.animateResultButtonsSafe = function () {
+    const sel = ["#wishlistBtn", "#resetBtn"];
+    const btns = sel.map(s => document.querySelector(s)).filter(Boolean);
+    // ensure visible
+    btns.forEach(el => {
+      if (!el || !el.style) return;
+      if (el.style.opacity === "0") el.style.opacity = "";
+      if (el.style.transform && el.style.transform !== "none") el.style.transform = "";
+    });
+    if (!hasGSAP() || !btns.length) return;
+    btns.forEach((el, i) => {
+      gsap.fromTo(el, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power3.out", delay: 0.04 + i*0.04, clearProps: "transform,opacity" });
+    });
+  };
+})(window);

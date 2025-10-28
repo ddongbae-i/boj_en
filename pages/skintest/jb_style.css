@@ -112,7 +112,9 @@ body {
 }
 
 /* Buttons */
-#startBtn {
+#startBtn,
+#homeBtn,
+#resetBtn {
   width: 120px;
   height: 45px;
   border: 1px solid var(--bg_black);
@@ -124,6 +126,8 @@ body {
   font-weight: 300;
   font-size: .875rem;
   transition: .3s;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 #startBtn:hover {
@@ -132,32 +136,35 @@ body {
   font-weight: 500;
 }
 
-#wishlistBtn {
-  font-size: .875rem;
-  border: 1px solid var(--bg_black);
-  width: 200px;
-  height: 45px;
-  background: var(--bg_black);
-  color: var(--white_ff);
-  transition: .3s;
-  cursor: pointer;
-  text-align: center;
-  font-family: var(--txt_font);
-  font-weight: 300;
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 }
 
-.btn {
-  font-size: .875rem;
-  border: 1px solid var(--bg_black);
-  width: 120px;
+.actions.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  /* 두 줄 간격 */
+}
+
+.row-ghosts {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  top: 20px;
+}
+
+#nextBtn,
+#prevBtn {
+  width: 170px;
   height: 45px;
   background: var(--bg_black);
+  border: 1px solid var(--bg_black);
   color: var(--white_ff);
-  transition: .3s;
-  cursor: pointer;
-  text-align: center;
-  font-family: var(--txt_font);
-  font-weight: 300;
 }
 
 .btn.secondary {
@@ -412,7 +419,7 @@ input[type="radio"]:checked+.option .bullet {
 .job_card {
   width: 270px;
   height: 380px;
-  background: #000;
+  background-image: url(/asset/img/skintest/card-back.png);
   border-radius: 20px;
   position: absolute;
 }
