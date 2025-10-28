@@ -38,11 +38,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 17vw;
+  gap: 18vw;
   z-index: 2;
   pointer-events: none;       /* 기본 비활성 (인트로 중) */
-  padding-left: 44px;
-  padding-top: 160px;
+  padding-left: 60px;
+  padding-top: 398px;
 }
 
 .content-wrapper.show {       /* 인트로 끝나면 활성화 */
