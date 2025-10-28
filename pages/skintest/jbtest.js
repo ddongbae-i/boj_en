@@ -1,4 +1,3 @@
-// jbtest.js — 5-question flow up to #loading, tailored to jb-test.html
 (function (w) {
   const JB = (w.JBTEST = w.JBTEST || {});
 
@@ -12,6 +11,96 @@
   JB.$ = (sel) => document.querySelector(sel);
   JB.$$ = (sel) => Array.from(document.querySelectorAll(sel));
   JB.sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+
+// Robust scroll helper: align node to top of its nearest scrollable ancestor (or window)
+JB.scrollToTopOf = function(node, opts={}){
+  if(!node) return;
+  const offset = Number.isFinite(opts.offset)? opts.offset : 0;
+  // find nearest scrollable ancestor
+  const getScrollable = (el)=>{
+    let cur = el && el.parentElement;
+    while(cur && cur !== document.body){
+      const cs = getComputedStyle(cur);
+      const oy = cs.overflowY;
+      if (oy === 'auto' || oy === 'scroll') return cur;
+      cur = cur.parentElement;
+    }
+    return window; // default viewport
+  };
+  const scroller = getScrollable(node);
+  try {
+    if (scroller === window){
+      const rect = node.getBoundingClientRect();
+      const top = Math.round(rect.top + window.pageYOffset - offset);
+      window.scrollTo({ top, behavior: (opts.behavior || 'auto') });
+    } else {
+      const rect = node.getBoundingClientRect();
+      const hostRect = scroller.getBoundingClientRect();
+      const delta = rect.top - hostRect.top;
+      scroller.scrollTo({ top: Math.round(scroller.scrollTop + delta - offset), behavior: (opts.behavior || 'auto') });
+    }
+  } catch(e){
+    // fallback
+    try { node.scrollIntoView(true); } catch(_) {}
+  }
+};
+
+
+
+// Detect result scroller
+JB.getResultScroller = function(){
+  try{
+    const explicit = document.querySelector('#result .result-inner');
+    if (explicit) return explicit;
+    const result = document.getElementById('result');
+    if (result){
+      const cand = Array.from(result.querySelectorAll('*')).find(el => {
+        const cs = getComputedStyle(el);
+        return (cs.overflowY === 'auto' || cs.overflowY === 'scroll');
+      });
+      if (cand) return cand;
+      return window;
+    }
+  }catch(e){}
+  return window;
+};
+
+// Scroll + bind sequence orchestrator
+JB.enterResultSequence = function(){
+  // 1) align scroll to top of result container
+  const scrollerNode = JB.getResultScroller();
+  const container = document.querySelector('#result .result-inner') || document.getElementById('result');
+  const sticky = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--stickyTop')) || 0;
+  JB.scrollToTopOf(container || scrollerNode, { behavior: 'auto', offset: sticky });
+  // 2) Rebind on next two frames to ensure layout settled
+  requestAnimationFrame(() => {
+    if (typeof JB.rebindScrollTriggers === 'function') JB.rebindScrollTriggers();
+    if (window.ScrollTrigger && typeof window.ScrollTrigger.refresh === 'function') {
+      try{ ScrollTrigger.refresh(); }catch(_){ }
+    }
+    // 3) One more frame to catch late images/fonts
+    requestAnimationFrame(() => {
+      if (typeof JB.rebindScrollTriggers === 'function') JB.rebindScrollTriggers();
+      if (window.ScrollTrigger && typeof window.ScrollTrigger.refresh === 'function') {
+        try{ ScrollTrigger.refresh(); }catch(_){ }
+      }
+    });
+  });
+};
+
+  JB.waitForResultReady = async function(timeoutMs=1800){
+    try{
+      const result = document.getElementById('result');
+      if(!result) return;
+      const imgs = Array.from(result.querySelectorAll('img'));
+      const decoders = imgs.map(img => (img.decode ? img.decode().catch(()=>{}) : Promise.resolve()));
+      const to = new Promise(r => setTimeout(r, Math.max(0, timeoutMs)));
+      await Promise.race([Promise.all(decoders), to]);
+      // next frame to ensure styles/layout applied
+      await JB.sleep(16);
+    }catch(e){}
+  };
 
   JB.lockScroll = function (on) {
     const d = document.documentElement, b = document.body;
@@ -32,8 +121,28 @@
       `#${id} [tabindex], #${id} button, #${id} a, #${id} input, #${id} select, #${id} textarea`
     );
     if (focusTarget) setTimeout(() => focusTarget.focus(), 0);
-    if (w.location.hash !== "#" + id) w.location.hash = "#" + id;
+    if (window.location.hash !== '#' + id) { try { history.replaceState(null, '', '#' + id); } catch(e) { window.location.hash = '#' + id; } }
     JB.lockScroll(id === "loading");
+
+    if (id === "result") {
+      // Ensure back face first
+      const mc = document.getElementById("mainCard") || document.querySelector("#result .job_card.card-main");
+      if (mc && !mc.classList.contains("is-flipped")) {
+        mc.classList.add("is-flipped");
+        mc.setAttribute("aria-pressed", "true");
+        mc.setAttribute("aria-label", "View card front");
+      }
+      // Scroll result-inner to the top (not center)
+      requestAnimationFrame(() => {
+        const container = document.querySelector('#result .result-inner') || mc || document.getElementById('result');
+        // account for any sticky header via CSS var --stickyTop if provided
+        const sticky = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--stickyTop')) || 0;
+        JB.scrollToTopOf(container, { behavior: 'auto', offset: sticky });
+        if (mc && typeof mc.focus === 'function') mc.focus();
+        // ensure triggers use correct scroller and positions
+        if (typeof JB.enterResultSequence === 'function') JB.enterResultSequence();
+      });
+    }
   };
 
   JB.isAnswered = (idx) => JB.state.answers[idx] !== null;
@@ -146,7 +255,7 @@
     if (!JB.isAnswered(currentIndex)) return;
     if (currentIndex < QUESTIONS.length - 1) {
       JB.state.currentIndex += 1;
-      renderQuestion();
+      if (typeof renderQuestion === "function") renderQuestion();
     } else {
       // finish → show loading
       await finish();
@@ -155,24 +264,30 @@
   function goPrev() {
     if (JB.state.currentIndex > 0) {
       JB.state.currentIndex -= 1;
-      renderQuestion();
+      if (typeof renderQuestion === "function") renderQuestion();
     }
   }
 
-  async function finish() {
+  
+async function finish() {
     JB.showSection("loading");
     const loading = JB.$("#loading");
     const delay = loading?.dataset?.delay ? parseInt(loading.dataset.delay, 10) : 1200;
-    // Dispatch an event for downstream handlers (e.g., card spread animation script)
-    const detail = { answers: JB.state.answers.slice(), finishedAt: Date.now() };
-    const evt = new CustomEvent("JB_TEST_READY", { detail });
-    document.dispatchEvent(evt);
+    // wait loading delay first
     await JB.sleep(Number.isFinite(delay) ? delay : 1200);
-    // After loading, go to result.
+    // prepare result resources to avoid jank
+    await JB.waitForResultReady(1800);
+    // Show result, then emit event on next frame so animations run in the correct state
     JB.showSection("result");
+    requestAnimationFrame(() => {
+      const detail = { answers: JB.state.answers.slice(), finishedAt: Date.now() };
+      const evt = new CustomEvent("JB_TEST_READY", { detail });
+      document.dispatchEvent(evt);
+    });
   }
 
-  function bindControls() {
+function bindControls() {
+    if (JB._controlsBound) return; JB._controlsBound = true;
     const startBtn = JB.$("#startBtn");
     const nextBtn = JB.$("#nextBtn");
     const prevBtn = JB.$("#prevBtn");
@@ -181,7 +296,7 @@
       JB.state.currentIndex = 0;
       JB.state.answers = Array(5).fill(null);
       JB.showSection("quiz");
-      renderQuestion();
+      if (typeof renderQuestion === "function") renderQuestion();
     });
     if (nextBtn) nextBtn.addEventListener("click", goNext);
     if (prevBtn) prevBtn.addEventListener("click", goPrev);
@@ -208,7 +323,7 @@
       const id = (w.location.hash || "#home").slice(1);
       if (["home", "quiz", "loading", "result"].includes(id)) {
         JB.showSection(id);
-        if (id === "quiz") renderQuestion();
+        if (id === "quiz" && typeof renderQuestion === "function") renderQuestion();
       }
     });
   }
@@ -219,7 +334,7 @@
     const id = (w.location.hash || "#home").slice(1);
     if (["home", "quiz", "loading", "result"].includes(id)) {
       JB.showSection(id);
-      if (id === "quiz") renderQuestion();
+      if (id === "quiz" && typeof renderQuestion === "function") renderQuestion();
     } else {
       JB.showSection("home");
     }
@@ -232,7 +347,7 @@
   }
 })(window);
 
-/* ========== Wishlist: Individual add_btn (delegated) ========== */
+/* ========== Wishlist: Individual add_btn (delegated) ========== */;
 (function (w) {
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => Array.from(document.querySelectorAll(sel));
@@ -302,7 +417,7 @@
   });
 })(window);
 
-/* ========== Wishlist: ALL TO WISHLIST toggle + sync ========== */
+/* ========== Wishlist: ALL TO WISHLIST toggle + sync ========== */;
 (function (w) {
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => Array.from(document.querySelectorAll(sel));
@@ -354,9 +469,11 @@
   }
 })(window);
 
-/* ========== Result-like animations (GSAP safe) ========== */
+/* ========== Result-like animations (GSAP safe) ========== */;
 (function (w) {
-  function hasGSAP(){ return typeof w.gsap !== "undefined"; }
+  function hasGSAP(){ return typeof window !== 'undefined' && typeof window.gsap !== 'undefined'; }
+
+  if (hasGSAP()) { try { gsap.config({ force3D: false, nullTargetWarn: false }); } catch(e){} }
 
   function clearStyles(els) {
     els.forEach(el => {
@@ -390,7 +507,7 @@
     const resetBtn = document.querySelector("#resetBtn");
 
     kill();
-    tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    tl = gsap.timeline({ defaults: { ease: "power3.out", force3D: false } });
 
     if (card)   tl.from(card,   { y: -16, opacity: 0, duration: 0.40 }, 0);
     if (type)   tl.from(type,   { y:  10, opacity: 0, duration: 0.30 }, 0.06);
@@ -401,28 +518,48 @@
   }
 
   // Scroll-trigger per product card (if plugin present)
-  function bindScrollTriggers() {
-    if (typeof w.ScrollTrigger === "undefined" || !hasGSAP()) return;
-    gsap.registerPlugin(ScrollTrigger);
-    document.querySelectorAll(".product_card").forEach((card) => {
-      gsap.from(card, {
-        y: 24, opacity: 0, duration: 0.35, ease: "power2.out",
-        scrollTrigger: { trigger: card, start: "top 85%", toggleActions: "play none none reverse" }
+  
+  // Kill and rebind ScrollTriggers for product cards with correct scroller
+  JB.rebindScrollTriggers = function(){
+    if (!hasGSAP() || typeof w.ScrollTrigger === 'undefined') return;
+    try { if (gsap && typeof gsap.registerPlugin === 'function') { gsap.registerPlugin(ScrollTrigger); } } catch(_) {}
+    try {
+      // kill previous triggers from this namespace
+      if (JB._productTriggers && JB._productTriggers.length) {
+        JB._productTriggers.forEach(t => { try { t.kill(); } catch(_){} });
+      }
+      JB._productTriggers = [];
+      const scroller = JB.getResultScroller();
+      // do not set global defaults; pass scroller per-trigger
+      document.querySelectorAll(".product_card").forEach((card) => {
+        const tween = gsap.from(card, {
+          y: 24, opacity: 0, duration: 0.35, ease: "power2.out",
+          scrollTrigger: { trigger: card, start: "top 85%", toggleActions: "play none none reverse", scroller }
+        });
+        if (tween && tween.scrollTrigger) JB._productTriggers.push(tween.scrollTrigger);
+        else if (tween) { try { tween.kill(); } catch(_){} }
       });
-    });
+    } catch(e){}
+    try { if (window.ScrollTrigger && typeof window.ScrollTrigger.refresh === 'function') window.ScrollTrigger.refresh(); } catch(_){ }
+  };
+
+  // Backward-compat wrapper
+  function bindScrollTriggers() {
+    if (typeof JB.rebindScrollTriggers === 'function') JB.rebindScrollTriggers();
   }
+
 
   // Run when test completes (from jbtest.js finish → JB_TEST_READY)
   document.addEventListener("JB_TEST_READY", () => {
     // if sections exist, you may scroll or show them, here we just animate
-    requestAnimationFrame(() => { animate(); bindScrollTriggers(); });
+    requestAnimationFrame(() => { animate(); JB.enterResultSequence(); });
   });
 
   // Also run on first load if already visible
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => { animate(); bindScrollTriggers(); });
+    document.addEventListener("DOMContentLoaded", () => { animate(); });
   } else {
-    animate(); bindScrollTriggers();
+    animate();
   }
 
   // Public helper for buttons only
@@ -440,12 +577,12 @@
       gsap.fromTo(el, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power3.out", delay: 0.04 + i*0.04, clearProps: "transform,opacity" });
     });
   };
-})(window);
+(window);
 
 
 
-// jb_card.js — set background image for .job_card.card-main and optional flip
-(function(w){
+// jb_card.js — set background image for .job_card.card-main and optional flip;
+(function(w){ return; /* disabled duplicate in favor of main card toggle */
   var card = document.querySelector('.job_card.card-main');
   if(!card) return;
   // If data-front is set, use it as background
@@ -469,22 +606,28 @@
 })(window);
 
 
-/* === GSAP: #home entrance animation === */
+/* === GSAP: #home entrance animation === */;
 (function(w){
-  function hasGSAP(){ return typeof w.gsap !== "undefined"; }
+  function hasGSAP(){ return typeof window !== 'undefined' && typeof window.gsap !== 'undefined'; }
+  var homeAnimatedOnce = false;
   function animateHome(){
     if(!hasGSAP()) return;
     var home = document.getElementById('home');
     if(!home || home.hidden) return;
-    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     var title = home.querySelector('.home-title');
     var sub   = home.querySelector('.home-sub');
     var badges= home.querySelectorAll('.badges .badge');
     var btn   = document.getElementById('startBtn');
-    tl.from(title, {y: 16, opacity: 0, duration: 0.38}, 0)
-      .from(sub,   {y: 12, opacity: 0, duration: 0.32}, 0.05)
-      .from(badges,{y: 10, opacity: 0, duration: 0.28, stagger: 0.05}, 0.10)
-      .from(btn,   {y: 12, opacity: 0, duration: 0.28}, 0.20);
+    // Clear any inline transforms/opacity to avoid stacking animations
+    [title, sub, btn].filter(Boolean).forEach(el=>{ el.style.opacity=''; el.style.transform=''; });
+    badges.forEach(el=>{ el.style.opacity=''; el.style.transform=''; });
+
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out', force3D: false } });
+    tl.set([title, sub, badges, btn].flat().filter(Boolean), { willChange: 'transform, opacity' });
+    tl.from(title, {y: 50, opacity: 0, duration: 1}, 0)
+      .from(sub,   {y: 30, opacity: 0, duration: 1}, 0.06)
+      .from(badges,{y: 20, opacity: 0, duration: 0.8, stagger: 0.05}, 0.12)
+      .add(()=>{ tl.set([title, sub, badges, btn].flat().filter(Boolean), { clearProps: 'transform,opacity,will-change' }); homeAnimatedOnce = true; }, '+=0');
   }
 
   document.addEventListener('DOMContentLoaded', animateHome);
@@ -495,10 +638,10 @@
 })(window);
 
 
-/* === GSAP Flip: stack → grid for .product_grid after results ready === */
+/* === GSAP Flip: stack → grid for .product_grid after results ready === */;
 (function(w){
   function ready(fn){ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
-  function hasFlip(){ return typeof w.gsap !== 'undefined' && typeof w.Flip !== 'undefined'; }
+  function hasFlip(){ return typeof window !== 'undefined' && typeof window.gsap !== 'undefined' && typeof window.Flip !== 'undefined'; }
   function prepStack(){
     var grid = document.querySelector('#result .product_grid');
     if(!grid || grid.classList.contains('flip-prepared')) return;
@@ -520,14 +663,7 @@
     if(!cards.length) return;
     var state = Flip.getState(cards);
     grid.classList.remove('flip-init');
-    Flip.from(state, {
-      duration: 0.6,
-      ease: 'power2.out',
-      stagger: 0.05,
-      absolute: true,
-      nested: true,
-      prune: true
-    });
+    Flip.from(state, { duration: 0.6, ease: 'power2.out', stagger: 0.05, absolute: true, nested: true, prune: true, onComplete: function(){ try{ if (typeof JB.rebindScrollTriggers==='function') JB.rebindScrollTriggers(); if (window.ScrollTrigger && typeof window.ScrollTrigger.refresh==='function') try{ ScrollTrigger.refresh(); }catch(_){ } }catch(e){} } });
   }
   ready(prepStack);
   document.addEventListener('JB_TEST_READY', function(){
@@ -549,7 +685,7 @@
   //    causing the page to briefly overflow and show a scrollbar. We neutralize that by:
   //    - Freezing computed width/height on hover
   //    - Using outline/boxShadow instead of changing border/size
-  //    - Restoring after mouse leaves
+  //    - Restoring after mouse leaves;
   (function fixWishlistHoverScroll() {
     const btn = $('#wishlistBtn');
     if (!btn) return;
@@ -561,6 +697,8 @@
     let prevHeight = '';
 
     const onEnter = () => {
+      // document.documentElement.style.overflowX = 'hidden'; // disabled
+      // document.body.style.overflowX = 'hidden'; // disabled
       if (frozen) return;
       const cs = getComputedStyle(btn);
       // Freeze outer box to prevent reflow-caused scrollbars
@@ -577,6 +715,8 @@
     };
 
     const onLeave = () => {
+      // document.documentElement.style.overflowX = ''; // disabled
+      // document.body.style.overflowX = ''; // disabled
       // Restore original sizing and outline
       btn.style.width = prevWidth;
       btn.style.height = prevHeight;
@@ -594,53 +734,45 @@
     btn.addEventListener('blur', onLeave, { passive: true });
   })();
 
-  // 2) .row-ghosts buttons should navigate properly
+  // 2) .row-ghosts buttons should navigate properly;
   (function wireGhostButtons() {
-    const homeBtn = $('#homeBtn');
-    const resetBtn = $('#resetBtn');
-    const quizRoot = $('#quiz'); // if present
-    const goToId = (id, opts = { behavior: 'smooth', block: 'start' }) => {
-      const target = document.getElementById(id);
-      if (target) {
-        // Use scrollIntoView to avoid full page reloads and to work within scrollable containers
-        target.scrollIntoView(opts);
-        // Update hash for shareability / back button
-        if (location.hash !== '#' + id) {
-          history.pushState(null, '', '#' + id);
-        }
-        return true;
-      }
-      return false;
-    };
+    const homeBtn = document.querySelector('#homeBtn');
+    const resetBtn = document.querySelector('#resetBtn');
 
     const goHome = (e) => {
       e?.preventDefault();
-      // Prefer in-page #HOME if exists, else fallback to URL hash
-      if (!goToId('HOME')) {
-        // As a last resort, change hash (useful if SPA router handles it)
-        location.hash = '#HOME';
+      if (window.JBTEST && typeof window.JBTEST.showSection === 'function') {
+        window.JBTEST.showSection('home');
+      } else {
+        location.hash = '#home';
       }
+      // Announce for assistive tech
+      const home = document.getElementById('home');
+      if (home) home.setAttribute('aria-live','polite');
     };
 
     const goReset = (e) => {
       e?.preventDefault();
-      // If #quiz section exists and contains #RESET (Q1), scroll to it, else fallback
-      const resetId = 'RESET';
-      if (quizRoot && $('#RESET', quizRoot)) {
-        $('#RESET', quizRoot).scrollIntoView({ behavior: 'smooth', block: 'start' });
-        if (location.hash !== '#' + resetId) {
-          history.pushState(null, '', '#' + resetId);
-        }
-      } else if (!goToId(resetId)) {
-        // Fallback: set hash; outer router may navigate to quiz page
-        location.hash = '#RESET';
+      // Reset quiz to Q1
+      if (window.JBTEST) {
+        const JB = window.JBTEST;
+        JB.state.currentIndex = 0;
+        JB.state.answers = Array(5).fill(null);
+        JB.showSection('quiz');
+        // Render first question if available
+        try { (typeof renderQuestion === 'function') ? renderQuestion() : null; } catch(e){}
+        // Fallback focus to first interactive in quiz
+        const focusTarget = document.querySelector('#quiz [tabindex], #quiz button, #quiz a, #quiz input');
+        focusTarget && focusTarget.focus();
+      } else {
+        location.hash = '#quiz';
       }
     };
 
     homeBtn && homeBtn.addEventListener('click', goHome);
     resetBtn && resetBtn.addEventListener('click', goReset);
 
-    // Also allow keyboard activation via Enter/Space if not buttons (safety)
+    // Keyboard activation safety (if markup changes)
     [homeBtn, resetBtn].forEach((el, idx) => {
       if (!el) return;
       el.addEventListener('keydown', (e) => {
@@ -652,7 +784,7 @@
     });
   })();
 
-  // 3) Ensure product section becomes visible on #result and while scrolling there
+  // 3) Ensure product section becomes visible on #result and while scrolling there;
   (function ensureProductVisibility() {
     const resultRoot = $('#result');
     if (!resultRoot) return;
@@ -672,7 +804,7 @@
 
       // Reveal .product blocks on intersection (handles lazy 'opacity:0' / 'translateY' patterns)
       const revealProducts = () => {
-        const products = $$('.product', resultRoot);
+        const products = [...$$('.product', resultRoot), ...$$('.product_card', resultRoot)];
         if (products.length === 0) return;
 
         const reveal = (el) => {
@@ -702,21 +834,16 @@
 
       // On arrival to #result (hash), scroll first product into view if not visible
       const scrollFirstProductIntoView = () => {
-        const firstProduct = $('.product', resultRoot);
+        const firstProduct = $('.product', resultRoot) || $('.product_card', resultRoot);
         if (firstProduct) {
           firstProduct.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       };
 
       // If the container is clipping, relax it
-      const relaxOverflow = (el) => {
-        const cs = getComputedStyle(el);
-        if (cs.overflowY === 'hidden') {
-          el.style.overflowY = 'auto';
-        }
-      };
-      relaxOverflow(resultRoot);
-      relaxOverflow(scrollable);
+      const relaxOverflow = (el) => { /* disabled: do not alter overflow to avoid forced vertical scrollbars */ };
+      // relaxOverflow(resultRoot); // disabled
+      // relaxOverflow(scrollable); // disabled
 
       // Kick things on load and on hashchange
       const onReady = () => {
@@ -739,7 +866,7 @@
       // While scrolling inside #result, make sure products become visible
       const onScroll = () => {
         // If products still hidden due to CSS, try revealing again
-        $$('.product.is-hidden, .product.invisible, .product.opacity-0', resultRoot)
+        $$('.product.is-hidden, .product.invisible, .product.opacity-0, .product_card.is-hidden, .product_card.invisible, .product_card.opacity-0', resultRoot)
           .forEach(el => {
             const rect = el.getBoundingClientRect();
             const vh = window.innerHeight || document.documentElement.clientHeight;
@@ -761,3 +888,95 @@
   })();
 
 })();
+
+/* === Card flip: .card-face.front <-> .card-face.back === */;
+(function(w){
+  var root = document.querySelector('#result, #quiz, body');
+  if(!root) root = document;
+  function findCardFace(el){ return el.closest('.job_card, .card, .card-main'); }
+  function flipTo(card, face){ if(!card) return; card.classList.toggle('is-flipped', face === 'back'); }
+  root.addEventListener('click', function(e){
+    var back = e.target.closest('.card-face.back');
+    var front = e.target.closest('.card-face.front');
+    var card = findCardFace(e.target);
+    if(back && card){ e.preventDefault(); flipTo(card, 'front'); }
+    else if(front && card){ e.preventDefault(); flipTo(card, 'back'); }
+  }, false);
+})();
+
+
+/* === Main card face toggle (back shown first, front on click) === */;
+(function () {
+  const card = document.getElementById("mainCard") || document.querySelector("#result .job_card.card-main");
+  if (!card) return;
+  const updateAria = () => {
+    const flipped = card.classList.contains("is-flipped");
+    card.setAttribute("aria-pressed", flipped ? "true" : "false");
+    card.setAttribute("aria-label", flipped ? "View card front" : "View card back");
+  };
+  // Ensure back face visible initially
+  if (!card.classList.contains("is-flipped")) {
+    card.classList.add("is-flipped");
+  }
+  updateAria();
+
+  const toggle = () => {
+    // Toggle between back (is-flipped) and front (no class)
+    if (card.classList.contains("is-flipped")) {
+      card.classList.remove("is-flipped"); // show front
+    } else {
+      card.classList.add("is-flipped");    // show back
+    }
+    updateAria();
+  };
+
+  card.addEventListener("click", (e) => { e.preventDefault(); toggle(); });
+  card.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+    if (e.key === "Escape") { e.preventDefault(); card.classList.add("is-flipped"); updateAria(); }
+  });
+})();
+
+
+/* === wishlistBtn hover: prevent border/outline induced layout & scrollbar flicker === */;
+(function () {
+  const btn = document.getElementById("wishlistBtn");
+  // Inject minimal CSS once
+  const styleId = "wishlist_hover_fix_style";
+  if (!document.getElementById(styleId)) {
+    const st = document.createElement("style");
+    st.id = styleId;
+    st.textContent = `
+      html, body { overflow-x: hidden; } /* prevent horizontal scrollbar */
+      #wishlistBtn { box-sizing: border-box; }
+      #wishlistBtn:focus { outline: 2px solid currentColor; outline-offset: 2px; }
+      #wishlistBtn:hover { outline: 2px solid currentColor; outline-offset: 2px; }
+      body.no-scroll { overflow: hidden !important; } /* optional vertical hide during hover */
+    `;
+    document.head.appendChild(st);
+  }
+  if (!btn) return;
+  const lockSize = () => {
+    const r = btn.getBoundingClientRect();
+    btn.style.width = Math.round(r.width) + "px";
+    btn.style.height = Math.round(r.height) + "px";
+  };
+  const unlockSize = () => {
+    btn.style.width = "";
+    btn.style.height = "";
+  };
+  btn.addEventListener("mouseenter", () => {
+    document.body.classList.add("no-scroll"); // hide both scrollbars while hovering (requested)
+    lockSize();
+    // Ensure border width stays constant
+    const cs = getComputedStyle(btn);
+    btn.style.borderWidth = cs.borderWidth;
+    btn.style.borderStyle = cs.borderStyle || "solid";
+    btn.style.borderColor = cs.borderColor;
+  });
+  btn.addEventListener("mouseleave", () => {
+    document.body.classList.remove("no-scroll");
+    // Slight delay to avoid flicker as hover state ends
+    setTimeout(() => { unlockSize(); }, 60);
+  });
+})})();

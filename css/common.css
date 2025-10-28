@@ -31,12 +31,17 @@
 
 
 body {
-    /* background: var(--rice); */
+    background: var(--rice);
     font-size: 1rem;
     color: var(--txt_main);
     font-family: var(--txt_font);
     line-height: 1.4;
     font-weight: 300;
+}
+
+html.lock {
+    overflow: hidden;
+    width: 100%;
 }
 
 .inner {
@@ -195,9 +200,13 @@ header {
     right: 0;
     /* display: none; */
     /* dn 지우기 */
-    transition: background-color 0.3s, top 0.4s ease;
     background-color: transparent;
     z-index: 100;
+    transition: top 0.3s ease, background-color 0.3s ease;
+}
+
+header.hide {
+    top: -100%;
 }
 
 /* 기본 (위로 스크롤 시 노출) */
@@ -214,6 +223,7 @@ header.scrolled-up.hovered {
 
 header.hovered {
     background-color: #fefefe;
+    z-index: 9999;
     /* hover 시 더 채워진 불투명색 */
 }
 
@@ -250,6 +260,10 @@ nav:hover .ham_bottom {
     padding-top: 56px;
     border-top: 1px solid var(--grey_aa);
     color: var(--txt_main);
+}
+
+.ham_bottom.on {
+    display: block;
 }
 
 .ham_bottom ul li:nth-child(1),
@@ -1123,8 +1137,23 @@ body.cart-locked {
     }
 }
 
-html.menu-open, body.menu-open { overflow: hidden; }
-.search_tab { pointer-events:none; }
-.search_tab.open { pointer-events:auto; }
-.cart_wrap { pointer-events:none; }
-.cart_wrap.is-open { pointer-events:auto; }
+html.menu-open,
+body.menu-open {
+    overflow: hidden;
+}
+
+.search_tab {
+    pointer-events: none;
+}
+
+.search_tab.open {
+    pointer-events: auto;
+}
+
+.cart_wrap {
+    pointer-events: none;
+}
+
+.cart_wrap.is-open {
+    pointer-events: auto;
+}

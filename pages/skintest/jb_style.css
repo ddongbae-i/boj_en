@@ -43,6 +43,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* footer 높이만큼 자동 패딩(초기값 240px) */
@@ -89,10 +90,10 @@ body {
   font-size: .875rem;
   font-weight: 300;
   display: flex;
-  gap: 8px;
+  gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin-bottom: 40px;
 }
 
 .badge {
@@ -615,6 +616,21 @@ input[type="radio"]:checked+.option .bullet {
   font-weight: 300;
 }
 
+#wishlistBtn,
+#wishlistAll {
+  border: 1px solid #111;
+  /* 기본 두께 고정 */
+  box-shadow: none;
+}
+
+#wishlistBtn:hover,
+#wishlistBtn:focus,
+#wishlistAll:hover,
+#wishlistAll:focus {
+  border-width: 1px;
+  /* hover에 두께 변동 금지 */
+}
+
 #startBtn:hover {
   background: var(--bg_black);
   color: var(--white_ff);
@@ -743,30 +759,62 @@ input[type="radio"]:checked+.option .bullet {
 }
 
 /* 3D flip enhancements for the main result card */
-.result-inner { perspective: 1000px; }
+.result-inner {
+  perspective: 1000px;
+}
 
 #result .job_card.card-main {
   transform-style: preserve-3d;
-  transition: transform 520ms cubic-bezier(.22,.61,.36,1);
+  transition: transform 520ms cubic-bezier(.22, .61, .36, 1);
   cursor: pointer;
-  background-image: none; /* faces handle imagery */
+  background-image: none;
+  /* faces handle imagery */
 }
 
 /* front/back faces */
 #result .job_card.card-main .card-face {
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: 0;
   border-radius: 20px;
   backface-visibility: hidden;
-  background-size: cover; background-position: center;
+  background-size: cover;
+  background-position: center;
 }
 
 /* swap these image URLs as needed */
-#result .job_card.card-main .front { background-image: url(../../asset/img/skintest/card-back.png); }
-#result .job_card.card-main .back  { background-image: url(../../asset/img/skintest/card-front-janggeebin.png); transform: rotateY(180deg); }
+#result .job_card.card-main .front {
+  background-image: url(../../asset/img/skintest/card-front-janggeebin.png);
+}
+
+#result .job_card.card-main .back {
+  background-image: url(../../asset/img/skintest/card-back.png);
+  transform: rotateY(180deg);
+}
 
 /* flipped state */
-#result .job_card.card-main.is-flipped { transform: translate(-50%, -50%) rotateY(180deg); }
+#result .job_card.card-main.is-flipped {
+  transform: translate(-50%, -50%) rotateY(180deg);
+}
 
 @media (prefers-reduced-motion: reduce) {
-  #result .job_card.card-main { transition: none !important; }
+  #result .job_card.card-main {
+    transition: none !important;
+  }
+}
+
+/* 기본 포커스 링 제거 */
+#wishlistBtn:focus,
+#wishlistBtn:active {
+  outline: none;
+  outline-color: transparent;
+}
+
+/* 파이어폭스 구형 내부 포커스 제거 */
+#wishlistBtn::-moz-focus-inner {
+  border: 0;
+}
+
+/* iOS Safari 탭 하이라이트 제거(모바일) */
+#wishlistBtn {
+  -webkit-tap-highlight-color: transparent;
 }

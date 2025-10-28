@@ -25,7 +25,7 @@ window.addEventListener('scroll', () => {
     headerImgs.forEach(img => {
       img.style.filter = 'brightness(0) saturate(100%)'; // 💡 검은색 아이콘 처리
     });
-   
+
   } else {
     // 위로 스크롤 → header 등장
     header.classList.add('scrolled-up');
@@ -103,7 +103,7 @@ function handleResize() {
 
     // 형제 닫기
     const openSiblings = Array.from(gnbRoot.children).filter(el => el.classList && el.classList.contains('on'));
-openSiblings.forEach(sib => { if (sib !== li) sib.classList.remove('on'); });
+    openSiblings.forEach(sib => { if (sib !== li) sib.classList.remove('on'); });
 
     li.classList.toggle('on', willOpen);
     topA.setAttribute('aria-expanded', String(willOpen));
@@ -183,15 +183,15 @@ footerBtn?.addEventListener('click', function () {
 // ...existing code...
 /* ===== 스크롤 잠금/복원 (위치 보존 방식, search 강제 닫기 포함) ===== */
 (function () {
-  const headerEl    = document.querySelector('header');
-  const hamBtnEl    = document.querySelector('.ham_menu');
+  const headerEl = document.querySelector('header');
+  const hamBtnEl = document.querySelector('.ham_menu');
   const searchTabEl = document.querySelector('.search_tab');
   if (!headerEl || !hamBtnEl) return;
 
   let locked = false;
   let scrollY = 0;
 
-  function preventTouch(e){ if (locked) e.preventDefault(); }
+  function preventTouch(e) { if (locked) e.preventDefault(); }
 
   function lockMenu() {
     if (locked) return;
