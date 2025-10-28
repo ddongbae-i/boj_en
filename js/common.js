@@ -19,12 +19,13 @@ window.addEventListener('scroll', () => {
   if (currentScrollY > lastScrollY) {
     // 아래로 스크롤
     header.classList.remove('scrolled-up');
-    header.style.top = '-124px';
+    header.style.top = '-100%';
     header.style.color = '#1c1c1c'
     header.style.boxShadow = '0 2px 6px rgba(0,0,0,0.08)';
     headerImgs.forEach(img => {
       img.style.filter = 'brightness(0) saturate(100%)'; // 💡 검은색 아이콘 처리
     });
+   
   } else {
     // 위로 스크롤 → header 등장
     header.classList.add('scrolled-up');

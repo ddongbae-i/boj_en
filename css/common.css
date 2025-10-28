@@ -227,6 +227,8 @@ header .inner {
 header .logo {
     display: block;
     height: 51px;
+    position: relative;
+    z-index: 10;
 }
 
 nav {
@@ -289,18 +291,21 @@ nav ul.gnb>li>a {
     height: 100%;
     align-content: center;
     padding-inline: 35px;
+    position: relative;
+    z-index: 10;
 }
 
 nav .sub_wrap {
-    position: absolute;
+    position: fixed;
     left: 0;
-    top: 100%;
+    top: 0;
     width: 100%;
     height: 100vh;
     background: var(--bg_white);
     display: none;
     border-top: 1px solid #000;
-    z-index: 88;
+    z-index: 8;
+    padding-top: 124px;
 }
 
 nav ul.gnb>li:hover .sub_wrap,
@@ -339,6 +344,8 @@ nav .sub_wrap .sub_img img {
     display: flex;
     justify-content: flex-end;
     gap: 32px;
+    position: relative;
+    z-index: 10;
 }
 
 .nav_right button,
