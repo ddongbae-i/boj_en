@@ -41,7 +41,7 @@ a.btn2:hover::before {
     display: block;
     width: 24px;
     height: 24px;
-    background-image: url(/asset/img/shop/arrow_up.svg);
+    background-image: url(../../asset/img/shop/arrow_up.svg);
 }
 
 a.btn3 {
@@ -82,7 +82,7 @@ a.btn3:hover::before {
     display: block;
     width: 24px;
     height: 24px;
-    background-image: url(/asset/img/shop/arrow_up_b.svg);
+    background-image: url(../../asset/img/shop/arrow_up_b.svg);
 }
 
 header {
@@ -296,14 +296,14 @@ header {
     /* 터치 타깃 40px+ */
     border: 0;
     border-radius: 50%;
-    background: transparent url('/asset/img/shop/icon_heart_x.svg') no-repeat center/24px 24px;
+    background: transparent url('../../asset/img/shop/icon_heart_x.svg') no-repeat center/24px 24px;
     cursor: pointer;
     z-index: 5;
     /* 카드/링크보다 위 */
 }
 
 .heart_btn.is-on {
-    background-image: url('/asset/img/common/icon_heart_shop.svg');
+    background-image: url('../../asset/img/common/icon_heart_shop.svg');
 }
 
 /* 호버 피드백(선택) */
@@ -348,6 +348,25 @@ header {
     align-items: center;
     gap: 8px;
     margin-top: 8px;
+    transition: 0.3s ease;
+}
+
+.add_btn:hover {
+    background-color: var(--bg_black);
+    color: var(--tit_font);
+    border: 1px solid var(--bg_white);
+}
+
+.add_btn img {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    /*     margin-top: 10px; */
+    color: var(--white_ff);
+}
+
+.add_btn:hover img {
+    content: url('/asset/img/hanbang/icon_bag_w.png');
 }
 
 .pro_card:last-child {
@@ -420,7 +439,7 @@ header {
 }
 
 .p_right .option button em::after {
-    content: url(/asset/img/shop/icon_shop_down_w.svg);
+    content: url(../../asset/img/shop/icon_shop_down_w.svg);
     display: inline-block;
     /* transform이 적용되려면 inline-block이어야 함 */
     transition: transform 0.3s ease;
@@ -472,7 +491,7 @@ header {
     display: block;
     width: 36px;
     height: 36px;
-    background-image: url(/asset/img/shop/icon_left_arrow.svg);
+    background-image: url(../../asset/img/shop/icon_left_arrow.svg);
     margin-right: 8px;
 }
 
@@ -481,7 +500,7 @@ header {
     display: block;
     width: 36px;
     height: 36px;
-    background-image: url(/asset/img/shop/icon_right_arrow.svg);
+    background-image: url(../../asset/img/shop/icon_right_arrow.svg);
 }
 
 
@@ -752,7 +771,7 @@ header {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url(/asset/img/shop/pro_bg.png);
+    background-image: url(../../asset/img/shop/pro_bg.png);
     /* width: 100%;
     height: 100%; */
     background-size: cover;
@@ -867,7 +886,7 @@ header {
 }
 
 .p_all .option button em::after {
-    content: url(/asset/img/shop/icon_down_w.svg);
+    content: url(../../asset/img/shop/icon_down_w.svg);
     display: inline-block;
     /* transform이 적용되려면 inline-block이어야 함 */
     transition: transform 0.3s ease;
@@ -941,6 +960,22 @@ header {
     border-bottom: 1px solid var(--grey_c7);
 }
 
+.filters .open img {
+  display: inline-block;
+  animation: floatUpDown 2.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* 위아래 둥둥 효과 */
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px); /* 움직임 크기, 6~10px 선호 */
+  }
+}
+
 .filters_bar {
     width: 100%;
     border-bottom: 1px solid var(--grey_c7);
@@ -1010,4 +1045,40 @@ header {
 
 .filters_close {
     margin-bottom: 40px;
+}
+
+.bag {
+    position: relative;
+}
+
+.bag_count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    background-color: #e05a47;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fbf8f2;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b59016;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9a7612;
 }

@@ -10,7 +10,7 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
-    /*   background: url('/asset/img/hanbang/main_img4.png') top/cover no-repeat; */
+    /*   background: url('../../asset/img/hanbang/main_img4.png') top/cover no-repeat; */
 }
 
 .main video {
@@ -131,7 +131,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: url(/asset/img/hanbang/bg_img.png) center/cover no-repeat;
+    background: url(../../asset/img/hanbang/bg_img.png) center/cover no-repeat;
     opacity: 0.2;
 }
 
@@ -241,7 +241,7 @@ body {
     position: fixed;
     inset: 0;
     /* top:0; right:0; bottom:0; left:0; 과 동일 */
-    background: url('/asset/img/hanbang/bg_img.png') center / cover no-repeat;
+    background: url('../../asset/img/hanbang/bg_img.png') center / cover no-repeat;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
@@ -301,7 +301,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.4);
-    color: white;
+    color: var(--white_ff);
     padding: 5px;
     border-radius: 4px;
     opacity: 0;
@@ -363,8 +363,8 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    bottom: 85px;
-    right: 90px;
+    bottom: 78px;
+    right: 85px;
 }
 
 .t4 {
@@ -372,8 +372,8 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    bottom: 85px;
-    right: 90px;
+    bottom: 78px;
+    right: 85px;
 }
 
 .t5 {
@@ -381,8 +381,7 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    bottom: 175px;
-    right: 4px;
+    bottom: 158px;
 }
 
 .t6 {
@@ -390,8 +389,7 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    bottom: 175px;
-    right: 2px;
+    bottom: 158px;
 }
 
 .t7 {
@@ -399,8 +397,8 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    left: 90px;
-    bottom: 90px;
+    left: 85px;
+    bottom: 78px;
 }
 
 .t8 {
@@ -408,8 +406,8 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    left: 90px;
-    bottom: 90px;
+    left: 85px;
+    bottom: 78px;
 }
 
 
@@ -442,6 +440,8 @@ body {
     opacity: 1;
 }
 
+
+
 /*_________________________banner1 */
 .banner1 {
     width: 100%;
@@ -450,7 +450,7 @@ body {
     color: var(--white_ff);
     display: flex;
     align-items: center;
-    background: url('/asset/img/hanbang/banner01.png') right center/cover no-repeat;
+    background: url('../../asset/img/hanbang/banner01.png') right center/cover no-repeat;
 }
 
 
@@ -527,7 +527,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url("/asset/img/hanbang/bg_img.png") center no-repeat;
+    background: url("../../asset/img/hanbang/bg_img.png") center no-repeat;
     opacity: 0.1;
     z-index: 0;
     overflow-x: hidden;
@@ -667,11 +667,10 @@ body {
     transition: all 0.3s ease;
 }
 
-.add_btn .count_badge {
+/* .add_btn .count_badge {
     position: absolute;
     top: 5px;
     left: 168px;
-    /* 아이콘 오른쪽 상단에 위치 */
     width: 18px;
     height: 18px;
     background-color: #e05a47;
@@ -682,33 +681,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*     pointer-events: none;
-    user-select: none;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
-    opacity: 0;
-    transition: opacity 0.3s ease; */
-}
 
-/* .add_btn .count_badge.show {
-    opacity: 1;
 } */
-
-.add_btn:hover {
-    background-color: var(--bg_black);
-    color: var(--tit_font);
-}
-
-.add_btn img {
-    width: 30px;
-    height: 30px;
-    background: transparent;
-    margin-top: 10px;
-    color: var(--white_ff);
-}
-
-.add_btn:hover img {
-    content: url('/asset/img/hanbang/icon_bag_w.png');
-}
 
 
 .bag {
@@ -731,6 +705,68 @@ body {
     justify-content: center;
 }
 
+.add_btn:hover {
+    background-color: var(--bg_black);
+    color: var(--tit_font);
+}
+
+.add_btn img {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    margin-top: 10px;
+    color: var(--white_ff);
+}
+
+.add_btn:hover img {
+    content: url('../../asset/img/hanbang/icon_bag_w.png');
+}
+
+/* 하트 */
+
+.heart_btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent url('../../asset/img/shop/icon_heart_x.svg') no-repeat center;
+    background-size: 24px 24px;
+    cursor: pointer;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    /* 수직 중앙 */
+    justify-content: center;
+    /* 수평 중앙 */
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.heart_btn img {
+    width: 24px;
+    height: 24px;
+    display: none;
+    /* 비활성에서는 안 보이게 */
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.heart_btn.is-on {
+    background: none;
+}
+
+.heart_btn.is-on img {
+    display: block;
+    /* 활성화때만 보이게 */
+}
+
+.heart_btn:active {
+    transform: scale(.95);
+}
 .info {
     margin-top: 20px;
     color: var(--txt_main);
@@ -748,7 +784,7 @@ body {
     font-size: 0.875rem;
     margin-bottom: 10px;
 }
-
+/* tags */
 .tags span {
     display: inline-block;
     margin: 12px 2px 2px 2px;
@@ -933,8 +969,14 @@ body {
 .link_box .box a {
     font-size: 1.25rem;
     font-weight: 400;
+    transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
+.link_box .box a:hover {
+    opacity: 0.5;
+}
+
+/* 밑줄 생기는 
 .link_box a::after {
     content: "";
     display: block;
@@ -955,4 +997,29 @@ body {
 
 .link_box .box:nth-child(2) a:hover::after {
     transform: scaleX(1);
+} */
+
+
+.pro_card {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 100px;
+    position: relative;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fbf8f2;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b59016;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9a7612;
 }
