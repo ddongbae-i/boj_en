@@ -410,24 +410,28 @@ input[type="radio"]:checked+.option .bullet {
 
 .result-inner {
   height: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 14px;
+  min-height: 460px;
+  /* 필요 시 520~560px로 조정 */
+  overflow: visible;
+  /* 잘림 방지 */
+
 }
 
-.job_card {
-  width: 270px;
-  height: 380px;
-  background-image: url(/asset/img/skintest/card-back.png);
-  border-radius: 20px;
+#result .job_card.card-main {
   position: absolute;
-}
-
-.card-main {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  width: 270px;
+  height: 380px;
+  border-radius: 20px;
+  background-image: url(/asset/img/skintest/card-back.png);
+  box-shadow: 0 28px 50px rgba(0, 0, 0, .18), 0 12px 22px rgba(0, 0, 0, .12);
 }
 
 .result_aricle {
