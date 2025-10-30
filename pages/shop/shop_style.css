@@ -994,7 +994,7 @@ header {
 }
 
 .filters.active .open img {
-    transform: rotate(540deg);
+    transform: rotate(0deg);
 }
 
 #filters-panel {
