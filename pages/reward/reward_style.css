@@ -147,10 +147,12 @@ main .inner {
     width: 90%;
     margin: auto;
     justify-content: space-around;
+
 }
 
 .list>ul>li {
     margin-right: 24px;
+
 }
 
 /* 색상 추가 해야함 */
@@ -160,24 +162,32 @@ main .inner {
     gap: 20px;
     width: 260px;
     height: 800px;
-    padding: 10px 10px 0 10px;
-    background-color: #f2f2f2;
+    padding: 10px 20px 0 20px;
+    border: 1px solid var(--white_f0);
+       background-color: #fafafa;
 }
 
+/* .vip_tiers .list>ul>li>ul>li:nth-child(3),
+.vip_tiers .list>ul>li>ul>li:nth-child(4),
+.vip_tiers .list>ul>li>ul>li:nth-child(5),
+.vip_tiers .list>ul>li>ul>li:nth-child(6),{} */
+
 .vip_tiers .list>ul>li>ul.on {
-    background-color: var(--grey_de);
+    border: 1px solid var(--grey_de);
+    /* background-color: #ffffff; */
+    box-shadow: 4px 4px 10px rgba(27, 75, 5, 0.1);
 }
 
 .vip_tiers .list>ul>li>ul>li:nth-child(1) {
     height: 50px;
     line-height: 3;
     font-weight: 500;
-    color: var(--white_f0);
+    color: var(--mugwort);
     opacity: 0;
 }
 
 .vip_tiers .list>ul>li>ul.on>li:nth-child(1) {
-    background-color: var(--mugwort);
+    border-bottom: 1px solid var(--grey_c7);
     opacity: 1;
 }
 
@@ -188,6 +198,7 @@ main .inner {
 .vip_tiers .list>ul>li>ul>li:nth-child(7) {
     border-bottom: 1px solid var(--grey_c7);
     padding-bottom: 6px;
+        text-align: left;
 }
 
 .vip_tiers p {
@@ -197,6 +208,7 @@ main .inner {
 .vip_tiers span {
     color: var(--txt_sub_77);
     font-size: 0.9rem;
+
 }
 
 .vip_tiers .list small {
@@ -204,8 +216,10 @@ main .inner {
     color: var(--txt_sub_77);
     display: block;
     width: 92%;
-    text-align: right;
+    text-align: left;
     margin-top: 8px;
+    padding-left: 60px;
+
 }
 
 .horizontal-scroll-container {
@@ -214,7 +228,7 @@ main .inner {
     white-space: nowrap;
     -ms-overflow-style: none;
     scrollbar-width: none;
-
+padding: 10px 0 30px 10px;
 }
 
 .how_it_work .vid {
@@ -383,7 +397,7 @@ main .inner {
     position: relative;
     padding: 16px;
     background-size: auto 70px;
-    border-top: 4px solid var(--txt_sub_44);
+    /* border-top: 4px solid var(--txt_sub_44); */
 }
 
 .box_g {
@@ -525,7 +539,7 @@ main .inner {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--bg_footer);
+    background: var(--redbean);
     z-index: 0;
     /* 콘텐츠 뒤로 보내기 */
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -534,18 +548,17 @@ main .inner {
     /* 밝게 섞이게 함 */
     filter: brightness(1.2) contrast(1.1) saturate(1.1);
     /* 좀 더 선명하고 밝게 */
-
 }
 
 .box:hover::after {
-    opacity: 1;
+    opacity: 0.2;
     /* 살짝 투명도 변경 가능 */
 }
 
 .friend {
     width: 100%;
     height: 400px;
-    background-color: var(--bg_footer);
+    background-color: var(--txt_sub_44);
     color: var(--white_f0);
     text-align: center;
     display: flex;
