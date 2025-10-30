@@ -34,7 +34,8 @@
     }
 
     header.on .inner {
-        padding-inline: 56px;
+        justify-content: flex-start;
+        /* padding-inline: 56px; */
     }
 
 
@@ -55,14 +56,15 @@
     }
 
 
-    header .inner .gnb {
+    header .inner nav {
         display: none;
     }
 
 
-    header.on .inner .gnb {
+    header.on .inner nav {
         display: flex;
     }
+
 
     .nav_right .ham_menu {
         display: block;
