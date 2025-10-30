@@ -66,25 +66,36 @@
       text: "In Joseon, how would your allure be summed up in one phrase?",
       choices: ["Power and splendor", "Graceful wisdom", "Refinement and the arts", "Integrity and courage", "Daring and allure", "Cultivation and letters (literary grace)"]
     }
-  ];
+  ]
+  
+  // Quiz backgrounds per question (optional)
+  // Configure via: JB.setQuizBackgrounds([ "center/cover no-repeat url(/path/bg1.jpg)", ... ])
+  JB.quizBackgrounds = JB.quizBackgrounds || null;
+  JB.setQuizBackgrounds = function (arr) { JB.quizBackgrounds = Array.isArray(arr) ? arr : null; };
+  function applyQuizBackground(idx) {
+    var el = document.getElementById("quiz");
+    if (!el) return;
+    var bg = (JB.quizBackgrounds && JB.quizBackgrounds[idx]) || (questions[idx] && questions[idx].bg) || null;
+    if (bg) {
+      // Accept full CSS background value or just image URL
+      if (/^url\(/.test(bg) || /no-repeat|cover|contain|#|rgb|gradient/i.test(bg)) {
+        el.style.background = bg;
+      } else {
+        el.style.backgroundImage = 'url(' + bg + ')';
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundRepeat = 'no-repeat';
+        el.style.backgroundPosition = 'center';
+      }
+    } else {
+      el.style.background = "";
+      el.style.backgroundImage = "";
+    }
+  }
+
 
   // Result presets
-  /* const personas = [
-    {
-      type: "Jang Hee‑bin — Power & Glam",
-      summary:
-        "You lead with quiet command and immaculate polish. Feed the skin with ginseng, lift with red ginseng, then veil it in a pearl-lit base that reads elegant rather than loud. Every detail looks deliberate, every moment yours."
-    },
-  ];
-
-  // Simple scoring → pick persona index 0..3
-  function pickPersona(answers) {
-    // Reduce to a stable index using sum of choices
-    const sum = answers.reduce((a, v) => a + (typeof v === "number" ? v : 0), 0);
-    return sum % personas.length;
-  }
- */
-  // Render quiz question
+  // (removed: personas & pickPersona)
+// Render quiz question
   function renderQuestion() {
     const idx = JB.state.currentIndex;
     const q = questions[idx];
@@ -98,6 +109,7 @@
     qText.textContent = `Q${idx + 1}. ${q.text}`;
     options.innerHTML = "";
     progress.textContent = `${idx + 1} of ${questions.length}`;
+    applyQuizBackground(idx);
 
     const group = `q${idx}`;
     q.choices.forEach((label, i) => {
@@ -167,16 +179,6 @@
 
   // Result render
   function showResult() {
-    // compute persona
-    const pi = pickPersona(JB.state.answers);
-    JB.state.profile = personas[pi];
-
-    // Populate type/summary
-    const typeEl = $("#type");
-    const sumEl = $("#summary");
-    if (typeEl) typeEl.textContent = JB.state.profile.type;
-    if (sumEl) sumEl.innerHTML = (JB.state.profile.summary || "").replace(/\n/g, "<br>");
-
     JB.showSection("result");
     // Optional: animate buttons safely
     if (typeof w.animateResultButtonsSafe === "function") {
@@ -231,6 +233,33 @@
     });
   }
 
+  
+  // Result main card: show back face on click
+  function bindMainCardFlip() {
+    var card = document.getElementById("mainCard");
+    if (!card) return;
+    var front = card.querySelector(".card-face.front");
+    var back = card.querySelector(".card-face.back");
+    // initial: show front, hide back (if CSS doesn't already)
+    if (back) back.hidden = true;
+    if (front) front.hidden = false;
+    function showBack() {
+      if (front) front.hidden = true;
+      if (back) back.hidden = false;
+      card.setAttribute("aria-pressed", "true");
+    }
+    card.addEventListener("click", function (e) {
+      e.preventDefault();
+      showBack();
+    });
+    card.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        showBack();
+      }
+    });
+  }
+
   // Bindings
   function bindNav() {
     $("#startBtn")?.addEventListener("click", () => JB.showSection("quiz"));
@@ -258,6 +287,7 @@
     bindNav();
     bindWishlistButtons();
     bindWishlistAll();
+    bindMainCardFlip();
     renderQuestion();
     initRoute();
   });
@@ -283,7 +313,7 @@
   }
   function killResultAnim() {
     if (resultTL) { resultTL.kill(); resultTL = null; }
-    var sel = "#result #type, #result #summary, #result .product_card, #result #wishlistBtn, #result .row-ghosts button, #result #mainCard";
+    var sel = "#result .product_card, #result #wishlistBtn, #result .row-ghosts button, #result #mainCard";
     document.querySelectorAll(sel).forEach(function (el) {
       el.style.opacity = "";
       el.style.transform = "";
@@ -351,17 +381,12 @@
 
     killResultAnim();
 
-    var type = res.querySelector("#type");
-    var summary = res.querySelector("#summary");
     var mainCard = res.querySelector("#mainCard");
     var cards = res.querySelectorAll(".product_card");
     var ctaAll = res.querySelector("#wishlistBtn");
     var ctas = res.querySelectorAll(".row-ghosts button");
 
-    resultTL = gsap.timeline({ defaults: { ease: "power3.out" } });
-    if (type) resultTL.from(type, { y: -8, opacity: 0, duration: 0.28 }, 0);
-    if (summary) resultTL.from(summary, { y: 8, opacity: 0, duration: 0.32 }, 0.04);
-    if (mainCard) resultTL.from(mainCard, { y: 10, opacity: 0, duration: 0.34 }, 0.08);
+    resultTL = gsap.timeline({ defaults: { ease: "power3.out" } });    if (mainCard) resultTL.from(mainCard, { y: 10, opacity: 0, duration: 0.34 }, 0.08);
     if (cards && cards.length) resultTL.from(cards, { y: 26, opacity: 0, stagger: 0.08, duration: 0.40 }, 0.16);
     if (ctaAll) resultTL.from(ctaAll, { y: 12, opacity: 0, duration: 0.28 }, "+=0.05");
     if (ctas && ctas.length) resultTL.from(ctas, { y: 10, opacity: 0, stagger: 0.06, duration: 0.26 }, "-=0.10");
