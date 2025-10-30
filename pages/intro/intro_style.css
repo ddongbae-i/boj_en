@@ -135,8 +135,8 @@ object-fit: cover;
 /* 스킵 버튼 */
 .skip-button{
   position:fixed;
-  left:50px;
-  top: 50px;
+  right:50px;
+  bottom: 50px;
   padding:15px 35px;
   background:rgba(206,159,39,.2);
   border:1px solid rgba(206,159,39,.5);

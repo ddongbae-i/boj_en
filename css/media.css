@@ -91,7 +91,7 @@
         display: none;
     }
 
-   nav .sub_wrap .sub_left  {
+    nav .sub_wrap .sub_left {
         padding-inline: 56px;
     }
 
@@ -157,7 +157,7 @@
     }
 
     header.on {
-         height: auto;
+        height: auto;
         min-height: 100vh;
     }
 
@@ -193,6 +193,7 @@
 
     header.on nav ul.gnb>li>a {
         padding: 20px 0;
+        width: 100%;
     }
 
     header nav ul.gnb>li:hover .sub_wrap {
@@ -207,7 +208,7 @@
 
     header.on nav ul.gnb>li.on .sub_wrap,
     header.on nav ul.gnb>li.on:nth-child(1) .sub_wrap {
-        display: flex !important;
+        display: flex;
     }
 
     header.on nav ul.gnb>li:nth-child(1) .sub_wrap {
@@ -216,12 +217,6 @@
 
     header.on .inner .gnb>li a {
         height: 50px;
-    }
-
-    header.on nav .sub_wrap .sub {
-        padding: 0;
-
-        border-bottom: 1px solid var(--grey_aa);
     }
 
     .nav_right .search,
@@ -233,6 +228,7 @@
         /* order: 1; */
         flex-direction: column;
         align-items: start;
+        padding-bottom: 50px;
     }
 
     header.on .gnb>li {
@@ -242,7 +238,7 @@
 
     header.on .gnb>li>a {
         width: 100%;
-        height: 50px;
+        height: 60px;
         display: flex;
         justify-content: space-between;
     }
@@ -258,33 +254,39 @@
     header.on nav .sub_wrap {
         border: none;
         position: static;
-
     }
 
     header.on nav .sub_wrap:nth-child(2) {
         flex-direction: row;
     }
 
+    nav .sub_wrap .sub_left {
+        border-bottom: 1px solid var(--grey_c7);
+        padding: 0;
+        padding-bottom: 20px;
+    }
+
+     nav .gnb > li:last-child .sub_left{
+        border: none;
+     }
+
     nav .sub_wrap .sub {
         width: 100%;
         color: var(--txt_sub_77);
+
     }
-/* 
-    header.on .ham_bottom {
-        order: 2;
-        position: static;
-    } */
 
     nav ul.gnb>li .sub_img {
         display: none;
     }
 
-    .ham_menu img:nth-child(2) {
+    header.on .nav_right .ham_menu img:nth-child(2) {
         position: fixed;
         top: 47px;
         right: 30px;
         left: auto;
-        z-index: 10;
+        z-index: 999;
+
     }
 
     header.on .search_tab .keyword_wrap {
@@ -301,6 +303,15 @@
         margin-top: auto;
         padding-bottom: 0;
         padding-inline: 42px;
+    }
+
+    .ham_bottom {
+        display: none;
+    }
+
+    header.on .ham_bottom2 {
+        display: block;
+        width: 100%;
     }
 
     .search_tab form .search_area button {
@@ -331,91 +342,91 @@
 
 }
 
-    @media screen and (max-width:640px) {
-        .inner {
-            padding-inline: 20px;
-            width: min(100%, calc(1700px + 20px * 2))
-        }
+@media screen and (max-width:640px) {
+    .inner {
+        padding-inline: 20px;
+        width: min(100%, calc(1700px + 20px * 2))
+    }
 
-        footer {
-            font-size: 0.875rem;
-        }
+    footer {
+        font-size: 0.875rem;
+    }
 
-        footer .inner .logo {
-            font-size: 1.87rem;
-        }
+    footer .inner .logo {
+        font-size: 1.87rem;
+    }
 
 
-        footer .f_join p {
-            width: 100%;
-        }
+    footer .f_join p {
+        width: 100%;
+    }
 
-        .f_join form {
-            height: 50px;
-            font-size: 0.875rem;
-        }
+    .f_join form {
+        height: 50px;
+        font-size: 0.875rem;
+    }
 
-        .f_join form input[type="email"] {
-            font-size: 0.875rem;
-        }
+    .f_join form input[type="email"] {
+        font-size: 0.875rem;
+    }
+
+}
+
+@media screen and (max-width:540px) {
+
+    .boj_insta {
+        display: none;
+    }
+
+    footer .f_center {
+        margin-block: 20px 60px;
+    }
+}
+
+@media screen and (max-width:400px) {
+
+    header .logo {
+        font-size: 1.5rem;
+        margin-top: 20px;
+    }
+
+    footer .f_center_right .f_nav {
+        width: 100%;
+    }
+
+    .f_nav .f_nav_top {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .f_nav_top button {
+        display: block;
+    }
+
+    .f_nav ul {
+        display: none;
+    }
+
+    .f_nav ul.down {
+        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        color: var(--bg_white);
+        margin-top: 12px;
 
     }
 
-    @media screen and (max-width:540px) {
-
-        .boj_insta {
-            display: none;
-        }
-
-        footer .f_center {
-            margin-block: 20px 60px;
-        }
+    .f_bottom {
+        flex-direction: column;
+        gap: 8px;
+        align-items: start;
     }
 
-    @media screen and (max-width:400px) {
-        
-        header .logo {
-            font-size: 1.5rem;
-            margin-top: 20px;
-        }
-
-        footer .f_center_right .f_nav {
-            width: 100%;
-        }
-
-        .f_nav .f_nav_top {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .f_nav_top button {
-            display: block;
-        }
-
-        .f_nav ul {
-            display: none;
-        }
-
-        .f_nav ul.down {
-            display: block;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            color: var(--bg_white);
-            margin-top: 12px;
-
-        }
-
-        .f_bottom {
-            flex-direction: column;
-            gap: 8px;
-            align-items: start;
-        }
-
-        .f_sns {
-            order: -1;
-            gap: 8px;
-        }
+    .f_sns {
+        order: -1;
+        gap: 8px;
     }
+}

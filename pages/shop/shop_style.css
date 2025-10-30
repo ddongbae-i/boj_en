@@ -986,7 +986,7 @@ header {
     padding-left: 10px;
 }
 
-.filters .open iWWmg {
+.filters .open img {
     width: 24px;
     height: 24px;
     transition: transform 0.3s ease;
@@ -994,7 +994,7 @@ header {
 }
 
 .filters.active .open img {
-    transform: rotate(0deg);
+    transform: rotate(540deg);
 }
 
 #filters-panel {
