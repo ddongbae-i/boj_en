@@ -305,7 +305,7 @@ nav.on ul.gnb>li .sub_wrap {
 }
 
 nav .sub_wrap .sub_left {
-    width: 40%;
+    width: 502px;
     color: var(--txt_main);
     display: flex;
     flex-direction: column;
