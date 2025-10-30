@@ -12,11 +12,11 @@ p {
 }
 
 span {
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 body {
-    font-size: 1.125rem;
+    font-size: 1.2rem;
     line-height: 1.4;
 }
 
@@ -43,12 +43,20 @@ main .inner {
     min-height: 1040px;
     position: relative;
     overflow: hidden;
+
+        background-image:
+        url('../../asset/img/brandstory/image-6890.png'),
+        linear-gradient(90deg, #FEFEFE 0%, #FDFDFD 49.52%, #F7F7F7 100%);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+   background-size: 100% auto;
 }
 
 .bg_img {
     position: absolute;
     width: 100%;
     height: 100%;
+
 }
 
 .bg-item {
@@ -202,17 +210,17 @@ main .inner {
 }
 
 .vip_tiers p {
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 .vip_tiers span {
     color: var(--txt_sub_77);
-    font-size: 0.9rem;
+    font-size: 1rem;
 
 }
 
 .vip_tiers .list small {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--txt_sub_77);
     display: block;
     width: 92%;
@@ -539,7 +547,7 @@ padding: 10px 0 30px 10px;
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--redbean);
+ background-image: linear-gradient(to top, var(--redbean), var(--propolis));
     z-index: 0;
     /* 콘텐츠 뒤로 보내기 */
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -558,8 +566,8 @@ padding: 10px 0 30px 10px;
 .friend {
     width: 100%;
     height: 400px;
-    background-color: var(--txt_sub_44);
-    color: var(--white_f0);
+    background-color: var(--grey_c7);
+    color: var(--bg_footer);
     text-align: center;
     display: flex;
     justify-content: center;
@@ -574,12 +582,16 @@ padding: 10px 0 30px 10px;
     font-weight: 500;
     line-height: 1;
 }
+.friend .btn {
+    background-color: var(--grey_c7);
+}
 
 .FAQ {
     width: 100%;
     padding: 160px 0;
-    background-image: url(../../asset/img/reward/reward_FAQ_bg.png);
-    background-position: center bottom;
+    background-image: url(../../asset/img/brandstory/image-6890.png),
+    linear-gradient(90deg, #FEFEFE 0%, #FDFDFD 49.52%, #F7F7F7 100%);
+    background-position: left bottom;
     background-repeat: no-repeat;
     background-size: 100% auto;
     background-color: #f8f8f8;
