@@ -31,7 +31,6 @@
 
 
 body {
-    /* background: var(--rice); */
     font-size: 1rem;
     color: var(--txt_main);
     font-family: var(--txt_font);
@@ -53,23 +52,12 @@ body {
     font-weight: 500;
 }
 
-/* 기존 .btn {
-    width: 120px;
-    height: 45px;
-    font-size: 1rem;
-    font-weight: 400;
-    border: 1px solid var(--txt_main);
-    text-align: center;
-    line-height: 45px;
-}
- */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 120px;
     height: 45px;
-    /*             padding: 12px 20px; */
     font-size: 1rem;
     font-weight: 400;
     color: #000;
@@ -81,10 +69,8 @@ body {
     transition: all 0.3s ease;
 }
 
-/*____________________________ 버튼 호버 효과 추가  */
 
 .btn::before {
-    /* 기본 흰>검정 ver */
     content: '';
     position: absolute;
     top: 0;
@@ -92,7 +78,6 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(255, 255, 255, 0.2);
-    /* 번쩍임 레이어 */
     transform: skewX(-20deg);
     transition: left 0.5s ease;
     pointer-events: none;
@@ -112,17 +97,14 @@ body {
     width: 27px;
     height: 1px;
     background: rgba(0, 0, 0, 0.6);
-    /* 기본 라인 블랙 */
     transition: 0.3s ease;
 }
 
 .btn:hover .line {
     background: rgba(255, 255, 255, 0.6);
-    /* 호버 시 라인 화이트 */
 }
 
 .btn-white {
-    /* 검>흰ver */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -135,7 +117,6 @@ body {
     position: relative;
     overflow: hidden;
     border: 1px solid #fff;
-    /* background-color: #000; */
     transition: all 0.3s ease;
 }
 
@@ -159,9 +140,6 @@ body {
 }
 
 .btn-white:hover {
-    /*     background-color: #fff;
-    color: #000;
-    border-color: #000; */
     background: rgba(255, 255, 255, 0.05);
 
 }
@@ -174,11 +152,12 @@ body {
 }
 
 .btn-white:hover .line {
-    /*     background: rgba(0, 0, 0, 0.6); */
     background: rgba(255, 255, 255, 0.6);
 }
 
-/* 가운데 정렬하기 */
+.point {
+    color: var(--ginseng);
+}
 
 header .logo {
     font-family: "Scheherazade New", serif;
@@ -200,7 +179,6 @@ header {
 
 header.scrolled-up {
     background-color: rgba(254, 254, 254, 0.94);
-    /* 반투명 */
 }
 
 header.scrolled-up.hovered {
@@ -229,32 +207,6 @@ nav {
     height: 100%;
 }
 
-/* nav:hover .ham_bottom {
-    display: block;
-}
-
-.ham_bottom {
-    position: fixed;
-    left: 110px;
-    bottom: 60px;
-    z-index: 99;
-    width: 100%;
-    max-width: 500px;
-    display: none;
-    padding-top: 56px;
-    border-top: 1px solid var(--grey_aa);
-    color: var(--txt_main);
-} */
-
-
-/* .ham_bottom ul li a {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    font-size: 1.25rem;
-} */
-
 nav ul.gnb {
     width: 100%;
     height: 100%;
@@ -273,6 +225,7 @@ nav ul.gnb:hover>li {
 
 nav ul.gnb>li:hover>a {
     color: var(--txt_main);
+    font-weight: 500;
 }
 
 nav ul.gnb>li>a {
@@ -315,13 +268,13 @@ nav .sub_wrap .sub_left {
 }
 
 .ham_bottom {
-    width: 100%;
+    width: 502px;
     margin-bottom: 40px;
     padding-top: 52px;
     border-top: 1px solid var(--grey_aa);
 }
 
-.ham_bottom ul li  {
+.ham_bottom ul li {
     padding-top: 20px;
 }
 
@@ -331,11 +284,9 @@ nav .sub_wrap .sub_left {
     justify-content: space-between;
 }
 
-.ham_bottom ul li:nth-child(1),
-.ham_bottom ul li:nth-child(2) {
+.ham_bottom ul li:nth-child(1) {
     display: none;
 }
-
 
 nav .sub_wrap .sub li a {
     display: block;
@@ -361,6 +312,7 @@ nav .sub_wrap .sub_img img {
     gap: 32px;
     position: relative;
     z-index: 10;
+    background: #ccc;
 }
 
 .nav_right button,
@@ -370,10 +322,21 @@ nav .sub_wrap .sub_img img {
     height: 30px;
 }
 
-.gg {
-    height: 124px;
+.ham_bottom2 {
+    width: 502px;
+    padding-top: 52px;
+    /* border-top: 1px solid var(--grey_aa); */
+    display: none;
+}
+
+.ham_bottom2 ul li {
+    padding-top: 20px;
+}
+
+.ham_bottom2 ul li a {
+    display: flex;
     width: 100%;
-    background: var(--bg_white);
+    justify-content: space-between;
 }
 
 .search_tab {
@@ -586,7 +549,7 @@ footer .f_join span {
     width: min(420px, 92vw);
     height: 100vh;
     background: #fff;
-    z-index: 1000;
+    z-index: 500;
     transform: translateX(100%);
     transition: transform .35s ease;
     box-shadow: -12px 0 24px rgba(0, 0, 0, .12);
@@ -1139,8 +1102,23 @@ body.cart-locked {
     }
 }
 
-html.menu-open, body.menu-open { overflow: hidden; }
-.search_tab { pointer-events:none; }
-.search_tab.open { pointer-events:auto; }
-.cart_wrap { pointer-events:none; }
-.cart_wrap.is-open { pointer-events:auto; }
+html.menu-open,
+body.menu-open {
+    overflow: hidden;
+}
+
+.search_tab {
+    pointer-events: none;
+}
+
+.search_tab.open {
+    pointer-events: auto;
+}
+
+.cart_wrap {
+    pointer-events: none;
+}
+
+.cart_wrap.is-open {
+    pointer-events: auto;
+}
