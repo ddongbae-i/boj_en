@@ -688,29 +688,29 @@
         grid-area: t3;
         position: relative;
         width: 80%;
-        bottom: 110px;
-        right: 45px;
+        bottom: 121px;
+        right: 42px;
     }
 
     .t4 {
         grid-area: t4;
         position: relative;
         width: 80%;
-        bottom: 172px;
-        right: 45px;
+        bottom: 195px;
+        right: 42px;
     }
 
     .t5 {
         grid-area: t5;
         position: relative;
-        bottom: 280px;
+        bottom: 317px;
         left: 0px;
     }
 
     .t6 {
         grid-area: t6;
         position: relative;
-        bottom: 280px;
+        bottom: 317px;
         left: 0px;
     }
 
@@ -718,16 +718,16 @@
         grid-area: t7;
         position: relative;
         width: 80%;
-        left: 46px;
-        bottom: 172px;
+        left: 43px;
+        bottom: 196px;
     }
 
     .t8 {
         grid-area: t8;
         position: relative;
         width: 80%;
-        left: 46px;
-        bottom: 110px;
+        left: 43px;
+        bottom: 121px;
     }
 
     .product {
@@ -735,7 +735,7 @@
     }
 
     .center_product img{
-        bottom: 40px;
+        bottom: 60px;
     }
     /* 오버레이 글시 안 보이게 */
     .octagon .overlay_name {
