@@ -502,13 +502,96 @@ body {
     margin-top: 100px;
 }
 
-/* .banner1_img {
-    flex: 0 0 480px;
-    height: 300px;
+/* popup */
+.dim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0000007c;
+    z-index: 10;
+    display: none;
 }
- */
 
-/* ------------------------------   product */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    min-height: 260px;
+    border-radius: 10px;
+    padding: 30px;
+    background: #fff;
+    display: none;
+    z-index: 100;
+    text-align: center;
+}
+
+.popup h2 {
+    margin: 10px 0 20px 0;
+    font-weight: 500;
+    font-size: 1.125rem;
+}
+
+.popup p {
+    font-weight: 400;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+.popup .popup_btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.btn_re,
+.btn_close {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    border: 1px solid var(--ginseng);
+    color: var(--txt_sub_77);
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 400;
+}
+
+.btn_close {
+    background: var(--ginseng);
+    color: var(--white_ff);
+    border: none;
+}
+
+.btn_re:hover {
+    border: 1px solid var(--bg_black);
+    color: var(--bg_black);
+}
+
+.btn_close:hover,
+.btn_re:hover,
+.popup_close:hover {
+    opacity: 0.7;
+}
+
+.popup_close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--bg_black);
+    cursor: pointer;
+    z-index: 110;
+    transition: 0.3s;
+}
+
+
+/*____________________________ product */
 .product {
     position: relative;
     width: 100%;
@@ -767,6 +850,7 @@ body {
 .heart_btn:active {
     transform: scale(.95);
 }
+
 .info {
     margin-top: 20px;
     color: var(--txt_main);
@@ -784,6 +868,7 @@ body {
     font-size: 0.875rem;
     margin-bottom: 10px;
 }
+
 /* tags */
 .tags span {
     display: inline-block;
