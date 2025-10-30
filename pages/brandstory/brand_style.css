@@ -891,7 +891,7 @@ main .inner {
 
 /* Section 5: Cultural Heritage */
 .section-5 {
-    background: url(/asset/img/brandstory/image-6890.png) bottom center no-repeat, linear-gradient(90deg, #fefefe, #fdfefe, #f7f7f7);
+    background: url(../../asset/img/brandstory/image-6890.png) bottom center no-repeat, linear-gradient(90deg, #fefefe, #fdfefe, #f7f7f7);
     padding: 100px 0;
     overflow: hidden
 }
@@ -1264,6 +1264,7 @@ main .inner {
     grid-template-columns: repeat(4, 1fr);
     gap: 32px;
     margin: 100px 0;
+    cursor: pointer;
 }
 
 .wisdom-card {

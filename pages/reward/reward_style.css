@@ -626,14 +626,14 @@ main .inner {
 }
 
 ::-webkit-scrollbar-track {
-    background: #ffffff;
+    background: #fbf8f2;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ab9595;
+    background: #b59016;
     border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #d4cebb;
+    background: #9a7612;
 }

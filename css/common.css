@@ -193,28 +193,22 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    /* display: none; */
-    /* dn 지우기 */
     transition: background-color 0.3s, top 0.4s ease;
     background-color: transparent;
     z-index: 100;
 }
 
-/* 기본 (위로 스크롤 시 노출) */
 header.scrolled-up {
     background-color: rgba(254, 254, 254, 0.94);
     /* 반투명 */
 }
 
-/* hover 시 (위로 스크롤 상태일 때만 진하게) */
 header.scrolled-up.hovered {
     background-color: #fefefe;
-    /* 완전 불투명 or 더 진한 색 */
 }
 
 header.hovered {
     background-color: #fefefe;
-    /* hover 시 더 채워진 불투명색 */
 }
 
 header .inner {
@@ -227,13 +221,15 @@ header .inner {
 header .logo {
     display: block;
     height: 51px;
+    position: relative;
+    z-index: 10;
 }
 
 nav {
     height: 100%;
 }
 
-nav:hover .ham_bottom {
+/* nav:hover .ham_bottom {
     display: block;
 }
 
@@ -248,20 +244,16 @@ nav:hover .ham_bottom {
     padding-top: 56px;
     border-top: 1px solid var(--grey_aa);
     color: var(--txt_main);
-}
+} */
 
-.ham_bottom ul li:nth-child(1),
-.ham_bottom ul li:nth-child(2) {
-    display: none;
-}
 
-.ham_bottom ul li a {
+/* .ham_bottom ul li a {
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
     font-size: 1.25rem;
-}
+} */
 
 nav ul.gnb {
     width: 100%;
@@ -289,6 +281,8 @@ nav ul.gnb>li>a {
     height: 100%;
     align-content: center;
     padding-inline: 35px;
+    position: relative;
+    z-index: 10;
 }
 
 nav .sub_wrap {
@@ -296,11 +290,13 @@ nav .sub_wrap {
     left: 0;
     top: 100%;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 124px);
     background: var(--bg_white);
+    display: flex;
+    justify-content: space-between;
     display: none;
+    z-index: 8;
     border-top: 1px solid #000;
-    z-index: 88;
 }
 
 nav ul.gnb>li:hover .sub_wrap,
@@ -308,14 +304,38 @@ nav.on ul.gnb>li .sub_wrap {
     display: flex;
 }
 
-nav .sub_wrap .sub {
-    width: 50%;
+nav .sub_wrap .sub_left {
+    width: 502px;
     color: var(--txt_main);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 30px 110px 0;
     flex-wrap: wrap;
 }
+
+.ham_bottom {
+    width: 100%;
+    margin-bottom: 40px;
+    padding-top: 52px;
+    border-top: 1px solid var(--grey_aa);
+}
+
+.ham_bottom ul li  {
+    padding-top: 20px;
+}
+
+.ham_bottom ul li a {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.ham_bottom ul li:nth-child(1),
+.ham_bottom ul li:nth-child(2) {
+    display: none;
+}
+
 
 nav .sub_wrap .sub li a {
     display: block;
@@ -339,6 +359,8 @@ nav .sub_wrap .sub_img img {
     display: flex;
     justify-content: flex-end;
     gap: 32px;
+    position: relative;
+    z-index: 10;
 }
 
 .nav_right button,
@@ -363,6 +385,7 @@ nav .sub_wrap .sub_img img {
     height: 512px;
     padding: 30px 110px;
     display: none;
+    z-index: 100;
 }
 
 .search_tab.open {
@@ -1115,3 +1138,9 @@ body.cart-locked {
         border-right: none;
     }
 }
+
+html.menu-open, body.menu-open { overflow: hidden; }
+.search_tab { pointer-events:none; }
+.search_tab.open { pointer-events:auto; }
+.cart_wrap { pointer-events:none; }
+.cart_wrap.is-open { pointer-events:auto; }
