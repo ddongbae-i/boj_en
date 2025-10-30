@@ -312,7 +312,7 @@ nav .sub_wrap .sub_img img {
     gap: 32px;
     position: relative;
     z-index: 10;
-    background: #ccc;
+    /* background: #ccc; */
 }
 
 .nav_right button,
