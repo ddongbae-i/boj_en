@@ -326,11 +326,9 @@
     const wrinkleType = score.Wrinkle >= 1 ? "Wrinkle" : "Tight";
 
     // 코드 4글자
-    const code = `${oilType.startsWith("O") ? "O" : "D"}${
-      sensType.startsWith("S") ? "S" : "R"
-    }${pigType.startsWith("P") ? "P" : "N"}${
-      wrinkleType.startsWith("W") ? "W" : "T"
-    }`;
+    const code = `${oilType.startsWith("O") ? "O" : "D"}${sensType.startsWith("S") ? "S" : "R"
+      }${pigType.startsWith("P") ? "P" : "N"}${wrinkleType.startsWith("W") ? "W" : "T"
+      }`;
 
     return {
       code, // 예: OSPT
@@ -1139,7 +1137,7 @@
     renderMBTI(profile);
     renderProducts(profile);
     bindFixedActions();
-  if (typeof window.animateResultButtonsSafe === 'function') window.animateResultButtonsSafe();
+    if (typeof window.animateResultButtonsSafe === 'function') window.animateResultButtonsSafe();
   }
 
   window.addEventListener("SKINTEST_SHOW_RESULT", renderResultAll);
@@ -1521,7 +1519,7 @@
       btn.addEventListener("click", function () {
         try {
           SK.showSection("quiz");
-        } catch (e) {}
+        } catch (e) { }
       });
       console.log("[bootstrap] #startBtn bound");
     }
@@ -1750,19 +1748,19 @@
 
     killHomeAnim();
 
-    const title  = home.querySelector(".home-title");
-    const sub    = home.querySelector(".home-sub");
+    const title = home.querySelector(".home-title");
+    const sub = home.querySelector(".home-sub");
     const badges = home.querySelectorAll(".badges .badge");
-    const start  = home.querySelector("#startBtn");
+    const start = home.querySelector("#startBtn");
 
     homeTL = gsap.timeline({ defaults: { ease: "power3.out" } });
 
     if (prefersReduced) {
       // 간단 페이드
-      if (title)  homeTL.from(title,  { opacity: 0, duration: 0.20 }, 0);
-      if (sub)    homeTL.from(sub,    { opacity: 0, duration: 0.20 }, 0.05);
+      if (title) homeTL.from(title, { opacity: 0, duration: 0.20 }, 0);
+      if (sub) homeTL.from(sub, { opacity: 0, duration: 0.20 }, 0.05);
       if (badges && badges.length) homeTL.from(badges, { opacity: 0, duration: 0.18, stagger: 0.04 }, 0.10);
-      if (start)  homeTL.from(start,  { opacity: 0, duration: 0.22 }, 0.18);
+      if (start) homeTL.from(start, { opacity: 0, duration: 0.22 }, 0.18);
       return;
     }
 
@@ -1781,7 +1779,7 @@
       homeTL.from(badges, {
         y: 10, opacity: 0, duration: 0.26, stagger: 0.06
       }, 0.14);
-    }    
+    }
   }
 
   // 커스텀 이벤트로도 트리거 가능
@@ -1814,7 +1812,7 @@
         } else {
           killHomeAnim();
         }
-      } catch (_) {}
+      } catch (_) { }
       return ret;
     };
   }
@@ -1822,35 +1820,35 @@
 
 // Buttons (wishlist/home/reset) — safe animation with clearProps.
 window.animateResultButtonsSafe = function () {
-function safe() { return typeof window.gsap !== "undefined"; }
-const sel = ["#wishlistBtn", "#homeBtn", "#resetBtn"];
-const btns = sel.map((s) => document.querySelector(s)).filter(Boolean);
+  function safe() { return typeof window.gsap !== "undefined"; }
+  const sel = ["#wishlistBtn", "#homeBtn", "#resetBtn"];
+  const btns = sel.map((s) => document.querySelector(s)).filter(Boolean);
 
-// 1) 항상 가시성 보장: 이전 애니메이션 잔여 인라인 스타일 제거
-btns.forEach((el) => {
-if (!el || !el.style) return;
-if (el.style.opacity === "0") el.style.opacity = "";
-if (el.style.transform && el.style.transform !== "none") el.style.transform = "";
-});
+  // 1) 항상 가시성 보장: 이전 애니메이션 잔여 인라인 스타일 제거
+  btns.forEach((el) => {
+    if (!el || !el.style) return;
+    if (el.style.opacity === "0") el.style.opacity = "";
+    if (el.style.transform && el.style.transform !== "none") el.style.transform = "";
+  });
 
-// 2) GSAP 미로딩 시 애니메이션은 생략(버튼은 이미 정상 노출)
-if (!safe() || !btns.length) return;
+  // 2) GSAP 미로딩 시 애니메이션은 생략(버튼은 이미 정상 노출)
+  if (!safe() || !btns.length) return;
 
-// 3) 안전 애니메이션: 완료 시 transform/opacity를 지워 후속 레이아웃/스타일에 영향 없게
-btns.forEach((el, i) => {
-gsap.fromTo(
-el,
-{ y: 14, opacity: 0 },
-{ y: 0, opacity: 1, duration: 0.30, ease: "power3.out", delay: 0.05 + i * 0.05, clearProps: "transform,opacity" }
-);
-});
+  // 3) 안전 애니메이션: 완료 시 transform/opacity를 지워 후속 레이아웃/스타일에 영향 없게
+  btns.forEach((el, i) => {
+    gsap.fromTo(
+      el,
+      { y: 14, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.30, ease: "power3.out", delay: 0.05 + i * 0.05, clearProps: "transform,opacity" }
+    );
+  });
 };
 
 /* 개별 상품카드의 ADD TO WISHLIST 버튼 토글 */
 (function () {
   // 아이콘 경로(프로젝트 경로에 맞게 필요 시 수정)
   const ICON_STROKE = "/asset/img/skintest/icon_heart_stroke.svg";
-  const ICON_FILL   = "/asset/img/skintest/icon_heart_fill.svg";
+  const ICON_FILL = "/asset/img/skintest/icon_heart_fill.svg";
 
   // 버튼 UI를 상태(on/off)에 맞게 갱신
   function updateAddBtnUI(btn, on) {
@@ -1863,7 +1861,7 @@ el,
     if (img) img.src = on ? ICON_FILL : ICON_STROKE;
 
     // 버튼 라벨(문구는 원하시는 대로)
-    const labelOn  = "ADD TO WISHLIST";
+    const labelOn = "ADD TO WISHLIST";
     const labelOff = "ADD TO WISHLIST";
     // 버튼 내부 노드에서 아이콘을 제외하고 텍스트만 바꾸기
     const textNode = [...btn.childNodes].find(n => n.nodeType === Node.TEXT_NODE);
@@ -1958,7 +1956,7 @@ el,
   function bind() {
     const allBtn = $("#wishlistBtn") || $("#wishlistAll");
     if (!allBtn) return;
-    if (!allBtn.dataset.labelOn)  allBtn.dataset.labelOn  = "REMOVE ALL";
+    if (!allBtn.dataset.labelOn) allBtn.dataset.labelOn = "REMOVE ALL";
     if (!allBtn.dataset.labelOff) allBtn.dataset.labelOff = "ALL TO WISHLIST";
 
     allBtn.addEventListener("click", (e) => {

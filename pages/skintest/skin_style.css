@@ -532,6 +532,7 @@ p#summary.center {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  padding-top: 8px
 }
 
 .product_card .tags span {
@@ -653,12 +654,6 @@ p#summary.center {
   font-weight: 300;
 }
 
-#startBtn:hover {
-  background: var(--bg_black);
-  color: var(--white_ff);
-  font-weight: 500;
-}
-
 
 /* 1) 숨겨진 섹션을 레이아웃/인터랙션에서 완전히 분리 */
 .page[hidden] {
@@ -736,7 +731,7 @@ p#summary.center {
 }
 
 #result .product_grid .product_card {
-  aspect-ratio: 3 / 4;
+  /* aspect-ratio: 3 / 4; */
 }
 
 /* 또는 고정 높이 */
