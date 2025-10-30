@@ -410,16 +410,20 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 2. ADD TO BAG 클릭 이벤트
-  const addBtns = document.querySelectorAll(".product_card .add_btn");
-  addBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault(); // a 태그 기본 링크 막기
-      const productName = btn.closest(".product_card").querySelector("h3").innerText;
-      alert(`${productName}이(가) 장바구니에 추가되었습니다.`);
-      // 실제 장바구니 로직 구현 시 여기에 코드를 추가
-    });
-  });
+  /*   const addBtns = document.querySelectorAll(".product_card .add_btn");
+    addBtns.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault(); // a 태그 기본 링크 막기
+        const productName = btn.closest(".product_card").querySelector("h3").innerText;
+        alert(`${productName}이(가) 장바구니에 추가되었습니다.`);
+        // 실제 장바구니 로직 구현 시 여기에 코드를 추가
+      });
+    }); */
+
 });
+
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const filterItems = document.querySelectorAll(".product_filter li");
@@ -593,3 +597,55 @@ document.querySelectorAll('.heart_btn').forEach(btn => {
   });
 });
 
+/* popup test */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addButtons = document.querySelectorAll(".add_btn");
+  const popup = document.querySelector(".popup");
+  const dim = document.querySelector(".dim");
+  const popupHeading = popup.querySelector("h2");
+  const popupParagraph = popup.querySelector("p");
+  const continueBtn = popup.querySelector(".btn_re");      // 쇼핑 계속하기 버튼
+  const closeCartBtn = popup.querySelector(".btn_close");   // 장바구니 가기 버튼
+  const closeXBtn = popup.querySelector(".popup_close");    // 우측 상단 X버튼
+
+  addButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const productCard = btn.closest(".product_card");
+      if (!productCard) return;
+
+      const productTitle = productCard.querySelector(".info h3").textContent;
+      popupParagraph.innerHTML = `"${productTitle}"<br>Your item has been added to your shopping cart.`;
+
+      popup.style.display = "block";
+      dim.style.display = "block";
+    });
+  });
+
+  // 쇼핑 계속하기(하단 버튼) 클릭 시
+  continueBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
+  });
+
+  // 장바구니 가기(하단 버튼) 클릭 시 닫기(여기서는 단순 팝업 닫기지만, cart 별도 로직 추가 가능)
+  closeCartBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
+    // 장바구니 열기 기능 추가 가능
+  });
+
+  // dim 영역 클릭 시 팝업 닫기
+  dim.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
+  });
+
+  // 우측 상단 X(닫기) 버튼 클릭 시 팝업 닫기
+  closeXBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
+  });
+});
