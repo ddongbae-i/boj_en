@@ -44,12 +44,12 @@ main .inner {
     position: relative;
     overflow: hidden;
 
-        background-image:
+    background-image:
         url('../../asset/img/brandstory/image-6890.png'),
         linear-gradient(90deg, #FEFEFE 0%, #FDFDFD 49.52%, #F7F7F7 100%);
     background-position: center bottom;
     background-repeat: no-repeat;
-   background-size: 100% auto;
+    background-size: 100% auto;
 }
 
 .bg_img {
@@ -173,7 +173,7 @@ main .inner {
     height: 800px;
     padding: 10px 20px 0 20px;
     border: 1px solid var(--white_f0);
-       background-color: #fafafa;
+    background-color: #fafafa;
 }
 
 /* .vip_tiers .list>ul>li>ul>li:nth-child(3),
@@ -207,7 +207,7 @@ main .inner {
 .vip_tiers .list>ul>li>ul>li:nth-child(7) {
     border-bottom: 1px solid var(--grey_c7);
     padding-bottom: 6px;
-        text-align: left;
+    text-align: left;
 }
 
 .vip_tiers p {
@@ -237,7 +237,7 @@ main .inner {
     white-space: nowrap;
     -ms-overflow-style: none;
     scrollbar-width: none;
-padding: 10px 0 30px 10px;
+    padding: 10px 0 30px 10px;
 }
 
 .how_it_work .vid {
@@ -410,8 +410,8 @@ padding: 10px 0 30px 10px;
     padding: 16px;
     background-size: auto 70px;
     /* border: 1px solid var(--txt_sub_44); */
-border: 1px solid;
-border-image: linear-gradient(to bottom, var(--redbean), var(--propolis)) 1;
+    border: 1px solid;
+    border-image: linear-gradient(to bottom, var(--redbean), var(--propolis)) 1;
 }
 
 .box_g {
@@ -448,7 +448,7 @@ border-image: linear-gradient(to bottom, var(--redbean), var(--propolis)) 1;
 
 .redeem_for_products.animate::before {
     animation: fadeInOut 3s ease-out forwards;
-} 
+}
 
 
 
@@ -565,7 +565,7 @@ border-image: linear-gradient(to bottom, var(--redbean), var(--propolis)) 1;
     /* 부드럽게 애니메이션 */
     font-size: 0.9rem;
     font-weight: 200;
-    }
+}
 
 .box:hover .arrow {
     transform: scale(1.1);
@@ -579,7 +579,7 @@ border-image: linear-gradient(to bottom, var(--redbean), var(--propolis)) 1;
     left: 0;
     width: 100%;
     height: 100%;
- background-image: linear-gradient(to top, var(--redbean), var(--propolis));
+    background-image: linear-gradient(to top, var(--redbean), var(--propolis));
     z-index: 0;
     /* 콘텐츠 뒤로 보내기 */
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -614,6 +614,7 @@ border-image: linear-gradient(to bottom, var(--redbean), var(--propolis)) 1;
     font-weight: 500;
     line-height: 1;
 }
+
 .friend .btn {
     background-color: var(--grey_c7);
 }
@@ -622,8 +623,9 @@ border-image: linear-gradient(to bottom, var(--redbean), var(--propolis)) 1;
     width: 100%;
     padding: 160px 0;
     background-image: url(../../asset/img/brandstory/image-6890.png),
-    linear-gradient(90deg, #FEFEFE 0%, #FDFDFD 49.52%, #F7F7F7 100%);
+        linear-gradient(90deg, #FEFEFE 0%, #FDFDFD 49.52%, #F7F7F7 100%);
     background-position: left bottom;
+    background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: 100% auto;
     background-color: #f8f8f8;
