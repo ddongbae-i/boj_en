@@ -177,6 +177,12 @@
     .ways_to_earn.active {
         display: block;
     }
+
+.friend {
+     background-color: #e9e5dd;
+       background-image: none; 
+}
+
     .friend h2{
 font-size: 1.8rem;
 
