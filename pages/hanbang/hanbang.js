@@ -1,9 +1,3 @@
-/* AOS.init({
-  duration: 1200,
-  once: false,
-});
- */
-
 document.addEventListener('DOMContentLoaded', () => {
   // 전체 AOS 초기화 - 반복 실행 허용
   AOS.init({
@@ -22,10 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   communityAosElements.forEach(el => {
     el.dataset.aosOnce = "true";  // 요소별 once 속성 지원(최신 AOS에서는 data-aos-once도 가능)
   });
-
-  // AOS 재초기화
-  if (window.AOS) AOS.refresh();
 });
+
 document.addEventListener('DOMContentLoaded', () => {
   const subMain = document.querySelector('.sub_main');
   const subMain2 = document.querySelector('.sub_main2');
@@ -649,3 +641,4 @@ document.addEventListener("DOMContentLoaded", () => {
     dim.style.display = "none";
   });
 });
+
