@@ -402,28 +402,33 @@ input[type="radio"]:checked+.option .bullet {
 }
 
 .result-inner {
+  display: grid;
+  place-items: center;
+  align-content: start;
+  gap: 18px;
+  padding: 340px 16px 0;
+  position: relative;
+  min-height: 520px;
   height: 100%;
   text-align: center;
-/* position: relative;
+  /* position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 460px;
   필요 시 520~560px로 조정
   overflow: visible;
-  잘림 방지 */ }
+  잘림 방지 */
+}
 
 
 #result .job_card.card-main {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   width: 270px;
   height: 380px;
   border-radius: 20px;
-  background: url(/asset/img/skintest/card-back.png) center;
   box-shadow: 0 1px 20px rgba(0, 0, 0, .18), 0 12px 22px rgba(0, 0, 0, .12);
+  overflow: hidden;
 }
 
 .result_aricle {
@@ -432,24 +437,23 @@ input[type="radio"]:checked+.option .bullet {
 }
 
 .type {
-  position: relative;
-  top: 680px;
   font-family: var(--tit_font);
-  font-size: 3rem;
+  font-size: 2.25rem;
   font-weight: 500;
+  margin: 6px 0 6px;
 }
 
 .summary {
-  position: relative;
-  top: 700px;
   font-family: var(--txt_font);
-  font-size: 1.125rem;
+  font-size: 1.05rem;
   font-weight: 300;
   text-align: center;
+  margin: 0 0 24px;
 }
 
 /* Products */
 .product-tit {
+  margin-top: 40px;
   font-family: var(--tit_font);
   font-size: 2.5rem;
   font-weight: 500;
@@ -734,6 +738,7 @@ input[type="radio"]:checked+.option .bullet {
 ::-webkit-scrollbar-thumb:hover {
   background: #9a7612;
 }
+
 #result .job_card.card-main {
   transform-style: preserve-3d;
   transition: transform 520ms cubic-bezier(.22, .61, .36, 1);
@@ -754,15 +759,62 @@ input[type="radio"]:checked+.option .bullet {
 
 /* swap these image URLs as needed */
 #result .job_card.card-main .front {
-  background-image: url(../../asset/img/skintest/card-back.png);
+  background-image: url(/asset/img/skintest/card-front-janggeebin.png);
 }
 
 #result .job_card.card-main .back {
-  background-image: url(../../asset/img/skintest/card-front-janggeebin.png);
-  transform: rotateY(180deg);
+  background-image: url(/asset/img/skintest/card-back.png);
 }
 
-/* flipped state */
-#result .job_card.card-main.is-flipped {
-  transform: translate(-50%, -50%) rotateY(180deg);
+/* No 3D flip; we toggle [hidden] in JS */
+#result .job_card.card-main {
+  transform: none;
 }
+
+/* === GPT5 patch 2025-11-02: quiz/result buttons and product_card visibility === */
+
+/* Quiz action buttons back to single row centered under options */
+#quiz .actions {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-top: 24px !important;
+}
+
+/* Result footer buttons: wishlist on first row, home/reset on second row centered */
+#result .actions.center {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 16px !important;
+  margin-top: 30px !important;
+}
+
+#result .row-ghosts {
+  position: static !important;
+  top: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 12px !important;
+}
+
+/* Make sure result section CTA buttons are visible and interactive */
+#result #wishlistBtn,
+#result #homeBtn,
+#result #resetBtn {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+/* Product cards should be visible by default; animations will handle transitions */
+.product_grid .product_card {
+  opacity: 1 !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+/* === end patch === */
