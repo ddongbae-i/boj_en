@@ -1,48 +1,44 @@
 @charset "UTF-8";
 
 /* 페이지 페이드 인/아웃 공통 */
-html, body { height: 100%; }
 body {
   font-family: 'Cormorant', serif;
   background: #0f0f0f;
-  opacity: 0;                 /* 처음에는 투명 */
+  opacity: 0; 
   transition: opacity .5s ease;
-  overflow: hidden;           /* 인트로 중 스크롤 잠금 */
+  overflow: hidden;
+  height: 100%;
 }
 
 .intro-container {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  display: grid;
-  place-items: center;
-  background: #0f0f0f;
+  overflow: hidden;
 }
 
-/* 비디오: 창보다 살짝 크게(여백 방지), JS로 덮어쓰지 않음 */
-#introVideo {
-  width: 100vw;               /* 100 → 110으로 살짝 확대 */
-  height: 100vh;              /* 100 → 110으로 살짝 확대 */
-  object-fit: cover;
-  display: block;
+.intro-container video {
+object-fit: cover;
+  position: absolute;
+  top: 45%; /* ← 필요에 따라 40~45%로 조정 */
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-#introVideo video {
-    width: 107%;
-}
 
-/* 인트로 위 링크/텍스트 레이어 */
 .content-wrapper {
+  width: 100%;
+  height: 100%;
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 17vw;
+  gap: 18vw;
   z-index: 2;
   pointer-events: none;       /* 기본 비활성 (인트로 중) */
-  padding-left: 44px;
-  padding-top: 160px;
+  padding-left: 60px;
+  padding-top: 280px;
 }
 
 .content-wrapper.show {       /* 인트로 끝나면 활성화 */
@@ -140,7 +136,7 @@ body {
 .skip-button{
   position:fixed;
   right:50px;
-  bottom:50px;
+  bottom: 50px;
   padding:15px 35px;
   background:rgba(206,159,39,.2);
   border:1px solid rgba(206,159,39,.5);
