@@ -1,21 +1,38 @@
+AOS.init({
+  duration: 800,
+  once: false,
+  offset: 100,
+  mirror: true,
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-  // 전체 AOS 초기화 - 반복 실행 허용
-  AOS.init({
-    duration: 800,
-    once: false,
-    offset: 50,
-    mirror: true,
-  });
-
-  // 커뮤니티 섹션 내에서 once 효과 적용하고 싶은 요소 찾아야 함
   const community = document.querySelector('.community');
-  if (!community) return;
 
-  // 커뮤니티 내 모든 [data-aos] 요소 대상으로 once 효과 적용
-  const communityAosElements = community.querySelectorAll('[data-aos]');
-  communityAosElements.forEach(el => {
-    el.dataset.aosOnce = "true";  // 요소별 once 속성 지원(최신 AOS에서는 data-aos-once도 가능)
+  // 초기에는 data-aos 속성 제거해서 애니메이션 비활성화
+  community.querySelectorAll('[data-aos]').forEach(el => {
+    // 애니 속성 백업
+    el.dataset.aosBackup = el.getAttribute('data-aos');
+    el.removeAttribute('data-aos');
   });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // 커뮤니티 영역 보이면 data-aos 복구해 애니메이션 재활성화
+        community.querySelectorAll('[data-aos-backup]').forEach(el => {
+          el.setAttribute('data-aos', el.dataset.aosBackup);
+          el.removeAttribute('data-aos-backup');
+        });
+        if (window.AOS) {
+          AOS.refresh(); // AOS 리프레시로 활성화
+        }
+      }
+    });
+  }, { threshold: 0.1 });
+
+  if (community) {
+    observer.observe(community);
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -454,14 +471,12 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
-
-/*_____________________________________________태그 컬러 임시 color */
+/*_____________________________________________ tags color */
 const wordColors = {
-  'Moisturizing': { color: '#FF6B6B', background: '#FFE5E5', border: '#FF6B6B' },
-  'Firming': { color: '#4ECDC4', background: '#E0FFFA', border: '#4ECDC4' },
-  'Hydrating': { color: '#FFD93D', background: '#FFF7CC', border: '#FFD93D' },
-  'Soothing': { color: '#6A4C93', background: '#EDE0F7', border: '#6A4C93' },
+  'Moisturizing': { color: '#5c0000ff', background: '#ffe5e571', border: '#D18B8B' },
+  'Firming': { color: '#204500', background: '#e0fffa77', border: '#204500' },
+  'Hydrating': { color: '#C1843A', background: '#fff7cc6b', border: '#E8BA88' },
+  'Soothing': { color: '#818181ff', background: '#e5dccf42', border: '#E5DCCF' },
   'Brightening': { color: '#4c935aff', background: '#e0f7e7ff', border: '#4c9358ff' }
 
 };
@@ -506,7 +521,6 @@ document.querySelectorAll('.product_card').forEach(card => {
     });
   });
 }); */
-
 
 
 /*sub_main2 호버 시 디테일 내용 */
@@ -641,4 +655,5 @@ document.addEventListener("DOMContentLoaded", () => {
     dim.style.display = "none";
   });
 });
+
 

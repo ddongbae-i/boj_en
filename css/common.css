@@ -541,7 +541,12 @@ footer .f_join span {
     display: flex;
     gap: 20px;
 }
-
+.f_sns img{
+    transition: 0.5s;
+}
+.f_sns img:hover{
+    opacity: 0.5;
+}
 .cart_wrap {
     position: fixed;
     top: 0;
