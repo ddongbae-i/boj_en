@@ -562,10 +562,10 @@ footer .f_join span {
     transform: translateX(0);
 }
 
-html.cart-locked,
+/* html.cart-locked,
 body.cart-locked {
     overflow: hidden;
-}
+} */
 
 /* .cart_overlay {
     position: fixed;
