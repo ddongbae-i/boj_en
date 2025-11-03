@@ -139,16 +139,20 @@ main .inner {
 }
 
 .list {
-    margin: 120px auto;
+    margin: auto;
     width: 76vw;
     text-align: center;
     background-color: var(--img_bg);
     border: 40px solid transparent;
     border-image: url('../../asset/img/reward/corner.png') 40 fill stretch;
+
 }
 
-.vip_tiers .list {
-    padding: 40px 0;
+.vip_tiers {
+        background-image:       
+        linear-gradient(90deg, #FEFEFE 0%, #FDFDFD 49.52%, #F7F7F7 100%);
+padding: 80px 0 160px 0;
+
 }
 
 .vip_tiers .list .horizontal-scroll-container>li:nth-child(1) b,
@@ -320,7 +324,8 @@ main .inner {
 }
 
 .redeem_for_products,
-.ways_to_earn {
+.ways_to_earn,
+.FAQ {
     width: 100%;
     color: var(--white_f0);
     display: flex;
@@ -374,7 +379,8 @@ main .inner {
 }
 
 .redeem_for_products .line,
-.ways_to_earn .line {
+.ways_to_earn .line,
+.FAQ .line {
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
 }
 
@@ -450,8 +456,9 @@ main .inner {
 
 .redeem_for_products {
     position: relative;
-    background: url('../../asset/img/reward/Redeem_bg.png') center/cover no-repeat;
+    /* background: url('../../asset/img/reward/Redeem_bg.png') center/cover no-repeat; */
     overflow: hidden;
+        background-color: #000000;
 }
 
 .redeem_for_products::before {
@@ -475,8 +482,9 @@ main .inner {
 
 .ways_to_earn {
     position: relative;
-    background: url('../../asset/img/reward/Earn_bg.png') center/cover no-repeat;
+    /* background: url('../../asset/img/reward/Earn_bg.png') center/cover no-repeat; */
     overflow: hidden;
+        background-color: #000000;
 }
 
 .ways_to_earn::before {
@@ -619,18 +627,20 @@ main .inner {
     width: 100%;
     height: 400px;
     /* background-color: var(--grey_c7); */
-    color: var(--bg_footer);
+    color: var(--white_f0);
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
     flex-direction: column;
-    background-image: url('../../asset/img/reward/reward_banner.png');
+
+    background-color: var(--bg_footer);
+    /* background-image: url('../../asset/img/reward/reward_banner.png'); */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    border-bottom: 1px solid var(--grey_de);
+    /* border-bottom: 1px solid var(--grey_de); */
 }
 
 .friend h2 {
@@ -643,31 +653,36 @@ main .inner {
 .FAQ {
     width: 100%;
     padding: 160px 0;
-    background-image: url(../../asset/img/brandstory/image-6890.png),
-        linear-gradient(90deg, #FEFEFE 0%, #FDFDFD 49.52%, #F7F7F7 100%);
+    /* background-image:
+    url(../../asset/img/brandstory/image-6890.png); */
+        background: url('../../asset/img/reward/Earn_bg_blur.png') center/cover no-repeat;
     background-position: left bottom;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: 100% auto;
-    background-color: #f8f8f8;
+    background-color: #000000;
 }
+.FAQ::after{
 
+
+}
 .FAQ ul {
     list-style: none;
     padding: 20px 40px 60px 40px;
     margin: auto;
+    color: var(--white_f0);
 }
 
 .FAQ ul li {
-    border-bottom: 1px solid var(--txt_sub_44);
+    border-bottom: 1px solid var(--bg_footer);
 }
 
 .accordion-content span {
-    color: var(--txt_sub_44);
+    color: var(--grey_aa);
 }
 
 .accordion-list {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
 }
 
