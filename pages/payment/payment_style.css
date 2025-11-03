@@ -1,0 +1,400 @@
+@charset "utf-8";
+
+.warp {
+    width: auto;
+    display: flex;
+    justify-content: flex-start;
+    gap: 80px;
+    padding: 0 110px;
+}
+
+.left {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+gap: 80px;
+}
+
+.right {
+    flex: 2;
+    background: #FCFBF9;
+    border-left: 1px solid #E6E2D3;
+}
+
+
+/* 장바구니 테이블 컨테이너 설정 (옵션) */
+.cart-container {
+    max-width: 980px;
+    margin: 20px auto;
+}
+
+/* 🛒 장바구니 테이블 기본 스타일 */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* 셀 간 경계선 제거 */
+
+}
+
+/* --- 헤더 스타일 (Product, Price, Quantity, Total) --- */
+
+.cart-table thead th {
+    /* 텍스트 정렬 */
+    text-align: left;
+
+    /* 이미지와 유사한 패딩 */
+    padding: 10px 0 15px 0;
+
+    /* 얇은 구분선 (헤더 아래) */
+    border-bottom: 1px solid #ff0000;
+
+    /* 폰트 스타일 */
+    font-weight: 500;
+    color: #555;
+}
+
+/* --- 제품 정보 행 스타일 --- */
+
+.cart-table tbody td {
+    /* 이미지와 유사한 상하 패딩 */
+    padding: 20px 0;
+
+    /* 바닥 경계선 (행 구분선) */
+    border-bottom: 1px solid #eee;
+
+    vertical-align: middle;
+}
+
+/* 첫 번째 열 (Product) 스타일 */
+.product-info {
+    display: flex;
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    gap: 15px;
+    /* 이미지와 텍스트 간격 */
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    /* 이미지에 radius나 border는 없는 것으로 보아 생략 */
+}
+
+.product-name {
+    font-size: 15px;
+    color: #333;
+    /* 폰트 굵기 조정 (이미지와 유사하게) */
+    font-weight: 400;
+}
+
+/* --- 가격 및 합계 열 스타일 --- */
+
+/* Price와 Total 열 텍스트 위치 (오른쪽 정렬을 원할 경우) */
+.cart-table tbody td:nth-child(2),
+.cart-table tbody td:nth-child(4) {
+    text-align: center;
+    /* Quantity 필드와 정렬을 맞추기 위해 가운데 정렬 */
+    width: 100px;
+    /* 너비 지정으로 정렬 용이 */
+}
+
+.cart-table tbody td:nth-child(2) {
+    text-align: left;
+    /* Price는 왼쪽 정렬이 더 자연스러움 */
+}
+
+
+/* --- 수량 입력 필드 (Quantity) 스타일 --- */
+
+.cart-table tbody td:nth-child(3) {
+    /* Quantity 열의 너비를 좁게 설정 */
+    width: 120px;
+    text-align: center;
+}
+
+.quantity-input {
+    /* 이미지와 유사한 너비 */
+    width: 70px;
+    height: 35px;
+
+    padding: 0 5px;
+    text-align: center;
+
+    /* 이미지와 유사한 얇은 경계선 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    /* 기본 드롭다운 화살표 제거 (Chrome, Safari, Edge) */
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    /* Firefox에서 화살표 숨기기 */
+    appearance: none;
+
+    font-size: 15px;
+    color: #333;
+    outline: none;
+}
+
+/* --- Total 옆의 삭제 버튼 (x) 스타일 --- */
+.remove-button {
+    background: none;
+    border: none;
+    color: #aaa;
+    /* 연한 회색 X */
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 0;
+}
+
+.remove-button:hover {
+    color: #ff4d4d;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.payment-form-container {
+    margin: 0 auto;
+width: 100%;
+
+}
+
+h2 {
+    font-size: 1.2em;
+
+
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #555;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+
+    box-sizing: border-box;
+    /* Ensures padding doesn't increase total width */
+    font-size: 1em;
+}
+
+/* Styling for the card expiration row */
+.card-exp-security li {
+    width: 33%;
+    float: left;
+    margin-right: 1.5%;
+}
+
+.card-exp-security li:last-child {
+    margin-right: 0;
+}
+
+.card-exp-security li:nth-child(2) {
+    width: 32%;
+    /* Adjusting for a more balanced look */
+}
+
+.card-exp-security ul::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.card-exp-security .select-group {
+    display: flex;
+    gap: 10px;
+    /* Space between the month and year dropdowns */
+}
+
+.card-exp-security .select-group select {
+    width: 50%;
+    /* Each dropdown takes half the available space */
+}
+
+/* Clearfix for sections */
+.section-separator {
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+/* Style for the credit card icons */
+.payment-method-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-icons img {
+    height: 32px;
+    margin-left: 8px;
+    display: inline-block;
+}
+
+/* Adjustments for the full-width inputs */
+.full-width-input li {
+    clear: both;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.payment-container {
+    width: 100%;
+    max-width: 400px;
+    /* 적절한 너비 설정 */
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 25px;
+}
+
+/* UL/LI 스타일 */
+.payment-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.label {
+    font-size: 16px;
+}
+
+.value {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+/* 할인 항목 스타일 */
+.coupon {
+    flex-wrap: wrap;
+    /* 내용을 여러 줄로 감싸도록 허용 */
+    align-items: flex-start;
+    padding-bottom: 20px;
+}
+
+.coupon .description {
+    font-size: 12px;
+    color: #888;
+    flex-basis: 100%;
+    /* 전체 너비 사용 */
+    margin-top: -5px;
+}
+
+.coupon .label {
+    flex-grow: 1;
+    /* label이 남은 공간을 차지하도록 */
+}
+
+.discount {
+    color: #ff0000;
+    font-weight: 500;
+}
+
+/* 구분선 스타일 */
+.divider {
+    border-bottom: 1px solid #eee;
+    height: 0;
+    margin: 10px 0;
+    list-style: none;
+    /* li의 점 제거 */
+}
+
+/* Total 항목 스타일 */
+.total {
+    font-weight: bold;
+    padding-top: 15px;
+    padding-bottom: 30px;
+}
+
+.final-total {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* 결제 버튼 스타일 */
+.pay-button {
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 15px 0;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 0;
+    /* 모바일 앱 스타일 */
+}
