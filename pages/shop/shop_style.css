@@ -503,7 +503,6 @@ header.scrolled-up .nav_right img {
     width: 36px;
     height: 36px;
     background-image: url(../../asset/img/shop/icon_left_arrow.svg);
-    margin-right: 8px;
 }
 
 .right_arrow::after {
@@ -608,7 +607,7 @@ header.scrolled-up .nav_right img {
     top: 0;
     right: 0;
     display: flex;
-    gap: 8px;
+    gap: 12px;
     z-index: 10;
 }
 
