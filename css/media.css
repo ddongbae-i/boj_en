@@ -96,12 +96,12 @@
     }
 
     nav ul.gnb:hover>li {
-    color: var(--ginseng);
-}
+        color: var(--ginseng);
+    }
 
-nav ul.gnb>li:hover>a {
-    color: var(--ginseng);
-}
+    nav ul.gnb>li:hover>a {
+        color: var(--ginseng);
+    }
 
 
     header.on nav ul.gnb>li .sub_img {
@@ -161,19 +161,34 @@ nav ul.gnb>li:hover>a {
     }
 
     header.on {
-        height: auto;
+        /* height: auto;
+        min-height: 100vh; */
+
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100vh;
         min-height: 100vh;
+        background: var(--bg_white);
+        z-index: 9998;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .inner {
         padding-inline: 42px;
-        width: min(100%, calc(1700px + 42px * 2))
+        width: min(100%, calc(1700px + 42px * 2));
     }
 
-    /* .ham_bottom {
-        position: absolute;
+    header.on .inner {
+        padding-inline: 42px;
+        width: min(100%, calc(1700px + 42px * 2));
+        height: auto;
+        min-height: auto;
 
-    } */
+        /* 끝까지 내려갔을 때 마지막 메뉴 안 짤리게 하단 여백 조금 */
+        padding-bottom: 60px;
+    }
 
     header.on .ham_bottom ul li:nth-child(2) {
         display: block;
@@ -281,12 +296,12 @@ nav ul.gnb>li:hover>a {
         display: none;
     }
 
-    header.on .nav_right .ham_menu {
+    header.on .nav_right {
         position: fixed;
         top: 47px;
         right: 30px;
         left: auto;
-
+        z-index: 1000;
     }
 
     header.on .search_tab .keyword_wrap {
@@ -300,9 +315,11 @@ nav ul.gnb>li:hover>a {
     header.on .search_tab {
         position: absolute;
         height: 124px;
+        min-width: 300px;
         margin-top: auto;
         padding-bottom: 0;
         padding-inline: 42px;
+        margin: 0;
     }
 
     .ham_bottom {
@@ -319,8 +336,8 @@ nav ul.gnb>li:hover>a {
         height: 24px;
     }
 
-    .search_tab form {
-        min-width: 300px;
+    header.on .search_tab form {
+        min-width: 200px;
         margin-right: 80px;
     }
 
@@ -385,10 +402,46 @@ nav ul.gnb>li:hover>a {
 
 @media screen and (max-width:400px) {
 
+    header {
+        height: 80px;
+    }
+
     header .logo {
         font-size: 1.5rem;
         margin-top: 20px;
     }
+
+    .inner {
+        padding-inline: 20px;
+        width: min(100%, calc(1700px + 20px * 2));
+    }
+
+    header.on .inner {
+        padding-inline: 20px;
+        width: min(100%, calc(1700px + 20px * 2));
+    }
+
+    header.on .inner nav {
+        padding-top: 120px;
+    }
+
+    header.on .search_tab {
+        padding-inline: 20px;
+        margin: 0 auto;
+        width: 100%;
+        min-width: 240px;
+        height: 80px;
+    }
+
+    header.on .search_tab form {
+        margin: 20px 0;
+    }
+
+    header.on .nav_right {
+        top: 20px;
+        right: 20px;
+    }
+
 
     footer .f_center_right .f_nav {
         width: 100%;

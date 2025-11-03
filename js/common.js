@@ -98,34 +98,34 @@ footerBtn?.addEventListener('click', function () {
 
 //여기가문제
 /* ===== 모바일 search sync (기존 로직 유지) ===== */
-// (function () {
-//   const headerEl = document.querySelector('header');
-//   const searchTabEl = document.querySelector('.search_tab');
-//   const searchBtnEl = document.querySelector('.nav_right .search');
+(function () {
+  const headerEl = document.querySelector('header');
+  const searchTabEl = document.querySelector('.search_tab');
+  const searchBtnEl = document.querySelector('.nav_right .search');
 
-//   if (!headerEl || !searchTabEl) return;
+  if (!headerEl || !searchTabEl) return;
 
-//   function syncMobileSearch() {
-//     if (window.innerWidth <= 768) {
-//       if (headerEl.classList.contains('on')) {
-//         searchTabEl.classList.add('open');
-//       } else {
-//         searchTabEl.classList.remove('open');
-//       }
-//     }
-//   }
+  function syncMobileSearch() {
+    if (window.innerWidth <= 768) {
+      if (headerEl.classList.contains('on')) {
+        searchTabEl.classList.add('open');
+      } else {
+        searchTabEl.classList.remove('open');
+      }
+    }
+  }
 
-//   window.addEventListener('resize', syncMobileSearch);
+  window.addEventListener('resize', syncMobileSearch);
 
-//   const mo = new MutationObserver(syncMobileSearch);
-//   mo.observe(headerEl, { attributes: true, attributeFilter: ['class'] });
+  const mo = new MutationObserver(syncMobileSearch);
+  mo.observe(headerEl, { attributes: true, attributeFilter: ['class'] });
 
-//   searchBtnEl?.addEventListener('click', (e) => {
-//     if (window.innerWidth <= 768) e.preventDefault();
-//   }, true);
+  searchBtnEl?.addEventListener('click', (e) => {
+    if (window.innerWidth <= 768) e.preventDefault();
+  }, true);
 
-//   syncMobileSearch();
-// })();
+  syncMobileSearch();
+})();
 
 /* ===== 스크롤 잠금/복원 (위치 보존 방식, 중복 토글 제거) ===== */
 // ...existing code...
