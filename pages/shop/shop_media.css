@@ -450,6 +450,34 @@
 
 @media screen and (max-width: 440px) {
 
+    .puzzle .inner {
+        padding-inline: 20px;
+    }
+
+    .media {
+        width: calc(100px * 4 + 2px * 6);
+        height: calc(100px * 3 + 2px * 6);
+    }
+
+    .grid {
+        grid-template-columns: repeat(4, 100px);
+        grid-auto-rows: 100px;
+        gap: 2px;
+    }
+
+    .tile {
+        width: 100px;
+        height: 100px;
+    }
+
+    .puzzle .txt_area .tit {
+        font-size: 1rem;
+    }
+
+    .puzzle .txt_area .txt {
+        font-size: 0.875rem;
+    }
+
     .sale_zone .inner .txt_area {
         flex-direction: column;
         align-items: start;
@@ -480,37 +508,15 @@
         padding-bottom: 52px;
     }
 
-    .pro_card .add_btn{ font-size:0; }     
-}
-
-
-@media screen and (max-width: 360px) {
-
-    .puzzle .inner {
-        padding-inline: 20px;
+    .pro_card .add_btn {
+        font-size: 0;
     }
 
-    .media {
-        width: calc(100px * 4 + 2px * 6);
-        height: calc(100px * 3 + 2px * 6);
-    }
-
-    .grid {
-        grid-template-columns: repeat(4, 100px);
-        grid-auto-rows: 100px;
-        gap: 2px;
-    }
-
-    .tile {
-        width: 100px;
-        height: 100px;
-    }
-
-    .puzzle .txt_area .tit {
-        font-size: 1rem;
-    }
-
-    .puzzle .txt_area .txt {
-        font-size: 0.875rem;
+    .heart_btn {
+        top: 16px;
+        right: 16px;
     }
 }
+
+
+@media screen and (max-width: 360px) {}

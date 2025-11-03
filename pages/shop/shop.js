@@ -174,9 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 화면 크기에 따라 수치 조정
   function updateValues() {
-    if (window.innerWidth <= 768) {
-      INITIAL = 6; // 모바일에서 처음 보이는 개수
-      BATCH = 3;   // 모바일에서 더보기 단위
+    if (window.innerWidth <= 1024) {
+      INITIAL = 8; // 모바일에서 처음 보이는 개수
+      BATCH = 4;   // 모바일에서 더보기 단위
     } else {
       INITIAL = 9;
       BATCH = 6;
