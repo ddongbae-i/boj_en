@@ -307,13 +307,11 @@ header.scrolled-up .nav_right img {
     right: 20px;
     width: 24px;
     height: 24px;
-    /* 터치 타깃 40px+ */
     border: 0;
     border-radius: 50%;
     background: transparent url('../../asset/img/shop/icon_heart_x.svg') no-repeat center/24px 24px;
     cursor: pointer;
     z-index: 5;
-    /* 카드/링크보다 위 */
 }
 
 .heart_btn.is-on {
@@ -505,7 +503,6 @@ header.scrolled-up .nav_right img {
     width: 36px;
     height: 36px;
     background-image: url(../../asset/img/shop/icon_left_arrow.svg);
-    margin-right: 8px;
 }
 
 .right_arrow::after {
@@ -610,7 +607,7 @@ header.scrolled-up .nav_right img {
     top: 0;
     right: 0;
     display: flex;
-    gap: 8px;
+    gap: 12px;
     z-index: 10;
 }
 

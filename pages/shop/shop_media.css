@@ -256,7 +256,7 @@
     .arrow_all {
         position: absolute;
         right: 0;
-        top: -85px;
+        top: -80px;
         z-index: 10;
     }
 
@@ -450,9 +450,45 @@
 
 @media screen and (max-width: 440px) {
 
+    .puzzle .inner {
+        padding-inline: 20px;
+    }
+
+    .media {
+        width: calc(80px * 4 + 2px * 6);
+        height: calc(80px * 3 + 2px * 6);
+    }
+
+    .grid {
+        grid-template-columns: repeat(4, 80px);
+        grid-auto-rows: 80px;
+        gap: 2px;
+    }
+
+    .tile {
+        width: 80px;
+        height: 80px;
+    }
+
+    .puzzle .txt_area p {
+        font-size: 0.875rem;
+    }
+    .puzzle .txt_area .tit {
+        font-size: 1.125rem;
+    }
+
+    .puzzle .txt_area .txt {
+        font-size: 0.875rem;
+        width: 300px;
+    }
+
     .sale_zone .inner .txt_area {
         flex-direction: column;
         align-items: start;
+    }
+
+    .sale_zone .txt {
+        width: 250px;
     }
 
     .step {
@@ -480,37 +516,21 @@
         padding-bottom: 52px;
     }
 
-    .pro_card .add_btn{ font-size:0; }     
-}
-
-
-@media screen and (max-width: 360px) {
-
-    .puzzle .inner {
-        padding-inline: 20px;
+    .pro_card .add_btn {
+        font-size: 0;
     }
 
-    .media {
-        width: calc(100px * 4 + 2px * 6);
-        height: calc(100px * 3 + 2px * 6);
+     .info .pro_tit {
+        font-size: 1.125rem;
     }
 
-    .grid {
-        grid-template-columns: repeat(4, 100px);
-        grid-auto-rows: 100px;
-        gap: 2px;
-    }
+     .info .pro_tit .price {
+        font-size: 1.125rem;
+     }
 
-    .tile {
-        width: 100px;
-        height: 100px;
-    }
 
-    .puzzle .txt_area .tit {
-        font-size: 1rem;
-    }
-
-    .puzzle .txt_area .txt {
-        font-size: 0.875rem;
+    .heart_btn {
+        top: 16px;
+        right: 16px;
     }
 }
