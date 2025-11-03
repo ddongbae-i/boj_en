@@ -105,11 +105,11 @@ main {
 
 /* 글래스 버튼 */
 .bestSeller .product .txt_box {
-  content: "";
   position: absolute;
-  left: 0;
-bottom: 10px;
-  width: 390px;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  width: 340px;
   height: 98px;
   z-index: 10;
 
@@ -124,9 +124,12 @@ bottom: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   border-left: 1px solid rgba(255, 255, 255, 0.2);
   border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  ;
   color: var(--white_ff);
   padding: 20px;
+  opacity: 0;
+  text-align: center;
 }
 
 .bestSeller .product .txt_box p {
@@ -137,14 +140,16 @@ bottom: 10px;
   font-size: 1.125rem;
 }
 
+.bestSeller .product .txt_box s {
+  font-weight: 100;
+  color: var(--grey_c7);
+}
+
 
 .bestSeller .slide_wrap {
   width: 100%;
   height: 450px;
   position: relative;
-  /* background: #ccc; */
-  /*   overflow: hidden;
-  pointer-events: auto; */
 }
 
 .bestSeller .slide_wrap2 .swiper-wrapper {
@@ -160,14 +165,15 @@ bottom: 10px;
   overflow: hidden;
   cursor: pointer;
   pointer-events: auto;
-  /* transition: opacity .25s ease; */
+  transition: opacity .25s ease;
 }
 
 .bestSeller .product:hover .card {
   opacity: .4;
 }
 
-.bestSeller .product .card:hover {
+.bestSeller .product .card:hover,
+.bestSeller .product .card:hover .txt_box {
   opacity: 1;
 }
 
@@ -185,23 +191,25 @@ bottom: 10px;
   height: 1857px;
   box-sizing: border-box;
   position: relative;
+  overflow: hidden;
+  color: var(--white_ff);
+  font-size: 2.5rem;
+  line-height: 140%;
 }
 
 .banner_1 img {
-  display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  display: block;
 }
 
 .banner_1 .txt_box {
   padding: 0;
   z-index: 2;
-  color: var(--white_ff);
-  font-family: var(--txt_font);
-  font-size: 2.5rem;
-  line-height: 140%;
 }
 
 .banner_1 .txt_box .txt_top {
@@ -210,6 +218,8 @@ bottom: 10px;
   left: 110px;
   top: 180px;
   width: 795px;
+  opacity: 0;
+  transform: translateY(40px);
 }
 
 .banner_1 .txt_box .txt_bottom {
@@ -218,6 +228,8 @@ bottom: 10px;
   right: 110px;
   bottom: 90px;
   width: 1300px;
+  opacity: 0;
+  transform: translateY(40px);
 }
 
 .banner_1 .txt_box .txt_bottom :first-child {
@@ -361,6 +373,8 @@ bottom: 10px;
   pointer-events: auto;
 }
 
+.product_grid .pro { opacity: 1; }
+
 /* 위치 */
 .card h4.pro_txt {
   top: 20px;
@@ -435,8 +449,6 @@ bottom: 10px;
 .influencer .wish.active .icon_heart:nth-of-type(2) {
   opacity: 1;
 }
-
-/* backface 클릭 막힘 방지 */
 .front,
 .back {
   position: absolute;
@@ -446,7 +458,6 @@ bottom: 10px;
   z-index: 0;
 }
 
-/* 이미지, 오버레이는 클릭 막지 않게 */
 .front img,
 .back img,
 .front video,
@@ -475,20 +486,22 @@ bottom: 10px;
 
 .membership .login_box {
   position: absolute;
-  left: 50%;
-  top: 70%;
-  transform: translateX(-50%);
-  text-align: center;
+  left: 190px;
+  bottom: 90px;
 }
 
 .membership .login_box .txt {
-  margin-bottom: 20px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  margin-bottom: 24px;
 }
 
-.membership .btn_box {
-  display: flex;
-  gap: 12px;
+.membership .btn {
+  width: 170px;
 }
+
 
 .membership .btn_box .btn:hover {
   background: var(--txt_main);
@@ -503,7 +516,7 @@ bottom: 10px;
   width: 100%;
   height: 100%;
   background: var(--white_ff);
-  padding-block: 80px 120px;
+  padding-block: 150px 120px;
 }
 
 /* 그리드 기본: 좌 | 중앙 | 우 */
@@ -666,7 +679,7 @@ bottom: 10px;
 .hanbang .txt_all ul.on .progress .playbar {
   display: block;
   background: var(--grey_de);
-  animation: fill-bar 4000ms linear forwards;
+  animation: fill-bar 3000ms linear forwards;
   width: 100%;
 }
 
@@ -749,15 +762,15 @@ bottom: 10px;
 
 .hanbang .img_box .txt_box1 img {
   position: absolute;
-  right: 8%;
-  top: 0%;
+  right: 7%;
+  top: -5%;
   width: 190px;
   height: 190px;
 }
 
 .hanbang .img_box .txt_box2 img {
   position: absolute;
-  left: 10%;
+  left: 7%;
   top: 28%;
   width: 120px;
   height: 120px;
@@ -766,7 +779,7 @@ bottom: 10px;
 .hanbang .img_box .txt_box3 img {
   position: absolute;
   right: 25%;
-  bottom: 10px;
+  bottom: 4px;
   width: 170px;
   height: 170px;
 }
@@ -806,7 +819,7 @@ bottom: 10px;
 .hanbang .inner .img_box .on .imgTxt {
   opacity: 0;
   transform: translateY(12px);
-  animation: hanbang-fadeup 1.5s cubic-bezier(.2, .8, .2, 1) forwards;
+  animation: hanbang-fadeup 0.8s cubic-bezier(.2, .8, .2, 1) forwards;
 }
 
 .hanbang .inner .on .imgTxt img {
@@ -816,15 +829,15 @@ bottom: 10px;
 }
 
 .hanbang .inner .on .imgTxt .txt_box1 img {
-  animation-delay: 1.00s;
+  animation-delay: 0.2s;
 }
 
 .hanbang .inner .on .imgTxt .txt_box2 img {
-  animation-delay: 1.2s;
+  animation-delay: 0.4s;
 }
 
 .hanbang .inner .on .imgTxt .txt_box3 img {
-  animation-delay: 1.6s;
+  animation-delay: 0.6s;
 }
 
 .hanbang .num {

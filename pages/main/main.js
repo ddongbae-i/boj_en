@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const mq1024 = matchMedia('(min-width:769px) and (max-width:1024px)');
 
   const TOTAL = Math.min(txtLists.length, imgGroups.length);
-  const AUTO_MS = 4000; // 진행바 주기와 동일
+  const AUTO_MS = 3000; // 진행바 주기와 동일
   const SLIDE_MS = 600;  // 태블릿에서 한 칸 이동 시간
   const RESUME_MS = 800;  // 클릭/사용자 액션 후 루프 재무장 딜레이
 
@@ -611,6 +611,53 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mq768.matches) setActive(index);
   }, 120));
 })();
+
+
+//banner_1
+
+document.addEventListener('DOMContentLoaded', () => {
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.to(".banner_1 .txt_top", {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: ".banner_1",
+      start: "top 70%",
+      toggleActions: "play none none reverse"
+    }
+  });
+
+  gsap.to(".banner_1 .txt_bottom", {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: ".banner_1",
+      start: "bottom 100%",
+      toggleActions: "play none none reverse"
+    }
+  });
+
+  gsap.fromTo(".banner_1 .txt_bottom p",
+    { opacity: 0, y: 20 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: ".banner_1",
+        start: "bottom 100%",
+        toggleActions: "play none none reverse"
+      }
+    }
+  );
+});
 
 
 //banner_2 

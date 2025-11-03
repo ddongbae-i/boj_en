@@ -20,6 +20,10 @@
         align-items: flex-end;
     }
 
+    .bestSeller .product .txt_box {
+        opacity: 1;
+    }
+
     .banner_1 {
         height: 80%;
     }
@@ -89,6 +93,41 @@
         display: none;
     }
 
+    .card:hover .pro_txt {
+        opacity: 0;
+    }
+
+    .card:hover .pro {
+        opacity: 1;
+    }
+
+    /* flipped + back 면에서만 오버레이/디밍 표시 */
+    .card.flipped .back .pro_txt {
+        opacity: 1;
+    }
+
+    .card.flipped .back .pro {
+        opacity: 0.3;
+    }
+
+    /* 앞면은 항상 원래대로 */
+    .card.flipped .front .pro_txt {
+        opacity: 0;
+    }
+
+    .card.flipped .front .pro {
+        opacity: 1;
+    }
+
+    .membership .login_box {
+        left: 50px;
+        bottom: 10px;
+    }
+
+    .membership .login_box .tit {
+        font-size: 1.875rem;
+    }
+
     :root {
         --hb-header: var(--header-height, 80px);
         --hb-gap: 24px;
@@ -102,6 +141,7 @@
         min-height: unset;
         /* ← 이 한 줄로 100vh 강제 해제 */
         overflow: visible;
+        padding-top: 100px;
     }
 
     /* 2열: 왼쪽(텍스트 묶음) | 오른쪽(이미지) */
@@ -366,22 +406,14 @@
     .membership {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        overflow: hidden;
         position: relative;
-        padding: 100px 0;
+        padding: 0 0 100px 0;
+        width: 100%;
+         min-height: 900px;
     }
 
     .membership>video {
         display: none;
-    }
-
-    .membership {
-        padding: 0;
-        position: relative;
-        /* 자식 absolute 요소의 기준점 */
-        /* 섹션에 내용물이 많지 않다면, 높이를 확보해야 합니다. */
-        min-height: 800px;
     }
 
     .membership .mem768 {
@@ -389,10 +421,8 @@
         flex-wrap: wrap;
         justify-content: space-evenly;
         align-items: flex-start;
-        /* 추가 */
         row-gap: 20px;
         gap: 0px;
-        /* height: 1200px; */
     }
 
     .membership .mem768 .mem_video {
@@ -415,38 +445,13 @@
     .membership .mem768 video {
         display: block;
         width: 100%;
-        height: auto;
     }
 
-    .login_box {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        z-index: 10;
-
-        /* 👇 Flexbox를 사용하여 내부 요소 정렬 */
-        display: flex;
-        flex-direction: column;
-        /* 자식 요소들을 수직으로 쌓고 */
-        justify-content: center;
-        /* 수직 방향으로 가운데 정렬 */
-        align-items: center;
-        /* 수평 방향으로 가운데 정렬 (대신 text-align: center;를 썼다면 불필요) */
-
-        /* 로그인 박스의 높이를 강제 지정 (예시) */
-        /* height: 100px;  */
+.membership .login_box {
+    text-align: center;
+    left: 50%;
+    transform: translateY(-50%);
     }
-
-    /* 추가적으로, .btn_box 등을 Flexbox로 가운데 정렬할 수도 있습니다. */
-    .login_box .btn_box {
-        display: flex;
-        justify-content: center;
-        /* 버튼들을 가로 가운데로 정렬 */
-        gap: 10px;
-        /* 버튼 사이 간격 */
-    }
-
 
 
 
@@ -466,24 +471,11 @@
         right: 42px;
         width: 90vw
     }
-}
-
-@media (max-width:768px) {
-
-    .membership {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow: hidden;
-        position: relative;
-        padding: 100px 0;
-    }
-
 
     .hanbang {
         height: auto;
         min-height: 0;
-        padding-block: 0 80px;
+        padding-block: 100px 80px;
         overflow: visible;
     }
 
