@@ -185,8 +185,6 @@
         width: min(100%, calc(1700px + 42px * 2));
         height: auto;
         min-height: auto;
-
-        /* 끝까지 내려갔을 때 마지막 메뉴 안 짤리게 하단 여백 조금 */
         padding-bottom: 60px;
     }
 
@@ -203,6 +201,9 @@
         flex-direction: column;
         width: 100%;
         padding-top: 150px;
+        /* max-height: calc(100vh - 124px); */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     header.on nav ul.gnb>li {

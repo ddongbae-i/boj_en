@@ -479,6 +479,10 @@ footer .f_join p {
     padding-inline: 20px;
 }
 
+.f_join form .f_join_box button:hover{
+    color: var(--grey_c7);
+}
+
 footer .f_join span {
     color: var(--txt_sub_77);
     margin-left: 10px;
@@ -504,6 +508,10 @@ footer .f_join span {
     gap: 16px;
     color: var(--bg_white);
     margin-top: 12px;
+}
+
+.f_nav ul li:hover a {
+    color: var(--grey_c7);
 }
 
 .boj_insta {

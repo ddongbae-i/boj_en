@@ -104,7 +104,7 @@ main {
 }
 
 /* 글래스 버튼 */
-.bestSeller .product .txt_box {
+.bestSeller .product .txt_box, .bestSeller_768 .product_768 .txt_box {
   position: absolute;
   left: 50%;
   bottom: 10px;
@@ -132,17 +132,18 @@ main {
   text-align: center;
 }
 
-.bestSeller .product .txt_box p {
+.bestSeller .product .txt_box p, .bestSeller_768 .product_768 .txt_box p {
   margin-bottom: 8px;
 }
 
-.bestSeller .product .txt_box em {
+.bestSeller .product .txt_box em, .bestSeller_768 .product_768 .txt_box em{
   font-size: 1.125rem;
 }
 
-.bestSeller .product .txt_box s {
+.bestSeller .product .txt_box s, .bestSeller_768 .product_768 .txt_box s{
   font-weight: 100;
   color: var(--grey_c7);
+  font-size: 0.875rem;
 }
 
 

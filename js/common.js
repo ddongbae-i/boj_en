@@ -139,22 +139,29 @@ footerBtn?.addEventListener('click', function () {
   let locked = false;
   let scrollY = 0;
 
-  function preventTouch(e){ if (locked) e.preventDefault(); }
+  // ✅ 메뉴/카트/검색탭 등 스크롤 허용 영역
+  const SCROLLABLE_SELECTOR = `
+    header.on nav,
+    .cart_wrap.is-open,
+    .search_tab.open
+  `;
+
+  function preventTouch(e) {
+    if (!locked) return;
+    // 768px 이하에서만 전역 차단 + 허용영역 통과
+    if (window.innerWidth <= 768 && e.target.closest(SCROLLABLE_SELECTOR)) return;
+    if (window.innerWidth <= 768) e.preventDefault();
+  }
 
   function lockMenu() {
     if (locked) return;
-""
-    // 메뉴 열릴 때 검색탭 닫기
+
     searchTabEl?.classList.remove('open');
 
-    // 현재 스크롤 위치 저장
     scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-
-    // 클래스 플래그
     document.documentElement.classList.add('menu-open');
     document.body.classList.add('menu-open');
 
-    // ★ 스크롤 락 핵심
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollY}px`;
     document.body.style.left = '0';
@@ -162,8 +169,8 @@ footerBtn?.addEventListener('click', function () {
     document.body.style.width = '100%';
     document.body.style.overflow = 'hidden';
 
-    // iOS 터치 스크롤 차단
-    document.addEventListener('touchmove', preventTouch, { passive: false });
+    // ⛔ 전역 터치 차단(768px 이하일 때만 의미 있음)
+    window.addEventListener('touchmove', preventTouch, { passive: false });
 
     locked = true;
   }
@@ -174,7 +181,6 @@ footerBtn?.addEventListener('click', function () {
     document.documentElement.classList.remove('menu-open');
     document.body.classList.remove('menu-open');
 
-    // 스타일 원복
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.left = '';
@@ -182,39 +188,32 @@ footerBtn?.addEventListener('click', function () {
     document.body.style.width = '';
     document.body.style.overflow = '';
 
-    // iOS 차단 해제
-    document.removeEventListener('touchmove', preventTouch);
+    window.removeEventListener('touchmove', preventTouch);
 
-    // 원래 위치로 복원
     window.scrollTo(0, scrollY || 0);
-
     locked = false;
   }
 
   function applyLockByHeader() {
     const isOpen = headerEl.classList.contains('on');
-    if (window.innerWidth <= 1280) {
+    if (window.innerWidth <= 768) {
       isOpen ? lockMenu() : unlockMenu();
     } else {
-      // 데스크톱에서는 무조건 해제 + 검색 닫기
       unlockMenu();
       searchTabEl?.classList.remove('open');
     }
   }
 
-  // 햄버거 클릭
   hamBtnEl.addEventListener('click', (e) => {
     e.preventDefault();
-    e.stopPropagation(); // 다른 위임 핸들러가 가로채지 않게
+    e.stopPropagation();
     headerEl.classList.toggle('on');
     applyLockByHeader();
   });
 
-  // header 클래스 변화 감지
   const mo = new MutationObserver(applyLockByHeader);
   mo.observe(headerEl, { attributes: true, attributeFilter: ['class'] });
 
-  // 닫기 버튼들 처리
   document.querySelectorAll('.ham_close, .menu-close, .nav_close, .search_tab .close, button.close')
     .forEach(btn => {
       btn.addEventListener('click', () => {
@@ -224,15 +223,11 @@ footerBtn?.addEventListener('click', function () {
       });
     });
 
-  // 리사이즈 시 재평가
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 1280) {
-      headerEl.classList.remove('on'); // 데스크톱 진입 시 항상 닫음
-    }
+    if (window.innerWidth > 768) headerEl.classList.remove('on');
     applyLockByHeader();
   });
 
-  // ESC 닫기
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       headerEl.classList.remove('on');
@@ -241,9 +236,9 @@ footerBtn?.addEventListener('click', function () {
     }
   });
 
-  // 초기 동기화
   applyLockByHeader();
 })();
+
 
 //cart
 document.addEventListener('DOMContentLoaded', () => {
