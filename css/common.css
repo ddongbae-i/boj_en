@@ -312,7 +312,7 @@ nav .sub_wrap .sub_img img {
     gap: 32px;
     position: relative;
     z-index: 10;
-    background: #ccc;
+    /* background: #ccc; */
 }
 
 .nav_right button,
@@ -541,12 +541,26 @@ footer .f_join span {
     display: flex;
     gap: 20px;
 }
-.f_sns img{
-    transition: 0.5s;
+
+.f_sns a {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    border-radius: 8px;
 }
-.f_sns img:hover{
-    opacity: 0.5;
+
+.f_sns a img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
+.f_sns a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
 .cart_wrap {
     position: fixed;
     top: 0;
@@ -567,10 +581,10 @@ footer .f_join span {
     transform: translateX(0);
 }
 
-html.cart-locked,
+/* html.cart-locked,
 body.cart-locked {
     overflow: hidden;
-}
+} */
 
 /* .cart_overlay {
     position: fixed;

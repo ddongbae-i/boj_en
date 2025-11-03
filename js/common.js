@@ -35,45 +35,6 @@ window.addEventListener('scroll', () => {
   lastScrollY = currentScrollY;
 });
 
-/* ===== 기존 네비/리사이즈/서브메뉴 관련 로직 (기존 코드 유지) ===== */
-// const hammenuBtn = document.querySelector('.ham_menu');
-// const mainMenus = document.querySelectorAll('nav ul.gnb > li > a');
-// const bottomNav = document.querySelector('.ham_bottom');
-// const nav = document.querySelector('nav');
-
-// function handleNavEvent(e) {
-//   if (e.type === 'mouseenter') nav.classList.add('on');
-//   if (e.type === 'mouseleave') nav.classList.remove('on');
-// }
-
-// if (bottomNav) {
-//   ['mouseenter', 'mouseleave'].forEach(event =>
-//     bottomNav.addEventListener(event, handleNavEvent)
-//   );
-// }
-
-// const lilis = document.querySelectorAll('header nav ul.gnb > li');
-// function handleResize() {
-//   const w = window.innerWidth;
-
-//   // 데스크톱: hover로 열림
-//   if (w > 1280) {
-//     ['mouseenter', 'mouseleave'].forEach(event =>
-//       bottomNav?.addEventListener(event, handleNavEvent)
-//     );
-//     // 잔여 상태 초기화
-//     nav?.classList.remove('on');
-//     document.querySelectorAll('nav ul.gnb > li.on').forEach(li => li.classList.remove('on'));
-//     return;
-//   }
-
-//   // 모바일/태블릿: hover 리스너 제거(클릭 전용)
-//   ['mouseenter', 'mouseleave'].forEach(event =>
-//     bottomNav?.removeEventListener(event, handleNavEvent)
-//   );
-//   // 여기서 a의 href를 건드리지 않음(위임에서 top-level만 막을 것)
-// }
-
 (() => {
   const gnbRoot = document.querySelector('nav ul.gnb');
   if (!gnbRoot) return;
@@ -108,20 +69,7 @@ openSiblings.forEach(sib => { if (sib !== li) sib.classList.remove('on'); });
     topA.setAttribute('aria-expanded', String(willOpen));
   });
 })();
-// handleResize();
-// window.addEventListener('resize', handleResize);
 
-// search
-// const searchBtn = document.querySelector('.nav_right .search');
-// const searchTab = document.querySelector('.search_tab');
-// const searchCloseBtn = document.querySelector('.search_tab .close');
-
-// searchBtn?.addEventListener('click', () => {
-//   searchTab?.classList.add('open');
-// });
-// searchCloseBtn?.addEventListener('click', () => {
-//   searchTab?.classList.remove('open');
-// });
 
 const searchBtn = document.querySelector('.nav_right .search');
 const searchTab = document.querySelector('.search_tab');
@@ -148,6 +96,7 @@ footerBtn?.addEventListener('click', function () {
   footerBtn.style.transition = 'transform 0.3s ease';
 });
 
+//여기가문제
 /* ===== 모바일 search sync (기존 로직 유지) ===== */
 (function () {
   const headerEl = document.querySelector('header');
@@ -194,7 +143,7 @@ footerBtn?.addEventListener('click', function () {
 
   function lockMenu() {
     if (locked) return;
-
+""
     // 메뉴 열릴 때 검색탭 닫기
     searchTabEl?.classList.remove('open');
 
