@@ -1,4 +1,3 @@
-/* jbtest.js integrated build by GPT 5 — 2025-10-30 08:49:20 KST */
 (function (w) {
   "use strict";
   const JB = (w.JB = w.JB || {});
@@ -240,22 +239,22 @@
     if (!card) return;
     var front = card.querySelector(".card-face.front");
     var back = card.querySelector(".card-face.back");
-    // initial: show front, hide back (if CSS doesn't already)
-    if (back) back.hidden = true;
-    if (front) front.hidden = false;
-    function showBack() {
-      if (front) front.hidden = true;
-      if (back) back.hidden = false;
-      card.setAttribute("aria-pressed", "true");
+    // initial: show back, hide front (JS overrides CSS minimally)
+    if (front) front.hidden = true;
+    if (back) back.hidden = false;
+    function showFront() {
+      if (front) front.hidden = false;
+      if (back) back.hidden = true;
+      card.setAttribute("aria-pressed", "false");
     }
     card.addEventListener("click", function (e) {
       e.preventDefault();
-      showBack();
+      showFront();
     });
     card.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        showBack();
+        showFront();
       }
     });
   }
@@ -299,6 +298,13 @@
 (function (w) {
   "use strict";
   var JB = w.JB || (w.JB = {});
+
+  // GSAP bootstrap (minimal, GSAP-only)
+  (function bootstrap(){
+    if (typeof w.gsap === "undefined") return;
+    try { if (typeof w.ScrollTrigger !== "undefined" && w.gsap && w.gsap.registerPlugin) { w.gsap.registerPlugin(w.ScrollTrigger); } } catch(_) {}
+    try { w.gsap.defaults({ immediateRender:false, overwrite:"auto" }); } catch(_){ }
+  })();
 
   function hasGSAP() { return typeof w.gsap !== "undefined"; }
   var homeTL = null, resultTL = null;
@@ -387,27 +393,56 @@
     var ctas = res.querySelectorAll(".row-ghosts button");
 
     resultTL = gsap.timeline({ defaults: { ease: "power3.out" } });    if (mainCard) resultTL.from(mainCard, { y: 10, opacity: 0, duration: 0.34 }, 0.08);
-    if (cards && cards.length) resultTL.from(cards, { y: 26, opacity: 0, stagger: 0.08, duration: 0.40 }, 0.16);
     if (ctaAll) resultTL.from(ctaAll, { y: 12, opacity: 0, duration: 0.28 }, "+=0.05");
     if (ctas && ctas.length) resultTL.from(ctas, { y: 10, opacity: 0, stagger: 0.06, duration: 0.26 }, "-=0.10");
 
-    // ScrollTrigger for products
-    if (typeof ScrollTrigger !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
-      res.querySelectorAll(".product_card").forEach(function (card) {
-        gsap.from(card, {
-          y: 22,
-          opacity: 0,
-          duration: 0.35,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          },
+    
+    // Scroll-triggered reveal for products
+    (function setupScrollReveal(){
+      var cards = res.querySelectorAll(".product_card");
+      if (!cards || !cards.length) return;
+
+      function animateCard(el){
+        gsap.fromTo(el, {y:22, opacity:0}, {y:0, opacity:1, duration:0.38, ease:"power2.out", overwrite:"auto", clearProps:"transform,opacity"});
+      }
+
+      if (typeof ScrollTrigger !== "undefined" && gsap.registerPlugin) {
+        gsap.registerPlugin(ScrollTrigger);
+        var startPos = (w.matchMedia && w.matchMedia("(min-width: 1024px)").matches) ? "top 85%" : "top 90%";
+        cards.forEach(function(card){
+          gsap.fromTo(card,
+            { y:22, opacity:0 },
+            { y:0, opacity:1, duration:0.38, ease:"power2.out", immediateRender:false, clearProps:"transform,opacity",
+              scrollTrigger: {
+                trigger: card,
+                start: startPos,
+                end: "bottom 5%",
+                once: true,
+                invalidateOnRefresh: true,
+                toggleActions: "play none none none"
+              }
+            }
+          );
         });
-      });
-    }
+        // Refresh after layout settles
+        requestAnimationFrame(function(){ setTimeout(function(){ try{ ScrollTrigger.refresh(); }catch(e){} }, 60); });
+        w.addEventListener("load", function(){ try{ ScrollTrigger.refresh(); }catch(e){} });
+      } else if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries, obs){
+          entries.forEach(function(entry){
+            if (entry.isIntersecting) {
+              animateCard(entry.target);
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { root: null, rootMargin: "0px 0px -12% 0px", threshold: 0.1 });
+        cards.forEach(function(card){ io.observe(card); });
+      } else {
+        // Last resort: animate immediately
+        cards.forEach(animateCard);
+      }
+    })();
+
   }
   w.addEventListener("JB_SHOW_RESULT", animateResultSection);
 
