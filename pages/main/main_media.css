@@ -406,10 +406,9 @@
     .membership {
         display: flex;
         flex-direction: column;
-        position: relative;
         padding: 0 0 100px 0;
         width: 100%;
-         min-height: 900px;
+        min-height: 900px;
     }
 
     .membership>video {
@@ -423,6 +422,7 @@
         align-items: flex-start;
         row-gap: 20px;
         gap: 0px;
+        width: 100%;
     }
 
     .membership .mem768 .mem_video {
@@ -447,13 +447,10 @@
         width: 100%;
     }
 
-.membership .login_box {
-    text-align: center;
-    left: 50%;
-    transform: translateY(-50%);
+    .membership .login_box {
+        text-align: center;
+        left: 0;
     }
-
-
 
     .banner_1 .txt_box {
         font-size: 1.25rem;
@@ -699,12 +696,36 @@
 
 @media (max-width: 440px) {
 
+    .card h4.pro_txt  {
+        display: none;
+    }
+
+    .card small.pro_txt {
+        font-size: 1rem;
+    }
+
     .membership {
-        padding: 0;
-        position: relative;
-        /* 자식 absolute 요소의 기준점 */
-        /* 섹션에 내용물이 많지 않다면, 높이를 확보해야 합니다. */
         min-height: 600px;
+       margin-bottom: 60px;
+    }
+
+    .membership .login_box {
+        bottom: 0;
+        left: 0;
+    }
+
+    .membership .login_box .tit {
+        font-size: 1.25rem;
+    }
+
+    .membership .login_box .txt {
+        font-size: 0.87rem;
+        width: 100%;
+
+    }
+
+    .membership .login_box .txt span {
+        display: none;
     }
 
     .hanbang {
@@ -718,47 +739,31 @@
     .hanbang .img_box {
         width: clamp(260px, 92vw, 360px);
         aspect-ratio: 4 / 3;
-        /* 높이는 가로로부터 자동 계산 */
         height: auto;
-        /* 768에서 준 고정/상한 높이 해제 */
         max-height: none;
         margin-inline: auto;
         margin-bottom: 50px;
-        /* 텍스트와 간격 */
         position: relative;
-        /* sticky 영향 제거 */
         overflow: visible;
     }
 
-    /* 2) 텍스트 컨테이너를 '슬롯'이 아니라 일반 블록으로 되돌림 */
     .hanbang .txt_col {
         overflow: hidden;
-        /* 스크롤 막기 */
         max-height: none;
-        /* 불필요한 고정값 제거 */
         height: auto;
-        /* 내용에 맞게 높이 자동 조정 */
         pointer-events: none;
-        /* 스크롤 이벤트 방지 (선택적으로) */
-        /* display: block;
-        grid-area: text;
-        width: clamp(260px, 92vw, 360px);
-        height: auto;
-        max-height: none;
-        overflow: visible; */
+
     }
 
-    /* 3) 내부 스트림/아이템 높이를 자동으로 (겹침·잘림 방지) */
+
     .hanbang .txt_all {
         height: auto;
     }
 
     .hanbang .txt_stream {
         overflow: hidden;
-        /* 내부 스트림도 스크롤 차단 */
     }
 
-    /* 4) 768에서 절대배치로 겹쳐놓은 카드들을 440에선 '보이는 것만' 상대배치 */
     .hanbang .txt_left ul,
     .hanbang .txt_right ul {
         position: absolute;
@@ -769,7 +774,6 @@
 
     .hanbang .txt_all ul.on {
         position: relative;
-        /* ✅ 현재 항목만 흐름에 참여하게 */
         opacity: 1;
         visibility: visible;
     }

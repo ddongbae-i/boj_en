@@ -542,6 +542,25 @@ footer .f_join span {
     gap: 20px;
 }
 
+.f_sns a {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    border-radius: 8px;
+}
+
+.f_sns a img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.f_sns a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
 .cart_wrap {
     position: fixed;
     top: 0;

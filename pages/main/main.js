@@ -683,3 +683,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // 화면 크기 바뀔 때도 자동 갱신
   window.addEventListener('resize', changeBannerImage);
 });
+
+const skinBtn = document.querySelector('.skintest_btu');
+const footer = document.querySelector('footer');
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const windowH = window.innerHeight;
+  const footerTop = footer.getBoundingClientRect().top + scrollY;
+
+  // footer와 겹치기 100px 전부터 숨김
+  if (scrollY + windowH >= footerTop - 100) {
+    skinBtn.style.opacity = '0';
+    skinBtn.style.pointerEvents = 'none';
+    skinBtn.style.transform = 'translateY(20px)';
+  } else {
+    skinBtn.style.opacity = '1';
+    skinBtn.style.pointerEvents = 'auto';
+    skinBtn.style.transform = 'translateY(0)';
+  }
+});
