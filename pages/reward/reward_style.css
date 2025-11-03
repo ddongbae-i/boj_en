@@ -130,12 +130,9 @@ main .inner {
     justify-content: center;
 }
 
-.btn:first-child {
-    margin-right: 12px;
-}
-
-.btn-white:first-child {
-    margin-right: 12px;
+.btn_g{
+    display: flex;
+    gap: 12px;
 }
 
 .list {
