@@ -89,6 +89,16 @@ header {
     color: var(--white_ff);
 }
 
+header.hovered .logo a,
+header.scrolled-up .logo a {
+    color: var(--txt_main);
+}
+
+header.hovered .nav_right img,
+header.scrolled-up .nav_right img {
+    filter: invert(0.9) brightness(0.5);
+}
+
 .dark {
     background: var(--bg_black);
 }
@@ -211,6 +221,10 @@ header {
     color: var(--white_ff);
     width: 490px;
     min-width: 280px;
+}
+
+.puzzle .txt_area p {
+    color: var(--grey_c7);
 }
 
 .puzzle .txt_area .tit {
@@ -450,7 +464,6 @@ header {
     transform: rotate(540deg);
 }
 
-
 .p_right .option ul {
     position: absolute;
     left: 0;
@@ -460,11 +473,11 @@ header {
     width: 100%;
     /* display: none; */
     border-radius: 0 0 4px 4px;
-    border-bottom: 0;
+    /* border-bottom: 0; */
     padding: 10px;
     color: var(--txt_sub_44);
     font-size: 1rem;
-    z-index: 5;
+    z-index: 20;
     display: none;
 }
 
@@ -536,9 +549,13 @@ header {
     font-weight: 400;
 }
 
+.banner h2 span {
+    font-size: 2rem;
+}
+
 .banner .txt {
     margin-top: 8px;
-    color: var(--txt_sub_77);
+    color: var(--grey_c7);
     width: 520px;
 }
 
@@ -944,6 +961,13 @@ header {
     width: 100%;
     background: var(--bg_white);
     box-shadow: 0 -2px 10px 0 rgba(107, 107, 107, 0.10);
+
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+.filters.show {
+    transform: translateY(0);
 }
 
 .filters .open {
@@ -961,19 +985,23 @@ header {
 }
 
 .filters .open img {
-  display: inline-block;
-  animation: floatUpDown 2.4s ease-in-out infinite;
-  will-change: transform;
+    display: inline-block;
+    animation: floatUpDown 2.4s ease-in-out infinite;
+    will-change: transform;
 }
 
 /* 위아래 둥둥 효과 */
 @keyframes floatUpDown {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px); /* 움직임 크기, 6~10px 선호 */
-  }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+        /* 움직임 크기, 6~10px 선호 */
+    }
 }
 
 .filters_bar {
@@ -989,12 +1017,12 @@ header {
 .filters .open img {
     width: 24px;
     height: 24px;
-    transition: transform 0.3s ease;
+    transition: rotate 0.3s ease;
     rotate: 180deg;
 }
 
 .filters.active .open img {
-    transform: rotate(540deg);
+    rotate: 360deg;
 }
 
 #filters-panel {
@@ -1008,7 +1036,10 @@ header {
     max-height: 900px;
     opacity: 1;
     overflow: visible;
+}
 
+.filters.active #filters-panel .filters_reset {
+    color: var(--txt_sub_44);
 }
 
 .filters_group {
@@ -1021,7 +1052,7 @@ header {
 
 .filter_tit {
     font-weight: 400;
-    color: var(--txt_main);
+    color: var(--centella);
     padding-left: 10px;
     width: 110px;
 }
@@ -1066,6 +1097,7 @@ header {
     align-items: center;
     justify-content: center;
 }
+
 ::-webkit-scrollbar {
     width: 12px;
 }

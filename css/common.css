@@ -233,7 +233,7 @@ nav ul.gnb>li>a {
     width: 100%;
     height: 100%;
     align-content: center;
-    padding-inline: 35px;
+    padding-inline: 40px;
     position: relative;
     z-index: 10;
 }
@@ -479,7 +479,7 @@ footer .f_join p {
     padding-inline: 20px;
 }
 
-.f_join form .f_join_box button:hover{
+.f_join form .f_join_box button:hover {
     color: var(--grey_c7);
 }
 
@@ -1148,4 +1148,21 @@ body.menu-open {
 
 .cart_wrap.is-open {
     pointer-events: auto;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fbf8f2;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b59016;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9a7612;
 }
