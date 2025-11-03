@@ -1,9 +1,141 @@
-AOS.init({
-  duration: 1200, // 애니메이션 시간(ms)
-  once: false, // 스크롤 시 한 번만 실행
+document.addEventListener('DOMContentLoaded', () => {
+  // 전체 AOS 초기화 - 반복 실행 허용
+  AOS.init({
+    duration: 800,
+    once: false,
+    offset: 50,
+    mirror: true,
+  });
+
+  // 커뮤니티 섹션 내에서 once 효과 적용하고 싶은 요소 찾아야 함
+  const community = document.querySelector('.community');
+  if (!community) return;
+
+  // 커뮤니티 내 모든 [data-aos] 요소 대상으로 once 효과 적용
+  const communityAosElements = community.querySelectorAll('[data-aos]');
+  communityAosElements.forEach(el => {
+    el.dataset.aosOnce = "true";  // 요소별 once 속성 지원(최신 AOS에서는 data-aos-once도 가능)
+  });
 });
 
-let locked = false; // 락 여부 플래그
+document.addEventListener('DOMContentLoaded', () => {
+  const subMain = document.querySelector('.sub_main');
+  const subMain2 = document.querySelector('.sub_main2');
+  const subMainImg = document.querySelector('.sub_main_img');
+
+  if (subMain2) {
+    subMain2.classList.remove('active');
+    subMain2.style.display = 'none';
+    subMain2.style.opacity = 0;
+    subMain2.style.transition = 'opacity 0.5s ease';
+  }
+
+  window.scrollTo(0, 0);
+  locked = false;
+
+  if (subMainImg) {
+    subMainImg.addEventListener('click', () => {
+      if (subMain) {
+        subMain.style.transition = 'opacity 0.5s ease';
+        subMain.style.opacity = 0;
+
+        setTimeout(() => {
+          subMain.style.display = 'none';
+
+          if (subMain2) {
+            subMain2.style.display = 'flex';
+            subMain2.classList.add('active');
+            setTimeout(() => {
+              subMain2.style.opacity = 1;
+
+              // AOS 재초기화 타이밍
+              if (window.AOS) window.AOS.refresh();
+            }, 20);
+          }
+        }, 500);
+      }
+      locked = false;
+    });
+  }
+});
+
+/* document.addEventListener('DOMContentLoaded', () => {
+  const subMain = document.querySelector('.sub_main');
+  const subMain2 = document.querySelector('.sub_main2');
+  const subMainImg = document.querySelector('.sub_main_img');
+
+  if (subMain2) {
+    subMain2.classList.remove('active');
+    subMain2.style.display = 'none';
+    
+  }
+
+  window.scrollTo(0, 0);
+  locked = false;
+
+  if (subMainImg) {
+    subMainImg.addEventListener('click', () => {
+      if (subMain) subMain.style.display = 'none';
+      if (subMain2) {
+        subMain2.classList.add('active');
+        subMain2.style.display = 'flex';
+      }
+      locked = false;
+      if (window.AOS) AOS.refresh();
+    });
+  }
+}); */
+/* document.addEventListener('DOMContentLoaded', () => {
+  const subMain = document.querySelector('.sub_main');
+  const subMain2 = document.querySelector('.sub_main2');
+  const subMainImg = document.querySelector('.sub_main_img');
+  const introVideo = document.querySelector('.intro_video');
+
+  if (subMain2) {
+    subMain2.classList.remove('active');
+    subMain2.style.display = 'none';
+  }
+
+  window.scrollTo(0, 0);
+  locked = false;
+
+  if (subMainImg) {
+    subMainImg.addEventListener('click', () => {
+      if (introVideo) {
+        introVideo.style.display = 'block';
+        introVideo.currentTime = 0;
+        introVideo.play();
+
+        introVideo.onended = () => {
+          introVideo.style.display = 'none';
+          // sub_main 숨기고 sub_main2 보이기
+          if(subMain) subMain.style.display = 'none';
+          if(subMain2) {
+            subMain2.classList.add('active');
+            subMain2.style.display = 'flex';
+          }
+
+          locked = false;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          if(window.AOS) AOS.refresh();
+        };
+      } else {
+        // 영상 없으면 바로 전환
+        if(subMain) subMain.style.display = 'none';
+        if(subMain2) {
+          subMain2.classList.add('active');
+          subMain2.style.display = 'flex';
+        }
+        locked = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if(window.AOS) AOS.refresh();
+      }
+    });
+  }
+}); */
+
+
+/* let locked = false; // 락 여부 플래그
 const main = document.querySelector(".main");
 const subMain2 = document.querySelector(".sub_main2");
 
@@ -60,7 +192,40 @@ document.addEventListener("scroll", () => {
   }
 });
 
+//클릭 시 sub_main2 전환 
+document.addEventListener('DOMContentLoaded', () => {
+  const subMainImg = document.querySelector('.sub_main_img');
+  const subMain = document.querySelector('.sub_main');
+  const subMain2 = document.querySelector('.sub_main2');
 
+  if (!subMainImg || !subMain || !subMain2) return;
+
+  subMainImg.addEventListener('click', () => {
+    gsap.to(subMain, {
+      opacity: 0,
+      duration: 0.5,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        subMain.style.display = 'none';
+
+        // sub_main2 보이기
+        subMain2.classList.add('active');
+        subMain2.style.display = 'flex'; // 필요시
+        gsap.fromTo(subMain2, { opacity: 0, y: 30 }, {
+          opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+          onStart: () => {
+            // AOS에 새로 보이는 요소들을 재계산하라고 알림
+            if (window.AOS) AOS.refresh(); // 또는 AOS.refreshHard();
+          }
+        });
+
+        // 스크롤 이동 등...
+      }
+    });
+  });
+});
+ */
+/*  수정 전  sub_main  위 내용.*/
 /* 영상  
 document.addEventListener('DOMContentLoaded', () => {
   const subMain = document.querySelector('.sub_main');
@@ -237,16 +402,20 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 2. ADD TO BAG 클릭 이벤트
-  const addBtns = document.querySelectorAll(".product_card .add_btn");
-  addBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault(); // a 태그 기본 링크 막기
-      const productName = btn.closest(".product_card").querySelector("h3").innerText;
-      alert(`${productName}이(가) 장바구니에 추가되었습니다.`);
-      // 실제 장바구니 로직 구현 시 여기에 코드를 추가
-    });
-  });
+  /*   const addBtns = document.querySelectorAll(".product_card .add_btn");
+    addBtns.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault(); // a 태그 기본 링크 막기
+        const productName = btn.closest(".product_card").querySelector("h3").innerText;
+        alert(`${productName}이(가) 장바구니에 추가되었습니다.`);
+        // 실제 장바구니 로직 구현 시 여기에 코드를 추가
+      });
+    }); */
+
 });
+
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const filterItems = document.querySelectorAll(".product_filter li");
@@ -382,39 +551,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-/*클릭 시 sub_main2 전환 */
-document.addEventListener('DOMContentLoaded', () => {
-  const subMainImg = document.querySelector('.sub_main_img');
-  const subMain = document.querySelector('.sub_main');
-  const subMain2 = document.querySelector('.sub_main2');
-
-  if (!subMainImg || !subMain || !subMain2) return;
-
-  subMainImg.addEventListener('click', () => {
-    gsap.to(subMain, {
-      opacity: 0,
-      duration: 0.5,
-      ease: 'power2.inOut',
-      onComplete: () => {
-        subMain.style.display = 'none';
-
-        // sub_main2 보이기
-        subMain2.classList.add('active');
-        subMain2.style.display = 'flex'; // 필요시
-        gsap.fromTo(subMain2, { opacity: 0, y: 30 }, {
-          opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
-          onStart: () => {
-            // AOS에 새로 보이는 요소들을 재계산하라고 알림
-            if (window.AOS) AOS.refresh(); // 또는 AOS.refreshHard();
-          }
-        });
-
-        // 스크롤 이동 등...
-      }
-    });
-  });
-});
-
 // Bag Count 기능 추가 __헤더 +1
 document.addEventListener("DOMContentLoaded", () => {
   const addBtns = document.querySelectorAll(".product_card .add_btn");
@@ -450,6 +586,59 @@ document.querySelectorAll('.heart_btn').forEach(btn => {
       btn.style.background = "transparent url('../../asset/img/shop/icon_heart_x.svg') no-repeat center/24px 24px";
       img.style.display = 'none';
     }
+  });
+});
+
+/* popup test */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addButtons = document.querySelectorAll(".add_btn");
+  const popup = document.querySelector(".popup");
+  const dim = document.querySelector(".dim");
+  const popupHeading = popup.querySelector("h2");
+  const popupParagraph = popup.querySelector("p");
+  const continueBtn = popup.querySelector(".btn_re");      // 쇼핑 계속하기 버튼
+  const closeCartBtn = popup.querySelector(".btn_close");   // 장바구니 가기 버튼
+  const closeXBtn = popup.querySelector(".popup_close");    // 우측 상단 X버튼
+
+  addButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const productCard = btn.closest(".product_card");
+      if (!productCard) return;
+
+      const productTitle = productCard.querySelector(".info h3").textContent;
+      popupParagraph.innerHTML = `"${productTitle}"<br>Your item has been added to your shopping cart.`;
+
+      popup.style.display = "block";
+      dim.style.display = "block";
+    });
+  });
+
+  // 쇼핑 계속하기(하단 버튼) 클릭 시
+  continueBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
+  });
+
+  // 장바구니 가기(하단 버튼) 클릭 시 닫기(여기서는 단순 팝업 닫기지만, cart 별도 로직 추가 가능)
+  closeCartBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
+    // 장바구니 열기 기능 추가 가능
+  });
+
+  // dim 영역 클릭 시 팝업 닫기
+  dim.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
+  });
+
+  // 우측 상단 X(닫기) 버튼 클릭 시 팝업 닫기
+  closeXBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
   });
 });
 

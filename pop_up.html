@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>popup</title>
+    <link rel="stylesheet" href="pop.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="pop.js" defer></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+   <div class="notice">
+        <div class="dim"></div>
+        <div class="popup">
+            <button class="popup_close">&times;</button>
+            <h2>Notice</h2>
+            <p>We are creating a new look of Joseon's beauty.
+                <br>I'll come back with a deeper beauty. <br>Please wait!
+            </p>
+            <div class="popup_btns">
+                <button class="btn_close">Close</button>
+            </div>
+        </div>
+    </div> 
+
+    <div class="login">
+        <div class="login_dim"></div>
+        <form class="login_box">
+            <div class="login_pop">
+                <div class="login_close">&times;</div>
+                <h2>Login</h2>
+                <span class="notice">New to beautyofjoseon? <span class="bar">Sign up for free</span></span>
+                <label for="login_email" class="email">Email address</label>
+                <input type="email" id="login_email" placeholder="Email" required />
+
+                <label for="login_password" class="password">Password</label>
+                <input type="password" id="login_password" placeholder="Password" required />
+                <a href="#" class="pw_reset">Forget password?</a>
+
+                <button type="submit" class="login_btn">Login</button>
+                <div class="sns">
+                    <a href="#"><img src="/asset/img/common/google.png" alt="google"></a>
+                    <a href="#"><img src="/asset/img/common/apple.png" alt="apple"></a>
+                    <a href="#"><img src="/asset/img/common/facebook.png" alt="facebook"></a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>
