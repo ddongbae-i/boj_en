@@ -365,6 +365,11 @@
         box-sizing: border-box;
     }
 
+    .bestSeller_768 .product_768 .txt_box{
+        opacity: 1;
+        bottom: 60px;
+    }
+
     .bestSeller_768 .swiper-slide {
         display: flex;
         justify-content: center;
