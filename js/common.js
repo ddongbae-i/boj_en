@@ -143,7 +143,7 @@ footerBtn?.addEventListener('click', function () {
 
   function lockMenu() {
     if (locked) return;
-
+""
     // 메뉴 열릴 때 검색탭 닫기
     searchTabEl?.classList.remove('open');
 

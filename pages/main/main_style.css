@@ -104,48 +104,39 @@ main {
 }
 
 /* 글래스 버튼 */
-.bestSeller .product .card::after {
+.bestSeller .product .txt_box {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  z-index: 1;
+  left: 0;
+bottom: 10px;
+  width: 390px;
+  height: 98px;
+  z-index: 10;
 
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 
-  box-shadow:
-    0 2px 2px rgba(144, 144, 144, 0.224),
+  /* box-shadow:
+    0 1px 1px rgba(144, 144, 144, 0.224),
     inset 1px 1px 1px rgba(255, 255, 255, 0.21),
-    inset -1px 0px 1px rgba(196, 196, 196, 0.8);
+    inset -1px 0px 1px rgba(196, 196, 196, 0.8); */
 
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   border-left: 1px solid rgba(255, 255, 255, 0.2);
-  border-right: none;
-  border-bottom: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);;
+  color: var(--white_ff);
+  padding: 20px;
 }
 
-/* 화살표 */
-.bestSeller .product .card::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-60%, -50%) rotate(-45deg);
-  width: 15px;
-  height: 15px;
-  border-right: 2px solid rgba(255,255,255,0.85);
-  border-bottom: 2px solid rgba(255,255,255,0.85);
-  z-index: 2;
-  pointer-events: none;
+.bestSeller .product .txt_box p {
+  margin-bottom: 8px;
 }
-.bestSeller .product .card:hover::after {
-  display: block;
+
+.bestSeller .product .txt_box em {
+  font-size: 1.125rem;
 }
+
 
 .bestSeller .slide_wrap {
   width: 100%;
