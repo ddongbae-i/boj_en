@@ -21,13 +21,15 @@
     <link rel="stylesheet" href="../../css/media.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="../../pages/payment/payment_style.css">
+    <link rel="stylesheet" href="../../pages/payment/payment_media.css">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../../js/common.js" defer></script>
+    <script src="../../pages/payment/payment.js" defer></script>
 
 
 <body>
 
-    <!--     <header class="">
+    <header class="">
         <div class="inner">
             <h1 class="logo"><a href="../../main.html">BEAUTY OF JOSEON</a></h1>
             <nav>
@@ -157,7 +159,7 @@
                 </div>
             </div>
         </div>
-    </header> -->
+    </header>
     <main>
         <div class="warp">
             <section class="left">
@@ -180,14 +182,14 @@
                                 </div>
                             </td>
 
-                            <td data-label="Price">$17</td>
+                            <td data-label="Price">$ 17</td>
 
                             <td data-label="Quantity">
                                 <input class="quantity-input" type="number" value="1" min="1">
                             </td>
 
                             <td data-label="Total">
-                                $17
+                                <span class="total-value">$ 17</span>
                                 <button class="remove-button">x</button>
                             </td>
                         </tr>
@@ -208,12 +210,11 @@
                     <ul class="full-width-input">
                         <li>
                             <label for="name-on-card">Name on card</label>
-                            <input type="text" id="name-on-card" placeholder="Rechel" value="Rechel">
+                            <input type="text" id="name-on-card" placeholder="Rechel">
                         </li>
                         <li>
                             <label for="card-number">Card number</label>
-                            <input type="text" id="card-number" placeholder="1234 1234 1234 1234"
-                                value="1234 1234 1234 1234">
+                            <input type="text" id="card-number" placeholder="1234 1234 1234 1234">
                         </li>
                     </ul>
 
@@ -222,16 +223,16 @@
                             <label for="card-expiration-month">Card expiration</label>
                             <div class="select-group">
                                 <select id="card-expiration-month">
-                                    <option value="02" selected>02</option>
+                                    <option selected>02</option>
                                 </select>
                                 <select id="card-expiration-year">
-                                    <option value="25" selected>25</option>
+                                    <option selected>25</option>
                                 </select>
                             </div>
                         </li>
-                        <li style="width: 47%;">
+                        <li style="width:50%;">
                             <label for="security-code">Card Security Code</label>
-                            <input type="text" id="security-code" placeholder="123" value="123">
+                            <input type="text" id="security-code" placeholder="123">
                         </li>
                     </ul>
 
@@ -243,25 +244,25 @@
                         <li>
                             <label for="country">Country</label>
                             <select id="country">
-                                <option value="united-states" selected>United States</option>
+                                <option selected>United States</option>
                             </select>
                         </li>
                         <li>
                             <label for="address">Address</label>
-                            <input type="text" id="address" placeholder="450" value="450">
+                            <input type="text" id="address" placeholder="450">
                         </li>
                         <li>
                             <label for="city">City</label>
-                            <input type="text" id="city" placeholder="New York" value="New York">
+                            <input type="text" id="city" placeholder="New York">
                         </li>
                         <ul class="card-exp-security">
                             <li style="width: 30%;">
                                 <label for="state">State</label>
-                                <input type="text" id="state" placeholder="NY" value="NY">
+                                <input type="text" id="state" placeholder="NY">
                             </li>
                             <li style="width: 67%;">
                                 <label for="zip-code">ZIP CODE</label>
-                                <input type="text" id="zip-code" placeholder="10022" value="10022">
+                                <input type="text" id="zip-code" placeholder="10022">
                             </li>
                         </ul>
                     </ul>
@@ -273,11 +274,11 @@
                     <ul class="full-width-input">
                         <li>
                             <label for="email">Email</label>
-                            <input type="email" id="email" placeholder="joseon@gmail.com" value="joseon@gmail.com">
+                            <input type="email" id="email" placeholder="joseon@gmail.com">
                         </li>
                         <li>
                             <label for="phone">Phone</label>
-                            <input type="tel" id="phone" placeholder="+1 646 600 6000" value="+1 646 600 6000">
+                            <input type="tel" id="phone" placeholder="+1 646 600 6000">
                         </li>
                     </ul>
                 </div>
@@ -286,32 +287,32 @@
             <section class="right">
 
                 <div class="payment-container">
-                    <h1>Payment information</h1>
+                    <h2>Payment information</h2>
 
                     <ul class="payment-details">
                         <li class="item product">
                             <span class="label">Product</span>
-                            <span class="value">$17</span>
+                            <span class="value">$ 17</span>
                         </li>
 
                         <li class="item coupon">
                             <span class="label">Coupon</span>
-                            <span class="description">10% of new members (Applicable for purchases over $10)</span>
-                            <span class="value discount">- $1.7</span>
+                            <span class="description">10% of new members (Applicable for purchases over $ 10)</span>
+                            <span class="value discount">- $ 1.7</span>
                         </li>
 
                         <li class="divider"></li>
 
                         <li class="item delivery">
                             <span class="label">Delivery Fee</span>
-                            <span class="value">$5</span>
+                            <span class="value">$ 5</span>
                         </li>
 
                         <li class="divider"></li>
 
                         <li class="item total">
                             <span class="label">Total</span>
-                            <span class="value final-total">$20.3</span>
+                            <span class="value final-total">$ 20.3</span>
                         </li>
                     </ul>
 
@@ -321,7 +322,7 @@
             </section><!-- //.right -->
         </div>
     </main>
-    <!--     <footer>
+    <footer>
         <div class="inner">
             <h2 class="logo"><a href="#">BEAUTY OF JOSEON</a></h2>
             <div class="f_center">
@@ -379,7 +380,7 @@
                 </div>
             </div>
         </div>
-    </footer> -->
+    </footer>
 </body>
 
 </html>
