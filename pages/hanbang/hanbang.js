@@ -607,13 +607,13 @@ document.querySelectorAll('.heart_btn').forEach(btn => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const addButtons = document.querySelectorAll(".add_btn");
-  const popup = document.querySelector(".popup");
-  const dim = document.querySelector(".dim");
+  const popup = document.querySelector(".add_popup");
+  const dim = document.querySelector(".add_dim");
   const popupHeading = popup.querySelector("h2");
   const popupParagraph = popup.querySelector("p");
-  const continueBtn = popup.querySelector(".btn_re");      // 쇼핑 계속하기 버튼
-  const closeCartBtn = popup.querySelector(".btn_close");   // 장바구니 가기 버튼
-  const closeXBtn = popup.querySelector(".popup_close");    // 우측 상단 X버튼
+  const continueBtn = popup.querySelector(".add_btn_re");      // 쇼핑 계속하기 버튼
+  const closeCartBtn = popup.querySelector(".add_btn_close");   // 장바구니 가기 버튼
+  const closeXBtn = popup.querySelector(".add_popup_close");    // 우측 상단 X버튼
 
   addButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
