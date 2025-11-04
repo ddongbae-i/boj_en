@@ -1052,7 +1052,7 @@ header.scrolled-up .nav_right img {
     align-items: center;
 }
 
-.filter_tit {
+.filters_group .filter_tit {
     font-weight: 400;
     color: var(--centella);
     padding-left: 10px;
