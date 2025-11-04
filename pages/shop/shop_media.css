@@ -77,7 +77,6 @@
 
     .flex_area {
         flex-direction: column;
-        /* ✅ 세로 전환 */
         align-items: center;
         justify-content: center;
         gap: 50px;
@@ -85,12 +84,10 @@
 
     .puzzle_wrap {
         order: 1;
-        /* 위쪽 */
     }
 
     .puzzle_right {
         order: 2;
-        /* 아래쪽 */
         padding-right: 0;
     }
 
@@ -112,7 +109,6 @@
 
     .sale_zone .inner {
         flex-direction: column;
-        /* 위/아래 배치 */
         gap: 24px;
         padding: 0;
         padding-block: 80px 40px;
@@ -133,9 +129,13 @@
         order: 2;
     }
 
-    /* 카드가 화면폭에 맞춰 유연하게 */
     .swiper .product_wrap {
         padding: 0;
+        gap: 20px;
+    }
+
+    .swiper .product_wrap:first-child {
+        padding-left: 20px;
     }
 
     .info .pro_tit {
@@ -153,14 +153,12 @@
 
     .pro_card.swiper-slide {
         width: clamp(260px, 48vw, 420px);
-        /* 화면에 1~2장 보이게 */
     }
 
     .pro_card {
-        padding-bottom: 72px;
+        padding-bottom: 100px;
     }
 
-    /* 이미지 정사각, 넓이에 맞춤 */
     .pro_card .pro_img {
         width: 100%;
         height: auto;
@@ -168,7 +166,6 @@
         object-fit: contain;
     }
 
-    /* 마지막 우측 여백 과도 방지 */
     .pro_card:last-child {
         margin-right: 16px;
     }
@@ -221,6 +218,8 @@
 
     .puzzle .txt_area .txt {
         font-size: 1rem;
+        width: 430px;
+        margin-inline: auto;
     }
 
     .sale_zone .tit {
@@ -355,7 +354,7 @@
     }
 
     .pro_card {
-        padding-bottom: 60px;
+        padding-bottom: 80px;
     }
 
     .product_list .pro_card {
@@ -473,6 +472,7 @@
     .puzzle .txt_area p {
         font-size: 0.875rem;
     }
+
     .puzzle .txt_area .tit {
         font-size: 1.125rem;
     }
@@ -511,26 +511,37 @@
     .swiper .product_wrap {
         gap: 12px;
     }
-
-    .pro_card {
-        padding-bottom: 52px;
+    
+    .product_list {
+        gap: 12px;
     }
 
     .pro_card .add_btn {
         font-size: 0;
+        text-align: center;
+        line-height: 0;
     }
 
-     .info .pro_tit {
+    .pro_card .add_btn img {
+        display: block;
+        margin-right: -10px;
+    }
+
+    .product_list .p_right {
+        width: 130px;
+    }
+
+    .info .pro_tit {
         font-size: 1.125rem;
     }
 
-     .info .pro_tit .price {
+    .info .pro_tit .price {
         font-size: 1.125rem;
-     }
+    }
 
 
     .heart_btn {
-        top: 16px;
-        right: 16px;
+        top: 12px;
+        right: 12px;
     }
 }

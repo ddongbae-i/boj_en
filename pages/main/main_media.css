@@ -481,7 +481,6 @@
         overflow: visible;
     }
 
-    /* 레이아웃: 이미지 위, 텍스트 아래 */
     .hanbang .inner {
         display: grid;
         grid-template-columns: 1fr;
@@ -489,17 +488,14 @@
         grid-template-areas:
             "center"
             "text";
-        /* 이미지(1행) → 텍스트(2행) */
         row-gap: 16px;
         align-items: start;
         justify-items: center;
     }
 
-    /* 이미지 크기 축소 + 비율 유지 */
     .hanbang .img_box {
         grid-area: center;
         position: relative;
-        /* ← sticky 해제 */
         top: auto;
     }
 
@@ -517,20 +513,15 @@
 
     .hanbang .txt_all>ul {
         margin: 0 0 14px;
-        /* 위쪽 0으로 고정 */
     }
 
-    /* 텍스트 박스: 1개만 보여주고 나머지는 숨김 */
     .hanbang .txt_col {
         display: block;
-        /* 1024에서 display:contents였던 것 되돌리기 */
         grid-area: text;
-        /* 2행으로 고정 */
         width: 100%;
         margin-top: 0;
         margin-bottom: 50px;
     }
-
 
     .hanbang .txt_stream {
         display: flex;
@@ -539,14 +530,11 @@
         transition: transform 0.6s ease;
     }
 
-    /* 모든 텍스트 숨기기 */
     .hanbang .txt_all ul {
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 0.6s ease, transform 0.6s ease;
     }
-
-    /* 현재 활성화된 텍스트만 보이기 */
     .hanbang .txt_all ul.on {
         opacity: 1;
         transform: translateY(0);
@@ -556,18 +544,13 @@
     .hanbang .txt_stream {
         position: relative;
         overflow: hidden;
-        /* 슬롯 밖은 가림 */
-        /* 초기 슬롯 높이. 너무 크면 줄이세요 */
         min-height: 150px;
-        /* 예: 140~180px 선호 */
     }
 
-    /* 모든 카드(좌/우) – 슬롯 안에 겹치기 + 보이지 않기 */
     .hanbang .txt_left ul,
     .hanbang .txt_right ul {
         position: absolute;
         inset: 0;
-        /* top:0; right:0; bottom:0; left:0; */
         margin: 0;
         opacity: 0;
         visibility: hidden;
@@ -575,10 +558,8 @@
         transition: opacity .35s ease;
     }
 
-    /* 활성 카드만 보이게 */
     .hanbang .txt_all ul.on {
         position: relative;
-        /* 필요 시 relative */
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
@@ -617,7 +598,6 @@
         width: 100%;
         height: auto;
         max-width: 684px;
-        /* 예쁘게 맞추고 싶으면 조정 */
         margin: 0 auto;
         display: block;
     }
@@ -700,6 +680,25 @@
 }
 
 @media (max-width: 440px) {
+    .skintest_btu {
+        width: 70px;
+        right: 8px;
+        
+    }
+
+    .bestSeller_768 .product_768 .txt_box  {
+        width: 300px;
+        height: 80px;
+        padding: 16px;
+        bottom: 5px;
+    }
+    .bestSeller_768 .product_768 .txt_box p {
+        font-size: 0.875rem;
+    }
+
+    .bestSeller_768 .product_768 .txt_box em {
+        font-size: 1rem;
+    }
 
     .card h4.pro_txt  {
         display: none;
