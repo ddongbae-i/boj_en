@@ -501,10 +501,10 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   JB.setQuizBackgrounds([
-    '/asset/img/skintest/jbtest-quiz-bg1.jpg',
-    '/asset/img/skintest/jbtest-quiz-bg2.jpg',
-    '/asset/img/skintest/jbtest-quiz-bg3.jpg',
-    '/asset/img/skintest/jbtest-quiz-bg4.jpg',
-    '/asset/img/skintest/jbtest-quiz-bg5.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
   ]);
 });

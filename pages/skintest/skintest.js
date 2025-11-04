@@ -354,6 +354,12 @@
     qText.textContent = `Q${SK.state.currentIndex + 1}. ${q.text}`;
     optionsEl.innerHTML = "";
 
+    // 문항별 배경 적용
+    if (typeof applyQuizBackground === "function") {
+      applyQuizBackground(SK.state.currentIndex);
+    }
+
+
     // radiogroup name은 문항마다 다르게
     const groupName = `q${SK.state.currentIndex}`;
     const prevAnswer = SK.state.answers[SK.state.currentIndex]; // 0..n or null
@@ -1978,3 +1984,47 @@ window.animateResultButtonsSafe = function () {
     bind();
   }
 })(window);
+
+
+// --- Quiz background per question (added) ---
+// Configure via: SK.setQuizBackgrounds([ "center/cover no-repeat url(/path/bg1.jpg)", "/images/skin/q2.jpg", ... ])
+SK.quizBackgrounds = SK.quizBackgrounds || null;
+SK.setQuizBackgrounds = function (arr) { SK.quizBackgrounds = Array.isArray(arr) ? arr : null; };
+function applyQuizBackground(idx) {
+  try {
+    var el = document.getElementById("quiz");
+    if (!el) return;
+    var bg = (SK.quizBackgrounds && SK.quizBackgrounds[idx]) || (questions[idx] && questions[idx].bg) || null;
+    if (bg) {
+      if (/^url\(/.test(bg) || /no-repeat|cover|contain|#|rgb|gradient/i.test(bg)) {
+        el.style.background = bg;
+      } else {
+        el.style.backgroundImage = 'url(' + bg + ')';
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundRepeat = 'no-repeat';
+        el.style.backgroundPosition = 'center';
+      }
+    } else {
+      el.style.background = "";
+      el.style.backgroundImage = "";
+    }
+  } catch (e) { /* noop */ }
+}
+
+// Default backgrounds for 10 questions (edit paths as needed)
+(function () {
+  if (!SK.quizBackgrounds) {
+    SK.setQuizBackgrounds([
+      "/asset/img/skintest/skintest-quiz-bg.jpg",
+      "/asset/img/skintest/skintest-quiz-bg2.jpg",
+      "/asset/img/skintest/skintest-quiz-bg3.jpg",
+      "/asset/img/skintest/skintest-quiz-bg4.jpg",
+      "/asset/img/skintest/skintest-quiz-bg2.jpg",
+      "/asset/img/skintest/skintest-quiz-bg3.jpg",
+      "/asset/img/skintest/skintest-quiz-bg4.jpg",
+      "/asset/img/skintest/skintest-quiz-bg2.jpg",
+      "/asset/img/skintest/skintest-quiz-bg3.jpg",
+      "/asset/img/skintest/skintest-quiz-bg4.jpg",
+    ]);
+  }
+})();
