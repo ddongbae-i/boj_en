@@ -29,19 +29,16 @@ window.addEventListener('load', () => {
   const hintBtn = document.getElementById('scrollHint');
   const tiles = [...grid.children];
 
-  // 🧷 1️⃣ 섞인 상태로 시작
   shuffleChildren(grid);
   scatterTiles(tiles);
   let assembled = false;
   let merged = false;
   let played = false;
 
-  // 🧷 2️⃣ 스크롤 힌트 버튼
   hintBtn?.addEventListener('click', () => {
     window.scrollBy({ top: window.innerHeight * 0.8, left: 0, behavior: 'smooth' });
   });
 
-  // 🧷 3️⃣ ScrollTrigger 생성
   const puzzleScrollTrigger = ScrollTrigger.create({
     trigger: section,
     start: "top top",
@@ -318,18 +315,17 @@ document.querySelectorAll('.all_product .add_btn').forEach(btn => {
     });
   }
 
-  const applyMode = () => {
-    const isMobile = window.innerWidth <= 1024;
+const applyMode = () => {
+  const isMobile = window.innerWidth <= 1024;
 
-    if (isMobile) {
-      setPanel(false);
-      document.querySelectorAll('.filters_group').forEach(g => g.classList.remove('is-open'));
-    } else {
-      setPanel(true);
-      document.querySelectorAll('.filters_group').forEach(g => g.classList.add('is-open'));
-    }
-  };
-
+  if (isMobile) {
+    setPanel(false);
+    document.querySelectorAll('.filters_group').forEach(g => g.classList.remove('is-open'));
+  } else {
+    setPanel(false);
+    document.querySelectorAll('.filters_group').forEach(g => g.classList.add('is-open'));
+  }
+};
   applyMode();
   let rid;
   window.addEventListener('resize', () => {

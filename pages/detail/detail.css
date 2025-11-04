@@ -69,14 +69,8 @@
 }
 
 .right_txt h2 {
-    font-size: 3rem;
     text-align: left;
     font-family: var(--tit_font);
-}
-
-.right_txt p {
-    width: 731px;
-    font-size: 1.25rem;
 }
 
 .tag {
@@ -87,36 +81,32 @@
     padding: 6px 14px;
 }
 
-h2 {
-    width: 731px;
-    height: 58px;
-    font-size: 3rem;
-    font-family: 'Georgia', serif;
-}
-
 .price {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 500;
-    margin: 40px 0 20px 0;
     display: block;
-    border-top: 1px solid #e5e5e5;
-    padding-top: 20px;
-}
-
-p {
-    width: 164px;
-    height: 78px;
-    font-size: 1.25rem;
-    color: #1c1c1c;
+    margin-top: 47px;
 }
 
 .right_txt p {
     width: 731px;
-    height: 100px;
     font-size: 1.25rem;
     line-height: 1.3;
-    border-bottom: 1px solid #e5e5e5;
-    padding-bottom: 20px;
+    border-bottom: 1px solid var( --grey_de);
+    border-top: 1px solid var(--grey_de);
+    margin-top: 12px;
+    padding-block: 20px;
+    color: var(--txt_sub_44);
+}
+
+.right_txt .star_all {
+    color: var(--txt_sub_44);
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.right_txt .star_all .review {
+    color: var(--txt_sub_77);
 }
 
 .size {
@@ -133,30 +123,15 @@ p {
     gap: 12px;
 }
 
-.size span {
-    width: 731px;
-    height: 25px;
 
+.size .btn {
+    border-color: var(--grey_aa);
 }
 
-.size button {
-    width: 170px;
-    height: 48px;
-    font-size: 1rem;
-    padding: 8px 24px;
-    border: none;
-    cursor: pointer;
-    transition: 0.5s;
-    text-align: left;
-    border: 1px solid #898989;
-
+.size .btn:first-child {
+    background: #000;
+    color: var(--white_ff);
 }
-
-.size button:hover {
-    background: #222;
-    color: #fff;
-}
-
 
 .qty_box {
     display: flex;
@@ -165,23 +140,28 @@ p {
 }
 
 .qty_line {
-    border: 1px solid #000;
+    border: 1px solid var(--grey_aa);
     height: 50px;
     width: 185px;
 }
 
+
 .qty_line input {
     width: 70px;
+    font-size: 1.125rem;
 }
 
 .qty_minus {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+    align-items: center;
 }
 
 .qty_plus {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
 }
 
 input:not([type="image" i], [type="range" i], [type="checkbox" i], [type="radio" i]) {
@@ -198,10 +178,14 @@ input[type="number" i] {
     margin-left: 10px;
     font-size: 1rem;
     border: 1px solid #eee;
-    background: #222;
+    background: var(--ginseng);
     color: #fff;
     cursor: pointer;
     transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
 }
 
 .add_cart:hover {
@@ -209,42 +193,33 @@ input[type="number" i] {
 }
 
 
-.buy_now {
-    width: 360px;
-    height: 46px;
-    padding: 12px 0;
-    font-size: 1rem;
-    margin-bottom: 15px;
-    border: 1px solid #eee;
-    background: #000;
-    color: #fff;
-    cursor: pointer;
-    background: #fff;
-    color: #000;
-    border: 1px solid #ccc;
-    transition: 0.5s;
-}
-
 .buy_now:hover {
     background: #000;
     color: #fff;
 }
 
-.save_btn {
+.buy_now , .save_btn {
     width: 360px;
-    border: 1px solid #000;
+    border: 1px solid var(--grey_aa);
     height: 46px;
-    color: #898989;
+    color: var(--txt_sub_77);
     font-size: 1rem;
-    align-items: center;
-    gap: 10px;
-    text-align: center;
     transition: 0.5s;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.buy_now {
+    color: var(--txt_main);
 }
 
 .save_btn:hover {
     background: #000;
     color: #fff;
+    border: none;
 }
 
 .bottom_btn {
@@ -255,6 +230,7 @@ input[type="number" i] {
 /* con2 */
 .con2 {
     margin: 50px 110px;
+    font-size: 1.125rem;
 }
 
 .con2 .tab {
@@ -268,14 +244,14 @@ input[type="number" i] {
 .con2 .tab li {
     padding: 10px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 400;
     color: #444;
 }
 
 .con2 .tab li.active {
     border-bottom: 1.5px solid #000;
     color: #000;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .tab_imgs {
