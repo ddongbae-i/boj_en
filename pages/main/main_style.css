@@ -4,7 +4,7 @@
   position: fixed;
   right: 24px;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
-  z-index: 800;
+  z-index: 200;
   display: block;
   width: 100px;
   height: auto;
