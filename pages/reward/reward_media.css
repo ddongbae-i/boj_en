@@ -226,6 +226,14 @@
         margin-bottom: 60px;
     }
 
+.list {
+    width: 90vw;
+}
+
+.vip_tiers .list>ul {
+    width: 100%;
+}
+
     .FAQ {
         background-size: 200% auto;
     }
