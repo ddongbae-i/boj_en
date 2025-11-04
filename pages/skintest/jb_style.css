@@ -56,7 +56,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("/asset/img/skintest/jbtest-bg.jpg") top 15% center/cover no-repeat;
+  background: url("../../asset/img/skintest/jbtest-bg.jpg") top 15% center/cover no-repeat;
   text-align: center;
 }
 
@@ -173,8 +173,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("/asset/img/skintest/jbtest-quiz-bg1.jpg") center/cover no-repeat;
   text-align: center;
+  background-image: url(../../asset/img/skintest/jbtest-quiz-bg1.jpg);
 }
 
 .quiz-inner {
@@ -755,11 +755,11 @@ input[type="radio"]:checked+.option .bullet {
 
 /* swap these image URLs as needed */
 #result .job_card.card-main .front {
-  background-image: url(/asset/img/skintest/card-front-janggeebin.png);
+  background-image: url(../../asset/img/skintest/card-front-janggeebin.png);
 }
 
 #result .job_card.card-main .back {
-  background-image: url(/asset/img/skintest/card-back.png);
+  background-image: url(../../asset/img/skintest/card-back.png);
 }
 
 /* No 3D flip; we toggle [hidden] in JS */
