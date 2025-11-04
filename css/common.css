@@ -174,7 +174,7 @@ header {
     right: 0;
     transition: background-color 0.3s, top 0.4s ease;
     background-color: transparent;
-    z-index: 100;
+    z-index: 300;
 }
 
 header.scrolled-up {
@@ -259,6 +259,7 @@ nav.on ul.gnb>li .sub_wrap {
 
 nav .sub_wrap .sub_left {
     width: 502px;
+    height: auto;
     color: var(--txt_main);
     display: flex;
     flex-direction: column;
@@ -266,6 +267,11 @@ nav .sub_wrap .sub_left {
     padding: 30px 110px 0;
     flex-wrap: wrap;
 }
+
+nav .sub_wrap .shop_menu {
+    height: 300px;
+}
+
 
 .ham_bottom {
     width: 502px;
