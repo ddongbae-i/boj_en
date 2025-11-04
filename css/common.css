@@ -574,40 +574,18 @@ footer .f_join span {
     top: 0;
     right: 0;
     width: min(420px, 92vw);
-    height: 100vh;
+    height: 100dvh;
     background: #fff;
-    z-index: 500;
+    z-index: 700;
     transform: translateX(100%);
     transition: transform .35s ease;
     box-shadow: -12px 0 24px rgba(0, 0, 0, .12);
-    overflow-y: auto;
-    will-change: transform;
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 .cart_wrap.is-open {
     transform: translateX(0);
 }
-
-/* html.cart-locked,
-body.cart-locked {
-    overflow: hidden;
-} */
-
-/* .cart_overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, .35);
-    z-index: 999;
-    opacity: 0;
-    transition: opacity .25s ease;
-    pointer-events: none;
-}
-
-.cart_overlay.is-open {
-    opacity: 1;
-    pointer-events: auto;
-} */
 
 html.cart-locked,
 body.cart-locked {
@@ -615,6 +593,7 @@ body.cart-locked {
 }
 
 /* 코너 장식 */
+
 .cart_corner {
     width: 24px;
     height: 24px;
@@ -649,6 +628,11 @@ body.cart-locked {
     right: 0;
     border-left: none;
     border-top: none;
+}
+
+.cart_inner {
+    height: 100%;
+    overflow-y: 0;
 }
 
 /* 헤더 */
@@ -1096,13 +1080,21 @@ body.cart-locked {
     font-size: 1rem;
     cursor: pointer;
     letter-spacing: 0.5px;
+    display: flex;
+    justify-content: center;
 }
+
+
 
 .cart_checkout span {
     font-size: 14px;
     color: #aaa;
     font-weight: 400;
-    margin: 0 8px;
+    margin: 0 4px;
+}
+
+.cart_checkout em {
+    margin-left: 16px;
 }
 
 .cart_checkout:hover {
