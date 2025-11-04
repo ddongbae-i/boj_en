@@ -84,6 +84,10 @@
         margin-bottom: 24px;
     }
 
+    .click_me {
+        margin-bottom: 80px;
+    }
+
     /* sub_main2____________ */
     .octa_container {
         margin-bottom: 140px;
@@ -695,58 +699,64 @@
         margin-top: 70px;
     }
 
+    .sub_main .sub_main_img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .click_me {
+        font-size: 1.25rem;
+        top: 250px;
+    }
+
     .t1 {
         grid-area: t1;
+        top: 98px;
     }
 
     .t2 {
         grid-area: t2;
+        top: 98px;
     }
 
     .t3 {
         grid-area: t3;
-        position: relative;
         width: 80%;
-        bottom: 121px;
+        bottom: 18px;
         right: 42px;
     }
 
     .t4 {
         grid-area: t4;
-        position: relative;
         width: 80%;
-        bottom: 195px;
+        bottom: 92px;
         right: 42px;
     }
 
     .t5 {
         grid-area: t5;
-        position: relative;
-        bottom: 317px;
+        bottom: 213px;
         left: 0px;
     }
 
     .t6 {
         grid-area: t6;
-        position: relative;
-        bottom: 317px;
+        bottom: 213px;
         left: 0px;
     }
 
     .t7 {
         grid-area: t7;
-        position: relative;
         width: 80%;
         left: 43px;
-        bottom: 196px;
+        bottom: 94px;
     }
 
     .t8 {
         grid-area: t8;
-        position: relative;
         width: 80%;
         left: 43px;
-        bottom: 121px;
+        bottom: 20px;
     }
 
     .product {
@@ -754,7 +764,16 @@
     }
 
     .center_product img {
-        bottom: 60px;
+        margin-top: 200px;
+        margin-right: 30px;
+    }
+
+    .sub_main2 .side_info {
+        top: -100px;
+    }
+
+    .details {
+        width: 340px;
     }
 
     /* 오버레이 글시 안 보이게 */
@@ -766,6 +785,7 @@
         height: 400px;
         font-size: 0.875rem;
     }
+
     .community .right h2 {
         margin-bottom: 10px;
     }
@@ -779,59 +799,3 @@
         width: 152px;
     }
 }
-
-/*      .community {
-            width: 100%;
-            height: 600px;
-            padding: 0 20px;
-        }
-
-        .community .left {
-            width: 100%;
-
-        }
-        .community .left img {
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .community .right {
-            position: absolute;
-            width: 90%;
-            padding-bottom: 650px;
-            justify-content: space-between;
-        }
-
-        .community .right h2 {
-            font-family: var(--tit_font);
-            font-size: 1.5rem;
-        }
-
-        .community .right p {
-            font-size: 1rem;
-        }
-
-        .link_box {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .link_box .box {
-            width: clamp(100px, 20vw, 180px);
-            height: 100px;
-        }
-
-        .link_box .box img {
-            display: none;
-            width: 185px;
-            height: 100px;
-
-        }
-
-
-        .link_box .box a {
-            font-size: 0.785rem;
-            margin: 0;
-        } */

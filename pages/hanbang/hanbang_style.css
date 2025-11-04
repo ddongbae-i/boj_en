@@ -141,8 +141,8 @@ body {
 }
 
 .sub_main .sub_main_img {
-    width: 250px;
-    height: 250px;
+    width: 420px;
+    height: 420px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -180,7 +180,7 @@ body {
     left: 50%;
     bottom: -30px;
     transform: translateX(-50%);
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 500;
     animation: bounce 1.5s ease-in-out infinite;
 }
@@ -421,7 +421,6 @@ body {
 
 .details {
     width: 80%;
-    /*     background: red; */
     font-family: var(--txt_font);
     position: absolute;
     left: 650px;
@@ -436,20 +435,7 @@ body {
     top: 45%;
     opacity: 1;
 }
-
-
-
-/*_________________________banner1 */
-/* .banner1 {
-    width: 100%;
-    height: 300px;
-    background: var(--bg_footer);
-    color: var(--white_ff);
-    display: flex;
-    align-items: center;
-    background: url('../../asset/img/hanbang/banner01.png') right center/cover no-repeat;
-}
- */
+/* banner1 */
 .banner1 {
     position: relative;
     width: 100vw;
@@ -549,7 +535,7 @@ body {
     margin-bottom: 32px;
 }
 
-.add_popup_btns  {
+.add_popup_btns {
     display: flex;
     gap: 12px;
     justify-content: center;
