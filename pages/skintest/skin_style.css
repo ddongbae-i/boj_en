@@ -710,10 +710,6 @@ p#summary.center {
   }
 }
 
-#result .product_grid .product_card {
-  /* aspect-ratio: 3 / 4; */
-}
-
 /* 또는 고정 높이 */
 #result .radar-wrap svg {
   display: block;
