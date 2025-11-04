@@ -291,3 +291,128 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape' && cartWrap.classList.contains('is-open')) closeCart();
   });
 });
+
+
+// JavaScript
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.querySelector(".popup");
+  const dim = document.querySelector(".dim");
+  const closeXBtn = document.querySelector(".popup_close");
+  const closeBtn = document.querySelector(".btn_close");
+
+  function closePopup() {
+    popup.style.display = "none";
+    dim.style.display = "none";
+  }
+
+  closeXBtn.addEventListener("click", closePopup);
+  closeBtn.addEventListener("click", closePopup);
+  dim.addEventListener("click", closePopup);
+});
+
+
+
+
+/* login */
+document.addEventListener("DOMContentLoaded", () => {
+  // 1) 팝업 HTML 없으면 주입, 있으면 재사용
+  let login = document.querySelector('.login');
+  if (!login) {
+    const loginHTML = `
+      <div class="login" style="display:none">
+        <div class="login_dim"></div>
+        <form class="login_area">
+          <div class="login_pop">
+            <div class="login_close" role="button" aria-label="close">&times;</div>
+            <h2>Login</h2>
+            <span class="notice">New to beautyofjoseon?
+              <span class="bar" tabindex="0">Sign up for free</span>
+            </span>
+
+            <label for="login_email" class="email">Email address</label>
+            <input type="email" id="login_email" placeholder="Email" required />
+
+            <label for="login_password" class="password">Password</label>
+            <input type="password" id="login_password" placeholder="Password" required />
+            <a href="#" class="pw_reset">Forget password?</a>
+
+            <button type="submit" class="login_btn">Login</button>
+
+            <div class="sns">
+              <a href="#"><img src="./asset/img/common/google.png" alt="google"></a>
+              <a href="#"><img src="./asset/img/common/apple.png" alt="apple"></a>
+              <a href="#"><img src="./asset/img/common/facebook.png" alt="facebook"></a>
+            </div>
+          </div>
+        </form>
+      </div>`;
+    document.body.insertAdjacentHTML('beforeend', loginHTML);
+    login = document.querySelector('.login');
+  }
+
+  // 2) 엘리먼트 캐치
+  const loginClose = login.querySelector('.login_close');
+  const loginDim   = login.querySelector('.login_dim');
+  const loginArea  = login.querySelector('.login_area');
+
+  // 3) 동작 함수
+  const openLoginPopup = () => {
+    login.style.display = "block";
+    document.body.classList.add('no-scroll');
+    const firstInput = login.querySelector('input, button, [tabindex]:not([tabindex="-1"])');
+    if (firstInput) firstInput.focus();
+  };
+  const closeLoginPopup = () => {
+    login.style.display = "none";
+    document.body.classList.remove('no-scroll');
+  };
+
+  // 4) 닫기(딤/버튼/ESC)
+  loginClose?.addEventListener('click', closeLoginPopup);
+  loginDim?.addEventListener('click', closeLoginPopup);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLoginPopup();
+  });
+
+  // 5) 열기(이벤트 위임: 동적으로 생기는 버튼도 다 잡음)
+  document.addEventListener('click', (e) => {
+    const openTrigger = e.target.closest('.login_open, [data-open-login], .sign_up_btn, .bar');
+    if (!openTrigger) return;
+
+    // “Coming soon”을 쓰던 .bar도 여기서 열기로 통일하거나 아래처럼 분기 가능
+    if (openTrigger.matches('.bar')) {
+      // alert("Coming soon");
+      openLoginPopup();
+      return;
+    }
+
+    e.preventDefault();
+    openLoginPopup();
+  });
+
+  // 6) 제출 시 닫고 이동
+  loginArea?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    closeLoginPopup();
+    setTimeout(() => {
+      window.location.href = '/main.html';
+    }, 200);
+  });
+
+  // 7) 자동 입력
+  const typeEffect = (element, text, delay) => {
+    if (!element) return;
+    let i = 0;
+    const timer = setInterval(() => {
+      element.value += text[i] || '';
+      i++;
+      if (i >= text.length) clearInterval(timer);
+    }, delay);
+  };
+  const emailInput = document.getElementById('login_email');
+  const pwInput    = document.getElementById('login_password');
+  if (emailInput && pwInput) {
+    setTimeout(() => typeEffect(emailInput, 'joseon@gmail.com', 100), 500);
+    setTimeout(() => typeEffect(pwInput, '1234567', 100), 2000);
+  }
+});
