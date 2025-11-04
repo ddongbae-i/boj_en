@@ -66,7 +66,7 @@
       choices: ["Power and splendor", "Graceful wisdom", "Refinement and the arts", "Integrity and courage", "Daring and allure", "Cultivation and letters (literary grace)"]
     }
   ]
-  
+
   // Quiz backgrounds per question (optional)
   // Configure via: JB.setQuizBackgrounds([ "center/cover no-repeat url(/path/bg1.jpg)", ... ])
   JB.quizBackgrounds = JB.quizBackgrounds || null;
@@ -94,7 +94,7 @@
 
   // Result presets
   // (removed: personas & pickPersona)
-// Render quiz question
+  // Render quiz question
   function renderQuestion() {
     const idx = JB.state.currentIndex;
     const q = questions[idx];
@@ -232,7 +232,7 @@
     });
   }
 
-  
+
   // Result main card: show back face on click
   function bindMainCardFlip() {
     var card = document.getElementById("mainCard");
@@ -300,10 +300,10 @@
   var JB = w.JB || (w.JB = {});
 
   // GSAP bootstrap (minimal, GSAP-only)
-  (function bootstrap(){
+  (function bootstrap() {
     if (typeof w.gsap === "undefined") return;
-    try { if (typeof w.ScrollTrigger !== "undefined" && w.gsap && w.gsap.registerPlugin) { w.gsap.registerPlugin(w.ScrollTrigger); } } catch(_) {}
-    try { w.gsap.defaults({ immediateRender:false, overwrite:"auto" }); } catch(_){ }
+    try { if (typeof w.ScrollTrigger !== "undefined" && w.gsap && w.gsap.registerPlugin) { w.gsap.registerPlugin(w.ScrollTrigger); } } catch (_) { }
+    try { w.gsap.defaults({ immediateRender: false, overwrite: "auto" }); } catch (_) { }
   })();
 
   function hasGSAP() { return typeof w.gsap !== "undefined"; }
@@ -392,27 +392,28 @@
     var ctaAll = res.querySelector("#wishlistBtn");
     var ctas = res.querySelectorAll(".row-ghosts button");
 
-    resultTL = gsap.timeline({ defaults: { ease: "power3.out" } });    if (mainCard) resultTL.from(mainCard, { y: 10, opacity: 0, duration: 0.34 }, 0.08);
+    resultTL = gsap.timeline({ defaults: { ease: "power3.out" } }); if (mainCard) resultTL.from(mainCard, { y: 10, opacity: 0, duration: 0.34 }, 0.08);
     if (ctaAll) resultTL.from(ctaAll, { y: 12, opacity: 0, duration: 0.28 }, "+=0.05");
     if (ctas && ctas.length) resultTL.from(ctas, { y: 10, opacity: 0, stagger: 0.06, duration: 0.26 }, "-=0.10");
 
-    
+
     // Scroll-triggered reveal for products
-    (function setupScrollReveal(){
+    (function setupScrollReveal() {
       var cards = res.querySelectorAll(".product_card");
       if (!cards || !cards.length) return;
 
-      function animateCard(el){
-        gsap.fromTo(el, {y:22, opacity:0}, {y:0, opacity:1, duration:0.38, ease:"power2.out", overwrite:"auto", clearProps:"transform,opacity"});
+      function animateCard(el) {
+        gsap.fromTo(el, { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.38, ease: "power2.out", overwrite: "auto", clearProps: "transform,opacity" });
       }
 
       if (typeof ScrollTrigger !== "undefined" && gsap.registerPlugin) {
         gsap.registerPlugin(ScrollTrigger);
         var startPos = (w.matchMedia && w.matchMedia("(min-width: 1024px)").matches) ? "top 85%" : "top 90%";
-        cards.forEach(function(card){
+        cards.forEach(function (card) {
           gsap.fromTo(card,
-            { y:22, opacity:0 },
-            { y:0, opacity:1, duration:0.38, ease:"power2.out", immediateRender:false, clearProps:"transform,opacity",
+            { y: 22, opacity: 0 },
+            {
+              y: 0, opacity: 1, duration: 0.38, ease: "power2.out", immediateRender: false, clearProps: "transform,opacity",
               scrollTrigger: {
                 trigger: card,
                 start: startPos,
@@ -425,18 +426,18 @@
           );
         });
         // Refresh after layout settles
-        requestAnimationFrame(function(){ setTimeout(function(){ try{ ScrollTrigger.refresh(); }catch(e){} }, 60); });
-        w.addEventListener("load", function(){ try{ ScrollTrigger.refresh(); }catch(e){} });
+        requestAnimationFrame(function () { setTimeout(function () { try { ScrollTrigger.refresh(); } catch (e) { } }, 60); });
+        w.addEventListener("load", function () { try { ScrollTrigger.refresh(); } catch (e) { } });
       } else if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function(entries, obs){
-          entries.forEach(function(entry){
+        var io = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
             if (entry.isIntersecting) {
               animateCard(entry.target);
               obs.unobserve(entry.target);
             }
           });
         }, { root: null, rootMargin: "0px 0px -12% 0px", threshold: 0.1 });
-        cards.forEach(function(card){ io.observe(card); });
+        cards.forEach(function (card) { io.observe(card); });
       } else {
         // Last resort: animate immediately
         cards.forEach(animateCard);
@@ -467,7 +468,7 @@
         } else if (id === "result") {
           dispatch("JB_SHOW_RESULT");
         }
-      } catch (e) {}
+      } catch (e) { }
       return ret;
     };
   }
@@ -497,3 +498,13 @@
     document.getElementById("nextBtn")?.addEventListener("click", w.animateQuizCardSafe);
   });
 })(window);
+
+document.addEventListener('DOMContentLoaded', function () {
+  JB.setQuizBackgrounds([
+    '/asset/img/skintest/jbtest-quiz-bg1.jpg',
+    '/asset/img/skintest/product1.png',
+    '/asset/img/skintest/product2.png',
+    '/asset/img/skintest/product3.png',
+    '/asset/img/skintest/product4.png',
+  ]);
+});
