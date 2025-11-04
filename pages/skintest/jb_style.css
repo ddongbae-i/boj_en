@@ -465,7 +465,7 @@ input[type="radio"]:checked+.option .bullet {
   width: 100%;
   min-height: 0;
   color: inherit;
-  padding: 50px;
+  padding-inline: 110px;
 }
 
 .product_grid {
