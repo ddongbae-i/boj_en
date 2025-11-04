@@ -204,20 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-//filters
-const filters = document.querySelector('.filters');
-const toggleBtn = filters.querySelector('.open');
-const panel = document.getElementById('filters-panel');
-
-// 필터 토글 기능
-toggleBtn.addEventListener('click', () => {
-  const isOpen = filters.classList.toggle('active');
-  panel.hidden = !isOpen;
-});
-
-// ⚠️ 이 부분은 제거 (위에서 onLeave/onEnterBack으로 처리)
-// window.addEventListener('scroll', function () { ... });
-
 //heart
 
 document.querySelectorAll('.pro_card').forEach(card => {
@@ -290,3 +276,64 @@ document.querySelectorAll('.all_product .add_btn').forEach(btn => {
     }
   });
 });
+
+//filter
+
+(() => {
+  const filters = document.querySelector('.filters');
+  const panel = document.getElementById('filters-panel');
+  const openBtn = filters?.querySelector('.open');
+  if (!filters || !panel || !openBtn) return;
+
+  // 상태 적용 헬퍼
+  const setPanel = (open) => {
+    panel.hidden = !open;                        // aria-hidden 대응
+    filters.classList.toggle('active', open);    // 필요 시 스타일용
+    openBtn.classList.toggle('is-open', open);   // 아이콘 전환용
+    openBtn.setAttribute('aria-expanded', String(open));
+  };
+
+  // 아코디언 헤더(섹션 타이틀) 이벤트 – 한 번만 바인딩
+  document.querySelectorAll('.filters_group .filter_tit').forEach((tit) => {
+    if (tit.dataset.bound === '1') return;
+    tit.dataset.bound = '1';
+    tit.setAttribute('role', 'button');
+    tit.setAttribute('tabindex', '0');
+
+    const toggle = () => {
+      if (window.innerWidth > 1024) return; // 데스크탑 모드에서는 무시
+      tit.closest('.filters_group').classList.toggle('is-open');
+    };
+
+    tit.addEventListener('click', toggle);
+    tit.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  if (!openBtn.dataset.bound) {
+    openBtn.dataset.bound = '1';
+    openBtn.addEventListener('click', () => {
+      const willOpen = panel.hasAttribute('hidden');
+      setPanel(willOpen);
+    });
+  }
+
+  const applyMode = () => {
+    const isMobile = window.innerWidth <= 1024;
+
+    if (isMobile) {
+      setPanel(false);
+      document.querySelectorAll('.filters_group').forEach(g => g.classList.remove('is-open'));
+      setPanel(true);
+      document.querySelectorAll('.filters_group').forEach(g => g.classList.add('is-open'));
+    }
+  };
+
+  applyMode();
+  let rid;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(rid);
+    rid = requestAnimationFrame(applyMode);
+  });
+})();
