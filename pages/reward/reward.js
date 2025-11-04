@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* GPT */
 
+
 // 1. 모든 아코디언 제목 요소를 가져옵니다.
     const titles = document.querySelectorAll('.accordion-title');
 
@@ -34,21 +35,29 @@ document.addEventListener('DOMContentLoaded', () => {
 // 2. 각 제목에 'click' 이벤트 리스너를 추가합니다.
     titles.forEach(title => {
         title.addEventListener('click', () => {
+            // 아코디언 내용은 제목 바로 다음 형제 요소입니다.
             const content = title.nextElementSibling;
-            const icon = title.querySelector('.toggle-icon'); // 아이콘 요소 찾기
             
+            // 아이콘 텍스트를 직접 변경하는 로직(3번)을 제거합니다.
+            // 아이콘 전환은 이제 CSS의 '.accordion-title.active .toggle-icon::before'가 담당합니다.
+
             // 1. 내용(Content)에 'active' 클래스 토글 (열고 닫기)
+            // (선택 사항: 내용에 'active' 클래스를 사용하여 애니메이션을 구현할 수 있습니다.)
             content.classList.toggle('active');
             
-            // 2. 제목(Title)에도 'active' 클래스 토글 (아이콘 CSS 변경용)
+            // 2. 제목(Title)에 'active' 클래스 토글 (아이콘 CSS 변경 및 제목 스타일링용)
+            // 이 한 줄만으로 아이콘 모양(+ <-> —)이 변경됩니다.
             title.classList.toggle('active'); 
             
-            // 3. 아이콘 텍스트 변경 (+ <-> -)
+            /*
+            // 3. 아이콘 텍스트 변경 로직 (제거)
+            const icon = title.querySelector('.toggle-icon'); 
             if (content.classList.contains('active')) {
-                icon.textContent = '-'; // 열렸으면 '-'로 변경
+                icon.textContent = '-';
             } else {
-                icon.textContent = '+'; // 닫혔으면 '+'로 변경
+                icon.textContent = '+';
             }
+            */
         });
     });
 

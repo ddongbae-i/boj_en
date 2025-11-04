@@ -43,14 +43,30 @@ main .inner {
     min-height: 1040px;
     position: relative;
     overflow: hidden;
-
     background-image:
         url('../../asset/img/brandstory/image-6890.png'),
         linear-gradient(90deg, #FEFEFE 0%, #FDFDFD 49.52%, #F7F7F7 100%);
     background-position: center bottom;
     background-repeat: no-repeat;
     background-size: 100% auto;
+
 }
+
+
+.main_visual::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    min-height: 1040px;
+    background-image: url('../../asset/img/reward/reward_mainv_right.png');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+
+}
+
 
 .bg_img {
     position: absolute;
@@ -81,6 +97,7 @@ main .inner {
     width: 90%;
     padding-right: 60px;
     margin-bottom: 80px;
+
 }
 
 .main_visual .txt_g .tit {
@@ -94,6 +111,12 @@ main .inner {
 .main_visual .left {
     flex: 2;
     text-align: center;
+    z-index: 10;
+}
+
+.main_visual .right {
+    z-index: 10;
+
 }
 
 .norigae_wrapper {
@@ -130,12 +153,9 @@ main .inner {
     justify-content: center;
 }
 
-.btn:first-child {
-    margin-right: 12px;
-}
-
-.btn-white:first-child {
-    margin-right: 12px;
+.btn_g {
+    display: flex;
+    gap: 12px;
 }
 
 .list {
@@ -149,19 +169,19 @@ main .inner {
 }
 
 .vip_tiers {
-        background-image:       
+    background-image:
         linear-gradient(90deg, #FEFEFE 0%, #FDFDFD 49.52%, #F7F7F7 100%);
-padding: 80px 0 160px 0;
+    padding: 80px 0 160px 0;
 
 }
 
 .vip_tiers .list .horizontal-scroll-container>li:nth-child(1) b,
-.vip_tiers .list .horizontal-scroll-container>li:nth-child(1) em{
+.vip_tiers .list .horizontal-scroll-container>li:nth-child(1) em {
     color: var(--mugwort);
 }
 
 .vip_tiers .list .horizontal-scroll-container>li:nth-child(2) b,
-.vip_tiers .list .horizontal-scroll-container>li:nth-child(2) em{
+.vip_tiers .list .horizontal-scroll-container>li:nth-child(2) em {
     color: var(--redbean);
 }
 
@@ -188,7 +208,7 @@ padding: 80px 0 160px 0;
 
 }
 
-/* 색상 추가 해야함 */
+
 .vip_tiers .list>ul>li>ul {
     display: flex;
     flex-direction: column;
@@ -200,14 +220,10 @@ padding: 80px 0 160px 0;
     background-color: #fafafa;
 }
 
-/* .vip_tiers .list>ul>li>ul>li:nth-child(3),
-.vip_tiers .list>ul>li>ul>li:nth-child(4),
-.vip_tiers .list>ul>li>ul>li:nth-child(5),
-.vip_tiers .list>ul>li>ul>li:nth-child(6),{} */
+
 
 .vip_tiers .list>ul>li>ul.on {
     border: 1px solid var(--grey_de);
-    /* background-color: #ffffff; */
     box-shadow: 4px 4px 10px rgba(27, 75, 5, 0.1);
 }
 
@@ -272,7 +288,6 @@ padding: 80px 0 160px 0;
     height: 100%;
     overflow: hidden;
     z-index: -1;
-    /* 컨텐츠 뒤로 보내기 */
     background-color: var(--bg_black);
 }
 
@@ -280,7 +295,7 @@ padding: 80px 0 160px 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* 섹션 전체를 꽉 채움 */
+
     display: block;
 }
 
@@ -324,16 +339,15 @@ padding: 80px 0 160px 0;
 }
 
 .redeem_for_products,
-.ways_to_earn,
-.FAQ {
+.ways_to_earn {
     width: 100%;
     color: var(--white_f0);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 1300px;
-    padding: 160px 0;
+    min-height: 1000px;
+    padding: 120px 0;
 
 }
 
@@ -404,7 +418,7 @@ padding: 80px 0 160px 0;
     background-image: url(../../asset/img/reward/reward_arrow.svg);
     background-size: 100% 100%;
     margin-right: 8px;
-    /* filter: brightness(0); */
+
 }
 
 .dis {
@@ -422,12 +436,11 @@ padding: 80px 0 160px 0;
     gap: 16px;
     flex-wrap: wrap;
     justify-content: center;
-    /* color: var(--bg_black); */
     color: var(--white_f0);
 }
 
 .artlcle_g .box {
-    background: #463732 url(../../asset/img/reward/img_Earn_Birthday.png) no-repeat calc(100% - 20px) calc(100% - 20px);
+    background: #363434 url(../../asset/img/reward/img_Earn_Birthday.png) no-repeat calc(100% - 20px) calc(100% - 20px);
     flex: 1;
     height: 180px;
     min-width: 300px;
@@ -435,9 +448,8 @@ padding: 80px 0 160px 0;
     position: relative;
     padding: 16px;
     background-size: auto 70px;
-    /* border: 1px solid var(--txt_sub_44); */
-    border: 1px solid;
-    border-image: linear-gradient(to bottom, #724603, #884005) 1;
+    border: 1px solid #444444;
+
 }
 
 .box_g {
@@ -448,69 +460,17 @@ padding: 80px 0 160px 0;
     flex-wrap: wrap;
 }
 
-/* .redeem_for_products {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(180deg, #000 0%, #040403 100%);
-} */
-
 .redeem_for_products {
     position: relative;
-    /* background: url('../../asset/img/reward/Redeem_bg.png') center/cover no-repeat; */
     overflow: hidden;
-        background-color: #000000;
+    background-color: #000000;
 }
-
-.redeem_for_products::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('../../asset/img/reward/Redeem_bg_blur.png') center/cover no-repeat;
-    opacity: 1;
-    pointer-events: none;
-}
-
-.redeem_for_products.animate::before {
-    animation: fadeInOut 3s ease-out forwards;
-}
-
-
 
 
 .ways_to_earn {
     position: relative;
-    /* background: url('../../asset/img/reward/Earn_bg.png') center/cover no-repeat; */
     overflow: hidden;
-        background-color: #000000;
-}
-
-.ways_to_earn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('../../asset/img/reward/Earn_bg_blur.png') center/cover no-repeat;
-    opacity: 1;
-    pointer-events: none;
-}
-
-.ways_to_earn.animate::before {
-    animation: fadeInOut 3s ease-out forwards;
-}
-
-@keyframes fadeInOut {
-    0% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-    }
+    background-color: #000000;
 }
 
 .redeem_for_products .box1 {
@@ -588,16 +548,13 @@ padding: 80px 0 160px 0;
 .arrow {
     display: inline-block;
     transform-origin: left bottom;
-    /* 왼쪽 아래 기준 */
     transition: transform 0.3s ease;
-    /* 부드럽게 애니메이션 */
     font-size: 0.9rem;
     font-weight: 200;
 }
 
 .box:hover .arrow {
     transform: scale(1.1);
-    /* 1.1배 확대 */
 }
 
 .box::after {
@@ -607,40 +564,33 @@ padding: 80px 0 160px 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to top, var(--redbean), var(--propolis));
+    /* background-image: linear-gradient(to top, var(--redbean), var(--propolis)); */
+    background-color: #b59016;
     z-index: 0;
-    /* 콘텐츠 뒤로 보내기 */
     transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0;
     mix-blend-mode: screen;
-    /* 밝게 섞이게 함 */
-    filter: brightness(1.2) contrast(1.1) saturate(1.1);
-    /* 좀 더 선명하고 밝게 */
 }
 
 .box:hover::after {
-    opacity: 0.1;
-    /* 살짝 투명도 변경 가능 */
+    opacity: 0.8;
 }
 
 .friend {
     width: 100%;
-    height: 400px;
-    /* background-color: var(--grey_c7); */
-    color: var(--white_f0);
+    height: 300px;
+    color: var(--bg_black);
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
     flex-direction: column;
-
-    background-color: var(--bg_footer);
-    /* background-image: url('../../asset/img/reward/reward_banner.png'); */
+    background-image: url(../../asset/img/reward/reward_banner10.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    /* border-bottom: 1px solid var(--grey_de); */
+    border: 1px solid #201c1c;
 }
 
 .friend h2 {
@@ -651,21 +601,31 @@ padding: 80px 0 160px 0;
 }
 
 .FAQ {
+    color: var(--white_f0);
+    min-height: 1000px;
+    padding: 120px 0;
     width: 100%;
-    padding: 160px 0;
-    /* background-image:
-    url(../../asset/img/brandstory/image-6890.png); */
-        background: url('../../asset/img/reward/Earn_bg_blur.png') center/cover no-repeat;
+    position: relative;
+    background-color: var(--bg_black);
+    z-index: 1;
+}
+
+.FAQ::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../asset/img/reward/Earn_bg_blur.png');
     background-position: left bottom;
-    background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: 100% auto;
-    background-color: #000000;
+    opacity: 0.2;
+    z-index: -1;
+    background-attachment: fixed;
 }
-.FAQ::after{
 
-
-}
 .FAQ ul {
     list-style: none;
     padding: 20px 40px 60px 40px;
@@ -674,7 +634,11 @@ padding: 80px 0 160px 0;
 }
 
 .FAQ ul li {
-    border-bottom: 1px solid var(--bg_footer);
+    border-bottom: 1px solid rgba(255, 255, 255, .3);
+}
+
+.FAQ ul li em {
+    font-weight: 300;
 }
 
 .accordion-content span {
@@ -682,8 +646,8 @@ padding: 80px 0 160px 0;
 }
 
 .accordion-list {
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
 }
 
 .accordion-title {
@@ -695,21 +659,50 @@ padding: 80px 0 160px 0;
     justify-content: space-between;
     margin: 0;
 }
-
-.toggle-icon {
-    font-size: 2rem;
-    transition: transform 0.5s;
-}
-
 .accordion-content {
     padding: 0 15px 15px 15px;
     display: none;
     overflow: hidden;
 }
 
-.accordion-title.active .toggle-icon {
-    content: "—";
-    transform: rotate(180deg);
+.toggle-icon {
+    display: inline-block;
+    width: 20px; 
+    height: 20px;
+    position: relative;
+}
+
+.toggle-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px; 
+    height: 2px;
+    background-color: currentColor;
+    transform: translate(-50%, -50%); 
+    transition: transform 0.3s ease; 
+
+}
+
+.toggle-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px; 
+    height: 14px;
+    background-color: currentColor;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease; 
+}
+
+.accordion-title.active .toggle-icon::before {
+    transform: translate(-50%, -50%) rotate(90deg); 
+}
+
+.accordion-title.active .toggle-icon::after {
+    transform: translate(-50%, -50%) rotate(180deg); 
 }
 
 .accordion-content.active {
