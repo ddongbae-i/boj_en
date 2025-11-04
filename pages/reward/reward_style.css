@@ -438,12 +438,11 @@ main .inner {
     gap: 16px;
     flex-wrap: wrap;
     justify-content: center;
-
     color: var(--white_f0);
 }
 
 .artlcle_g .box {
-    background: #463732 url(../../asset/img/reward/img_Earn_Birthday.png) no-repeat calc(100% - 20px) calc(100% - 20px);
+    background: #363434 url(../../asset/img/reward/img_Earn_Birthday.png) no-repeat calc(100% - 20px) calc(100% - 20px);
     flex: 1;
     height: 180px;
     min-width: 300px;
@@ -451,9 +450,8 @@ main .inner {
     position: relative;
     padding: 16px;
     background-size: auto 70px;
+    border: 1px solid #444444;
 
-    border: 1px solid;
-    border-image: linear-gradient(to bottom, #724603, #884005) 1;
 }
 
 .box_g {
@@ -464,10 +462,8 @@ main .inner {
     flex-wrap: wrap;
 }
 
-
 .redeem_for_products {
     position: relative;
-
     overflow: hidden;
     background-color: #000000;
 }
@@ -490,7 +486,6 @@ main .inner {
 
 .ways_to_earn {
     position: relative;
-
     overflow: hidden;
     background-color: #000000;
 }
@@ -596,16 +591,13 @@ main .inner {
 .arrow {
     display: inline-block;
     transform-origin: left bottom;
-
     transition: transform 0.3s ease;
-
     font-size: 0.9rem;
     font-weight: 200;
 }
 
 .box:hover .arrow {
     transform: scale(1.1);
-
 }
 
 .box::after {
@@ -617,24 +609,18 @@ main .inner {
     height: 100%;
     background-image: linear-gradient(to top, var(--redbean), var(--propolis));
     z-index: 0;
-
     transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0;
     mix-blend-mode: screen;
-
-    filter: brightness(1.2) contrast(1.1) saturate(1.1);
-
 }
 
 .box:hover::after {
-    opacity: 0.1;
-
+    opacity: 0.4;
 }
 
 .friend {
     width: 100%;
     height: 400px;
-
     color: var(--white_f0);
     text-align: center;
     display: flex;
@@ -642,14 +628,11 @@ main .inner {
     align-items: center;
     gap: 20px;
     flex-direction: column;
-
-    /* background-color: var(--bg_footer); */
-    background-color: rgba(0, 0, 0, 0.8);
-    background-image: linear-gradient(to bottom, #160402, #2b1e04);
+    background-image: url(../../asset/img/reward/reward_banner7.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-
+    border: 1px solid #201c1c;
 }
 
 .friend h2 {
@@ -659,7 +642,6 @@ main .inner {
     line-height: 1;
 }
 
-
 .FAQ {
     color: var(--white_f0);
     min-height: 1000px;
@@ -668,7 +650,6 @@ main .inner {
     position: relative;
     background-color: var(--bg_black);
     z-index: 1;
-
 }
 
 .FAQ::before {
@@ -685,7 +666,6 @@ main .inner {
     opacity: 0.2;
     z-index: -1;
     background-attachment: fixed;
-
 }
 
 .FAQ ul {
@@ -708,7 +688,6 @@ main .inner {
 }
 
 .accordion-list {
-    /* background: rgba(32, 32, 32, 0.8); */
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
 }
@@ -722,22 +701,50 @@ main .inner {
     justify-content: space-between;
     margin: 0;
 }
-
-.toggle-icon {
-    font-size: 2rem;
-    transition: transform 0.5s;
-    font-weight: 100;
-}
-
 .accordion-content {
     padding: 0 15px 15px 15px;
     display: none;
     overflow: hidden;
 }
 
-.accordion-title.active .toggle-icon {
-    content: "—";
-    transform: rotate(180deg);
+.toggle-icon {
+    display: inline-block;
+    width: 20px; 
+    height: 20px;
+    position: relative;
+}
+
+.toggle-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px; 
+    height: 2px;
+    background-color: currentColor;
+    transform: translate(-50%, -50%); 
+    transition: transform 0.3s ease; 
+
+}
+
+.toggle-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px; 
+    height: 14px;
+    background-color: currentColor;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease; 
+}
+
+.accordion-title.active .toggle-icon::before {
+    transform: translate(-50%, -50%) rotate(90deg); 
+}
+
+.accordion-title.active .toggle-icon::after {
+    transform: translate(-50%, -50%) rotate(180deg); 
 }
 
 .accordion-content.active {
