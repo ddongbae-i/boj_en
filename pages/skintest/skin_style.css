@@ -124,7 +124,7 @@ body::-webkit-scrollbar {
 #quiz,
 #result {
   min-height: 100vh;
-  padding-bottom: 200px;
+  padding-bottom: 260px;
 }
 
 /* Buttons */
@@ -152,13 +152,9 @@ body::-webkit-scrollbar {
   font-weight: 500;
 }
 
-.actions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
 .actions.center {
+  position: relative;
+  top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -171,7 +167,6 @@ body::-webkit-scrollbar {
   justify-content: center;
   gap: 12px;
   position: relative;
-  top: 20px;
 }
 
 #nextBtn,
@@ -487,13 +482,6 @@ p#summary.center {
   text-align: center;
 }
 
-.center {
-  font-family: var(--txt_font);
-  font-size: 1.125rem;
-  font-weight: 300;
-  text-align: center;
-}
-
 /* Products */
 .product-tit {
   font-family: var(--tit_font);
@@ -504,10 +492,11 @@ p#summary.center {
 
 .product {
   position: relative;
+  top: 50px;
   width: 100%;
   min-height: 0;
   color: inherit;
-  padding: 50px;
+  padding-inline: 110px;
 }
 
 .product_grid {
@@ -532,6 +521,7 @@ p#summary.center {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  padding-top: 8px
 }
 
 .product_card .tags span {
@@ -596,7 +586,6 @@ p#summary.center {
 
 .product_card .add_btn {
   width: 100%;
-  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -631,14 +620,6 @@ p#summary.center {
   pointer-events: auto;
 }
 
-.row-ghosts {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  position: relative;
-  top: 20px;
-}
-
 #wishlistBtn {
   font-size: .875rem;
   border: 1px solid var(--bg_black);
@@ -651,12 +632,6 @@ p#summary.center {
   text-align: center;
   font-family: var(--txt_font);
   font-weight: 300;
-}
-
-#startBtn:hover {
-  background: var(--bg_black);
-  color: var(--white_ff);
-  font-weight: 500;
 }
 
 
@@ -733,10 +708,6 @@ p#summary.center {
   #result.enter-anim {
     animation: none !important;
   }
-}
-
-#result .product_grid .product_card {
-  aspect-ratio: 3 / 4;
 }
 
 /* 또는 고정 높이 */

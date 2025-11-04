@@ -42,7 +42,7 @@ window.addEventListener('load', () => {
   });
 
   // 🧷 3️⃣ ScrollTrigger 생성
-  ScrollTrigger.create({
+  const puzzleScrollTrigger = ScrollTrigger.create({
     trigger: section,
     start: "top top",
     end: "+=300%",
@@ -51,6 +51,16 @@ window.addEventListener('load', () => {
     anticipatePin: 1,
     // markers: true,
     onEnter: () => hintBtn && hintBtn.classList.add('hide'),
+    onLeave: () => {
+      // 퍼즐 섹션 완전히 벗어나면 필터 표시
+      const filters = document.querySelector('.filters');
+      if (filters) filters.classList.add('show');
+    },
+    onEnterBack: () => {
+      // 다시 퍼즐 섹션으로 돌아오면 필터 숨김
+      const filters = document.querySelector('.filters');
+      if (filters) filters.classList.remove('show');
+    },
     onUpdate: (self) => {
       const p = self.progress;
 
@@ -108,16 +118,16 @@ window.addEventListener('load', () => {
 //shop
 
 const swiper = new Swiper('.sale_zone .swiper', {
-  slidesPerView: 'auto',     // 카드 폭 고정 + 여러 장 보이기
+  slidesPerView: 'auto',
   freeMode: { enabled: true, momentum: true },
   grabCursor: true,
   navigation: {
     nextEl: '.sale_zone .swiper-button-next',
     prevEl: '.sale_zone .swiper-button-prev',
   },
-  // 필요시 모바일만 더 부드럽게
   resistanceRatio: 0.85,
 });
+
 //option
 
 const optionMenu = document.querySelectorAll('.p_right .option');
@@ -126,11 +136,9 @@ const optionBtn = document.querySelectorAll('.p_right .option button');
 optionBtn.forEach(function (btn, index) {
   btn.addEventListener('click', function () {
     const isActive = optionMenu[index].classList.contains('active');
-    //contains - 클래스 리스트에 active가 포함되어 있는가
     optionMenu.forEach(function (p_right) {
       p_right.classList.remove('active');
     });
-    //클릭한게 원래 열려있지 않았다면 다시 열기
     if (!isActive) {
       optionMenu[index].classList.add('active');
     }
@@ -160,32 +168,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('moreBtn');
   const cards = Array.from(list.querySelectorAll('.pro_card'));
 
-  const INITIAL = 9;  // 처음 보여줄 개수
-  const BATCH = 6;    // 더보기로 추가로 보일 개수
+  // 기본값 (데스크톱)
+  let INITIAL = 9;
+  let BATCH = 6;
 
-  // 초기 설정
+  // 화면 크기에 따라 수치 조정
+  function updateValues() {
+    if (window.innerWidth <= 1024) {
+      INITIAL = 8; // 모바일에서 처음 보이는 개수
+      BATCH = 4;   // 모바일에서 더보기 단위
+    } else {
+      INITIAL = 9;
+      BATCH = 6;
+    }
+  }
+
+  // 최초 1회 실행
+  updateValues();
+
+  // 리사이즈 시 자동 반영 (선택)
+  window.addEventListener('resize', updateValues);
+
+  // 초기 상태 설정
   cards.forEach((card, index) => {
     if (index >= INITIAL) card.classList.add('is-hidden');
   });
 
+  // 더보기 버튼 클릭 시
   btn.addEventListener('click', () => {
     const hidden = cards.filter(card => card.classList.contains('is-hidden'));
     hidden.slice(0, BATCH).forEach(card => card.classList.remove('is-hidden'));
 
-    // 더 이상 숨긴 게 없으면 버튼 숨기기
     if (hidden.length <= BATCH) btn.style.display = 'none';
   });
-});
-
-
-//filters
-const filters = document.querySelector('.filters');
-const toggleBtn = filters.querySelector('.open');
-const panel = document.getElementById('filters-panel');
-
-toggleBtn.addEventListener('click', () => {
-  const isOpen = filters.classList.toggle('active');
-  panel.hidden = !isOpen;
 });
 
 
@@ -202,23 +217,20 @@ document.querySelectorAll('.pro_card').forEach(card => {
   }
 });
 
-// 이벤트 위임: 하트 클릭 시만 토글, 상세 이동 막기
 ['.product_wrap', '.product_list'].forEach(selector => {
   const container = document.querySelector(selector);
   if (!container) return;
 
   container.addEventListener('click', (e) => {
     const btn = e.target.closest('.heart_btn');
-    if (!btn) return; // 하트가 아니면 패스
+    if (!btn) return;
 
-    e.stopPropagation();  // 카드 클릭 이벤트 차단
-    e.preventDefault();   // a 링크 이동 차단
+    e.stopPropagation();
+    e.preventDefault();
 
     btn.classList.toggle('is-on');
     const on = btn.classList.contains('is-on');
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-
-    // 필요하면 서버나 로컬스토리지 로직 추가
   });
 });
 
@@ -226,7 +238,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const addBtns = document.querySelectorAll(".pro_card .add_btn");
   const bagBtn = document.querySelector(".bag");
 
-  // 숫자 배지 생성
   const bagCount = document.createElement("span");
   bagCount.classList.add("bag_count");
   bagCount.textContent = "0";
@@ -239,12 +250,11 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       count++;
       bagCount.textContent = count;
-      bagCount.style.display = "flex"; // 표시 활성화
+      bagCount.style.display = "flex";
     });
   });
 });
 
-/*  add_btn 컬러 변경 */
 document.querySelectorAll('.all_product .add_btn').forEach(btn => {
   btn.addEventListener('mouseenter', () => {
     btn.style.backgroundColor = 'black';
@@ -252,7 +262,7 @@ document.querySelectorAll('.all_product .add_btn').forEach(btn => {
 
     const img = btn.querySelector('img');
     if (img) {
-      img.style.filter = 'brightness(0) invert(1)'; // 아이콘 색상 조정
+      img.style.filter = 'brightness(0) invert(1)';
     }
   });
 
@@ -267,21 +277,63 @@ document.querySelectorAll('.all_product .add_btn').forEach(btn => {
   });
 });
 
-/* 헤더 아이콘 컬러 변경 */
-// document.addEventListener('scroll', () => {
-//   const whiteSection = document.querySelector('.white');
-//   const headerImgs = document.querySelectorAll('header img');
+//filter
 
-//   if (!whiteSection) return;
+(() => {
+  const filters = document.querySelector('.filters');
+  const panel = document.getElementById('filters-panel');
+  const openBtn = filters?.querySelector('.open');
+  if (!filters || !panel || !openBtn) return;
 
-//   const whiteRect = whiteSection.getBoundingClientRect();
-//   const inView = whiteRect.top < window.innerHeight && whiteRect.bottom > 0;
+  // 상태 적용 헬퍼
+  const setPanel = (open) => {
+    panel.hidden = !open;                        // aria-hidden 대응
+    filters.classList.toggle('active', open);    // 필요 시 스타일용
+    openBtn.classList.toggle('is-open', open);   // 아이콘 전환용
+    openBtn.setAttribute('aria-expanded', String(open));
+  };
 
-//   headerImgs.forEach(img => {
-//     if (inView) {
-//       img.style.filter = 'brightness(0) saturate(100%)'; // 검정색 아이콘
-//     } else {
-//       img.style.filter = ''; // 원래 상태
-//     }
-//   });
-// });
+  // 아코디언 헤더(섹션 타이틀) 이벤트 – 한 번만 바인딩
+  document.querySelectorAll('.filters_group .filter_tit').forEach((tit) => {
+    if (tit.dataset.bound === '1') return;
+    tit.dataset.bound = '1';
+    tit.setAttribute('role', 'button');
+    tit.setAttribute('tabindex', '0');
+
+    const toggle = () => {
+      if (window.innerWidth > 1024) return; // 데스크탑 모드에서는 무시
+      tit.closest('.filters_group').classList.toggle('is-open');
+    };
+
+    tit.addEventListener('click', toggle);
+    tit.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  if (!openBtn.dataset.bound) {
+    openBtn.dataset.bound = '1';
+    openBtn.addEventListener('click', () => {
+      const willOpen = panel.hasAttribute('hidden');
+      setPanel(willOpen);
+    });
+  }
+
+  const applyMode = () => {
+    const isMobile = window.innerWidth <= 1024;
+
+    if (isMobile) {
+      setPanel(false);
+      document.querySelectorAll('.filters_group').forEach(g => g.classList.remove('is-open'));
+      setPanel(true);
+      document.querySelectorAll('.filters_group').forEach(g => g.classList.add('is-open'));
+    }
+  };
+
+  applyMode();
+  let rid;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(rid);
+    rid = requestAnimationFrame(applyMode);
+  });
+})();

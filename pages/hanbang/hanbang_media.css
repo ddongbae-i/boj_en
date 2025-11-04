@@ -97,7 +97,7 @@
         /* 중앙 정렬 */
         width: 100%;
         /* 좌우 여백 확보 */
-        margin: 630px auto 0 auto;
+        margin: 650px auto 0 auto;
         /* 옥타곤 아래로 spacing */
     }
 
@@ -122,6 +122,10 @@
 
     }
 
+    .banner1_right p {
+        width: 477px;
+    }
+
     .sub_tit {
         font-size: 1rem;
         font-weight: 400;
@@ -139,7 +143,7 @@
     /*  product */
     .product {
         padding: 150px 56px 0;
-        height: 1500px;
+        height: 1850px;
     }
 
     .product_grid {
@@ -278,12 +282,15 @@
     }
 
     .banner1_right {
-        width: 600px;
         margin-top: 15px;
     }
 
+    .banner1_right p {
+        width: 550px;
+    }
+
     .product {
-        height: 2100px;
+        height: 2500px;
         padding: 90px 42px 0;
 
     }
@@ -671,13 +678,25 @@
 }
 
 @media screen and (max-width:360px) {
+
     /*      header {
              display: none; 
         } */
+    .main {
+        height: 400px;
+    }
+
+    .main video {
+        object-position: right center;
+        margin-top: 70px;
+    }
+
+    .sub_main {
+        margin-top: 70px;
+    }
 
     .t1 {
         grid-area: t1;
-
     }
 
     .t2 {
@@ -688,29 +707,29 @@
         grid-area: t3;
         position: relative;
         width: 80%;
-        bottom: 110px;
-        right: 45px;
+        bottom: 121px;
+        right: 42px;
     }
 
     .t4 {
         grid-area: t4;
         position: relative;
         width: 80%;
-        bottom: 172px;
-        right: 45px;
+        bottom: 195px;
+        right: 42px;
     }
 
     .t5 {
         grid-area: t5;
         position: relative;
-        bottom: 280px;
+        bottom: 317px;
         left: 0px;
     }
 
     .t6 {
         grid-area: t6;
         position: relative;
-        bottom: 280px;
+        bottom: 317px;
         left: 0px;
     }
 
@@ -718,41 +737,46 @@
         grid-area: t7;
         position: relative;
         width: 80%;
-        left: 46px;
-        bottom: 172px;
+        left: 43px;
+        bottom: 196px;
     }
 
     .t8 {
         grid-area: t8;
         position: relative;
         width: 80%;
-        left: 46px;
-        bottom: 110px;
+        left: 43px;
+        bottom: 121px;
     }
 
     .product {
-        height: 3800px;
+        height: 4350px;
     }
 
-    .center_product img{
-        bottom: 40px;
+    .center_product img {
+        bottom: 60px;
     }
+
     /* 오버레이 글시 안 보이게 */
     .octagon .overlay_name {
         display: none;
     }
 
+    .banner1 {
+        height: 400px;
+        font-size: 0.875rem;
+    }
     .community .right h2 {
         margin-bottom: 10px;
     }
 
     .link_box {
         display: grid;
-        gap: 20px;
+        gap: 22px;
     }
 
     .link_box .box img {
-        width: 140px;
+        width: 152px;
     }
 }
 
