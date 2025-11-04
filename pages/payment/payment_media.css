@@ -1,28 +1,44 @@
 @charset "utf-8";
+@media screen and (max-width: 1280px) {
+
+.warp::before {
+
+    width: 300px;
+
+}}
+
 
 @media screen and (max-width: 1024px) {
 
+    .warp::before {
+
+    display: none;
+
+}
     /* 메인 영역(.warp)을 세로로 정렬하고 패딩을 줄입니다. */
     .warp {
         flex-direction: column;
-        padding: 140px 0 0 0;
-        gap: 40px;
+
     }
 
     .left,
     .right {
+        max-width: none;
         flex: auto;
         width: 100%;
         gap: 40px;
-        padding: 0 60px;
+                padding: 140px 40px 40px 40px;
+
     }
 
     .right {
         border-left: none;
         border-top: 1px solid #E6E2D3;
         height: auto;
+
         padding-top: 20px;
         padding-bottom: 80px;
+
     }
 
     .payment-container {
@@ -177,7 +193,7 @@
 
     .left,
     .right {
-        padding: 0 20px;
+       padding: 140px 40px 40px 40px;
     }
 
     .right {

@@ -1,31 +1,40 @@
 @charset "utf-8";
 
 .warp {
-    width: 100vw;
     display: flex;
     justify-content: center;
-    gap: 80px;
-    padding: 0 0 0 110px;
+
+    position: relative;
+
+}
+
+.warp::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    background: #FCFBF9;
+    width: 460px;
+height: 100%;
 }
 
 .left {
     flex: 3;
     display: flex;
     flex-direction: column;
-gap: 80px;
-padding: 140px 0 80px 0;
-
+    gap: 80px;
+    padding: 140px 40px 80px 40px;
+    max-width: 600px;
 }
 
 .right {
     flex: 2;
     background: #FCFBF9;
     border-left: 1px solid #E6E2D3;
-    padding-top: 160px;
-        position: sticky;
+    position: sticky;
     top: 0;
     height: 100vh;
-
+max-width: 400px;
+padding: 160px 40px 0 40px;
 }
 
 table {
@@ -38,11 +47,12 @@ table {
 table thead th {
 
     text-align: center;
-   padding: 10px 0 15px 0;
+    padding: 10px 0 15px 0;
     border-bottom: 1px solid #E6E2D3;
     font-weight: 500;
     color: #555;
 }
+
 /* 첫 번째 헤더 (Product)만 왼쪽 정렬 */
 table thead th:first-child {
     text-align: left;
@@ -54,6 +64,7 @@ table tbody td {
     border-bottom: 1px solid #eee;
     vertical-align: middle;
 }
+
 table tbody td:nth-child(4) .total-value {
     display: inline-block;
 }
@@ -78,17 +89,17 @@ table tbody td:nth-child(4) .total-value {
 }
 
 table tbody td:nth-child(2),
-table tbody td:nth-child(3)
- {
+table tbody td:nth-child(3) {
     text-align: center;
     width: 80px;
-    }
+}
 
 
-table tbody td:nth-child(4){
+table tbody td:nth-child(4) {
     text-align: right;
     width: 80px;
 }
+
 .quantity-input {
 
     width: 60px;
@@ -146,13 +157,13 @@ table tbody td:nth-child(4){
 
 .payment-form-container {
     margin: 0 auto;
-width: 100%;
+    width: 100%;
 
 }
 
 h2 {
     font-size: 1.2em;
-margin-bottom: 20px;
+    margin-bottom: 20px;
 
 }
 
@@ -179,11 +190,12 @@ input[type="email"],
 input[type="tel"],
 select {
     width: 100%;
-    padding: 10px;
+    padding: 10px 30px 10px 10px;
     border: 1px solid #ccc;
     box-sizing: border-box;
     font-size: 1em;
 }
+
 
 
 
@@ -229,11 +241,12 @@ select {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-padding-bottom: 20px;
+    padding-bottom: 20px;
     border-bottom: 1px solid #eee;
- }
+}
+
 .payment-method-header h2 {
-       margin: 0; 
+    margin: 0;
 }
 
 .card-icons img {
@@ -270,7 +283,7 @@ padding-bottom: 20px;
     width: 100%;
     max-width: 520px;
     /* 적절한 너비 설정 */
-    padding: 0 40px;
+    
     box-sizing: border-box;
 }
 
@@ -368,7 +381,8 @@ h1 {
 
 
 .item {
-    display: block; /* flex에서 block으로 변경 */
+    display: block;
+    /* flex에서 block으로 변경 */
     padding: 10px 0;
 }
 
