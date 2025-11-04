@@ -403,7 +403,7 @@
       if (!cards || !cards.length) return;
 
       function animateCard(el) {
-        gsap.fromTo(el, { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.38, ease: "power2.out", overwrite: "auto", clearProps: "transform,opacity" });
+        gsap.fromTo(el, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.80, ease: "power2.out", overwrite: "auto", clearProps: "transform,opacity" });
       }
 
       if (typeof ScrollTrigger !== "undefined" && gsap.registerPlugin) {
@@ -502,9 +502,9 @@
 document.addEventListener('DOMContentLoaded', function () {
   JB.setQuizBackgrounds([
     '/asset/img/skintest/jbtest-quiz-bg1.jpg',
-    '/asset/img/skintest/product1.png',
-    '/asset/img/skintest/product2.png',
-    '/asset/img/skintest/product3.png',
-    '/asset/img/skintest/product4.png',
+    '/asset/img/skintest/jbtest-quiz-bg2.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg3.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg4.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg5.jpg',
   ]);
 });
