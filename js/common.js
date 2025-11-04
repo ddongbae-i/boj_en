@@ -295,27 +295,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // JavaScript
 document.addEventListener("DOMContentLoaded", () => {
-  const popup = document.querySelector(".popup");
-  const dim = document.querySelector(".dim");
-  const closeXBtn = document.querySelector(".popup_close");
-  const closeBtn = document.querySelector(".btn_close");
+  let notice = document.querySelector(".notice");
 
-  function closePopup() {
-    popup.style.display = "none";
-    dim.style.display = "none";
+  if (!notice) {
+    const html = `
+      <div class="notice" style="display:none;">
+        <div class="dim"></div>
+        <div class="popup">
+          <button class="popup_close" aria-label="Close">&times;</button>
+          <h2>Notice</h2>
+          <p>We are creating a new look of Joseon's beauty.<br>
+             I'll come back with a deeper beauty.<br>Please wait!</p>
+          <div class="popup_btns">
+            <button class="btn_close">Close</button>
+          </div>
+        </div>
+      </div>`;
+    document.body.insertAdjacentHTML("beforeend", html);
+    notice = document.querySelector(".notice");
   }
 
-  closeXBtn.addEventListener("click", closePopup);
-  closeBtn.addEventListener("click", closePopup);
-  dim.addEventListener("click", closePopup);
+  const dim = notice.querySelector(".dim");
+  const popup = notice.querySelector(".popup");
+  const closeX = notice.querySelector(".popup_close");
+  const closeBtn = notice.querySelector(".btn_close");
+
+  const openNotice = () => {
+    notice.style.display = "block";
+    document.body.classList.add("no-scroll");
+  };
+  const closeNotice = () => {
+    notice.style.display = "none";
+    document.body.classList.remove("no-scroll");
+  };
+
+
+  closeX?.addEventListener("click", closeNotice);
+  closeBtn?.addEventListener("click", closeNotice);
+  dim?.addEventListener("click", closeNotice);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeNotice();
+  });
+
+  document.addEventListener("click", (e) => {
+    const trigger = e.target.closest(".popup_btn");
+    if (!trigger) return;
+    e.preventDefault();
+    openNotice();
+  });
 });
 
-
-
-
 /* login */
+
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) 팝업 HTML 없으면 주입, 있으면 재사용
+  // === 1) 현재 파일 깊이에 따라 prefix 자동 계산 ===
+  const depth = location.pathname.split('/').filter(Boolean).length;
+  let prefix = './';
+  if (depth > 1) prefix = '../'.repeat(depth - 1);
+
+  // === 2) 팝업이 없으면 자동 삽입 ===
   let login = document.querySelector('.login');
   if (!login) {
     const loginHTML = `
@@ -339,9 +377,9 @@ document.addEventListener("DOMContentLoaded", () => {
             <button type="submit" class="login_btn">Login</button>
 
             <div class="sns">
-              <a href="#"><img src="./asset/img/common/google.png" alt="google"></a>
-              <a href="#"><img src="./asset/img/common/apple.png" alt="apple"></a>
-              <a href="#"><img src="./asset/img/common/facebook.png" alt="facebook"></a>
+              <a href="#"><img src="${prefix}asset/img/common/google.png" alt="google"></a>
+              <a href="#"><img src="${prefix}asset/img/common/apple.png" alt="apple"></a>
+              <a href="#"><img src="${prefix}asset/img/common/facebook.png" alt="facebook"></a>
             </div>
           </div>
         </form>
@@ -350,12 +388,12 @@ document.addEventListener("DOMContentLoaded", () => {
     login = document.querySelector('.login');
   }
 
-  // 2) 엘리먼트 캐치
+  // === 3) 요소 캐치 ===
   const loginClose = login.querySelector('.login_close');
-  const loginDim   = login.querySelector('.login_dim');
-  const loginArea  = login.querySelector('.login_area');
+  const loginDim = login.querySelector('.login_dim');
+  const loginArea = login.querySelector('.login_area');
 
-  // 3) 동작 함수
+  // === 4) 열기/닫기 함수 ===
   const openLoginPopup = () => {
     login.style.display = "block";
     document.body.classList.add('no-scroll');
@@ -367,30 +405,23 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.remove('no-scroll');
   };
 
-  // 4) 닫기(딤/버튼/ESC)
+  // === 5) 닫기 (딤, 버튼, ESC) ===
   loginClose?.addEventListener('click', closeLoginPopup);
   loginDim?.addEventListener('click', closeLoginPopup);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeLoginPopup();
   });
 
-  // 5) 열기(이벤트 위임: 동적으로 생기는 버튼도 다 잡음)
+  // === 6) 열기 (이벤트 위임) ===
   document.addEventListener('click', (e) => {
     const openTrigger = e.target.closest('.login_open, [data-open-login], .sign_up_btn, .bar');
     if (!openTrigger) return;
-
-    // “Coming soon”을 쓰던 .bar도 여기서 열기로 통일하거나 아래처럼 분기 가능
-    if (openTrigger.matches('.bar')) {
-      // alert("Coming soon");
-      openLoginPopup();
-      return;
-    }
 
     e.preventDefault();
     openLoginPopup();
   });
 
-  // 6) 제출 시 닫고 이동
+  // === 7) 제출 시 닫고 이동 ===
   loginArea?.addEventListener('submit', (e) => {
     e.preventDefault();
     closeLoginPopup();
@@ -399,18 +430,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 200);
   });
 
-  // 7) 자동 입력
-  const typeEffect = (element, text, delay) => {
-    if (!element) return;
+  // === 8) 자동 입력 효과 ===
+  const typeEffect = (el, text, delay) => {
+    if (!el) return;
     let i = 0;
     const timer = setInterval(() => {
-      element.value += text[i] || '';
+      el.value += text[i] || '';
       i++;
       if (i >= text.length) clearInterval(timer);
     }, delay);
   };
   const emailInput = document.getElementById('login_email');
-  const pwInput    = document.getElementById('login_password');
+  const pwInput = document.getElementById('login_password');
   if (emailInput && pwInput) {
     setTimeout(() => typeEffect(emailInput, 'joseon@gmail.com', 100), 500);
     setTimeout(() => typeEffect(pwInput, '1234567', 100), 2000);
