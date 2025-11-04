@@ -1166,3 +1166,261 @@ body.menu-open {
 ::-webkit-scrollbar-thumb:hover {
     background: #9a7612;
 }
+
+.dim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0000007c;
+    z-index: 10;
+    display: block;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    border-radius: 10px;
+    padding: 30px;
+    background: #fff;
+    z-index: 100;
+    text-align: center;
+    display: block;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.popup_close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--txt_sub_77);
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 110;
+}
+
+.popup_close:hover {
+    color: var(--bg_black);
+    opacity: 0.8;
+}
+
+.popup h2 {
+    margin: 0 0 15px 0;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.popup p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.popup_btns {
+    display: flex;
+    justify-content: center;
+}
+
+.btn_close {
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    background-color: var(--ginseng, #C1843A);
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn_close:hover {
+    opacity: 0.8;
+}
+
+/* login popup*/
+.login {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.login_dim {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0000007c;
+    z-index: 1;
+}
+
+.login_area {
+    z-index: 2;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: none;
+    border: none;
+}
+
+.login_pop {
+    position: relative;
+    width: 450px;
+    padding: 24px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.13);
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.login_close {
+    position: absolute;
+    right: 18px;
+    top: 16px;
+    font-size: 2rem;
+    color: var(--txt_sub_77);
+    cursor: pointer;
+    transition: .3s;
+    z-index: 10;
+}
+
+.login_close:hover {
+    color: var(--bg_black);
+    opacity: 0.8;
+}
+
+.login_pop h2 {
+    font-size: 2rem;
+    margin: 0 0 12px 0;
+    text-align: center;
+}
+
+.login_pop>span {
+    font-size: 1.125rem;
+    color: var(--txt_sub_77);
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+}
+
+.login_pop .bar {
+    font-size: 1.125rem;
+    color: var(--bg_black);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.email {
+    display: block;
+    font-size: 1.1125rem;
+    color: var(--txt_sub_77);
+    margin-top: 36px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.password {
+    display: block;
+    font-size: 1.1125rem;
+    color: var(--txt_sub_77);
+    margin-top: 20px;
+    margin-bottom: 11px;
+    text-align: left;
+}
+
+.login_pop input[type="email"],
+.login_pop input[type="password"] {
+    padding: 13px 15px;
+    border: 1px solid var(--grey_de);
+    border-radius: 7px;
+    font-size: 1.07rem;
+    margin-bottom: 5px;
+}
+
+.pw_reset {
+    font-size: 0.875rem;
+    color: var(--txt_sub_77);
+    text-align: right;
+    display: block;
+    margin: 4px 0 10px auto;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.login_btn {
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 8px;
+    border: none;
+    background: var(--bg_black);
+    color: #fff;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.login_btn:hover {
+    opacity: 0.8;
+}
+
+.sns {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 54px;
+}
+
+.sns a {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.18s;
+    border: none;
+    padding: 0;
+}
+
+.sns a:nth-child(1) {
+    background: #fff;
+    border: 1px solid var(--bg_black);
+}
+
+.sns a:nth-child(2) {
+    background: var(--bg_black);
+}
+
+.sns a:nth-child(3) {
+    background: #0c82ee;
+}
+
+.sns a:hover {
+    opacity: .6;
+}
+
+.sns img {
+    width: 20px;
+    height: 20px;
+    display: block;
+    object-fit: contain;
+}

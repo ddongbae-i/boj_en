@@ -206,7 +206,7 @@
         right: 0;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 1.875rem;
+        font-size: 1.875rem; 
         line-height: 1;
         font-weight: 300;
         padding-right: 10px;

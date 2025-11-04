@@ -285,15 +285,14 @@ document.querySelectorAll('.all_product .add_btn').forEach(btn => {
   const openBtn = filters?.querySelector('.open');
   if (!filters || !panel || !openBtn) return;
 
-  // 상태 적용 헬퍼
+
   const setPanel = (open) => {
-    panel.hidden = !open;                        // aria-hidden 대응
-    filters.classList.toggle('active', open);    // 필요 시 스타일용
-    openBtn.classList.toggle('is-open', open);   // 아이콘 전환용
+    panel.hidden = !open;
+    filters.classList.toggle('active', open);
+    openBtn.classList.toggle('is-open', open);
     openBtn.setAttribute('aria-expanded', String(open));
   };
 
-  // 아코디언 헤더(섹션 타이틀) 이벤트 – 한 번만 바인딩
   document.querySelectorAll('.filters_group .filter_tit').forEach((tit) => {
     if (tit.dataset.bound === '1') return;
     tit.dataset.bound = '1';
@@ -301,7 +300,7 @@ document.querySelectorAll('.all_product .add_btn').forEach(btn => {
     tit.setAttribute('tabindex', '0');
 
     const toggle = () => {
-      if (window.innerWidth > 1024) return; // 데스크탑 모드에서는 무시
+      if (window.innerWidth > 1024) return;
       tit.closest('.filters_group').classList.toggle('is-open');
     };
 
@@ -325,6 +324,7 @@ document.querySelectorAll('.all_product .add_btn').forEach(btn => {
     if (isMobile) {
       setPanel(false);
       document.querySelectorAll('.filters_group').forEach(g => g.classList.remove('is-open'));
+    } else {
       setPanel(true);
       document.querySelectorAll('.filters_group').forEach(g => g.classList.add('is-open'));
     }
@@ -337,3 +337,51 @@ document.querySelectorAll('.all_product .add_btn').forEach(btn => {
     rid = requestAnimationFrame(applyMode);
   });
 })();
+
+//add_popup
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addButtons = document.querySelectorAll(".add_btn");
+  const popup = document.querySelector(".add_popup");
+  const dim = document.querySelector(".add_dim");
+  const popupHeading = popup.querySelector("h2");
+  const popupParagraph = popup.querySelector("p");
+  const continueBtn = popup.querySelector(".add_btn_re");      
+  const closeCartBtn = popup.querySelector(".add_btn_close"); 
+  const closeXBtn = popup.querySelector(".add_popup_close");  
+
+  addButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const productCard = btn.closest(".pro_card");
+      if (!productCard) return;
+
+      const productTitle = productCard.querySelector(".pro_tit").textContent;
+      popupParagraph.innerHTML = `"${productTitle}"<br>Your item has been added to your shopping cart.`;
+
+      popup.style.display = "block";
+      dim.style.display = "block";
+    });
+  });
+
+  continueBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
+  });
+
+  closeCartBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
+  });
+
+  dim.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
+  });
+
+  closeXBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+    dim.style.display = "none";
+  });
+});

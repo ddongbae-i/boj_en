@@ -1116,3 +1116,90 @@ header.scrolled-up .nav_right img {
 ::-webkit-scrollbar-thumb:hover {
     background: #9a7612;
 }
+
+.add_dim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0000007c;
+    z-index: 10;
+    display: none;
+}
+
+.add_popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    min-height: 260px;
+    border-radius: 10px;
+    padding: 30px;
+    background: #fff;
+    display: none;
+    z-index: 100;
+    text-align: center;
+}
+
+.add_popup h2 {
+    margin: 10px 0 20px 0;
+    font-weight: 500;
+    font-size: 1.125rem;
+}
+
+.add_popup p {
+    font-weight: 400;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+.add_popup_btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.add_btn_re,
+.add_btn_close {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    border: 1px solid var(--ginseng);
+    color: var(--txt_sub_77);
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 400;
+}
+
+.add_btn_close {
+    background: var(--ginseng);
+    color: var(--white_ff);
+    border: none;
+}
+
+.add_btn_re:hover {
+    border: 1px solid var(--bg_black);
+    color: var(--bg_black);
+}
+
+.add_btn_close:hover,
+.add_btn_re:hover,
+.add_popup_close:hover {
+    opacity: 0.7;
+}
+
+.add_popup_close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--bg_black);
+    cursor: pointer;
+    z-index: 110;
+    transition: 0.3s;
+}

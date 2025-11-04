@@ -549,9 +549,9 @@ body {
     margin-bottom: 32px;
 }
 
-.popup .popup_btns {
+.add_popup_btns  {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
     margin-top: 8px;
 }
