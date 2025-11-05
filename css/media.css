@@ -345,7 +345,16 @@
         font-size: 1rem;
     }
 
+    .cart_wrap {
+        position: fixed;
+        top: 0;
+        right: 0 ;
+        transform: translateX(100%);
+    }
 
+    .cart_wrap.is-open {
+        transform: translateX(0);
+    }
 
     footer .inner .logo {
         font-size: 3rem;
