@@ -16,24 +16,31 @@ menuItems.forEach(li => {
 window.addEventListener('scroll', () => {
   const currentScrollY = window.scrollY;
 
+  const isDesktop = window.matchMedia('(min-width: 1280px)').matches;
+
   if (currentScrollY > lastScrollY) {
-    // 아래로 스크롤
     header.classList.remove('scrolled-up');
-    header.style.top = '-100%';
-    header.style.color = '#1c1c1c'
+
+    if (isDesktop) {
+      header.style.top = '-100%';
+    } else {
+      header.style.top = '0';
+    }
+
+    header.style.color = '#1c1c1c';
     header.style.boxShadow = '0 2px 6px rgba(0,0,0,0.08)';
     headerImgs.forEach(img => {
-      img.style.filter = 'brightness(0) saturate(100%)'; // 💡 검은색 아이콘 처리
+      img.style.filter = 'brightness(0) saturate(100%)';
     });
 
   } else {
-    // 위로 스크롤 → header 등장
     header.classList.add('scrolled-up');
     header.style.top = '0';
   }
 
   lastScrollY = currentScrollY;
 });
+
 
 document.addEventListener('click', e => {
   const addBtn = e.target.closest('.add_btn');
