@@ -2,47 +2,39 @@ const header = document.querySelector('header');
 const menuItems = document.querySelectorAll('ul.gnb > li');
 const headerImgs = header.querySelectorAll('.nav_right img');
 
-// ✅ 모바일 여부 체크
-const isMobile = window.matchMedia("(max-width: 1280px)").matches;
+let lastScrollY = window.scrollY;
 
-// ✅ 모바일일 경우: 스크롤 이벤트 비활성 + 헤더 고정
-if (isMobile) {
-  header.style.top = '0';
-  header.style.boxShadow = 'none';
-  headerImgs.forEach(img => {
-    img.style.filter = ''; // ← 필요하면 유지 가능 (기본값)
+menuItems.forEach(li => {
+  li.addEventListener('mouseenter', () => {
+    header.classList.add('hovered');
   });
-} 
-// ✅ 데스크탑일 경우: 기존 스크롤 show/hide 로직 유지
-else {
-
-  let lastScrollY = window.scrollY;
-
-  menuItems.forEach(li => {
-    li.addEventListener('mouseenter', () => header.classList.add('hovered'));
-    li.addEventListener('mouseleave', () => header.classList.remove('hovered'));
+  li.addEventListener('mouseleave', () => {
+    header.classList.remove('hovered');
   });
+});
 
-  window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
+window.addEventListener('scroll', () => {
+  const currentScrollY = window.scrollY;
 
-    if (currentScrollY > lastScrollY) {
-      // 아래로 스크롤
-      header.classList.remove('scrolled-up');
-      header.style.top = '-100%';
-      header.style.boxShadow = '0 2px 6px rgba(0,0,0,0.08)';
-      headerImgs.forEach(img => {
-        img.style.filter = 'brightness(0) saturate(100%)';
-      });
-    } else {
-      // 위로 스크롤 → header 등장
-      header.classList.add('scrolled-up');
-      header.style.top = '0';
-    }
+  if (currentScrollY > lastScrollY) {
+    // 아래로 스크롤
+    header.classList.remove('scrolled-up');
+    header.style.top = '-100%';
+    header.style.color = '#1c1c1c'
+    header.style.boxShadow = '0 2px 6px rgba(0,0,0,0.08)';
+    headerImgs.forEach(img => {
+      img.style.filter = 'brightness(0) saturate(100%)'; // 💡 검은색 아이콘 처리
+    });
 
-    lastScrollY = currentScrollY;
-  });
-}
+  } else {
+    // 위로 스크롤 → header 등장
+    header.classList.add('scrolled-up');
+    header.style.top = '0';
+  }
+
+  lastScrollY = currentScrollY;
+});
+
 document.addEventListener('click', e => {
   const addBtn = e.target.closest('.add_btn');
   if (!addBtn) return;
@@ -266,31 +258,28 @@ footerBtn?.addEventListener('click', function () {
 
 //cart
 document.addEventListener('DOMContentLoaded', () => {
-  const bagBtns = document.querySelectorAll('.nav_right .bag, a[href="#"]:has(img[alt="my bag"]), a:has(img[src*="icon_bag"])');
+  const bagBtn = document.querySelector('.nav_right .bag');
   const cartWrap = document.querySelector('.cart_wrap');
   const closeBtn = document.querySelector('.cart_close');
 
-  if (!bagBtns.length || !cartWrap) return;
+  if (!bagBtn || !cartWrap) return;
 
   const openCart = () => {
-    cartWrap.classList.add('is-open');
+    cartWrap.classList.add('is-open');              // ← 핵심
     document.documentElement.classList.add('cart-locked');
     document.body.classList.add('cart-locked');
   };
 
   const closeCart = () => {
-    cartWrap.classList.remove('is-open');
+    cartWrap.classList.remove('is-open');           // ← 핵심
     document.documentElement.classList.remove('cart-locked');
     document.body.classList.remove('cart-locked');
   };
 
-  // 모든 My Bag 버튼에 동일 이벤트 적용
-  bagBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      openCart();
-    });
+  bagBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openCart();
   });
 
   closeBtn?.addEventListener('click', (e) => {
@@ -302,7 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape' && cartWrap.classList.contains('is-open')) closeCart();
   });
 });
-
 
 
 // JavaScript
@@ -341,6 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.remove("no-scroll");
   };
 
+
   closeX?.addEventListener("click", closeNotice);
   closeBtn?.addEventListener("click", closeNotice);
   dim?.addEventListener("click", closeNotice);
@@ -348,28 +337,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Escape") closeNotice();
   });
 
-  // ✅ href="#" 인 모든 a 태그 감지
   document.addEventListener("click", (e) => {
-    const link = e.target.closest("a");
-    if (!link) return;
-
-    const href = link.getAttribute("href");
-    if (href === "#") {
-      e.preventDefault();
-      openNotice();
-    }
+    const trigger = e.target.closest(".popup_btn");
+    if (!trigger) return;
+    e.preventDefault();
+    openNotice();
   });
 });
 
 /* login */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 경로 계산
   const depth = location.pathname.split('/').filter(Boolean).length;
   let prefix = './';
   if (depth > 1) prefix = '../'.repeat(depth - 1);
 
-  // 팝업 생성 (없으면 자동 삽입)
   let login = document.querySelector('.login');
   if (!login) {
     const loginHTML = `
@@ -377,33 +359,25 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="login_dim"></div>
         <form class="login_area">
           <div class="login_pop">
-            <button type="button" class="login_close" aria-label="close">&times;</button>
+            <div class="login_close" role="button" aria-label="close">&times;</div>
             <h2>Login</h2>
-
-            <!-- 안내 문구 -->
-            <p class="dev_notice">
-              🚧 This feature is currently under development.<br>
-              Please press <b>Close (×)</b> to exit.
-            </p>
-
             <span class="notice">New to beautyofjoseon?
-              <a href="#" class="bar">Sign up for free</a>
+              <span class="bar" tabindex="0">Sign up for free</span>
             </span>
 
             <label for="login_email" class="email">Email address</label>
-            <input type="email" id="login_email" placeholder="Email" disabled />
+            <input type="email" id="login_email" placeholder="Email" required />
 
             <label for="login_password" class="password">Password</label>
-            <input type="password" id="login_password" placeholder="Password" disabled />
+            <input type="password" id="login_password" placeholder="Password" required />
+            <a href="#" class="pw_reset">Forget password?</a>
 
-            <a href="#" class="pw_reset disabled">Forget password?</a>
-
-            <button type="button" class="login_btn disabled">Login</button>
+            <button type="submit" class="login_btn">Login</button>
 
             <div class="sns">
-              <a href="#" class="disabled"><img src="${prefix}asset/img/common/google.png" alt="google"></a>
-              <a href="#" class="disabled"><img src="${prefix}asset/img/common/apple.png" alt="apple"></a>
-              <a href="#" class="disabled"><img src="${prefix}asset/img/common/facebook.png" alt="facebook"></a>
+              <a href="#"><img src="${prefix}asset/img/common/google.png" alt="google"></a>
+              <a href="#"><img src="${prefix}asset/img/common/apple.png" alt="apple"></a>
+              <a href="#"><img src="${prefix}asset/img/common/facebook.png" alt="facebook"></a>
             </div>
           </div>
         </form>
@@ -412,32 +386,40 @@ document.addEventListener("DOMContentLoaded", () => {
     login = document.querySelector('.login');
   }
 
-  const loginDim = login.querySelector('.login_dim');
   const loginClose = login.querySelector('.login_close');
+  const loginDim = login.querySelector('.login_dim');
+  const loginArea = login.querySelector('.login_area');
 
-  // 팝업 열기
   const openLoginPopup = () => {
     login.style.display = "block";
     document.body.classList.add('no-scroll');
+    const firstInput = login.querySelector('input, button, [tabindex]:not([tabindex="-1"])');
+    if (firstInput) firstInput.focus();
   };
-
-  // 닫기
   const closeLoginPopup = () => {
     login.style.display = "none";
     document.body.classList.remove('no-scroll');
   };
 
-  // 이벤트 연결
+  loginClose?.addEventListener('click', closeLoginPopup);
+  loginDim?.addEventListener('click', closeLoginPopup);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLoginPopup();
+  });
+
   document.addEventListener('click', (e) => {
     const openTrigger = e.target.closest('.login_open, [data-open-login], .sign_up_btn, .bar');
     if (!openTrigger) return;
+
     e.preventDefault();
     openLoginPopup();
   });
 
-  loginDim?.addEventListener('click', closeLoginPopup);
-  loginClose?.addEventListener('click', closeLoginPopup);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLoginPopup();
+  loginArea?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    closeLoginPopup();
+    setTimeout(() => {
+      window.location.href = '/main.html';
+    }, 200);
   });
 });
