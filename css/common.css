@@ -268,10 +268,6 @@ nav .sub_wrap .sub_left {
     flex-wrap: wrap;
 }
 
-nav .sub_wrap .shop_menu {
-    height: 300px;
-}
-
 
 .ham_bottom {
     width: 502px;
@@ -655,8 +651,8 @@ body.cart-locked {
 .cart_header,
 .cart_progress,
 .cart_signup,
-.cart_footer{
-  flex: 0 0 auto; 
+.cart_footer {
+    flex: 0 0 auto;
 }
 
 .cart_signup {
@@ -670,7 +666,7 @@ body.cart-locked {
 
 .cart_corner {
     z-index: 10;
-     pointer-events: none;
+    pointer-events: none;
 }
 
 /* 헤더 */
@@ -2008,4 +2004,58 @@ body.menu-open {
     height: 20px;
     display: block;
     object-fit: contain;
+}
+
+/* 개발 중 안내 */
+.dev_notice {
+    margin: 12px 0 20px;
+    padding: 12px 14px;
+    background: #fff7e5;
+    border: 1px dashed #d6a85e;
+    color: #6b4a00;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* 닫기(X) 강조 */
+.login_close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 46px;
+    height: 46px;
+    font-size: 26px;
+    background: #fff;
+    color: #111;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.login_close:hover {
+    background: #111;
+    color: #fff;
+    transform: scale(1.08);
+}
+
+.login_close::after {
+    content: "Close";
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    font-weight: 700;
+    color: #c04b2a;
+}
+
+/* 클릭 불가능 표시 */
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+    cursor: default;
 }
