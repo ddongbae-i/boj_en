@@ -2,39 +2,47 @@ const header = document.querySelector('header');
 const menuItems = document.querySelectorAll('ul.gnb > li');
 const headerImgs = header.querySelectorAll('.nav_right img');
 
-let lastScrollY = window.scrollY;
+// ✅ 모바일 여부 체크
+const isMobile = window.matchMedia("(max-width: 1280px)").matches;
 
-menuItems.forEach(li => {
-  li.addEventListener('mouseenter', () => {
-    header.classList.add('hovered');
+// ✅ 모바일일 경우: 스크롤 이벤트 비활성 + 헤더 고정
+if (isMobile) {
+  header.style.top = '0';
+  header.style.boxShadow = 'none';
+  headerImgs.forEach(img => {
+    img.style.filter = ''; // ← 필요하면 유지 가능 (기본값)
   });
-  li.addEventListener('mouseleave', () => {
-    header.classList.remove('hovered');
+} 
+// ✅ 데스크탑일 경우: 기존 스크롤 show/hide 로직 유지
+else {
+
+  let lastScrollY = window.scrollY;
+
+  menuItems.forEach(li => {
+    li.addEventListener('mouseenter', () => header.classList.add('hovered'));
+    li.addEventListener('mouseleave', () => header.classList.remove('hovered'));
   });
-});
 
-window.addEventListener('scroll', () => {
-  const currentScrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
 
-  if (currentScrollY > lastScrollY) {
-    // 아래로 스크롤
-    header.classList.remove('scrolled-up');
-    header.style.top = '-100%';
-    header.style.color = '#1c1c1c'
-    header.style.boxShadow = '0 2px 6px rgba(0,0,0,0.08)';
-    headerImgs.forEach(img => {
-      img.style.filter = 'brightness(0) saturate(100%)'; // 💡 검은색 아이콘 처리
-    });
+    if (currentScrollY > lastScrollY) {
+      // 아래로 스크롤
+      header.classList.remove('scrolled-up');
+      header.style.top = '-100%';
+      header.style.boxShadow = '0 2px 6px rgba(0,0,0,0.08)';
+      headerImgs.forEach(img => {
+        img.style.filter = 'brightness(0) saturate(100%)';
+      });
+    } else {
+      // 위로 스크롤 → header 등장
+      header.classList.add('scrolled-up');
+      header.style.top = '0';
+    }
 
-  } else {
-    // 위로 스크롤 → header 등장
-    header.classList.add('scrolled-up');
-    header.style.top = '0';
-  }
-
-  lastScrollY = currentScrollY;
-});
-
+    lastScrollY = currentScrollY;
+  });
+}
 document.addEventListener('click', e => {
   const addBtn = e.target.closest('.add_btn');
   if (!addBtn) return;
