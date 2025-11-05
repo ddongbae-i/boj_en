@@ -62,10 +62,11 @@
       background-clip: padding-box;
    }
 
-   .product_card .tags span:nth-child(1), .product_card .tags span:nth-child(2) {
-    color: #16a34a;
-    background-color: #16a34a1a;
-    }
+   .product_card .tags span:nth-child(1),
+   .product_card .tags span:nth-child(2) {
+      color: #16a34a;
+      background-color: #16a34a1a;
+   }
 }
 
 /* ===================== ≤768 ===================== */
@@ -227,7 +228,7 @@
       width: 100%;
       min-height: 0;
       color: inherit;
-      padding-inline: 15px;
+      padding-inline: 42px;
    }
 
    .product-tit {
@@ -242,6 +243,52 @@
       color: var(--txt_main);
       text-align: center;
    }
+
+   .info h3 {
+      height: 30px;
+      margin-top: 20px;
+      font-size: 1rem;
+      font-family: var(--txt_main);
+      color: var(--txt_main);
+      font-weight: 400;
+      letter-spacing: -0.5px;
+   }
+
+   .info p {
+      color: var(--txt_sub_77);
+      font-size: 0.875rem;
+      margin-bottom: 20px;
+      font-weight: 300;
+   }
+
+   .info span,
+   .score {
+      color: var(--txt_sub_77);
+      font-size: 0.875rem;
+      font-weight: 300;
+   }
+
+   .product_card .add_btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--txt_font);
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--txt_sub_44);
+      border: 1px solid var(--grey_de);
+      padding: 14px 0;
+      cursor: pointer;
+   }
+
+   .product_card .add_btn img {
+      width: 18px;
+      height: 16px;
+      background: transparent;
+   }
+
 }
 
 /* 접근성: 모션 최소화 */

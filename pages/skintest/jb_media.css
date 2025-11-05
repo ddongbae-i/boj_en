@@ -1,103 +1,281 @@
 @charset "utf-8";
-:root {
-  /* 1920 baseline */
-  --page-margin: 110px;
-  --content-max: 1700px;
+/* =========================================
+   Base = 1920 (고정)
+   더 작은 뷰포트에서만 점진적으로 축소
+   ========================================= */
 
-  --fz-home-title: 2.5rem;   /* ~40px */
-  --fz-home-sub: 1.125rem;   /* ~18px */
-  --fz-question: 2rem;       /* ~32px */
-  --fz-progress: 1.125rem;   /* ~18px */
-  --fz-body: 1rem;           /* 16px */
+:root {
+   /* 1920 기준(기본값) */
+   --page-margin: 110px;
+   --content-max: 1700px;
+   --fz-title-lg: 2.75rem;
+   /* ~44px */
+   --fz-title: 2.125rem;
+   /* ~34px */
+   --fz-body: 1.15rem;
+   /* ~18.4px */
 }
 
-/* Typography bindings to variables (non-destructive) */
-.home-title { font-size: var(--fz-home-title) }
-.home-sub { font-size: var(--fz-home-sub) }
-.progress { font-size: var(--fz-progress) }
-#question { font-size: var(--fz-question) }
-.options .option { font-size: 1.125rem } /* keep readable on desktop */
-
-/* Layout helpers */
-.choices { grid-template-columns: repeat(2, minmax(240px, 1fr)); gap: 12px }
-.product_grid { grid-template-columns: repeat(3, 1fr); gap: 30px }
-
-/* Card sizing (result main card) */
-#result .job_card.card-main { width: 270px; height: 380px }
-
-/* Inner vertical offsets used in jb_style.css */
-.quiz-inner { top: 130px }
-.result-inner { padding-top: 340px; min-height: 520px }
 
 /* ===================== ≤1024 ===================== */
+/* 1024 이하: 타이포/차트 약간 더 컴팩트, 버튼/칩 동일 */
 @media (max-width: 1024px) {
-  :root {
-    --fz-home-title: 2rem;     /* ~32px */
-    --fz-home-sub: 1rem;       /* 16px */
-    --fz-question: 1.625rem;   /* ~26px */
-    --fz-progress: 1rem;       /* 16px */
-  }
+   :root {
+      --fz-title-lg: 2.25rem;
+      /* ~36px */
+      --fz-title: 1.75rem;
+      /* ~28px */
+      --fz-body: 1.0625rem;
+      /* ~17px */
+   }
 
-  .choices { grid-template-columns: repeat(2, minmax(200px, 1fr)); gap: 14px }
-  .options { gap: 10px }
-  #options { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto }
+   .legend {
+      padding-top: 180px;
+   }
 
-  .product_grid { grid-template-columns: repeat(2, 1fr); gap: 24px }
+   .chart {
+      width: 460px;
+      height: 460px;
+      bottom: 28px;
+   }
 
-  .quiz-inner { top: 96px }
-  .result-inner { padding-top: 280px }
+   .product_grid {
+      grid-template-columns: repeat(2, 1fr);
+   }
+
+   .product_card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      padding-top: 8px;
+   }
+
+   .product_card .tags span {
+      height: 26px;
+      display: inline-block;
+      padding: 5px;
+      font-size: 0.875rem;
+      font-family: var(--txt_main);
+      line-height: 1;
+      border-radius: 4px;
+      border: 1px solid currentColor;
+      background-clip: padding-box;
+   }
+
+   .product_card .tags span:nth-child(1),
+   .product_card .tags span:nth-child(2) {
+      color: #16a34a;
+      background-color: #16a34a1a;
+   }
 }
 
 /* ===================== ≤768 ===================== */
-/* Tablet: 2-col options, 1-col products */
+/* 태블릿: 컨텐츠 684, 마진 42, 2열 그리드 */
 @media (max-width: 768px) {
-  :root {
-    --page-margin: 42px;
-    --content-max: 684px;
+   :root {
+      --page-margin: 42px;
+      --content-max: 684px;
 
-    --fz-home-title: 1.875rem; /* ~30px */
-    --fz-home-sub: 0.95rem;    /* 15.2px */
-    --fz-question: 1.5rem;     /* 24px */
-    --fz-progress: 0.95rem;    /* 15.2px */
-  }
+      --fz-title-lg: 2rem;
+      /* ~32px */
+      --fz-title: 1.5rem;
+      /* ~24px */
+      --fz-body: 1rem;
+      /* 16px */
+   }
 
-  .home-inner { padding-inline: 0 }
-  .badges { gap: 6px; margin-bottom: 28px }
+   .choices {
+      grid-template-columns: repeat(2, minmax(240px, 1fr));
+      gap: 18px;
+   }
 
-  .choices { grid-template-columns: repeat(2, minmax(180px, 1fr)); gap: 12px }
-  #options { grid-template-columns: 1fr 1fr }
+   .product_grid {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 24px;
+   }
 
-  .actions { gap: 10px }
-  #nextBtn, #prevBtn { width: 150px; height: 42px }
+   .legend {
+      padding-top: 160px;
+      font-size: 0.95rem;
+   }
 
-  .product_grid { grid-template-columns: 1fr; gap: 22px }
+   .chart {
+      width: 440px;
+      height: 440px;
+      bottom: 24px;
+   }
 
-  /* result spacing tighter on tablet */
-  .quiz-inner { top: 80px }
-  .result-inner { padding-top: 240px; min-height: 480px }
-  #result .job_card.card-main { width: 240px; height: 340px }
+   .product_card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      padding-top: 8px;
+      justify-content: center;
+      align-items: center;
+   }
+
+
 }
 
 /* ===================== ≤360 ===================== */
-/* Very small mobile: minimal scale */
+/* 소형 모바일: 컨텐츠 320, 마진 20, 전반적 최소 스케일 */
 @media (max-width: 360px) {
-  :root {
-    --page-margin: 20px;
-    --content-max: 320px;
+   :root {
+      --page-margin: 20px;
+      --content-max: 320px;
 
-    --fz-home-title: 1.625rem; /* 26px */
-    --fz-home-sub: 0.875rem;   /* 14px */
-    --fz-question: 1.25rem;    /* 20px */
-    --fz-progress: 0.875rem;   /* 14px */
-  }
+      --fz-title-lg: 1.875rem;
+      /* ~30px */
+      --fz-title: 1.5rem;
+      /* ~24px */
+      --fz-body: 1rem;
+      /* 16px */
+   }
 
-  .badges { gap: 6px; margin-bottom: 22px }
-  .choices { gap: 10px }
-  .result-inner { padding-top: 180px }
-  #result .job_card.card-main { width: 210px; height: 300px }
+   .home-title {
+      margin: 0 0 8px;
+      font-family: var(--tit_font);
+      font-weight: 500;
+      font-size: 1.125rem;
+   }
+
+   .home-sub {
+      margin: 0 0 14px;
+      font-family: var(--txt_font);
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--muted);
+   }
+
+   .progress {
+      margin: 0 0 8px;
+      color: var(--txt_sub_44);
+      font-family: var(--txt_font);
+      font-weight: 300;
+      font-size: 0.75rem;
+   }
+
+   #question {
+      margin: 6px 0 12px;
+      font-family: var(--tit_font);
+      font-weight: 500;
+      font-size: 1.125rem;
+   }
+
+   .choice .label-text {
+      font-family: var(--txt_font);
+      font-size: 0.875rem;
+      font-weight: 300;
+   }
+
+
+   .choices {
+      grid-template-columns: 1fr;
+      gap: 16px;
+   }
+
+   .choice {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 0 12px;
+      border: 1px solid var(--bg_black);
+      background: transparent;
+      color: var(--txt_main);
+      cursor: pointer;
+      user-select: none;
+      transition: .15s ease;
+   }
+
+   .type {
+      font-family: var(--tit_font);
+      font-size: 1.5rem;
+      font-weight: 500;
+   }
+
+   p#summary {
+      font-size: 0.875rem;
+      text-align: center;
+   }
+
+   .product_grid {
+      grid-template-columns: repeat(1, 1fr);
+   }
+
+   .product {
+      position: relative;
+      top: 20px;
+      width: 100%;
+      min-height: 0;
+      color: inherit;
+      padding-inline: 42px;
+   }
+
+   .product-tit {
+      font-family: var(--tit_font);
+      font-size: 1.5rem;
+      font-weight: 500;
+      text-align: center;
+   }
+
+   .info {
+      height: 100px;
+      color: var(--txt_main);
+      text-align: center;
+   }
+
+   .info h3 {
+      height: 30px;
+      margin-top: 20px;
+      font-size: 1rem;
+      font-family: var(--txt_main);
+      color: var(--txt_main);
+      font-weight: 400;
+      letter-spacing: -0.8px;
+   }
+
+   .info p {
+      color: var(--txt_sub_77);
+      font-size: 0.875rem;
+      margin-bottom: 20px;
+      font-weight: 300;
+   }
+
+   .info span,
+   .score {
+      color: var(--txt_sub_77);
+      font-size: 0.875rem;
+      font-weight: 300;
+   }
+
+   .product_card .add_btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--txt_font);
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--txt_sub_44);
+      border: 1px solid var(--grey_de);
+      padding: 14px 0;
+      cursor: pointer;
+   }
+
+   .product_card .add_btn img {
+      width: 18px;
+      height: 16px;
+      background: transparent;
+   }
+
 }
 
-/* Motion reduce safeguard (non-destructive) */
+/* 접근성: 모션 최소화 */
 @media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important }
+   * {
+      animation: none !important;
+      transition: none !important;
+   }
 }
