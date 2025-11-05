@@ -2059,3 +2059,54 @@ body.menu-open {
     opacity: 0.4;
     cursor: default;
 }
+
+/* pop360 */
+@media (max-width: 440px) {
+
+    .login_pop {
+        width: 90%;
+    }
+
+    .login_pop>span {
+        font-size: 0.875rem;
+    }
+
+    .login_pop .bar {
+        font-size: 0.875rem;
+        display: block;
+        margin-top: 5px;
+    }
+
+    .email,
+    .password {
+        font-size: 0.875rem;
+    }
+
+    .login_pop input[type="email"],
+    .login_pop input[type="password"] {
+        font-size: 0.875rem;
+    }
+
+    .btn_close,
+    .skin_btn_yes,
+    .skin_btn_no,
+    .login_btn {
+        font-size: 0.9rem;
+    }
+
+    .add_popup {
+        width: 90%;
+        padding: 20px;
+    }
+
+
+    .add_btn_re,
+    .add_btn_close {
+        font-size: 0.9rem;
+    }
+
+    .add_popup_close {
+        font-size: 1.8rem;
+        top: 8px;
+    }
+}
