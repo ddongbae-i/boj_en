@@ -51,24 +51,46 @@ const introVideo  = document.getElementById('introVideo');   // <video> 요소
 const mainContent = document.getElementById('mainContent');  // .content-wrapper
 const skipButton  = document.getElementById('skipButton');
 
-// (중요) 이전의 resizeVideo 로직 제거: 크기는 CSS(#introVideo)에서만 관리
-// → JS가 width/height를 건드리지 않으므로, 의도대로 110vw/110vh로 살짝 확대 유지
+// 화면 비율에 따라 비디오 소스 변경
+function updateVideoSource() {
+  const isPortrait = window.innerHeight > window.innerWidth;
+  const currentSrc = introVideo.currentSrc;
+  const portraitSrc = './asset/video/intro/intro_916.mp4';
+  const landscapeSrc = './asset/video/intro/intro.mp4';
+  
+  const targetSrc = isPortrait ? portraitSrc : landscapeSrc;
+  
+  // 현재 재생 중인 소스와 다르면 변경
+  if (!currentSrc.includes(targetSrc)) {
+    const currentTime = introVideo.currentTime || 0;
+    introVideo.src = targetSrc;
+    introVideo.currentTime = currentTime;
+    introVideo.play().catch(() => {});
+  }
+}
+
+// 초기 로드 및 화면 회전/리사이즈 시 체크
+updateVideoSource();
+window.addEventListener('resize', updateVideoSource);
+window.addEventListener('orientationchange', updateVideoSource);
 
 function endVideo() {
-  // 혹시 남은 재생 중지
+  const isPortrait = window.innerHeight > window.innerWidth;
+  
+  // 세로형이면 바로 브랜드 스토리로 이동
+  if (isPortrait) {
+    window.location.href = './pages/brandstory/brandstory.html';
+    return;
+  }
+  
+  // 가로형일 때만 기존 로직 실행
   try { introVideo.pause(); } catch (_) {}
-  // 마지막 프레임 근처로 이동 (모바일 깜빡임 방지 목적)
   if (!isNaN(introVideo.duration)) {
     introVideo.currentTime = Math.max(0, introVideo.duration - 0.01);
   }
 
-  // 스킵 버튼 히든 처리
   skipButton.classList.add('hidden');
-
-  // 메인 컨텐츠 활성화
   mainContent.classList.add('show');
-
-  // 스크롤 허용 (인트로 끝)
   document.body.style.overflow = 'auto';
 }
 
