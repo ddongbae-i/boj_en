@@ -378,7 +378,7 @@ header.scrolled-up .nav_right img {
 }
 
 .add_btn:hover img {
-    content: url('/asset/img/hanbang/icon_bag_w.png');
+    content: url('../../asset/img/hanbang/icon_bag_w.png');
 }
 
 .pro_card:last-child {
