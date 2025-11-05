@@ -785,8 +785,8 @@ screen and (max-width: 360px) {
         top: -100px;
     }
 
-    .details {
-        width: 340px;
+    .sub_main2 .details {
+        width: 350px;
     }
 
     .octagon .overlay_name {
