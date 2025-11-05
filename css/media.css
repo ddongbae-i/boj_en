@@ -348,7 +348,7 @@
     .cart_wrap {
         position: fixed;
         top: 0;
-        right: 0 ;
+        right: 0;
         transform: translateX(100%);
     }
 
@@ -453,6 +453,55 @@
         right: 20px;
     }
 
+    .cart_wrap {
+        inset: 0;
+        width: 100dvw;
+        height: 100dvh;
+        /* 풀스크린 안정화 */
+        max-width: none;
+        border-radius: 0;
+        border: 0;
+        box-shadow: none;
+        background: #fff;
+        z-index: 10000;
+
+        /* ✅ 하단에서 올라오는 대신 → 오른쪽에서 왼쪽으로 */
+        transform: translateX(100%);
+        transition: transform .35s ease;
+    }
+
+    .cart_wrap.is-open {
+        transform: translateX(0);
+    }
+
+    /* 코너 장식 숨기기 */
+    .cart_corner {
+        display: none;
+    }
+
+    .cart_inner {
+        height: 100%;
+        display: grid;
+        grid-template-rows: auto auto 1fr auto auto;
+        overflow: hidden;
+    }
+
+    .cart_scroll {
+        overflow-y: auto;
+        min-height: 0;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
+        overscroll-behavior: contain;
+    }
+
+    .cart_footer {
+        padding-bottom: calc(24px + env(safe-area-inset-bottom));
+        background: #fff;
+    }
+
+    .cart_signup {
+        background: #faefe7;
+    }
 
     footer .f_center_right .f_nav {
         width: 100%;

@@ -580,7 +580,7 @@ footer .f_join span {
     width: min(420px, 92vw);
     height: 100dvh;
     background: #fff;
-    z-index: 700;
+    z-index: 1000;
     transform: translateX(100%);
     transition: transform .35s ease;
     box-shadow: -12px 0 24px rgba(0, 0, 0, .12);
@@ -593,8 +593,10 @@ footer .f_join span {
 
 .cart_inner {
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+    overflow: hidden;
+    min-height: 0;
 }
 
 .cart_corner {
@@ -636,9 +638,12 @@ footer .f_join span {
 
 
 .cart_scroll {
-    flex: 1 1 auto;
-    min-height: 0;
     overflow-y: auto;
+    min-height: 0;
+    /* iOS 스크롤 버그 방지 */
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    overscroll-behavior: contain;
 }
 
 .cart_header,
@@ -654,6 +659,7 @@ footer .f_join span {
 
 .cart_footer {
     background: #fff;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
 }
 
 .cart_corner {
