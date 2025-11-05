@@ -497,3 +497,86 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === 'Escape') closeLoginPopup();
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 필요한 모달이 없으면 HTML을 주입해서 만들어준다.
+  const ensureModal = (selector, html) => {
+    let el = document.querySelector(selector);
+    if (!el) {
+      document.body.insertAdjacentHTML("beforeend", html);
+      el = document.querySelector(selector);
+    }
+    return el;
+  };
+
+  // === 1) ALL TO WISHLIST (.skin) ===
+  const skinHTML = `
+    <div class="skin" style="display:none;">
+      <div class="skin_dim"></div>
+      <div class="skin_popup">
+        <button class="skin_popup_close" aria-label="Close">&times;</button>
+        <h2>ALL TO WISHLIST</h2>
+        <p>Would you like to add all your products to the list of products of interest?</p>
+        <div class="skin_popup_btns">
+          <a href="#" class="skin_btn_no">No</a>
+          <a href="#" class="skin_btn_yes">Yes</a>
+        </div>
+      </div>
+    </div>`;
+
+  // === 2) RESET (.skin.skinreset) ===
+  const skinResetHTML = `
+    <div class="skin skinreset" style="display:none;">
+      <div class="skin_dim skinreset"></div>
+      <div class="skin_popup skinreset">
+        <button class="skin_popup_close skinreset" aria-label="Close">&times;</button>
+        <h2>RESET</h2>
+        <p>Return to the first quiz question?</p>
+        <div class="skin_popup_btns skinreset">
+          <a href="#" class="skin_btn_no">No</a>
+          <a href="#" class="skin_btn_yes">Yes</a>
+        </div>
+      </div>
+    </div>`;
+
+  // 필요하면 삽입
+  const skinWrap      = ensureModal(".skin:not(.skinreset)", skinHTML);
+  const skinResetWrap = ensureModal(".skin.skinreset",       skinResetHTML);
+
+  // 공통 바인딩 함수
+  const bindModal = (wrap, triggerSelector) => {
+    if (!wrap) return;
+
+    const open = () => {
+      wrap.style.display = "block";
+      document.body.classList.add("no-scroll");
+    };
+    const close = () => {
+      wrap.style.display = "none";
+      document.body.classList.remove("no-scroll");
+    };
+
+    // 열기 트리거(위임)
+    document.addEventListener("click", (e) => {
+      const t = e.target.closest(triggerSelector);
+      if (!t) return;
+      e.preventDefault();
+      open();
+    });
+
+    // 닫기 요소들
+    wrap.querySelector(".skin_dim")?.addEventListener("click", close);
+    wrap.querySelector(".skin_popup_close")?.addEventListener("click", close);
+    wrap.querySelector(".skin_btn_no")?.addEventListener("click", (e) => { e.preventDefault(); close(); });
+    wrap.querySelector(".skin_btn_yes")?.addEventListener("click", (e) => { e.preventDefault(); close(); });
+
+    // ESC 닫기
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") close();
+    });
+  };
+
+  // 바인딩
+  bindModal(skinWrap, ".skin_btn");            // ALL TO WISHLIST 열기 버튼
+  bindModal(skinResetWrap, ".skinreset_btn");  // RESET 열기 버튼
+});
