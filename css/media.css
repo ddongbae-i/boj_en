@@ -301,7 +301,7 @@
         top: 47px;
         right: 30px;
         left: auto;
-        z-index: 1000;
+        z-index: 669;
     }
 
     header.on .search_tab .keyword_wrap {
@@ -344,6 +344,8 @@
     .search_tab input[type="search"] {
         font-size: 1rem;
     }
+
+
 
     footer .inner .logo {
         font-size: 3rem;
