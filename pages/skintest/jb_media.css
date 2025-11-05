@@ -1,7 +1,103 @@
 @charset "utf-8";
-/* 
-   - 1920px:  margin 110, content width 1700
-   - 1024px:  margin 56,  content width 912
-   - 768px:   margin 42,  content width 684
-   - 360px:   margin 20,  content width 320
-*/
+:root {
+  /* 1920 baseline */
+  --page-margin: 110px;
+  --content-max: 1700px;
+
+  --fz-home-title: 2.5rem;   /* ~40px */
+  --fz-home-sub: 1.125rem;   /* ~18px */
+  --fz-question: 2rem;       /* ~32px */
+  --fz-progress: 1.125rem;   /* ~18px */
+  --fz-body: 1rem;           /* 16px */
+}
+
+/* Typography bindings to variables (non-destructive) */
+.home-title { font-size: var(--fz-home-title) }
+.home-sub { font-size: var(--fz-home-sub) }
+.progress { font-size: var(--fz-progress) }
+#question { font-size: var(--fz-question) }
+.options .option { font-size: 1.125rem } /* keep readable on desktop */
+
+/* Layout helpers */
+.choices { grid-template-columns: repeat(2, minmax(240px, 1fr)); gap: 12px }
+.product_grid { grid-template-columns: repeat(3, 1fr); gap: 30px }
+
+/* Card sizing (result main card) */
+#result .job_card.card-main { width: 270px; height: 380px }
+
+/* Inner vertical offsets used in jb_style.css */
+.quiz-inner { top: 130px }
+.result-inner { padding-top: 340px; min-height: 520px }
+
+/* ===================== ≤1024 ===================== */
+@media (max-width: 1024px) {
+  :root {
+    --fz-home-title: 2rem;     /* ~32px */
+    --fz-home-sub: 1rem;       /* 16px */
+    --fz-question: 1.625rem;   /* ~26px */
+    --fz-progress: 1rem;       /* 16px */
+  }
+
+  .choices { grid-template-columns: repeat(2, minmax(200px, 1fr)); gap: 14px }
+  .options { gap: 10px }
+  #options { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto }
+
+  .product_grid { grid-template-columns: repeat(2, 1fr); gap: 24px }
+
+  .quiz-inner { top: 96px }
+  .result-inner { padding-top: 280px }
+}
+
+/* ===================== ≤768 ===================== */
+/* Tablet: 2-col options, 1-col products */
+@media (max-width: 768px) {
+  :root {
+    --page-margin: 42px;
+    --content-max: 684px;
+
+    --fz-home-title: 1.875rem; /* ~30px */
+    --fz-home-sub: 0.95rem;    /* 15.2px */
+    --fz-question: 1.5rem;     /* 24px */
+    --fz-progress: 0.95rem;    /* 15.2px */
+  }
+
+  .home-inner { padding-inline: 0 }
+  .badges { gap: 6px; margin-bottom: 28px }
+
+  .choices { grid-template-columns: repeat(2, minmax(180px, 1fr)); gap: 12px }
+  #options { grid-template-columns: 1fr 1fr }
+
+  .actions { gap: 10px }
+  #nextBtn, #prevBtn { width: 150px; height: 42px }
+
+  .product_grid { grid-template-columns: 1fr; gap: 22px }
+
+  /* result spacing tighter on tablet */
+  .quiz-inner { top: 80px }
+  .result-inner { padding-top: 240px; min-height: 480px }
+  #result .job_card.card-main { width: 240px; height: 340px }
+}
+
+/* ===================== ≤360 ===================== */
+/* Very small mobile: minimal scale */
+@media (max-width: 360px) {
+  :root {
+    --page-margin: 20px;
+    --content-max: 320px;
+
+    --fz-home-title: 1.625rem; /* 26px */
+    --fz-home-sub: 0.875rem;   /* 14px */
+    --fz-question: 1.25rem;    /* 20px */
+    --fz-progress: 0.875rem;   /* 14px */
+  }
+
+  .badges { gap: 6px; margin-bottom: 22px }
+  .choices { gap: 10px }
+  .result-inner { padding-top: 180px }
+  #result .job_card.card-main { width: 210px; height: 300px }
+}
+
+/* Motion reduce safeguard (non-destructive) */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important }
+}

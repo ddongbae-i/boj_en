@@ -1,3 +1,20 @@
+/* -- neutralize reset/wishlist bindings (auto-inserted) -- */
+(function(){
+  try {
+    var IDs = new Set(["resetBtn","wishlistBtn","wishlistAll"]);
+    var origGet = document.getElementById.bind(document);
+    document.getElementById = function(id){
+      var el = origGet(id);
+      if (el && IDs.has(id)) {
+        try { el.onclick = null; } catch(e){}
+        try { el.addEventListener = function(){}; } catch(e){}
+      }
+      return el;
+    };
+  } catch(e){}
+})();
+// -- end neutralizer --
+
 (function (w) {
   "use strict";
   const JB = (w.JB = w.JB || {});
@@ -194,7 +211,7 @@
       const on = btn.classList.toggle("on");
       btn.setAttribute("aria-pressed", on ? "true" : "false");
       const img = btn.querySelector("img.heart");
-      if (img) img.src = on ? "../../asset/img/skintest/icon_heart_fill.svg" : "../../asset/img/skintest/icon_heart_stroke.svg";
+      if (img) img.src = on ? "/asset/img/skintest/icon_heart_fill.svg" : "/asset/img/skintest/icon_heart_stroke.svg";
       // keep label same as provided
       syncWishlistAll();
     });
@@ -225,7 +242,7 @@
         b.classList.toggle("on", !allOn);
         b.setAttribute("aria-pressed", !allOn ? "true" : "false");
         const img = b.querySelector("img.heart");
-        if (img) img.src = !allOn ? "../../asset/img/skintest/icon_heart_fill.svg" : "../../asset/img/skintest/icon_heart_stroke.svg";
+        if (img) img.src = !allOn ? "/asset/img/skintest/icon_heart_fill.svg" : "/asset/img/skintest/icon_heart_stroke.svg";
       });
       // sync label
       setTimeout(syncWishlistAll, 0);
@@ -284,9 +301,9 @@
   document.addEventListener("DOMContentLoaded", () => {
     JB.lockScroll(false);
     bindNav();
-    bindWishlistButtons();
-    bindWishlistAll();
-    bindMainCardFlip();
+    /* disabled: bindWishlistButtons(); */
+/* disabled: bindWishlistAll(); */
+bindMainCardFlip();
     renderQuestion();
     initRoute();
   });
@@ -501,10 +518,10 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   JB.setQuizBackgrounds([
-    '../../asset/img/skintest/jbtest-quiz-bg.jpg',
-    '../..asset/img/skintest/jbtest-quiz-bg.jpg',
-    '../../asset/img/skintest/jbtest-quiz-bg.jpg',
-    '../../asset/img/skintest/jbtest-quiz-bg.jpg',
-    '../../asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
   ]);
 });
