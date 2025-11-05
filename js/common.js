@@ -422,20 +422,4 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = '/main.html';
     }, 200);
   });
-
-  const typeEffect = (el, text, delay) => {
-    if (!el) return;
-    let i = 0;
-    const timer = setInterval(() => {
-      el.value += text[i] || '';
-      i++;
-      if (i >= text.length) clearInterval(timer);
-    }, delay);
-  };
-  const emailInput = document.getElementById('login_email');
-  const pwInput = document.getElementById('login_password');
-  if (emailInput && pwInput) {
-    setTimeout(() => typeEffect(emailInput, 'joseon@gmail.com', 100), 500);
-    setTimeout(() => typeEffect(pwInput, '1234567', 100), 2000);
-  }
 });
