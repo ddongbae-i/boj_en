@@ -20,7 +20,6 @@ window.addEventListener('scroll', () => {
   const w = window.innerWidth;
 
   if (w <= 1280) {
-    // 360px 이하에서는 항상 고정
     header.style.position = 'fixed';
     header.style.top = '0';
     header.classList.add('scrolled-up');
