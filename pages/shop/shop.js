@@ -381,3 +381,8 @@ document.addEventListener("DOMContentLoaded", () => {
     dim.style.display = "none";
   });
 });
+/* 상세페이지 연동 */
+document.querySelectorAll('.pro_card img').forEach(img => {
+  img.style.cursor = 'pointer';
+  img.onclick = () => location.href = '../detail/detail.html'; 
+});

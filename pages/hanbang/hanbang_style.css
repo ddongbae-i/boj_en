@@ -343,6 +343,7 @@ body {
 }
 
 .center_product img {
+    position: absolute;
     width: 250px;
     height: 250px;
 }
@@ -435,6 +436,7 @@ body {
     top: 45%;
     opacity: 1;
 }
+
 /* banner1 */
 .banner1 {
     position: relative;
@@ -695,6 +697,11 @@ body {
     height: auto;
     margin-bottom: 8px;
     background: var(--img_bg);
+}
+
+.product_grid .product_card:nth-child(2) .badge.new {
+    background-color: black;
+    color: white;
 }
 
 .badge.new {
@@ -1084,4 +1091,16 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #9a7612;
+}
+
+footer {
+    width: 100%;
+    background: var(--bg_footer);
+    color: var(--white_ff);
+    font-size: 1.125rem;
+    font-weight: 300;
+}
+
+.f_sns a {
+    transition: 0.5s;
 }

@@ -14,7 +14,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    max-width: 400px;
     border-radius: 10px;
     padding: 30px;
     background: #fff;
@@ -51,6 +51,9 @@
 .popup p {
     font-size: 1rem;
     margin-bottom: 25px;
+    width: 350px;
+    margin: 0 auto;
+    
 }
 
 .popup_btns {
@@ -364,4 +367,35 @@
 
 .skin_btn_no:hover {
     opacity: 0.5;
+}
+/* pop360 */
+@media (max-width: 360px) {
+    .popup,
+    .skin_popup {
+        width: 90%;
+    }
+
+    .btn_close,
+    .skin_btn_yes,
+    .skin_btn_no,
+    .login_btn {
+        font-size: 0.9rem;
+
+    }
+
+    .add_popup {
+        width: 90%;
+        padding: 20px;
+    }
+
+
+    .add_btn_re,
+    .add_btn_close {
+        font-size: 0.9rem;
+    }
+
+    .add_popup_close {
+        font-size: 1.8rem;
+        top: 8px;
+    }
 }

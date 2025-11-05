@@ -587,6 +587,7 @@
     }
 
     .sub_main2 .details {
+        width: 420px;
         margin-top: 650px;
         font-size: 1rem;
         padding: 0 25px;

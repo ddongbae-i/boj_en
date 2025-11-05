@@ -603,7 +603,7 @@ document.querySelectorAll('.heart_btn').forEach(btn => {
   });
 });
 
-/* popup test */
+/* popup1 */
 
 document.addEventListener("DOMContentLoaded", () => {
   const addButtons = document.querySelectorAll(".add_btn");
@@ -656,4 +656,52 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+/*제품 상세페이지 연동  */
+document.querySelectorAll('.product_card img').forEach(img => {
+  img.style.cursor = 'pointer';
+  img.onclick = () => location.href = '../detail/detail.html';
+});
 
+/* popup2 */
+const popupFilters = [
+  'GreenPlum',
+  'Propolis',
+  'RedBean',
+  'Mugwort',
+  'GreenTea',
+  'CentellaAsiatica'
+];
+
+const notice = document.querySelector('.notice');
+const popup = document.querySelector('.popup');
+const dim = document.querySelector('.dim');
+
+notice.style.display = 'none';
+popup.style.display = 'none';
+dim.style.display = 'none';
+
+
+function closePopup() {
+  notice.style.display = 'none';
+  popup.style.display = 'none';
+  dim.style.display = 'none';
+}
+
+document.querySelectorAll('.popup_close, .btn_close').forEach(btn => {
+  btn.addEventListener('click', closePopup);
+});
+dim.addEventListener('click', closePopup);
+
+document.querySelectorAll('.product_filter li').forEach(li => {
+  if (popupFilters.includes(li.textContent.trim())) {
+    li.style.cursor = 'pointer';
+    li.addEventListener('click', () => {
+      closePopup();
+      setTimeout(() => {
+        notice.style.display = 'block';
+        popup.style.display = 'block';
+        dim.style.display = 'block';
+      }, 10);
+    });
+  }
+});
