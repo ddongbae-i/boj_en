@@ -333,7 +333,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.remove("no-scroll");
   };
 
-
   closeX?.addEventListener("click", closeNotice);
   closeBtn?.addEventListener("click", closeNotice);
   dim?.addEventListener("click", closeNotice);
@@ -341,11 +340,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Escape") closeNotice();
   });
 
+  // ✅ href="#" 인 모든 a 태그 감지
   document.addEventListener("click", (e) => {
-    const trigger = e.target.closest(".popup_btn");
-    if (!trigger) return;
-    e.preventDefault();
-    openNotice();
+    const link = e.target.closest("a");
+    if (!link) return;
+
+    const href = link.getAttribute("href");
+    if (href === "#") {
+      e.preventDefault();
+      openNotice();
+    }
   });
 });
 
