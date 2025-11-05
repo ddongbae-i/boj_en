@@ -419,6 +419,7 @@ input[type="radio"]:checked+.option .bullet {
 
 #result .job_card.card-main {
   position: relative;
+  bottom: 100px;
   width: 270px;
   height: 380px;
   border-radius: 20px;
@@ -427,8 +428,12 @@ input[type="radio"]:checked+.option .bullet {
 }
 
 .result_aricle {
+  display: grid;
+  justify-content: space-between;
+  text-align: center;
   position: relative;
-  top: 517px;
+  top: 0px;
+  justify-items: center;
 }
 
 .type {

@@ -1,3 +1,25 @@
+/* === shim: neutralize reset / wishlist === */
+(function(){
+  try {
+    var noop=function(){};
+    var g=(typeof window!=='undefined'?window:globalThis);
+    var fnNames=['addToWishlist','bindWishlist','bindWishlistButtons','bindWishlistAll','resetForm','onReset','handleReset','initWishlist','toggleWishlist','wishlistInit'];
+    for (var i=0;i<fnNames.length;i++){
+      var k=fnNames[i]; if (typeof g[k]==='function'){ try{ g[k]=noop; }catch(e){} }
+    }
+    if (typeof document!=='undefined' && document.addEventListener){
+      document.addEventListener('click', function(e){
+        try{
+          var t=e.target;
+          var closest = t && t.closest ? t.closest('.wishlist, .wishlist-btn, [data-action="wishlist"], #reset, .reset-btn, [type="reset"]') : null;
+          if (closest){ e.preventDefault(); e.stopImmediatePropagation && e.stopImmediatePropagation(); e.stopPropagation(); return false; }
+        }catch(_){}
+      }, true);
+    }
+  } catch(_e){}
+})(); 
+/* === end shim === */
+
 // utils.js
 (function (w) {
   const SK = (w.SKINTEST = w.SKINTEST || {});
@@ -965,8 +987,8 @@
             const active = !btn.classList.contains("active");
             btn.classList.toggle("active", active);
             img.src = active
-              ? "../../asset/img/skintest/icon_heart_fill.svg"
-              : "../../asset/img/skintest/icon_heart_stroke.svg";
+              ? "/asset/img/skintest/icon_heart_fill.svg"
+              : "/asset/img/skintest/icon_heart_stroke.svg";
             btn.setAttribute("aria-pressed", active ? "true" : "false");
           });
         }
@@ -1021,7 +1043,7 @@
         wish.type = "button";
         wish.setAttribute("aria-pressed", "false");
         const img = document.createElement("img");
-        img.src = "../../asset/img/skintest/icon_heart_stroke.svg";
+        img.src = "/asset/img/skintest/icon_heart_stroke.svg";
         img.alt = "찜하기 아이콘";
         img.className = "heart";
         wish.appendChild(img);
@@ -1029,8 +1051,8 @@
           const active = !wish.classList.contains("active");
           wish.classList.toggle("active", active);
           img.src = active
-            ? "../../asset/img/skintest/icon_heart_fill.svg"
-            : "../../asset/img/skintest/icon_heart_stroke.svg";
+            ? "/asset/img/skintest/icon_heart_fill.svg"
+            : "/asset/img/skintest/icon_heart_stroke.svg";
           wish.setAttribute("aria-pressed", active ? "true" : "false");
         });
 
@@ -1121,8 +1143,8 @@
           const img = btn.querySelector(".heart");
           if (img)
             img.src = active
-              ? "../../asset/img/skintest/icon_heart_fill.svg"
-              : "../../asset/img/skintest/icon_heart_stroke.svg";
+              ? "/asset/img/skintest/icon_heart_fill.svg"
+              : "/asset/img/skintest/icon_heart_stroke.svg";
           btn.setAttribute("aria-pressed", active ? "true" : "false");
         });
       });
@@ -1853,8 +1875,8 @@ window.animateResultButtonsSafe = function () {
 /* 개별 상품카드의 ADD TO WISHLIST 버튼 토글 */
 (function () {
   // 아이콘 경로(프로젝트 경로에 맞게 필요 시 수정)
-  const ICON_STROKE = "../../asset/img/skintest/icon_heart_stroke.svg";
-  const ICON_FILL = "../../asset/img/skintest/icon_heart_fill.svg";
+  const ICON_STROKE = "/asset/img/skintest/icon_heart_stroke.svg";
+  const ICON_FILL = "/asset/img/skintest/icon_heart_fill.svg";
 
   // 버튼 UI를 상태(on/off)에 맞게 갱신
   function updateAddBtnUI(btn, on) {
@@ -2015,16 +2037,16 @@ function applyQuizBackground(idx) {
 (function () {
   if (!SK.quizBackgrounds) {
     SK.setQuizBackgrounds([
-      "../../asset/img/skintest/skintest-quiz-bg.jpg",
-      "../../asset/img/skintest/skintest-quiz-bg2.jpg",
-      "../../asset/img/skintest/skintest-quiz-bg3.jpg",
-      "../../asset/img/skintest/skintest-quiz-bg4.jpg",
-      "../../asset/img/skintest/skintest-quiz-bg2.jpg",
-      "../../asset/img/skintest/skintest-quiz-bg3.jpg",
-      "../../asset/img/skintest/skintest-quiz-bg4.jpg",
-      "../../asset/img/skintest/skintest-quiz-bg2.jpg",
-      "../../asset/img/skintest/skintest-quiz-bg3.jpg",
-      "../../asset/img/skintest/skintest-quiz-bg4.jpg",
+      "/asset/img/skintest/skintest-quiz-bg.jpg",
+      "/asset/img/skintest/skintest-quiz-bg2.jpg",
+      "/asset/img/skintest/skintest-quiz-bg3.jpg",
+      "/asset/img/skintest/skintest-quiz-bg4.jpg",
+      "/asset/img/skintest/skintest-quiz-bg2.jpg",
+      "/asset/img/skintest/skintest-quiz-bg3.jpg",
+      "/asset/img/skintest/skintest-quiz-bg4.jpg",
+      "/asset/img/skintest/skintest-quiz-bg2.jpg",
+      "/asset/img/skintest/skintest-quiz-bg3.jpg",
+      "/asset/img/skintest/skintest-quiz-bg4.jpg",
     ]);
   }
 })();

@@ -194,7 +194,7 @@
       const on = btn.classList.toggle("on");
       btn.setAttribute("aria-pressed", on ? "true" : "false");
       const img = btn.querySelector("img.heart");
-      if (img) img.src = on ? "../../asset/img/skintest/icon_heart_fill.svg" : "../../asset/img/skintest/icon_heart_stroke.svg";
+      if (img) img.src = on ? "/asset/img/skintest/icon_heart_fill.svg" : "/asset/img/skintest/icon_heart_stroke.svg";
       // keep label same as provided
       syncWishlistAll();
     });
@@ -225,7 +225,7 @@
         b.classList.toggle("on", !allOn);
         b.setAttribute("aria-pressed", !allOn ? "true" : "false");
         const img = b.querySelector("img.heart");
-        if (img) img.src = !allOn ? "../../asset/img/skintest/icon_heart_fill.svg" : "../../asset/img/skintest/icon_heart_stroke.svg";
+        if (img) img.src = !allOn ? "/asset/img/skintest/icon_heart_fill.svg" : "/asset/img/skintest/icon_heart_stroke.svg";
       });
       // sync label
       setTimeout(syncWishlistAll, 0);
@@ -501,10 +501,10 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   JB.setQuizBackgrounds([
-    '../../asset/img/skintest/jbtest-quiz-bg.jpg',
-    '../..asset/img/skintest/jbtest-quiz-bg.jpg',
-    '../../asset/img/skintest/jbtest-quiz-bg.jpg',
-    '../../asset/img/skintest/jbtest-quiz-bg.jpg',
-    '../../asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
+    '/asset/img/skintest/jbtest-quiz-bg.jpg',
   ]);
 });
