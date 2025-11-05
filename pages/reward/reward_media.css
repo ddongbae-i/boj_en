@@ -17,6 +17,24 @@
         padding-inline: 0px;
     }
 
+    .vip_tiers .list small {
+        font-size: 0.8rem;
+        padding-left: 40px;
+    }
+
+    .FAQ .inner {
+
+        padding-inline: 10px;
+    }
+
+    .FAQ em {
+        font-size: 1.2rem;
+    }
+
+    .FAQ span {
+        font-size: 1rem;
+    }
+
     .FAQ {
         background-size: 130% auto;
     }
@@ -32,7 +50,7 @@
         flex-direction: column;
     }
 
-    em {
+    main em {
         font-size: 1.2rem;
     }
 
@@ -84,7 +102,7 @@
         margin-bottom: 160px;
     }
 
-    .tit {
+    main .tit {
         margin-bottom: 16px;
     }
 
@@ -108,11 +126,15 @@
         bottom: 520px;
     }
 
-    .line {
+    main .line {
         height: 33px;
         width: 369px;
     }
 
+    .vip_tiers .list small {
+
+        padding-left: 20px;
+    }
 }
 
 @media screen and (max-width:684px) {
@@ -161,11 +183,10 @@
         display: block;
     }
 
-/*     .friend {
-        background-color: #0b0707;
-        background-image: none;
+    main .friend {
+        padding-inline: 20px;
     }
- */
+
     .friend h2 {
         font-size: 1.8rem;
 
@@ -179,15 +200,15 @@
         background-size: 180% auto;
     }
 
-    em {
+    main em {
         font-size: 1.1rem;
     }
 
-    span {
+    main span {
         font-size: 0.9rem;
     }
 
-    .toggle-icon {
+    main .toggle-icon {
         font-size: 1.5rem;
     }
 }
@@ -226,16 +247,29 @@
         margin-bottom: 60px;
     }
 
+    .vip_tiers .list {
+        width: 90vw;
+    }
+
+    .vip_tiers .list>ul {
+        width: 100%;
+    }
+
     .FAQ {
         background-size: 200% auto;
     }
 
-    .line {
+    main .line {
         height: 29px;
         width: 320px;
     }
 
-    em {
+    main em {
         font-size: 1rem;
+    }
+
+    .vip_tiers .list small {
+
+        padding-left: 20px;
     }
 }
