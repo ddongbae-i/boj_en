@@ -709,3 +709,4 @@ document.querySelectorAll('.product_filter li').forEach(li => {
     });
   }
 });
+
