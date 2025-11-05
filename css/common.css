@@ -591,7 +591,11 @@ footer .f_join span {
     transform: translateX(0);
 }
 
-/* 코너 장식 */
+.cart_inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
 .cart_corner {
     width: 24px;
@@ -628,6 +632,7 @@ footer .f_join span {
     border-left: none;
     border-top: none;
 }
+
 
 
 .cart_scroll {
