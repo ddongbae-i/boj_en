@@ -15,6 +15,37 @@ const bestBottomSwiper = new Swiper(".bestSeller .product .slide_wrap2", {
   speed: 0,
 });
 
+/* -------------------------------
+    ✅ GSAP 무한 흐름
+------------------------------- */
+const scrollSpeed = 40;
+let tlTop = gsap.timeline({ repeat: -1 });
+let tlBottom = gsap.timeline({ repeat: -1 });
+
+function animateSwiper(swiper, timeline, direction = "left") {
+  const wrapper = swiper.wrapperEl;
+  const distance = wrapper.scrollWidth; // ✅ 복제 포함 전체 길이 기준
+
+  gsap.set(wrapper, { x: 0 });
+
+  timeline.to(wrapper, {
+    x: direction === "left" ? -distance / 2 : distance / 2,
+    duration: scrollSpeed,
+    ease: "none",
+    repeat: -1,
+    modifiers: {
+      x: gsap.utils.unitize((x) => {
+        const num = parseFloat(x);
+        if (direction === "left") return num <= -distance / 2 ? 0 : num;
+        else return num >= distance / 2 ? 0 : num;
+      }),
+    },
+  });
+}
+
+animateSwiper(bestTopSwiper, tlTop, "left");
+animateSwiper(bestBottomSwiper, tlBottom, "right");
+
 
 /* -------------------------------
      🟣 hover 시 흐름 멈춤 / 재개
