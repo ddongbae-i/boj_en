@@ -16,7 +16,6 @@ const bestBottomSwiper = new Swiper(".bestSeller .product .slide_wrap2", {
 });
 
 //메인 스크롤 이벤트
-// === GSAP: 메인 <-> 베스트셀러 스냅 (양방향, 이후 자연 스크롤) ===
 gsap.registerPlugin(ScrollToPlugin, Observer);
 
 const main = document.querySelector(".main");
@@ -25,23 +24,21 @@ const best = document.querySelector(".bestSeller");
 let snapping = false;
 const getBestTopY = () => best.getBoundingClientRect().top + window.pageYOffset;
 
-// 스냅 중에만 스크롤 잠그기 (휠/터치 모두)
-const preventTouch = (e) => e.preventDefault();
+// 스냅 중에는 스크롤 이벤트만 차단 (overflow는 건드리지 않음)
 function lockScroll(on) {
-  document.documentElement.style.overscrollBehavior = on ? "none" : "";
-  document.body.style.overflow = on ? "hidden" : "";
-  // iOS/안드 터치 이동 차단
   if (on) {
-    window.addEventListener("touchmove", preventTouch, { passive: false });
+    document.body.style.pointerEvents = 'none';
+    document.documentElement.style.pointerEvents = 'none';
   } else {
-    window.removeEventListener("touchmove", preventTouch);
+    document.body.style.pointerEvents = '';
+    document.documentElement.style.pointerEvents = '';
   }
 }
 
 Observer.create({
   target: window,
-  type: "wheel,touch",   // 자연 스크롤은 그대로 두고, 스냅 시에만 잠금
-  // preventDefault: true  <- ❌ 사용하지 않음! (자연 스크롤 막지 않기)
+  type: "wheel,touch",
+  tolerance: 50, // ← 터치 감도 대폭 상향
 
   // ↓ 아래로: 메인 → 베스트셀러 스냅
   onDown() {
@@ -64,11 +61,11 @@ Observer.create({
 
   // ↑ 위로: 베스트셀러 꼭대기 근처 → 메인으로 스냅
   onUp() {
-    if (window.innerWidth <= 1024) return;
     if (snapping) return;
     const y = window.pageYOffset;
     const top = getBestTopY();
-    const threshold = top + 24;           // 꼭대기에서 살짝 아래까지 허용
+    const threshold = top + 100; // ← 범위 확대
+
     if (y <= threshold && y >= top - 200) {
       snapping = true;
       lockScroll(true);
@@ -84,40 +81,6 @@ Observer.create({
     }
   }
 });
-
-
-/* -------------------------------
-    ✅ GSAP 무한 흐름
-------------------------------- */
-const scrollSpeed = 40;
-let tlTop = gsap.timeline({ repeat: -1 });
-let tlBottom = gsap.timeline({ repeat: -1 });
-
-function animateSwiper(swiper, timeline, direction = "left") {
-  const wrapper = swiper.wrapperEl;
-  const distance = wrapper.scrollWidth; // ✅ 복제 포함 전체 길이 기준
-
-  gsap.set(wrapper, { x: 0 });
-
-  timeline.to(wrapper, {
-    x: direction === "left" ? -distance / 2 : distance / 2,
-    duration: scrollSpeed,
-    ease: "none",
-    repeat: -1,
-    modifiers: {
-      x: gsap.utils.unitize((x) => {
-        const num = parseFloat(x);
-        if (direction === "left") return num <= -distance / 2 ? 0 : num;
-        else return num >= distance / 2 ? 0 : num;
-      }),
-    },
-  });
-}
-
-animateSwiper(bestTopSwiper, tlTop, "left");
-animateSwiper(bestBottomSwiper, tlBottom, "right");
-
-
 /* -------------------------------
      🟣 hover 시 흐름 멈춤 / 재개
  ------------------------------- */
