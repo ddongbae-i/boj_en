@@ -19,7 +19,7 @@ window.addEventListener('scroll', () => {
   const currentY = window.scrollY;
   const w = window.innerWidth;
 
-  if (w <= 360) {
+  if (w <= 1280) {
     // 360px 이하에서는 항상 고정
     header.style.position = 'fixed';
     header.style.top = '0';
