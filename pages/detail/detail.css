@@ -92,7 +92,7 @@
     width: 731px;
     font-size: 1.25rem;
     line-height: 1.3;
-    border-bottom: 1px solid var( --grey_de);
+    border-bottom: 1px solid var(--grey_de);
     border-top: 1px solid var(--grey_de);
     margin-top: 12px;
     padding-block: 20px;
@@ -202,7 +202,8 @@ input[type="number" i] {
 }
 
 
-.buy_now , .save_btn {
+.buy_now,
+.save_btn {
     width: 360px;
     border: 1px solid var(--grey_aa);
     height: 46px;
@@ -274,6 +275,38 @@ input[type="number" i] {
 
 .tab_imgs img.active {
     display: block;
+}
+
+/* banner */
+.banner_find {
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #F8F5F0;
+    margin-bottom: 50px;
+}
+
+.banner_find p {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+}
+
+.banner_find a {
+    background: #000;
+    color: #fff;
+    padding: 10px 50px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.banner_find a:hover {
+    background: #fff;
+    color: #000;
+    /*     border: 1px solid #C1843A; */
+    border: 1px solid #000;
 }
 
 /* filter */
