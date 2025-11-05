@@ -232,17 +232,48 @@
    }
 
    .chart {
-      width: 320px;
-      height: 320px;
-      bottom: 16px;
+      position: relative;
+      /* 칩들의 기준 컨테이너 */
+      width: 300px;
+      /* 필요 시 조정 */
+      height: 300px;
+      /* 필요 시 조정 */
+      margin: 0 auto;
    }
 
-   .axis-chip {
-      font-size: .7rem;
+   /* 칩 공통 */
+   .chart .chip {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      /* top/left를 중심 기준으로 */
+      /* 필요하면 폰트/크기도 축소 */
+      /* font-size: 12px; */
    }
 
-   .axis-chip.mid {
-      background: var(--chip-mid);
+   /* 각 칩별 위치(예시 좌표) — 원하는 위치로 수치만 바꾸면 됨 */
+   .chart #chip0 {
+      top: 14%;
+      left: 50%;
+   }
+
+   .chart #chip1 {
+      top: 35%;
+      left: 85%;
+   }
+
+   .chart .chip2 {
+      top: 70%;
+      left: 75%;
+   }
+
+   .chart .chip3 {
+      top: 78%;
+      left: 25%;
+   }
+
+   .chart .chip4 {
+      top: 38%;
+      left: 15%;
    }
 
    .mbti {
