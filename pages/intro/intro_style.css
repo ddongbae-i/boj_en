@@ -170,11 +170,4 @@ body {
   pointer-events:none;
 }
 
-/* 세로형 화면에서는 스킵 버튼 숨김 */
-/* @media (orientation: portrait) {
-  .skip-button {
-    display: none;
-  }
-} */
-
 /* 커스텀 커서는 JS에서 동적 생성 (중심 정렬은 JS에서 transform으로 처리) */
