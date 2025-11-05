@@ -28,7 +28,13 @@
 
 <body>
   <section class="intro-container">
-    <video id="introVideo" src="./asset/video/intro/intro.mp4" muted playsinline></video>
+   <video id="introVideo" muted playsinline autoplay> 
+        <source src="./asset/video/intro/intro_916.mp4" type="video/mp4" media="(orientation: portrait)">
+        
+        <source src="./asset/video/intro/intro.mp4" type="video/mp4">
+
+        죄송합니다. 이 브라우저는 비디오를 지원하지 않습니다.
+    </video>
 
     <button class="skip-button" id="skipButton">SKIP INTRO</button>
 
