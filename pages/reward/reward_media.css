@@ -157,7 +157,7 @@
         margin-bottom: 100px;
     }
 
-    .card_tit h2 {
+   main .card_tit h2 {
         display: none;
     }
 
@@ -167,7 +167,7 @@
         display: flex;
     }
 
-    .card_tit {
+   main .card_tit {
         margin: auto;
         margin-bottom: 60px;
         width: 90vw;
