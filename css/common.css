@@ -578,8 +578,7 @@ footer .f_join span {
     top: 0;
     right: 0;
     width: min(420px, 92vw);
-    height: 100svh;
-    min-height: 100vh;
+    height: 100dvh;
     background: #fff;
     z-index: 700;
     transform: translateX(100%);
@@ -590,11 +589,6 @@ footer .f_join span {
 
 .cart_wrap.is-open {
     transform: translateX(0);
-}
-
-html.cart-locked,
-body.cart-locked {
-    overflow: hidden;
 }
 
 /* 코너 장식 */
@@ -635,18 +629,11 @@ body.cart-locked {
     border-top: none;
 }
 
-.cart_inner {
-    height: 100%;
-    display: grid;
-    grid-template-rows: auto auto 1fr auto auto;
-    overflow: hidden;
-}
 
 .cart_scroll {
-    overflow-y: auto;
+    flex: 1 1 auto;
     min-height: 0;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 12px;
+    overflow-y: auto;
 }
 
 .cart_header,
@@ -662,7 +649,6 @@ body.cart-locked {
 
 .cart_footer {
     background: #fff;
-    padding-bottom: calc(24px + env(safe-area-inset-bottom));
 }
 
 .cart_corner {
