@@ -654,10 +654,14 @@ document.addEventListener("DOMContentLoaded", () => {
     popup.style.display = "none";
     dim.style.display = "none";
   });
+  closeCartBtn.addEventListener("click", () => {
+    window.location.href = "../payment/payment.html"; // 이 부분 추가
+  });
 });
 
+
 /*제품 상세페이지 연동  */
-document.querySelectorAll('.product_card img').forEach(img => {
+document.querySelectorAll('.product_card').forEach(img => {
   img.style.cursor = 'pointer';
   img.onclick = () => location.href = '../detail/detail.html';
 });

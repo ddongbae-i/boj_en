@@ -499,6 +499,10 @@ body {
 }
 
 /* popup */
+.popup .btn_close {
+    margin-top: 20px;
+}
+
 .add_dim {
     position: fixed;
     top: 0;
