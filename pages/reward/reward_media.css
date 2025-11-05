@@ -161,11 +161,10 @@
         display: block;
     }
 
-/*     .friend {
-        background-color: #0b0707;
-        background-image: none;
+    .friend {
+padding-inline: 20px;
     }
- */
+
     .friend h2 {
         font-size: 1.8rem;
 
