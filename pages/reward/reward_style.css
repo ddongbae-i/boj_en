@@ -473,75 +473,75 @@ main .box_g {
     background-color: #000000;
 }
 
-.redeem_for_products .box1 {
+main .redeem_for_products .box1 {
     background-image: url(../../asset/img/reward/img_Redeem_01.png);
     background-size: auto 55px;
 }
 
-.redeem_for_products .box2 {
+main .redeem_for_products .box2 {
     background-image: url(../../asset/img/reward/img_Redeem_02.png);
     background-size: auto 60px;
 }
 
-.redeem_for_products .box3 {
+main .redeem_for_products .box3 {
     background-image: url(../../asset/img/reward/img_Redeem_03.png);
     background-size: auto 50px;
 }
 
-.redeem_for_products .box4 {
+main .redeem_for_products .box4 {
     background-image: url(../../asset/img/reward/img_Redeem_04.png);
     background-size: auto 80px;
 }
 
-.redeem_for_products .box5 {
+main .redeem_for_products .box5 {
     background-image: url(../../asset/img/reward/img_Redeem_Convert.png);
     background-size: auto 50px;
 }
 
-.redeem_for_products .box6 {
+main .redeem_for_products .box6 {
     background-image: url(../../asset/img/reward/img_Redeem_off.png);
     background-size: auto 50px;
 }
 
-.redeem_for_products .box7 {
+main .redeem_for_products .box7 {
     background-image: url(../../asset/img/reward/img_Redeem_off.png);
     background-size: auto 50px;
 }
 
 
 
-.ways_to_earn .box1 {
+main .ways_to_earn .box1 {
     background-image: url(../../asset/img/reward/img_Earn_Join.png);
 }
 
-.ways_to_earn .box1 .arrow::before {
+main .ways_to_earn .box1 .arrow::before {
     background-image: url(../../asset/img/reward/reward_check.svg);
     width: 20px;
     height: 14px;
 }
 
-.ways_to_earn .box2 {
+main .ways_to_earn .box2 {
     background-image: url(../../asset/img/reward/img_Earn_Order.png);
 }
 
-.ways_to_earn .box3 {
+main .ways_to_earn .box3 {
     background-image: url(../../asset/img/reward/img_Earn_Review.png);
 }
 
-.ways_to_earn .box4 {
+main .ways_to_earn .box4 {
     background-image: url(../../asset/img/reward/img_Earn_Friend.png);
     background-size: auto 50px;
 }
 
-.ways_to_earn .box5 {
+main .ways_to_earn .box5 {
     background-image: url(../../asset/img/reward/img_Earn_Instagram.png);
 }
 
-.ways_to_earn .box6 {
+main .ways_to_earn .box6 {
     background-image: url(../../asset/img/reward/img_Earn_TikTok.png);
 }
 
-.ways_to_earn .box7 {
+main .ways_to_earn .box7 {
     background-image: url(../../asset/img/reward/img_Earn_Birthday.png);
 }
 
