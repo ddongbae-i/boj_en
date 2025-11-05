@@ -681,7 +681,8 @@
     }
 }
 
-@media screen and (max-width:360px) {
+@media screen and (max-width: 375px),
+screen and (max-width: 360px) {
 
     /*      header {
              display: none; 
@@ -784,6 +785,10 @@
     .banner1 {
         height: 400px;
         font-size: 0.875rem;
+    }
+
+    .banner1 .inner {
+        padding-left: 20px;
     }
 
     .community .right h2 {
