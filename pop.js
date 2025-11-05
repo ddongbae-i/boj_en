@@ -61,5 +61,24 @@ window.addEventListener('DOMContentLoaded', () => {
   const pwInput = document.getElementById('login_password');
 
   setTimeout(() => typeEffect(emailInput, 'joseon@gmail.com', 100), 500);
-  setTimeout(() => typeEffect(pwInput, '1234567', 100), 2000); 
+  setTimeout(() => typeEffect(pwInput, '1234567', 100), 2000);
+});
+
+/* skin */
+document.querySelectorAll('.skin').forEach(skin => {
+  const popup = skin.querySelector('.skin_popup');
+  const dim = skin.querySelector('.skin_dim');
+  const closeBtn = skin.querySelector('.skin_popup_close');
+  const yesBtn = skin.querySelector('.skin_btn_yes');
+  const noBtn = skin.querySelector('.skin_btn_no');
+
+  function closePopup() {
+    popup.style.display = 'none';
+    dim.style.display = 'none';
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closePopup);
+  if (yesBtn) yesBtn.addEventListener('click', closePopup);
+  if (noBtn) noBtn.addEventListener('click', closePopup);
+  if (dim) dim.addEventListener('click', closePopup);
 });

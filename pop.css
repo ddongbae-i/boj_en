@@ -73,6 +73,8 @@
     opacity: 0.8;
 }
 
+
+/* login popup*/
 .login_dim {
     position: fixed;
     top: 0;
@@ -84,7 +86,6 @@
     display: block;
 }
 
-/* login popup*/
 .login {
     position: fixed;
     left: 0;
@@ -265,4 +266,102 @@
     height: 20px;
     display: block;
     object-fit: contain;
+}
+
+/* skin */
+.skin_dim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0000007c;
+    z-index: 10;
+    display: block;
+}
+
+.skin_popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    border-radius: 10px;
+    padding: 30px;
+    background: #fff;
+    z-index: 100;
+    text-align: center;
+    display: block;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.skin_popup_close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--txt_sub_77);
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 110;
+}
+
+.skin_popup_close:hover {
+    color: var(--bg_black);
+    opacity: 0.8;
+}
+
+.skin_popup h2 {
+    margin: 0 0 15px 0;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.skin_popup p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.skin_popup_btns {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+}
+
+.skin_popup_btns a {
+    text-decoration: none;
+}
+
+.skin_btn_yes {
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    background-color: var(--ginseng, #C1843A);
+    color: #fff;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+.skin_btn_no {
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    background-color: #fff;
+    color: var(--ginseng, #C1843A);
+    cursor: pointer;
+    border: 1px solid var(--ginseng, #C1843A);
+    transition: 0.5s ease;
+}
+
+.skin_btn_yes:hover {
+    opacity: 0.8;
+}
+
+.skin_btn_no:hover {
+    opacity: 0.5;
 }
