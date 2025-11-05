@@ -190,7 +190,6 @@ footerBtn?.addEventListener('click', function () {
   let locked = false;
   let scrollY = 0;
 
-  // ✅ 메뉴/카트/검색탭 등 스크롤 허용 영역
   const SCROLLABLE_SELECTOR = `
     header.on nav,
     .cart_wrap.is-open,
@@ -199,7 +198,6 @@ footerBtn?.addEventListener('click', function () {
 
   function preventTouch(e) {
     if (!locked) return;
-    // 768px 이하에서만 전역 차단 + 허용영역 통과
     if (window.innerWidth <= 768 && e.target.closest(SCROLLABLE_SELECTOR)) return;
     if (window.innerWidth <= 768) e.preventDefault();
   }
@@ -292,41 +290,105 @@ footerBtn?.addEventListener('click', function () {
 
 
 //cart
-//cart
 document.addEventListener('DOMContentLoaded', () => {
-  const bagBtn = document.querySelector('.nav_right .bag');
   const cartWrap = document.querySelector('.cart_wrap');
   const closeBtn = document.querySelector('.cart_close');
+  if (!cartWrap) return;
 
-  if (!bagBtn || !cartWrap) return;
+  const bagTriggers = document.querySelectorAll(
+    '.nav_right .bag,' +
+    '.ham_bottom2 a:has(img[alt*="bag" i]),' +
+    '.ham_bottom2 a:has(img[src*="icon_bag"])'
+  );
 
   const openCart = () => {
     cartWrap.classList.add('is-open');
     document.documentElement.classList.add('cart-locked');
     document.body.classList.add('cart-locked');
   };
-
   const closeCart = () => {
     cartWrap.classList.remove('is-open');
     document.documentElement.classList.remove('cart-locked');
     document.body.classList.remove('cart-locked');
   };
 
-  bagBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    openCart();
+  bagTriggers.forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      openCart();
+    });
   });
 
-  closeBtn?.addEventListener('click', (e) => {
+  closeBtn?.addEventListener('click', e => {
     e.preventDefault();
     closeCart();
   });
-
-  window.addEventListener('keydown', (e) => {
+  window.addEventListener('keydown', e => {
     if (e.key === 'Escape' && cartWrap.classList.contains('is-open')) closeCart();
   });
+
+  // === [PATCH] 모바일 ham_bottom2의 "My Bag" 누를 때: 메뉴/검색 닫고 카트만 열기 ===
+  (() => {
+    const headerEl = document.querySelector('header');
+    const searchTab = document.querySelector('.search_tab');
+    const cartWrap = document.querySelector('.cart_wrap');
+
+    if (!headerEl || !cartWrap) return;
+
+    // ham_bottom2 안의 a들 중 "My Bag" 찾기(텍스트/이미지 alt/src 모두 대응)
+    const bagLinks = Array.from(document.querySelectorAll('.ham_bottom2 a')).filter(a => {
+      const txt = (a.textContent || '').toLowerCase();
+      if (txt.includes('my bag')) return true;
+      const img = a.querySelector('img');
+      if (!img) return false;
+      const alt = (img.alt || '').toLowerCase();
+      const src = img.getAttribute('src') || '';
+      return alt.includes('bag') || src.includes('icon_bag');
+    });
+
+    if (!bagLinks.length) return;
+
+    const hardUnlockScroll = () => {
+      document.documentElement.classList.remove('menu-open', 'cart-locked');
+      document.body.classList.remove('menu-open', 'cart-locked');
+      Object.assign(document.body.style, {
+        position: '', top: '', left: '', right: '', width: '', overflow: ''
+      });
+    };
+
+    const closeHeaderAndPanels = () => {
+      headerEl.classList.remove('on');     // 햄버거 닫기
+      searchTab?.classList.remove('open'); // 검색창 닫기
+      hardUnlockScroll();                  // 스크롤 잠금 해제(혹시 잠겨있으면)
+    };
+
+    const openCart = () => {
+      cartWrap.classList.add('is-open');
+      document.documentElement.classList.add('cart-locked');
+      document.body.classList.add('cart-locked');
+    };
+
+    bagLinks.forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // 1) 메뉴/검색 닫기
+        closeHeaderAndPanels();
+
+        // 2) 레이아웃 반영 후 카트 열기(중첩 트랜지션 충돌 방지)
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            openCart();
+          });
+        });
+      });
+    });
+  })();
+
 });
+
 
 
 // JavaScript
