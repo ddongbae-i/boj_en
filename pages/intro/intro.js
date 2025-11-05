@@ -79,7 +79,7 @@ function endVideo() {
   
   // 세로형이면 바로 브랜드 스토리로 이동
   if (isPortrait) {
-    window.location.href = './pages/brandstory/brandstory.html';
+    window.location.href = './main.html';
     return;
   }
   
