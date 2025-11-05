@@ -346,12 +346,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* login */
-
 document.addEventListener("DOMContentLoaded", () => {
+  // 경로 계산
   const depth = location.pathname.split('/').filter(Boolean).length;
   let prefix = './';
   if (depth > 1) prefix = '../'.repeat(depth - 1);
 
+  // 팝업 생성 (없으면 자동 삽입)
   let login = document.querySelector('.login');
   if (!login) {
     const loginHTML = `
@@ -359,25 +360,33 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="login_dim"></div>
         <form class="login_area">
           <div class="login_pop">
-            <div class="login_close" role="button" aria-label="close">&times;</div>
+            <button type="button" class="login_close" aria-label="close">&times;</button>
             <h2>Login</h2>
+
+            <!-- 안내 문구 -->
+            <p class="dev_notice">
+              🚧 This feature is currently under development.<br>
+              Please press <b>Close (×)</b> to exit.
+            </p>
+
             <span class="notice">New to beautyofjoseon?
-              <span class="bar" tabindex="0">Sign up for free</span>
+              <a href="#" class="bar">Sign up for free</a>
             </span>
 
             <label for="login_email" class="email">Email address</label>
-            <input type="email" id="login_email" placeholder="Email" required />
+            <input type="email" id="login_email" placeholder="Email" disabled />
 
             <label for="login_password" class="password">Password</label>
-            <input type="password" id="login_password" placeholder="Password" required />
-            <a href="#" class="pw_reset">Forget password?</a>
+            <input type="password" id="login_password" placeholder="Password" disabled />
 
-            <button type="submit" class="login_btn">Login</button>
+            <a href="#" class="pw_reset disabled">Forget password?</a>
+
+            <button type="button" class="login_btn disabled">Login</button>
 
             <div class="sns">
-              <a href="#"><img src="${prefix}asset/img/common/google.png" alt="google"></a>
-              <a href="#"><img src="${prefix}asset/img/common/apple.png" alt="apple"></a>
-              <a href="#"><img src="${prefix}asset/img/common/facebook.png" alt="facebook"></a>
+              <a href="#" class="disabled"><img src="${prefix}asset/img/common/google.png" alt="google"></a>
+              <a href="#" class="disabled"><img src="${prefix}asset/img/common/apple.png" alt="apple"></a>
+              <a href="#" class="disabled"><img src="${prefix}asset/img/common/facebook.png" alt="facebook"></a>
             </div>
           </div>
         </form>
@@ -386,40 +395,32 @@ document.addEventListener("DOMContentLoaded", () => {
     login = document.querySelector('.login');
   }
 
-  const loginClose = login.querySelector('.login_close');
   const loginDim = login.querySelector('.login_dim');
-  const loginArea = login.querySelector('.login_area');
+  const loginClose = login.querySelector('.login_close');
 
+  // 팝업 열기
   const openLoginPopup = () => {
     login.style.display = "block";
     document.body.classList.add('no-scroll');
-    const firstInput = login.querySelector('input, button, [tabindex]:not([tabindex="-1"])');
-    if (firstInput) firstInput.focus();
   };
+
+  // 닫기
   const closeLoginPopup = () => {
     login.style.display = "none";
     document.body.classList.remove('no-scroll');
   };
 
-  loginClose?.addEventListener('click', closeLoginPopup);
-  loginDim?.addEventListener('click', closeLoginPopup);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLoginPopup();
-  });
-
+  // 이벤트 연결
   document.addEventListener('click', (e) => {
     const openTrigger = e.target.closest('.login_open, [data-open-login], .sign_up_btn, .bar');
     if (!openTrigger) return;
-
     e.preventDefault();
     openLoginPopup();
   });
 
-  loginArea?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    closeLoginPopup();
-    setTimeout(() => {
-      window.location.href = '/main.html';
-    }, 200);
+  loginDim?.addEventListener('click', closeLoginPopup);
+  loginClose?.addEventListener('click', closeLoginPopup);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLoginPopup();
   });
 });
