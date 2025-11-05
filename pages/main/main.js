@@ -16,6 +16,7 @@ const bestBottomSwiper = new Swiper(".bestSeller .product .slide_wrap2", {
 });
 
 //메인 스크롤 이벤트
+//메인 스크롤 이벤트
 gsap.registerPlugin(ScrollToPlugin, Observer);
 
 const main = document.querySelector(".main");
@@ -24,21 +25,23 @@ const best = document.querySelector(".bestSeller");
 let snapping = false;
 const getBestTopY = () => best.getBoundingClientRect().top + window.pageYOffset;
 
-// 스냅 중에는 스크롤 이벤트만 차단 (overflow는 건드리지 않음)
+// 스냅 중에 ScrollTrigger 비활성화 + 스크롤 잠금
 function lockScroll(on) {
   if (on) {
-    document.body.style.pointerEvents = 'none';
-    document.documentElement.style.pointerEvents = 'none';
+    ScrollTrigger.getAll().forEach(st => st.disable());
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
   } else {
-    document.body.style.pointerEvents = '';
-    document.documentElement.style.pointerEvents = '';
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+    ScrollTrigger.getAll().forEach(st => st.enable());
   }
 }
 
 Observer.create({
   target: window,
   type: "wheel,touch",
-  tolerance: 50, // ← 터치 감도 대폭 상향
+  tolerance: 50,
 
   // ↓ 아래로: 메인 → 베스트셀러 스냅
   onDown() {
@@ -52,8 +55,10 @@ Observer.create({
         ease: "power2.out",
         scrollTo: { y: best, autoKill: false },
         onComplete: () => {
-          lockScroll(false);
-          snapping = false;
+          setTimeout(() => {
+            lockScroll(false);
+            snapping = false;
+          }, 100); // ← 약간의 딜레이로 스냅 완료 보장
         }
       });
     }
@@ -64,7 +69,7 @@ Observer.create({
     if (snapping) return;
     const y = window.pageYOffset;
     const top = getBestTopY();
-    const threshold = top + 100; // ← 범위 확대
+    const threshold = top + 100;
 
     if (y <= threshold && y >= top - 200) {
       snapping = true;
@@ -74,8 +79,10 @@ Observer.create({
         ease: "power2.out",
         scrollTo: { y: main, autoKill: false },
         onComplete: () => {
-          lockScroll(false);
-          snapping = false;
+          setTimeout(() => {
+            lockScroll(false);
+            snapping = false;
+          }, 100);
         }
       });
     }
