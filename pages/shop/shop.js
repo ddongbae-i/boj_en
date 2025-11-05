@@ -382,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 /* 상세페이지 연동 */
-document.querySelectorAll('.pro_card img').forEach(img => {
+document.querySelectorAll('.pro_card .pro_img').forEach(img => {
   img.style.cursor = 'pointer';
   img.onclick = () => location.href = '../detail/detail.html'; 
 });
