@@ -15,69 +15,7 @@ const bestBottomSwiper = new Swiper(".bestSeller .product .slide_wrap2", {
   speed: 0,
 });
 
-//메인 스크롤 이벤트
-//메인 스크롤 이벤트
-gsap.registerPlugin(ScrollToPlugin, Observer);
 
-const main = document.querySelector(".main");
-const best = document.querySelector(".bestSeller");
-
-let snapping = false;
-let observer = null;
-const getBestTopY = () => best.getBoundingClientRect().top + window.pageYOffset;
-
-observer = Observer.create({
-  target: window,
-  type: "wheel,touch",
-  tolerance: 50,
-  
-  // ↓ 아래로: 메인 → 베스트셀러 스냅
-  onDown() {
-    if (snapping) return;
-    const y = window.pageYOffset;
-    if (y < getBestTopY() - 8) {
-      snapping = true;
-      observer.disable(); // ← 스냅 중에 Observer만 끄기
-      
-      gsap.to(window, {
-        duration: 0.9,
-        ease: "power2.out",
-        scrollTo: { y: best, autoKill: false },
-        onComplete: () => {
-          setTimeout(() => {
-            observer.enable(); // ← 다시 켜기
-            snapping = false;
-          }, 150);
-        }
-      });
-    }
-  },
-
-  // ↑ 위로: 베스트셀러 꼭대기 근처 → 메인으로 스냅
-  onUp() {
-    if (snapping) return;
-    const y = window.pageYOffset;
-    const top = getBestTopY();
-    const threshold = top + 100;
-    
-    if (y <= threshold && y >= top - 200) {
-      snapping = true;
-      observer.disable(); // ← 스냅 중에 Observer만 끄기
-      
-      gsap.to(window, {
-        duration: 0.9,
-        ease: "power2.out",
-        scrollTo: { y: main, autoKill: false },
-        onComplete: () => {
-          setTimeout(() => {
-            observer.enable(); // ← 다시 켜기
-            snapping = false;
-          }, 150);
-        }
-      });
-    }
-  }
-});
 /* -------------------------------
      🟣 hover 시 흐름 멈춤 / 재개
  ------------------------------- */
