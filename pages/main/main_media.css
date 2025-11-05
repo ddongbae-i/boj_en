@@ -700,12 +700,19 @@
         font-size: 1rem;
     }
 
+    .influencer .wish .icon_heart {
+        top: -8px;
+        left: 45%;
+    }
+
     .card h4.pro_txt  {
         display: none;
     }
 
     .card small.pro_txt {
-        font-size: 1rem;
+        font-size: 0.875rem;
+        width: 250px;
+        margin-top: 10px;
     }
 
     .membership {
