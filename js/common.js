@@ -53,22 +53,6 @@ window.addEventListener('scroll', () => {
   lastScrollY = currentY;
 });
 
-// ✅ 리사이즈 이벤트 (브레이크포인트 넘나들 때만 초기화)
-let resizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    const newBreakpoint = window.innerWidth >= 1280 ? 'desktop' : 'mobile';
-
-    // 브레이크포인트가 바뀌었을 때만 초기화
-    if (newBreakpoint !== currentBreakpoint) {
-      currentBreakpoint = newBreakpoint;
-      resetHeaderStyle();
-      lastScrollY = window.scrollY; // 스크롤 위치 동기화
-    }
-  }, 150); // 디바운스 150ms
-});
-
 document.addEventListener('click', e => {
   const addBtn = e.target.closest('.add_btn');
   if (!addBtn) return;
