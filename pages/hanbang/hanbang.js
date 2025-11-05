@@ -661,7 +661,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /*제품 상세페이지 연동  */
-document.querySelectorAll('.product_card .gift').forEach(img => {
+document.querySelectorAll('.product_card').forEach(img => {
   img.style.cursor = 'pointer';
   img.onclick = () => location.href = '../detail/detail.html';
 });
