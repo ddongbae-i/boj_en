@@ -703,11 +703,6 @@ body {
     background: var(--img_bg);
 }
 
-.product_grid .product_card:nth-child(2) .badge.new {
-    background-color: black;
-    color: white;
-}
-
 .badge.new {
     position: absolute;
     top: 20px;
@@ -718,6 +713,11 @@ body {
     border: 1px solid var(--greentea);
     color: var(--greentea);
     background: #fff;
+}
+
+.product_grid .product_card:nth-child(2) .badge.new {
+    background-color: black;
+    color: white;
 }
 
 .product_card .heart {
@@ -923,6 +923,11 @@ body {
     margin-top: 24px;
     font-size: 0.875rem;
     color: var(--txt_sub_77);
+}
+
+/* pop */
+.notice {
+    display: none;
 }
 
 /*_________________________ banner2*/
