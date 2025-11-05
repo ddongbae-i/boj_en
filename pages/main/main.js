@@ -23,42 +23,31 @@ const main = document.querySelector(".main");
 const best = document.querySelector(".bestSeller");
 
 let snapping = false;
+let observer = null;
 const getBestTopY = () => best.getBoundingClientRect().top + window.pageYOffset;
 
-// 스냅 중에 ScrollTrigger 비활성화 + 스크롤 잠금
-function lockScroll(on) {
-  if (on) {
-    ScrollTrigger.getAll().forEach(st => st.disable());
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "";
-    document.documentElement.style.overflow = "";
-    ScrollTrigger.getAll().forEach(st => st.enable());
-  }
-}
-
-Observer.create({
+observer = Observer.create({
   target: window,
   type: "wheel,touch",
   tolerance: 50,
-
+  
   // ↓ 아래로: 메인 → 베스트셀러 스냅
   onDown() {
     if (snapping) return;
     const y = window.pageYOffset;
     if (y < getBestTopY() - 8) {
       snapping = true;
-      lockScroll(true);
+      observer.disable(); // ← 스냅 중에 Observer만 끄기
+      
       gsap.to(window, {
         duration: 0.9,
         ease: "power2.out",
         scrollTo: { y: best, autoKill: false },
         onComplete: () => {
           setTimeout(() => {
-            lockScroll(false);
+            observer.enable(); // ← 다시 켜기
             snapping = false;
-          }, 100); // ← 약간의 딜레이로 스냅 완료 보장
+          }, 150);
         }
       });
     }
@@ -70,19 +59,20 @@ Observer.create({
     const y = window.pageYOffset;
     const top = getBestTopY();
     const threshold = top + 100;
-
+    
     if (y <= threshold && y >= top - 200) {
       snapping = true;
-      lockScroll(true);
+      observer.disable(); // ← 스냅 중에 Observer만 끄기
+      
       gsap.to(window, {
         duration: 0.9,
         ease: "power2.out",
         scrollTo: { y: main, autoKill: false },
         onComplete: () => {
           setTimeout(() => {
-            lockScroll(false);
+            observer.enable(); // ← 다시 켜기
             snapping = false;
-          }, 100);
+          }, 150);
         }
       });
     }
