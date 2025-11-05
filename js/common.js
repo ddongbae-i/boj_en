@@ -14,30 +14,26 @@ menuItems.forEach(li => {
   });
 });
 
+// 스크롤 이벤트 - 중복 제거하고 통합
 window.addEventListener('scroll', () => {
-  const currentScrollY = window.scrollY; if (currentScrollY > lastScrollY) {
-    header.classList.remove('scrolled-up');
-    header.style.top = '-100%';
-    header.style.color = '#1c1c1c'
-    header.style.boxShadow = '0 2px 6px rgba(0,0,0,0.08)';
-    headerImgs.forEach
-      (img => { img.style.filter = 'brightness(0) saturate(100%)' });
-  } else { header.classList.add('scrolled-up'); header.style.top = '0'; }
-  lastScrollY = currentScrollY;
-});
+  const currentY = window.scrollY;
+  const w = window.innerWidth;
 
-window.addEventListener('scroll', () => {
-  if (window.innerWidth <= 360) {
-    // 360px 이하에서는 스크롤 시 헤더 위치 조작 안 함
+  if (w <= 360) {
+    // 360px 이하에서는 항상 고정
+    header.style.position = 'fixed';
     header.style.top = '0';
     header.classList.add('scrolled-up');
+    header.style.transition = 'none';
+    header.style.color = '';
+    header.style.boxShadow = '';
+    headerImgs.forEach(img => img.style.filter = '');
     return;
   }
 
-  const currentScrollY = window.scrollY;
-
-  if (currentScrollY > lastScrollY) {
-    // 아래로 스크롤
+  // 360px 초과부터 스크롤 방향에 따라 헤더 숨김/표시
+  if (currentY > lastScrollY) {
+    // 아래로 스크롤 시 헤더 숨김
     header.classList.remove('scrolled-up');
     header.style.top = '-100%';
     header.style.color = '#1c1c1c';
@@ -46,12 +42,15 @@ window.addEventListener('scroll', () => {
       img.style.filter = 'brightness(0) saturate(100%)'; // 검은 아이콘
     });
   } else {
-    // 위로 스크롤 → header 등장
+    // 위로 스크롤 시 헤더 표시
     header.classList.add('scrolled-up');
     header.style.top = '0';
+    header.style.color = '';
+    header.style.boxShadow = '';
+    headerImgs.forEach(img => img.style.filter = '');
   }
 
-  lastScrollY = currentScrollY;
+  lastScrollY = currentY;
 });
 
 // ✅ 리사이즈 이벤트 (브레이크포인트 넘나들 때만 초기화)
@@ -84,7 +83,6 @@ document.addEventListener('click', e => {
     header.style.transition = '';
   }, 400);
 });
-
 
 (() => {
   const gnbRoot = document.querySelector('nav ul.gnb');
@@ -121,7 +119,6 @@ document.addEventListener('click', e => {
   });
 })();
 
-
 const searchBtn = document.querySelector('.nav_right .search');
 const searchTab = document.querySelector('.search_tab');
 const searchCloseBtn = document.querySelector('.search_tab .close');
@@ -147,7 +144,6 @@ footerBtn?.addEventListener('click', function () {
   footerBtn.style.transition = 'transform 0.3s ease';
 });
 
-//여기가문제
 /* ===== 모바일 search sync (기존 로직 유지) ===== */
 (function () {
   const headerEl = document.querySelector('header');
@@ -178,8 +174,6 @@ footerBtn?.addEventListener('click', function () {
   syncMobileSearch();
 })();
 
-/* ===== 스크롤 잠금/복원 (위치 보존 방식, 중복 토글 제거) ===== */
-// ...existing code...
 /* ===== 스크롤 잠금/복원 (위치 보존 방식, search 강제 닫기 포함) ===== */
 (function () {
   const headerEl = document.querySelector('header');
@@ -288,8 +282,7 @@ footerBtn?.addEventListener('click', function () {
   applyLockByHeader();
 })();
 
-
-//cart
+/* cart */
 document.addEventListener('DOMContentLoaded', () => {
   const cartWrap = document.querySelector('.cart_wrap');
   const closeBtn = document.querySelector('.cart_close');
@@ -360,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeHeaderAndPanels = () => {
       headerEl.classList.remove('on');     // 햄버거 닫기
       searchTab?.classList.remove('open'); // 검색창 닫기
-      hardUnlockScroll();                  // 스크롤 잠금 해제(혹시 잠겨있으면)
+      hardUnlockScroll();                   // 스크롤 잠금 해제(혹시 잠겨있으면)
     };
 
     const openCart = () => {
@@ -386,7 +379,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   })();
-
 });
 
 

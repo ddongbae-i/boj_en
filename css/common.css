@@ -2058,9 +2058,8 @@ body.menu-open {
     cursor: default;
 }
 
-/* pop360 */
-@media (max-width: 440px) {
 
+@media (max-width: 440px) {
     .login_pop {
         width: 90%;
     }
