@@ -232,10 +232,47 @@
    }
 
    .chart {
+      position: relative;
       width: 320px;
       height: 320px;
       bottom: 16px;
    }
+
+   /* inline style을 덮기 위해 !important 필요 */
+   #chip0,
+   #chip1,
+   #chip2,
+   #chip3,
+   #chip4 {
+      position: absolute !important;
+      transform: translate(-50%, -50%) !important;
+   }
+
+   #chip0 {
+      top: 0% !important;
+      left: 50% !important;
+   }
+
+   #chip1 {
+      top: 30% !important;
+      left: 85% !important;
+   }
+
+   #chip2 {
+      top: 90% !important;
+        left: 80% !important;
+   }
+
+   #chip3 {
+      top: 90% !important;
+      left: 20% !important;
+   }
+
+   #chip4 {
+      top: 30% !important;
+      left: 15% !important;
+   }
+
 
    .axis-chip {
       font-size: .7rem;
@@ -326,7 +363,6 @@
       height: 16px;
       background: transparent;
    }
-
 }
 
 /* 접근성: 모션 최소화 */

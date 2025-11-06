@@ -467,9 +467,8 @@
               high;<br>moisturizing
               is average, elasticity is average.</p>
           </div>
-          <button id="resetBtn" type="button">
-            <a href="">RESET</a>
-          </button>
+          <button id="resetBtn" class="skinreset_btn" type="button">
+            RESET</button>
         </div>
         <h3 class="product-tit">Recommended products</h3>
         <section class="product">
@@ -580,12 +579,40 @@
         </section>
 
         <div class="actions center">
-          <button id="wishlistBtn" class="wishlistBtn btn-white" type="button">ALL TO WISHLIST</button>
+          <button id="wishlistBtn" class="wishlistBtn btn-white skin_btn" type="button">ALL TO WISHLIST</button>
         </div>
       </div>
       </div>
     </section>
+
+    <!-- popup -->
+     <div class="skin" hidden>
+        <div class="skin_dim"></div>
+        <div class="skin_popup">
+            <button class="skin_popup_close">&times;</button>
+            <h2>ALL TO WISHLIST</h2>
+            <p>Would you like to add all your products to the list of products of interest?</p>
+            <div class="skin_popup_btns">
+                <a href="#" class="skin_btn_no">No</a>
+                <a href="#" class="skin_btn_yes">Yes</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="skin skinreset" hidden>
+        <div class="skin_dim skinreset"></div>
+        <div class="skin_popup skinreset">
+            <button class="skin_popup_close skinreset">&times;</button>
+            <h2>RESET</h2>
+            <p>Return to the first quiz question?</p>
+            <div class="skin_popup_btns skinreset">
+                <a href="#" class="skin_btn_no">No</a>
+                <a href="#" class="skin_btn_yes">Yes</a>
+            </div>
+        </div>
+    </div>
   </main>
+  
   <footer>
     <div class="inner">
       <h2 class="logo"><a href="#">BEAUTY OF JOSEON</a></h2>

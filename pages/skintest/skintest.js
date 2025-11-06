@@ -1,4 +1,3 @@
-/* === shim: neutralize reset / wishlist === */
 (function(){
   try {
     var noop=function(){};
@@ -2048,5 +2047,86 @@ function applyQuizBackground(idx) {
       "../../asset/img/skintest/skintest-quiz-bg3.jpg",
       "../../asset/img/skintest/skintest-quiz-bg4.jpg",
     ]);
+  }
+})();
+
+/* === Popup controller: open/close + YES/NO behaviors === */
+(function(){
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+  const popWishlist = $('.skin:not(.skinreset)');
+  const popReset    = $('.skin.skinreset');
+
+  let lock=0;
+  function lockScroll(){ if(++lock===1){ document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden'; document.body.style.touchAction='none'; } }
+  function unlockScroll(){ lock=Math.max(0,lock-1); if(lock===0){ document.documentElement.style.overflow=''; document.body.style.overflow=''; document.body.style.touchAction=''; } }
+
+  function openPopup(el){ if(!el||el.classList.contains('on')) return; el.hidden=false; el.classList.add('on'); lockScroll(); }
+  function closePopup(el){ if(!el||!el.classList.contains('on')) return; el.classList.remove('on'); el.hidden=true; unlockScroll(); }
+  function closeAll(){ document.querySelectorAll('.skin.on').forEach(el=>{el.classList.remove('on'); el.hidden=true;}); lock=0; unlockScroll(); }
+
+  // Open on buttons (capture so it runs first)
+  document.addEventListener('click', (e)=>{
+    const wbtn = e.target.closest('#wishlistBtn');
+    if (wbtn){
+      if (popWishlist){ e.preventDefault(); e.stopImmediatePropagation(); openPopup(popWishlist); }
+      return;
+    }
+    const rbtn = e.target.closest('#resetBtn');
+    if (rbtn){
+      if (popReset){ e.preventDefault(); e.stopImmediatePropagation(); openPopup(popReset); }
+      return;
+    }
+    if (e.target.closest('.skin .skin_popup_close, .skin .skin_dim, .skin .skin_btn_no')){
+      e.preventDefault();
+      const host = e.target.closest('.skin');
+      closePopup(host);
+    }
+  }, true);
+
+  // ESC closes
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeAll(); });
+  window.addEventListener('pageshow', closeAll);
+
+  // YES behaviors
+  const resetYes = $('.skin.skinreset .skin_btn_yes');
+  if (resetYes){
+    resetYes.addEventListener('click', (e)=>{
+      e.preventDefault();
+      closeAll();
+      try {
+        // reset state
+        const SK = window.SKINTEST;
+        if (SK?.state){
+          SK.state.currentIndex=0;
+          SK.state.answers=Array(10).fill(null);
+          SK.state.profile=null;
+          if (typeof window.SKINTEST_QUIZ_RENDER==='function') window.SKINTEST_QUIZ_RENDER();
+        }
+        // show quiz
+        if (SK?.showSection) SK.showSection('quiz'); else location.hash='#quiz';
+        const p=document.getElementById('progress'); if(p) p.textContent='1 of 10';
+      } catch(_){ location.hash='#quiz'; }
+    });
+  }
+
+  const wishYes = $('.skin:not(.skinreset) .skin_btn_yes');
+  if (wishYes){
+    wishYes.addEventListener('click', (e)=>{
+      e.preventDefault();
+      // Toggle all product wishlist buttons ON
+      const btns = $$('#result .add_btn, .product_card .add_btn');
+      btns.forEach((b)=>{
+        b.classList.add('active');
+        b.setAttribute('aria-pressed','true');
+        const img=b.querySelector('.heart, img.heart');
+        if (img){
+          img.src='../../asset/img/skintest/icon_heart_fill.svg';
+          img.alt='찜하기(on) 아이콘';
+        }
+      });
+      closeAll();
+    });
   }
 })();
