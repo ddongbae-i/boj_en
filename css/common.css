@@ -180,6 +180,7 @@ header {
 
 header.scrolled-up {
     background-color: rgba(254, 254, 254, 0.94);
+    color: var(--txt_main);
 }
 
 header.scrolled-up.hovered {

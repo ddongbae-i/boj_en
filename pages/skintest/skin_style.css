@@ -429,6 +429,31 @@ button[disabled] {
   font-weight: 300;
 }
 
+#chip0 {
+  top: 5%;
+  left: 50% !important;
+}
+
+#chip1 {
+  top: 35% !important;
+  left: 90% !important;
+}
+
+#chip2 {
+  top: 90% !important;
+  left: 75% !important;
+}
+
+#chip3 {
+  top: 90% !important;
+  left: 25% !important;
+}
+
+#chip4 {
+  top: 35% !important;
+  left: 10% !important;
+}
+
 .result_aricle {
   position: relative;
   bottom: 120px;
@@ -733,3 +758,14 @@ p#summary.center {
   z-index: 10 !important;
   pointer-events: auto !important;
 }
+
+.skin {
+  display: none;
+}
+
+/* 기본 숨김 */
+.skin.on {
+  display: block;
+}
+
+/* 열릴 때만 보이기 */

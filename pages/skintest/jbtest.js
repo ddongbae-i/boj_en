@@ -508,3 +508,193 @@ document.addEventListener('DOMContentLoaded', function () {
     '/asset/img/skintest/jbtest-quiz-bg.jpg',
   ]);
 });
+
+
+/* === Popup integration for JB Test (wishlist/reset) === */
+(function (w, d) {
+  "use strict";
+
+  var JB = w.JB || (w.JB = {});
+  var allowNext = { wishlist: false, reset: false };
+
+  function $(s, r){ return (r||d).querySelector(s); }
+  function $all(s, r){ return Array.from((r||d).querySelectorAll(s)); }
+
+  // Scroll lock helpers (reuse JB.lockScroll if present)
+  function lock(on){
+    if (JB && typeof JB.lockScroll === "function") return JB.lockScroll(on);
+    var html = d.documentElement, body = d.body;
+    html.style.overflow = on ? "hidden" : "";
+    body.style.overflow = on ? "hidden" : "";
+  }
+
+  // Popup factory (creates once)
+  function ensurePopups(){
+    if ($("#popup_wishlist") && $("#popup_reset")) return;
+    var wrap = d.createElement("div");
+    wrap.innerHTML = [
+      '<div id="popup_wishlist" class="skin" hidden aria-modal="true" role="dialog">',
+      '  <div class="skin_dim" data-close="dim"></div>',
+      '  <div class="skin_popup">',
+      '    <button type="button" class="skin_popup_close" aria-label="Close" data-close="x">×</button>',
+      '    <div class="skin_popup_cont">',
+      '      <p class="skin_popup_text">Add all recommended products to your wishlist?</p>',
+      '      <div class="skin_popup_btns">',
+      '        <button type="button" class="skin_btn_yes btn-white">Yes</button>',
+      '        <button type="button" class="skin_btn_no btn">No</button>',
+      '      </div>',
+      '    </div>',
+      '  </div>',
+      '</div>',
+      '<div id="popup_reset" class="skin skinreset" hidden aria-modal="true" role="dialog">',
+      '  <div class="skin_dim" data-close="dim"></div>',
+      '  <div class="skin_popup">',
+      '    <button type="button" class="skin_popup_close" aria-label="Close" data-close="x">×</button>',
+      '    <div class="skin_popup_cont">',
+      '      <p class="skin_popup_text">Reset your Joseon Beauty Test and start over?</p>',
+      '      <div class="skin_popup_btns">',
+      '        <button type="button" class="skin_btn_yes btn-white">Yes</button>',
+      '        <button type="button" class="skin_btn_no btn">No</button>',
+      '      </div>',
+      '    </div>',
+      '  </div>',
+      '</div>'
+    ].join("");
+    d.body.appendChild(wrap);
+    bindPopupEvents();
+  }
+
+  function anyOpen(){ return !!d.querySelector(".skin.on"); }
+
+  function openPopup(el){
+    if (!el) return;
+    el.hidden = false;
+    el.classList.add("on");
+    lock(true);
+    // focus first actionable
+    var tgt = el.querySelector(".skin_btn_yes, .skin_popup_close, .skin_btn_no");
+    if (tgt) setTimeout(function(){ try{ tgt.focus(); }catch(_){}} , 0);
+  }
+
+  function closePopup(el){
+    if (!el) return;
+    el.classList.remove("on");
+    el.hidden = true;
+    if (!anyOpen()) lock(false);
+  }
+
+  function bindPopupEvents(){
+    // Close on dim / X
+    d.addEventListener("click", function(e){
+      var dim = e.target.closest?.(".skin.on .skin_dim, .skin.on .skin_popup_close");
+      if (!dim) return;
+      var popup = e.target.closest(".skin.on");
+      e.preventDefault();
+      closePopup(popup);
+    });
+
+    // ESC key
+    d.addEventListener("keydown", function(e){
+      if (e.key !== "Escape") return;
+      var popup = d.querySelector(".skin.on");
+      if (popup) {
+        e.preventDefault();
+        closePopup(popup);
+      }
+    });
+
+    // Wishlist Yes/No
+    var wpop = $("#popup_wishlist");
+    if (wpop){
+      wpop.querySelector(".skin_btn_yes")?.addEventListener("click", function(e){
+        e.preventDefault();
+        // Allow original handler to run once
+        allowNext.wishlist = true;
+        closePopup(wpop);
+        // trigger native click so existing jbtest.js listener executes
+        var btn = $("#wishlistBtn");
+        if (btn){
+          setTimeout(function(){
+            try{
+              btn.dispatchEvent(new MouseEvent("click", { bubbles:true, cancelable:true }));
+            }catch(_){ btn.click(); }
+          }, 0);
+        } else if (typeof w.addAllToWishlist === "function"){
+          try{ w.addAllToWishlist(); }catch(_){}
+        } else {
+          // fallback: set all product card hearts ON
+          $all(".product_card .add_btn").forEach(function(b){
+            b.classList.add("on");
+            b.setAttribute("aria-pressed","true");
+            var img=b.querySelector("img.heart");
+            if (img) img.src="/asset/img/skintest/icon_heart_fill.svg";
+          });
+        }
+      });
+
+      wpop.querySelector(".skin_btn_no")?.addEventListener("click", function(e){
+        // As requested: do nothing (keep popup open)
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      });
+    }
+
+    // Reset Yes/No
+    var rpop = $("#popup_reset");
+    if (rpop){
+      rpop.querySelector(".skin_btn_yes")?.addEventListener("click", function(e){
+        e.preventDefault();
+        allowNext.reset = true;
+        closePopup(rpop);
+        var btn = $("#resetBtn");
+        if (btn){
+          setTimeout(function(){
+            try{
+              btn.dispatchEvent(new MouseEvent("click", { bubbles:true, cancelable:true }));
+            }catch(_){ btn.click(); }
+          }, 0);
+        } else if (typeof w.resetAll === "function"){
+          try{ w.resetAll(); }catch(_){}
+        }
+      });
+      rpop.querySelector(".skin_btn_no")?.addEventListener("click", function(e){
+        e.preventDefault();
+        closePopup(rpop); // reset No closes popup
+      });
+    }
+  }
+
+  // Capture-phase interceptors to show popup instead of default click
+  function installInterceptors(){
+    // Wishlist
+    d.addEventListener("click", function(e){
+      var btn = e.target.closest?.("#wishlistBtn");
+      if (!btn) return;
+      if (allowNext.wishlist){ allowNext.wishlist = false; return; }
+      e.preventDefault();
+      e.stopImmediatePropagation && e.stopImmediatePropagation();
+      ensurePopups();
+      openPopup($("#popup_wishlist"));
+    }, true); // capture
+
+    // Reset
+    d.addEventListener("click", function(e){
+      var btn = e.target.closest?.("#resetBtn");
+      if (!btn) return;
+      if (allowNext.reset){ allowNext.reset = false; return; }
+      e.preventDefault();
+      e.stopImmediatePropagation && e.stopImmediatePropagation();
+      ensurePopups();
+      openPopup($("#popup_reset"));
+    }, true); // capture
+  }
+
+  // Init
+  if (d.readyState === "loading"){
+    d.addEventListener("DOMContentLoaded", installInterceptors);
+  } else {
+    installInterceptors();
+  }
+
+})(window, document);
+/* === end popup integration === */
