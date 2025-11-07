@@ -420,12 +420,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* login */
 document.addEventListener("DOMContentLoaded", () => {
-  // 경로 계산
-  const depth = location.pathname.split('/').filter(Boolean).length;
-  let prefix = './';
-  if (depth > 1) prefix = '../'.repeat(depth - 1);
 
-  // 팝업 생성 (없으면 자동 삽입)
+  // 로그인 팝업 생성 (없으면 자동 삽입)
   let login = document.querySelector('.login');
   if (!login) {
     const loginHTML = `
@@ -436,7 +432,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <button type="button" class="login_close" aria-label="close">&times;</button>
             <h2>Login</h2>
 
-            <!-- 안내 문구 -->
             <p class="dev_notice">
               🚧 This feature is currently under development.<br>
               Please press <b>Close (×)</b> to exit.
@@ -457,9 +452,9 @@ document.addEventListener("DOMContentLoaded", () => {
             <button type="button" class="login_btn disabled">Login</button>
 
             <div class="sns">
-              <a href="#" class="disabled"><img src="${prefix}asset/img/common/google.png" alt="google"></a>
-              <a href="#" class="disabled"><img src="${prefix}asset/img/common/apple.png" alt="apple"></a>
-              <a href="#" class="disabled"><img src="${prefix}asset/img/common/facebook.png" alt="facebook"></a>
+              <a href="#" class="disabled"><img src="https://ddongbae-i.github.io/boj_en/asset/img/common/google.png" alt="google"></a>
+              <a href="#" class="disabled"><img src="https://ddongbae-i.github.io/boj_en/asset/img/common/apple.png" alt="apple"></a>
+              <a href="#" class="disabled"><img src="https://ddongbae-i.github.io/boj_en/asset/img/common/facebook.png" alt="facebook"></a>
             </div>
           </div>
         </form>
@@ -471,19 +466,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginDim = login.querySelector('.login_dim');
   const loginClose = login.querySelector('.login_close');
 
-  // 팝업 열기
   const openLoginPopup = () => {
     login.style.display = "block";
     document.body.classList.add('no-scroll');
   };
 
-  // 닫기
   const closeLoginPopup = () => {
     login.style.display = "none";
     document.body.classList.remove('no-scroll');
   };
 
-  // 이벤트 연결
   document.addEventListener('click', (e) => {
     const openTrigger = e.target.closest('.login_open, [data-open-login], .sign_up_btn, .bar');
     if (!openTrigger) return;
@@ -493,13 +485,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loginDim?.addEventListener('click', closeLoginPopup);
   loginClose?.addEventListener('click', closeLoginPopup);
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeLoginPopup();
   });
 });
 
+
+/* (필요 시) 다른 모달 보장 함수 */
 document.addEventListener("DOMContentLoaded", () => {
-  // 필요한 모달이 없으면 HTML을 주입해서 만들어준다.
   const ensureModal = (selector, html) => {
     let el = document.querySelector(selector);
     if (!el) {
@@ -508,6 +502,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return el;
   };
+});
 
   // === 1) ALL TO WISHLIST (.skin) ===
   const skinHTML = `
@@ -579,4 +574,3 @@ document.addEventListener("DOMContentLoaded", () => {
   // 바인딩
   bindModal(skinWrap, ".skin_btn");            // ALL TO WISHLIST 열기 버튼
   bindModal(skinResetWrap, ".skinreset_btn");  // RESET 열기 버튼
-});
