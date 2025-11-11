@@ -99,6 +99,10 @@ header.scrolled-up .nav_right img {
     filter: invert(0.9) brightness(0.5);
 }
 
+.ham_bottom2 {
+    color: var(--txt_main);
+}
+
 .dark {
     background: var(--bg_black);
 }
